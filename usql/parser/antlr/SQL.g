@@ -1,10 +1,10 @@
 /******************************************************************
 *
-* uSQL for C++
+* uSQL for Go
 *
-* UnQL.g
+* SQL.g
 *
-* Copyright (C) The go-sqlparser Authors 2011
+* Copyright (C) The go-sqlparser Authors 2018
 *
 * This is licensed under BSD-style license, see file COPYING.
 *
@@ -12,64 +12,27 @@
 
 grammar SQL;
 
-options
-{
-    language = C;
-}
-
-@lexer::includes
-{
-}
-
-@parser::includes
-{
-	#include <usql/SQLParser.h>
-	#define CG_ANTLR3_STRING_2_UTF8(str) ((const char *)str->chars)
-	#define CG_ANTLR3_STRING_2_INT(str) (str->chars ? atoi((const char *)str->chars) : 0)
-	inline void CG_ANTLR3_SQLNODE_ADDNODES(uSQL::SQLNode *parentNode, uSQL::SQLNodeList *sqlNodes) {
-		for (uSQL::SQLNodeList::iterator node = sqlNodes->begin(); node != sqlNodes->end(); node++)
-			parentNode->addChildNode(*node);
-	}
-	
-	void uSQLDisplayRecognitionError (pANTLR3_BASE_RECOGNIZER rec, pANTLR3_UINT8 * tokenNames);
-}
-
-@parser::context
-{
-	void *uSqlParser;
-}
-
-@parser::apifuncs
- {
- 	RECOGNIZER->displayRecognitionError = uSQLDisplayRecognitionError;
- 	PARSER->super = (void *)ctx;
- }
- 
-/*------------------------------------------------------------------
+/******************************************************************
  *
  * PARSER RULES
  *
- *------------------------------------------------------------------*/
+******************************************************************/
 
-statement_list [uSQL::SQLParser *sqlParser]
-	: statement[sqlParser] (SEMICOLON statement[sqlParser])*
+statement_list
+	: statement (SEMICOLON statement)*
 	;	
 
-statement [uSQL::SQLParser *sqlParser]
-	@init {
-		uSQL::SQLStatement *stmt = new uSQL::SQLStatement();
-		sqlParser->addStatement(stmt);
-	}
-	: show_stmt[stmt]
-	| use_stmt[stmt]
-	| create_collection_stmt[stmt]
-	| create_index_stmt[stmt]
-	| drop_collection_stmt[stmt]
-	| drop_index_stmt[stmt]
-	| select_stmt[stmt]
-	| insert_stmt[stmt]
-	| update_stmt[stmt]
-	| delete_stmt[stmt]
+statement
+	: show_stmt
+	| use_stmt
+	| create_collection_stmt
+	| create_index_stmt
+	| drop_collection_stmt
+	| drop_index_stmt
+	| select_stmt
+	| insert_stmt
+	| update_stmt
+	| delete_stmt
 	;	
 
 /******************************************************************
@@ -78,18 +41,8 @@ statement [uSQL::SQLParser *sqlParser]
 *
 ******************************************************************/
 
-show_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-	}
-	: SHOW collectionNode=collection_section
-	{
-		// SHOW
-		uSQL::SQLShow *sqlCmd = new uSQL::SQLShow();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(collectionNode);
-	}
+show_stmt
+	: SHOW collection_section
 	;
 
 /******************************************************************
@@ -98,18 +51,8 @@ show_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-use_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-	}
-	: USE collectionNode=collection_section
-	{
-		// USE
-		uSQL::SQLUse *sqlCmd = new uSQL::SQLUse();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(collectionNode);
-	}
+use_stmt
+	: USE collection_section
 	;
 	
 /******************************************************************
@@ -118,24 +61,8 @@ use_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-create_collection_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-		uSQL::SQLOption *sqlOpt = new uSQL::SQLOption();
-	}
-	: CREATE COLLECTION collectionNode=collection_section (OPTIONS expression[sqlOpt])? {
-		// CREATE
-		uSQL::SQLCreate *sqlCmd = new uSQL::SQLCreate();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(collectionNode);
-
-		// Option 
-		if (sqlOpt->hasExpressions())
-			sqlCmd->addChildNode(sqlOpt);
-		else 
-			delete sqlOpt;
-	  }
+create_collection_stmt
+	: CREATE COLLECTION collection_section (OPTIONS expression)?
 	;
 
 /******************************************************************
@@ -144,18 +71,8 @@ create_collection_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-drop_collection_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-	}
-	: DROP COLLECTION collectionNode=collection_section
-	{
-		// DROP
-		uSQL::SQLDrop *sqlCmd = new uSQL::SQLDrop();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(collectionNode);
-	}
+drop_collection_stmt
+	: DROP COLLECTION collection_section
 	;
 
 /******************************************************************
@@ -164,18 +81,8 @@ drop_collection_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-create_index_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-	}
-	: CREATE COLLECTION_INDEX indexNode=index_section
-	{
-		// DROP
-		uSQL::SQLCreateIndex *sqlCmd = new uSQL::SQLCreateIndex();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(indexNode);
-	}
+create_index_stmt
+	: CREATE COLLECTION_INDEX index_section
 	;
 
 /******************************************************************
@@ -184,18 +91,8 @@ create_index_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-drop_index_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {	
-	}
-	: DROP COLLECTION_INDEX indexNode=index_section
-	{
-		// DROP
-		uSQL::SQLDropIndex *sqlCmd = new uSQL::SQLDropIndex();
-		sqlStmt->addChildNode(sqlCmd);
-		
-		// Collection
-		sqlCmd->addChildNode(indexNode);
-	}
+drop_index_stmt
+	: DROP COLLECTION_INDEX index_section
 	;
 
 /******************************************************************
@@ -204,136 +101,50 @@ drop_index_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-select_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {
-		// SELECT
-		uSQL::SQLSelect *sqlSelect = new uSQL::SQLSelect();
-		sqlStmt->addChildNode(sqlSelect);
-
-		sortingSection = NULL;
-		limitSection = NULL;
-		offsetSection = NULL;
-	}
-	: select_core[sqlStmt] (sortingSection=sorting_section)? (limitSection=limit_section)? (offsetSection=offset_section)? 
-	{
-		// ORDER BY		
-		if (sortingSection)
-			sqlStmt->addChildNode(sortingSection);
-			
-		// LIMIT		
-		if (limitSection)
-			sqlStmt->addChildNode(limitSection);
-
-		// OFFSET
-		if (offsetSection)
-			sqlStmt->addChildNode(offsetSection);
-	}
+select_stmt
+	: select_core (sorting_section)? (limit_section)? (offset_section)? 
 	;
 
-select_core [uSQL::SQLStatement *sqlStmt]
-	@init {
-		columnSection = NULL;
-		fromSection = NULL;
-		whereSection = NULL;
-		groupSection = NULL;
-		havingSection = NULL;
-	}
+select_core
 	: SELECT (DISTINCT | ALL)?
 	  (columnSection = result_column_section)?
 	  (fromSection = from_section)//? 
 	  (whereSection = where_section)?
 	  (groupSection = grouping_section)? 
 	  (havingSection = having_section)? 
-	  {
-	  
-		if (columnSection) {
-			if (columnSection->hasExpressions())
-				sqlStmt->addChildNode(columnSection);
-			else 
-				delete columnSection;
-		}
-		// FROM
-		if (fromSection)		
-			sqlStmt->addChildNode(fromSection);
-			
-		// WHERE
-		if (whereSection)		
-			sqlStmt->addChildNode(whereSection);
-
-		// GROUP BY
-		if (groupSection)		
-			sqlStmt->addChildNode(groupSection);
-
-		// HAVING
-		if (havingSection)		
-			sqlStmt->addChildNode(havingSection);
-	  }
 	;
 
-result_column_section returns [uSQL::SQLColumns *sqlColumns]
-	@init {
-		sqlColumns = new uSQL::SQLColumns();
-	}
-	: ASTERISK {
-		uSQL::SQLAsterisk *sqlAsterisk = new uSQL::SQLAsterisk();
-		sqlColumns->addExpression(sqlAsterisk);
-	  }
-	| column_section[sqlColumns] (',' column_section[sqlColumns])* {
-	  }
+result_column_section
+	: ASTERISK
+	| column_section (',' column_section)*
 	;
 
-from_section returns [uSQL::SQLFrom *sqlCollections]
-	@init {
-		sqlCollections = new uSQL::SQLFrom();
-	}
-	: (FROM table_name[sqlCollections]) (COMMA table_name[sqlCollections])*
+from_section
+	: (FROM table_name) (COMMA table_name)*
 	;
 
-table_name [uSQL::SQLCollections *SQLCollections]
-	: dataSource = data_source {
-		SQLCollections->addChildNode(dataSource);
-	  }
+table_name
+	: data_source
 	;
 
-data_source returns [uSQL::SQLCollection *sqlDataSource]
-	@init {
-		sqlDataSource = new uSQL::SQLCollection();
-	}
-	: collection_name {
-		// Collection
-		sqlDataSource->setValue(CG_ANTLR3_STRING_2_UTF8($collection_name.text));
-	  }
+data_source
+	: collection_name
 	;
 
-grouping_section returns [uSQL::SQLGroupBy *sqlGroupBy]
-	@init {
-		sqlGroupBy = new uSQL::SQLGroupBy();
-	}
-	: GROUP BY expression[sqlGroupBy] (COMMA expression[sqlGroupBy])*
+grouping_section
+	: GROUP BY expression (COMMA expression)*
 	;
 	
-having_section returns [uSQL::SQLHaving *sqlHaving]
-	@init {
-		sqlHaving = new uSQL::SQLHaving();
-	}
-	: HAVING expression[sqlHaving]
+having_section
+	: HAVING expression
 	;
 
-sorting_section returns [uSQL::SQLOrderBy *sqlOrders]
-	@init {
-		sqlOrders = new uSQL::SQLOrderBy();
-	}
-	: ORDER BY sorting_item[sqlOrders] (COMMA sorting_item[sqlOrders])*
+sorting_section
+	: ORDER BY sorting_item (COMMA sorting_item)*
 	;
 		
-sorting_item [uSQL::SQLOrderBy *sqlOrders]
-	: property (sorting_specification)? {
-		uSQL::SQLOrder *sqlOrder = new uSQL::SQLOrder();
-		sqlOrder->setValue(CG_ANTLR3_STRING_2_UTF8($property.text));
-		if (sorting_specification)
-			sqlOrder->setOrder(CG_ANTLR3_STRING_2_UTF8($sorting_specification.text));
-		sqlOrders->addChildNode(sqlOrder);
-	  }
+sorting_item
+	: property (sorting_specification)?
 	;
 
 sorting_specification
@@ -341,25 +152,12 @@ sorting_specification
 	| DESC
 	;
 
-limit_section returns [uSQL::SQLLimit *sqlLimit]
-	@init {
-		sqlLimit = new uSQL::SQLLimit();
-		offsetExpr = NULL;
-	}
-	: LIMIT (offsetExpr=expression_literal COMMA)? countExpr=expression_literal {
-		if (offsetExpr)
-			sqlLimit->addChildNode(offsetExpr);
-		sqlLimit->addChildNode(countExpr);
-	  }
+limit_section
+	: LIMIT (expression_literal COMMA)? expression_literal
 	;
 
-offset_section returns [uSQL::SQLOffset *sqlOffset]
-	@init {
-		sqlOffset = new uSQL::SQLOffset();
-	}
-	: offsetExpr=expression_literal {
-		sqlOffset->addChildNode(offsetExpr);
-	  }
+offset_section
+	: OFFSET
 	;
 
 /******************************************************************
@@ -368,48 +166,17 @@ offset_section returns [uSQL::SQLOffset *sqlOffset]
 *
 ******************************************************************/
 
-insert_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {
-		isAsync = false;
-		columnNode = NULL;
-	}
-	: (isAsync=sync_operator)? INSERT INTO collectionNode=collection_section (columnNode=insert_columns_section)? sqlValue=insert_values_section
-	{
-		// INSERT
-		uSQL::SQLInsert *sqlCmd = new uSQL::SQLInsert();
-		sqlCmd->setAsyncEnabled(isAsync);
-		sqlStmt->addChildNode(sqlCmd);
-
-		// Collection
-		uSQL::SQLCollections *sqlCollections = new uSQL::SQLCollections();
-		sqlStmt->addChildNode(sqlCollections);
-		sqlCollections->addChildNode(collectionNode);
-		
-		// Column
-		if (columnNode)
-			sqlStmt->addChildNode(columnNode);
-		
-		// Value
-		sqlStmt->addChildNode(sqlValue);
-	}
+insert_stmt
+	: (sync_operator)? INSERT INTO collection_section (insert_columns_section)? insert_values_section
 	;
 
-insert_columns_section returns [uSQL::SQLColumns *sqlColumns]
-	@init {
-		sqlColumns = new uSQL::SQLColumns();
-	}
-	: '(' column_section[sqlColumns] (',' column_section[sqlColumns])* ')' {
-	  }
+insert_columns_section
+	: '(' column_section (',' column_section)* ')'
 	;
 
-insert_values_section returns [uSQL::SQLValues *sqlValues]
-	@init {
-		sqlValues = new uSQL::SQLValues();
-	}
-	: VALUE expression[sqlValues] {
-	  }
-	| VALUES expression[sqlValues] {
-	  }
+insert_values_section
+	: VALUE expression
+	| VALUES expression
 	;
 
 /******************************************************************
@@ -418,46 +185,12 @@ insert_values_section returns [uSQL::SQLValues *sqlValues]
 *
 ******************************************************************/
 
-update_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {
-		uSQL::SQLSets *sqlSet = new uSQL::SQLSets();
-		isAsync = false;
-		whereSection = NULL;
-	}
-	: (isAsync=sync_operator)? UPDATE collectionNode=collection_section SET property_section[sqlSet] (COMMA property_section[sqlSet])* (whereSection = where_section)?
-
-	{
-		// INSERT
-		uSQL::SQLUpdate *sqlCmd = new uSQL::SQLUpdate();
-		sqlCmd->setAsyncEnabled(isAsync);
-		sqlStmt->addChildNode(sqlCmd);
-
-		// Collection
-		uSQL::SQLCollections *sqlCollections = new uSQL::SQLCollections();
-		sqlStmt->addChildNode(sqlCollections);
-		sqlCollections->addChildNode(collectionNode);
-		
-		// Set
-		sqlStmt->addChildNode(sqlSet);
-
-		// WHERE
-		if (whereSection)		
-			sqlStmt->addChildNode(whereSection);
-	}
+update_stmt
+	: (sync_operator)? UPDATE collection_section SET property_section (COMMA property_section)* (where_section)?
 	;
 
-property_section [uSQL::SQLSets *sqlSet]
-	@init {
-		
-	}
-	: property SINGLE_EQ exprRight=expression_literal
-
-	{
-		uSQL::SQLSet *sqlDict = new uSQL::SQLSet();
-		sqlDict->setName(CG_ANTLR3_STRING_2_UTF8($property.text));
-		sqlDict->setValue(exprRight);
-		sqlSet->addChildNode(sqlDict);
-	}
+property_section
+	: property SINGLE_EQ expression_literal
 	;
 
 /******************************************************************
@@ -466,28 +199,8 @@ property_section [uSQL::SQLSets *sqlSet]
 *
 ******************************************************************/
 
-delete_stmt [uSQL::SQLStatement *sqlStmt]
-	@init {
-		isAsync = false;
-		whereSection = NULL;
-	}
-	: (isAsync=sync_operator)? DELETE FROM collectionNode=collection_section (whereSection = where_section)?
-
-	{
-		// DELETE
-		uSQL::SQLDelete *sqlCmd = new uSQL::SQLDelete();
-		sqlCmd->setAsyncEnabled(isAsync);
-		sqlStmt->addChildNode(sqlCmd);
-
-		// Collection
-		uSQL::SQLCollections *sqlCollections = new uSQL::SQLCollections();
-		sqlStmt->addChildNode(sqlCollections);
-		sqlCollections->addChildNode(collectionNode);
-		
-		// WHERE
-		if (whereSection)		
-			sqlStmt->addChildNode(whereSection);
-	}
+delete_stmt
+	: (sync_operator)? DELETE FROM collection_section (where_section)?
 	;
 
 /******************************************************************
@@ -496,198 +209,90 @@ delete_stmt [uSQL::SQLStatement *sqlStmt]
 *
 ******************************************************************/
 
-expression [uSQL::SQLNode *parentNode]
-	@init {
-		uSQL::SQLNodeList sqlNodeList;
-	}
- 	: expression_list[sqlNodeList] {
- 		CG_ANTLR3_SQLNODE_ADDNODES(parentNode, &sqlNodeList);
-	  }
+expression
+ 	: expression_list
 	;
 
-expression_list [uSQL::SQLNodeList &sqlNodeList]
- 	: sqlExpr=expression_literal {
-		sqlNodeList.push_back(sqlExpr);
-	  }
-	| sqlFunc=expression_function {
-		sqlNodeList.push_back(sqlFunc);
-	  }
-	| expression_binary_operator[sqlNodeList] (expression_logic_operator[sqlNodeList] expression_binary_operator[sqlNodeList])* {
-		sqlNodeList.sort();
-	  }
-	| '(' expression_array[sqlNodeList] (COMMA expression_array[sqlNodeList] )* ')'
-	| '{' (expression_dictionary[sqlNodeList]) (COMMA expression_dictionary[sqlNodeList])* '}'
-	| '[' expression_array[sqlNodeList] (COMMA expression_array[sqlNodeList] )* ']'
+expression_list
+ 	: expression_literal
+	| expression_function
+	| expression_binary_operator (expression_logic_operator expression_binary_operator)*
+	| '(' expression_array (COMMA expression_array)* ')'
+	| '{' (expression_dictionary) (COMMA expression_dictionary)* '}'
+	| '[' expression_array (COMMA expression_array)* ']'
 	;
 
-expression_literal returns [uSQL::SQLExpression *sqlExpr]
-	@init {
-		sqlExpr = new uSQL::SQLExpression();
-	}
- 	: expression_literal_value[sqlExpr]
+expression_literal
+ 	: expression_literal_value
  	;
 
-expression_literal_value [uSQL::SQLExpression *sqlExpr]
- 	: property_literal {
-		sqlExpr->setLiteralType(uSQL::SQLExpression::PROPERTY);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($property_literal.text));
-	  }
-	| integer_literal {
-		sqlExpr->setLiteralType(uSQL::SQLExpression::INTEGER);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($integer_literal.text));
-	  }
-	| real_literal {
-		sqlExpr->setLiteralType(uSQL::SQLExpression::REAL);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($real_literal.text));
-	  }
-	| string_literal {
-		sqlExpr->setLiteralType(1/*uSQL::SQLExpression::STRING*/);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($string_literal.text));
-	  }
-	| true_literal {
-		sqlExpr->setLiteralType(uSQL::SQLExpression::BOOLEAN);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($true_literal.text));
-	  }
-	| false_literal {
-		sqlExpr->setLiteralType(uSQL::SQLExpression::BOOLEAN);
-		sqlExpr->setValue(CG_ANTLR3_STRING_2_UTF8($false_literal.text));
-	  }
-	| NIL {
-		sqlExpr->setLiteralType(10/*uSQL::SQLExpression::NIL*/);
-	  }
-	| CURRENT_TIME {
-		sqlExpr->setLiteralType(11/*uSQL::SQLExpression::CURRENT_TIME*/);
-	  }
-	| CURRENT_DATE {
-		sqlExpr->setLiteralType(12/*uSQL::SQLExpression::CURRENT_DATE*/);
-	  }
-	| CURRENT_TIMESTAMP {
-		sqlExpr->setLiteralType(13/*uSQL::SQLExpression::CURRENT_TIMESTAMP*/);
-	  }
+expression_literal_value
+ 	: property_literal
+	| integer_literal
+	| real_literal
+	| string_literal
+	| true_literal
+	| false_literal
+	| NIL
+	| CURRENT_TIME
+	| CURRENT_DATE
+	| CURRENT_TIMESTAMP
 	;
 
-expression_dictionary [uSQL::SQLNodeList &sqlNodeList]
-	: name ':' sqlExpr=expression_literal {
-		uSQL::SQLSet *dictNode = new uSQL::SQLSet();
-		dictNode->set(sqlExpr);
-		dictNode->setName(CG_ANTLR3_STRING_2_UTF8($name.text));
-		sqlNodeList.push_back(dictNode);
-		delete sqlExpr;
-	  }
+expression_dictionary
+	: name ':' expression_literal
 	;
 
-dictionary_literal [uSQL::SQLExpression *parentSqlExpr]
-	: name ':' sqlExpr=expression_literal {
-		uSQL::SQLSet *dictNode = new uSQL::SQLSet();
-		dictNode->set(sqlExpr);
-		dictNode->setName(CG_ANTLR3_STRING_2_UTF8($name.text));
-		parentSqlExpr->addExpression(dictNode);
-		delete sqlExpr;
-	  }
+dictionary_literal
+	: name ':' expression_literal
 	;
 
-expression_array [uSQL::SQLNodeList &sqlNodeList]
-	: sqlExpr=expression_literal {
-		sqlNodeList.push_back(sqlExpr);
-	  }
+expression_array
+	: expression_literal
 	;
 
-array_literal [uSQL::SQLExpression *parentSqlExpr]
-	: sqlExpr=expression_literal {
-		parentSqlExpr->addExpression(sqlExpr);
-	  }
+array_literal
+	: expression_literal
 	;
 
-expression_logic_operator[uSQL::SQLNodeList &sqlNodeList]
-	: logicOper=logical_operator {
-		sqlNodeList.push_back(logicOper);
-	  }
+expression_logic_operator
+	: logical_operator
 	;
 
-expression_binary_operator [uSQL::SQLNodeList &sqlNodeList]
-	: binOper=expression_operator {
-		sqlNodeList.push_back(binOper);
-	  }
+expression_binary_operator
+	: expression_operator
 	;
 
-
-expression_function returns [uSQL::SQLFunction *sqlFunc]
-	@init {
-		sqlFunc = new uSQL::SQLFunction();
-		sqlFunc->setLiteralType(uSQL::SQLExpression::FUNCTION);
-	}
-	: ID '(' (function_value[sqlFunc])? ')' {
-		sqlFunc->setValue(CG_ANTLR3_STRING_2_UTF8($ID.text));
-	  }
+expression_function
+	: ID '(' (function_value)? ')' 
 	;
 
-function_name returns [uSQL::SQLFunction *sqlFunc]
-	@init {
-		sqlFunc = new uSQL::SQLFunction();
-		sqlFunc->setLiteralType(uSQL::SQLExpression::FUNCTION);
-	}
-	: ID {
-		sqlFunc->setValue(CG_ANTLR3_STRING_2_UTF8($ID.text));
-	  }
+function_name
+	: ID
 	;
 
-function_value [uSQL::SQLFunction *sqlFunc]
-	: expression[sqlFunc] (COMMA expression[sqlFunc])*
-	| ASTERISK {
-		uSQL::SQLExpression *sqlExpr = new uSQL::SQLExpression();
-		sqlExpr->setLiteralType(1/*uSQL::SQLExpression::STRING*/);
-		sqlExpr->setValue("*");
-		sqlExpr->addExpression(sqlFunc);
-	}
+function_value
+	: expression (COMMA expression)*
+	| ASTERISK
 	;
 
-expression_operator returns [uSQL::SQLOperator *sqlOpeExpr]
-	: leftExpr=expression_literal sqlBinOpeExpr=binary_operator rightExpr=expression_literal {
-		sqlOpeExpr = sqlBinOpeExpr;
-		sqlOpeExpr->addExpression(leftExpr);
-		sqlOpeExpr->addExpression(rightExpr);
-	  }
+expression_operator
+	: expression_literal binary_operator expression_literal
 	;
 
-binary_operator returns [uSQL::SQLOperator *sqlOper]
-	@init {
-		sqlOper = new uSQL::SQLOperator();
-		sqlOper->setLiteralType(uSQL::SQLExpression::OPERATOR);
-	}
-	: SINGLE_EQ {
-		sqlOper->setValue(1/*uSQL::SQLOperator::SEQ*/);
-	  }
-	| DOUBLE_EQ {
-		sqlOper->setValue(2/*uSQL::SQLOperator::DEQ*/);
-	  }
-	| OP_LT {
-		sqlOper->setValue(3/*uSQL::SQLOperator::LT*/);
-	  }
-	| LE {
-		sqlOper->setValue(4/*uSQL::SQLOperator::LE*/);
-	  }
-	| GT {
-		sqlOper->setValue(5/*uSQL::SQLOperator::GT*/);
-	  }
-	| GE {
-		sqlOper->setValue(6/*uSQL::SQLOperator::GE*/);
-	  }
-	| NOTEQ {
-		sqlOper->setValue(7/*uSQL::SQLOperator::NOTEQ*/);
-	  }
+binary_operator
+	: SINGLE_EQ
+	| DOUBLE_EQ
+	| OP_LT
+	| LE
+	| GT
+	| GE
+	| NOTEQ
 	;
 
-logical_operator returns [uSQL::SQLOperator *sqlOper]
-	@init {
-		sqlOper = new uSQL::SQLOperator();
-		sqlOper->setLiteralType(uSQL::SQLExpression::OPERATOR);
-	}
-	: AND {
-		sqlOper->setValue(8/*uSQL::SQLOperator::AND*/);
-	  }
-	| OR {
-		sqlOper->setValue(9/*uSQL::SQLOperator::OR*/);
-	  }
+logical_operator
+	: AND
+	| OR
 	;
 
 property_literal
@@ -707,11 +312,11 @@ string_literal
 	;
 
 true_literal
-	: T R U E
+	: TRUE
 	;
 	
 false_literal
-	: F A L S E
+	: FALSE
 	;
 
 /******************************************************************
@@ -720,13 +325,9 @@ false_literal
 *
 ******************************************************************/
 
-sync_operator returns [bool isAync]
-	: SYNC {
-		isAync = false;
-	  }
-	| ASYNC {
-		isAync = true;
-	  }
+sync_operator
+	: SYNC
+	| ASYNC
 	;
 
 compound_operator
@@ -757,13 +358,8 @@ name
 	: ID
 	;
 
-collection_section returns [uSQL::SQLCollection *sqlCollection]
-	@init {
-		sqlCollection = new uSQL::SQLCollection();
-	}
-	: collection_name {
-		sqlCollection->setValue(CG_ANTLR3_STRING_2_UTF8($collection_name.text));
-	  }
+collection_section
+	: collection_name
 	;
 
 collection_name
@@ -771,18 +367,12 @@ collection_name
 	| string_literal
 	;
 
-column_section [uSQL::SQLColumns *sqlColumns]
-	: ((expression[sqlColumns]) (AS name)?) {
-	  }
+column_section
+	: ((expression) (AS name)?)
 	;
 
-index_section returns [uSQL::SQLIndex *sqlIndex]
-	@init {
-		sqlIndex = new uSQL::SQLIndex();
-	}
-	: index_name {
-		sqlIndex->setValue(CG_ANTLR3_STRING_2_UTF8($index_name.text));
-	  }
+index_section
+	: index_name
 	;
 
 index_name
@@ -790,11 +380,8 @@ index_name
 	| string_literal
 	;
 
-where_section returns [uSQL::SQLWhere *sqlWhere]
-	@init {
-		sqlWhere = new uSQL::SQLWhere();
-	}
-	: WHERE expression[sqlWhere]
+where_section
+	: WHERE expression
 	;
 
 /*------------------------------------------------------------------
@@ -1150,6 +737,14 @@ VALUES
 	: V A L U E S
 	;
 
+TRUE
+	: T R U E
+	;
+	
+FALSE
+	: F A L S E
+	;
+
 /******************************************************************
 *
 * COMMON
@@ -1160,7 +755,7 @@ WS  :   ( ' '
         | '\t'
         | '\r'
         | '\n'
-        ) {$channel=HIDDEN;}
+        )
     ;
 	
 ID  
@@ -1187,36 +782,8 @@ EscapeSequence
 	:   '\\' ('\"'|'\''|'\\')
 	;
 
-/*
-NAME
-   :   ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')*
-   ;
-*/
-
-CHAR:  '\'' ( ESC_SEQ | ~('\''|'\\') ) '\''
-    ;
-
 fragment
 EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
 
 fragment
 HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
-
-fragment
-ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-    |   UNICODE_ESC
-    |   OCTAL_ESC
-    ;
-
-fragment
-OCTAL_ESC
-    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7')
-    ;
-
-fragment
-UNICODE_ESC
-    :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-    ;
