@@ -1,8 +1,8 @@
 /******************************************************************
 *
-* uSQL for Go
+* uSQL
 *
-* SQL.g
+* SQL.g4
 *
 * Copyright (C) The go-sqlparser Authors 2018
 *
@@ -33,7 +33,7 @@ statement
 	| insert_stmt
 	| update_stmt
 	| delete_stmt
-	;	
+	;
 
 /******************************************************************
 *
