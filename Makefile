@@ -23,18 +23,23 @@ PACKAGE_ID=${GITHUB}
 PACKAGES=\
 	${PACKAGE_ID}
 
-SOURCE_ROOT_DIR=src/${PACKAGE_ROOT}
+SOURCE_DIR=src/${PACKAGE_ROOT}
 
 .PHONY: version clean
 
 all: test
 
-VERSION_GO=${SOURCE_ROOT_DIR}/version.go
+VERSION_GO=${SOURCE_DIR}/version.go
 
-${VERSION_GO}: ${SOURCE_ROOT_DIR}/version.gen
+${VERSION_GO}: ${SOURCE_DIR}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
+
+$(ANTLR_FILES): $(SOURCE_DIR)/parser/antlr/SQL.g
+	- cd ${SOURCE_DIR}/parser/antlr/ && antlr4 -package sql -Dlanguage=Go SQL.g
+
+antlr: $(ANTLR_FILES)
 
 format:
 	gofmt -w src/${GITHUB}
