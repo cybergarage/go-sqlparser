@@ -1,5 +1,23 @@
 #!/bin/bash
+########################################
+# Set environment variables
+########################################
+
 export GOPATH=`pwd`
+
+########################################
+# Get dependency projects
+########################################
+
+dependencies=(
+"github.com/antlr/antlr4/runtime/Go/antlr"
+)
+
+go get "${dependencies[@]}"
+
+########################################
+# Get latest source codes
+########################################
 
 git pull
 
