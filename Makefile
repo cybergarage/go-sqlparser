@@ -2,7 +2,7 @@
 #
 # usql-go
 #
-# Copyright (C) The go-sqlparser Authors 2017
+# Copyright (C) The go-sqlparser Authors 2018
 #
 # This is licensed under BSD-style license, see file COPYING.
 #
@@ -19,27 +19,27 @@ PACKAGE_NAME=usql
 GITHUB_ROOT=github.com/cybergarage/usql-go
 GITHUB=${GITHUB_ROOT}/${PACKAGE_NAME}
 
-PACKAGE_ID=${GITHUB}
+PACKAGE_ROOT=${GITHUB}
 PACKAGES=\
-	${PACKAGE_ID}
+	${PACKAGE_ROOT} \
+	${PACKAGE_ROOT}/parser \
+	${PACKAGE_ROOT}/parser/antlr
 
-SOURCE_DIR=src/${PACKAGE_ROOT}
+SOURCE_ROOT=src/${PACKAGE_ROOT}
 
-.PHONY: version clean
+.PHONY: version antlr clean
 
 all: test
 
-VERSION_GO=${SOURCE_DIR}/version.go
+VERSION_GO=${SOURCE_ROOT}/version.go
 
-${VERSION_GO}: ${SOURCE_DIR}/version.gen
+${VERSION_GO}: ${SOURCE_ROOT}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
 
-$(ANTLR_FILES): $(SOURCE_DIR)/parser/antlr/SQL.g
-	- cd ${SOURCE_DIR}/parser/antlr/ && antlr4 -package sql -Dlanguage=Go SQL.g
-
-antlr: $(ANTLR_FILES)
+antlr:
+	- pushd ${SOURCE_ROOT}/parser/antlr && antlr4 -package antlr -Dlanguage=Go SQL.g4 && popd
 
 format:
 	gofmt -w src/${GITHUB}
