@@ -4,7 +4,7 @@
 
 package parser
 
-// Parser represents a parser interface for SQL.
-type Parser interface {
-	ParseString(string) ([]Query, error)
-}
+const (
+	errorEmptyQuery        = "Empty query"
+	errorInvalidTimeFormat = "Invalid time format : %s"
+)

@@ -18,7 +18,7 @@ grammar SQL;
  *
 ******************************************************************/
 
-statement_list
+queries
 	: statement (SEMICOLON statement)*
 	;	
 
