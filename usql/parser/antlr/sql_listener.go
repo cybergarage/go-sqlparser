@@ -7,8 +7,8 @@ import "github.com/antlr/antlr4/runtime/Go/antlr"
 type SQLListener interface {
 	antlr.ParseTreeListener
 
-	// EnterStatement_list is called when entering the statement_list production.
-	EnterStatement_list(c *Statement_listContext)
+	// EnterQueries is called when entering the queries production.
+	EnterQueries(c *QueriesContext)
 
 	// EnterStatement is called when entering the statement production.
 	EnterStatement(c *StatementContext)
@@ -190,8 +190,8 @@ type SQLListener interface {
 	// EnterWhere_section is called when entering the where_section production.
 	EnterWhere_section(c *Where_sectionContext)
 
-	// ExitStatement_list is called when exiting the statement_list production.
-	ExitStatement_list(c *Statement_listContext)
+	// ExitQueries is called when exiting the queries production.
+	ExitQueries(c *QueriesContext)
 
 	// ExitStatement is called when exiting the statement production.
 	ExitStatement(c *StatementContext)

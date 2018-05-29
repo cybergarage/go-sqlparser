@@ -20,11 +20,11 @@ func (s *BaseSQLListener) EnterEveryRule(ctx antlr.ParserRuleContext) {}
 // ExitEveryRule is called when any rule is exited.
 func (s *BaseSQLListener) ExitEveryRule(ctx antlr.ParserRuleContext) {}
 
-// EnterStatement_list is called when production statement_list is entered.
-func (s *BaseSQLListener) EnterStatement_list(ctx *Statement_listContext) {}
+// EnterQueries is called when production queries is entered.
+func (s *BaseSQLListener) EnterQueries(ctx *QueriesContext) {}
 
-// ExitStatement_list is called when production statement_list is exited.
-func (s *BaseSQLListener) ExitStatement_list(ctx *Statement_listContext) {}
+// ExitQueries is called when production queries is exited.
+func (s *BaseSQLListener) ExitQueries(ctx *QueriesContext) {}
 
 // EnterStatement is called when production statement is entered.
 func (s *BaseSQLListener) EnterStatement(ctx *StatementContext) {}

@@ -240,7 +240,7 @@ var symbolicNames = []string{
 }
 
 var ruleNames = []string{
-	"statement_list", "statement", "show_stmt", "use_stmt", "create_collection_stmt",
+	"queries", "statement", "show_stmt", "use_stmt", "create_collection_stmt",
 	"drop_collection_stmt", "create_index_stmt", "drop_index_stmt", "select_stmt",
 	"select_core", "result_column_section", "from_section", "table_name", "data_source",
 	"grouping_section", "having_section", "sorting_section", "sorting_item",
@@ -356,7 +356,7 @@ const (
 
 // SQLParser rules.
 const (
-	SQLParserRULE_statement_list             = 0
+	SQLParserRULE_queries                    = 0
 	SQLParserRULE_statement                  = 1
 	SQLParserRULE_show_stmt                  = 2
 	SQLParserRULE_use_stmt                   = 3
@@ -419,45 +419,45 @@ const (
 	SQLParserRULE_where_section              = 60
 )
 
-// IStatement_listContext is an interface to support dynamic dispatch.
-type IStatement_listContext interface {
+// IQueriesContext is an interface to support dynamic dispatch.
+type IQueriesContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsStatement_listContext differentiates from other interfaces.
-	IsStatement_listContext()
+	// IsQueriesContext differentiates from other interfaces.
+	IsQueriesContext()
 }
 
-type Statement_listContext struct {
+type QueriesContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyStatement_listContext() *Statement_listContext {
-	var p = new(Statement_listContext)
+func NewEmptyQueriesContext() *QueriesContext {
+	var p = new(QueriesContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_statement_list
+	p.RuleIndex = SQLParserRULE_queries
 	return p
 }
 
-func (*Statement_listContext) IsStatement_listContext() {}
+func (*QueriesContext) IsQueriesContext() {}
 
-func NewStatement_listContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Statement_listContext {
-	var p = new(Statement_listContext)
+func NewQueriesContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *QueriesContext {
+	var p = new(QueriesContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_statement_list
+	p.RuleIndex = SQLParserRULE_queries
 
 	return p
 }
 
-func (s *Statement_listContext) GetParser() antlr.Parser { return s.parser }
+func (s *QueriesContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Statement_listContext) AllStatement() []IStatementContext {
+func (s *QueriesContext) AllStatement() []IStatementContext {
 	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IStatementContext)(nil)).Elem())
 	var tst = make([]IStatementContext, len(ts))
 
@@ -470,7 +470,7 @@ func (s *Statement_listContext) AllStatement() []IStatementContext {
 	return tst
 }
 
-func (s *Statement_listContext) Statement(i int) IStatementContext {
+func (s *QueriesContext) Statement(i int) IStatementContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IStatementContext)(nil)).Elem(), i)
 
 	if t == nil {
@@ -480,37 +480,37 @@ func (s *Statement_listContext) Statement(i int) IStatementContext {
 	return t.(IStatementContext)
 }
 
-func (s *Statement_listContext) AllSEMICOLON() []antlr.TerminalNode {
+func (s *QueriesContext) AllSEMICOLON() []antlr.TerminalNode {
 	return s.GetTokens(SQLParserSEMICOLON)
 }
 
-func (s *Statement_listContext) SEMICOLON(i int) antlr.TerminalNode {
+func (s *QueriesContext) SEMICOLON(i int) antlr.TerminalNode {
 	return s.GetToken(SQLParserSEMICOLON, i)
 }
 
-func (s *Statement_listContext) GetRuleContext() antlr.RuleContext {
+func (s *QueriesContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Statement_listContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *QueriesContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Statement_listContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *QueriesContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterStatement_list(s)
+		listenerT.EnterQueries(s)
 	}
 }
 
-func (s *Statement_listContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *QueriesContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitStatement_list(s)
+		listenerT.ExitQueries(s)
 	}
 }
 
-func (p *SQLParser) Statement_list() (localctx IStatement_listContext) {
-	localctx = NewStatement_listContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 0, SQLParserRULE_statement_list)
+func (p *SQLParser) Queries() (localctx IQueriesContext) {
+	localctx = NewQueriesContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 0, SQLParserRULE_queries)
 	var _la int
 
 	defer func() {
