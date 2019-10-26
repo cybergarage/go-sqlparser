@@ -1,4 +1,4 @@
-// Code generated from SQL.g4 by ANTLR 4.7.1. DO NOT EDIT.
+// Code generated from SQL.g4 by ANTLR 4.7.2. DO NOT EDIT.
 
 package antlr // SQL
 import (
@@ -2018,6 +2018,14 @@ func (s *Result_column_sectionContext) Column_section(i int) IColumn_sectionCont
 	return t.(IColumn_sectionContext)
 }
 
+func (s *Result_column_sectionContext) AllCOMMA() []antlr.TerminalNode {
+	return s.GetTokens(SQLParserCOMMA)
+}
+
+func (s *Result_column_sectionContext) COMMA(i int) antlr.TerminalNode {
+	return s.GetToken(SQLParserCOMMA, i)
+}
+
 func (s *Result_column_sectionContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -3531,6 +3539,14 @@ func (s *Insert_columns_sectionContext) Column_section(i int) IColumn_sectionCon
 	}
 
 	return t.(IColumn_sectionContext)
+}
+
+func (s *Insert_columns_sectionContext) AllCOMMA() []antlr.TerminalNode {
+	return s.GetTokens(SQLParserCOMMA)
+}
+
+func (s *Insert_columns_sectionContext) COMMA(i int) antlr.TerminalNode {
+	return s.GetToken(SQLParserCOMMA, i)
 }
 
 func (s *Insert_columns_sectionContext) GetRuleContext() antlr.RuleContext {

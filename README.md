@@ -1,8 +1,4 @@
 ![logo](doc/img/icon.png)
 
-uSQL is a new framework for ...
+`go-SQL` is  ...
 
-# Specifications
-
-- [Opcode](doc/opecode.md
-)

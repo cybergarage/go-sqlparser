@@ -2,9 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package parser
+package sql
 
-// Parser represents a parser interface for SQL.
-type Parser interface {
-	ParseString(string) ([]Query, error)
-}
+const (
+	Version = ""
+)
