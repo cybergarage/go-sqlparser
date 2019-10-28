@@ -778,12 +778,7 @@ FLOAT
 	;
 
 STRING
-	:  '"' ( EscapeSequence | ~('\\'| '"') )* '"' 
-	;
-
-fragment
-EscapeSequence
-	:   '\\' ('\"'|'\''|'\\')
+	: '\'' ( ~'\'' | '\'\'' )* '\''
 	;
 
 fragment
