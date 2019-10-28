@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package util
 
 import (
 	"testing"
 )
 
 const (
-	errorInvalidParserObject    = "Invalid parser object (%d != %d)"
-	errorInvalidParserStackSize = "Invalid parser stack size (%d != %d)"
+	errorInvalidParserObject = "Invalid parser object (%d != %d)"
+	errorInvalidStackSize    = "Invalid parser stack size (%d != %d)"
 )
 
-func TestNewParserStack(t *testing.T) {
-	s := NewParserStack()
+func TestNewStack(t *testing.T) {
+	s := NewStack()
 
 	if s.Size() != 0 {
-		t.Errorf(errorInvalidParserStackSize, s.Size(), 0)
+		t.Errorf(errorInvalidStackSize, s.Size(), 0)
 	}
 
 	for n := 1; n <= 10; n++ {
@@ -35,7 +35,7 @@ func TestNewParserStack(t *testing.T) {
 		value = n
 		s.PushObject(value)
 		if s.Size() != n {
-			t.Errorf(errorInvalidParserStackSize, s.Size(), n)
+			t.Errorf(errorInvalidStackSize, s.Size(), n)
 		}
 	}
 
@@ -46,11 +46,11 @@ func TestNewParserStack(t *testing.T) {
 			t.Errorf(errorInvalidParserObject, value, n)
 		}
 		if s.Size() != (n - 1) {
-			t.Errorf(errorInvalidParserStackSize, s.Size(), (n - 1))
+			t.Errorf(errorInvalidStackSize, s.Size(), (n - 1))
 		}
 	}
 
 	if s.Size() != 0 {
-		t.Errorf(errorInvalidParserStackSize, s.Size(), 0)
+		t.Errorf(errorInvalidStackSize, s.Size(), 0)
 	}
 }
