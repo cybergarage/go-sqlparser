@@ -16,17 +16,18 @@ package sql
 
 import (
 	antlr "github.com/cybergarage/go-sql/sql/antlr"
+	util "github.com/cybergarage/go-sql/sql/util"
 )
 
 type antlrParserListener struct {
 	*antlr.BaseSQLListener
-	*ParserStack
+	*util.Stack
 }
 
 func newANTLRParserListener() *antlrParserListener {
 	l := &antlrParserListener{
 		BaseSQLListener: &antlr.BaseSQLListener{},
-		ParserStack:     NewParserStack(),
+		Stack:           util.NewStack(),
 	}
 	return l
 }

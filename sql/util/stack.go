@@ -12,28 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package util
 
-// ParserStack is a stack for any parser objects.
-type ParserStack struct {
+// Stack is a stack for any parser objects.
+type Stack struct {
 	objects []interface{}
 }
 
-// NewParserStack creates a new stack.
-func NewParserStack() *ParserStack {
-	s := &ParserStack{
+// NewStack creates a new stack.
+func NewStack() *Stack {
+	s := &Stack{
 		objects: make([]interface{}, 0),
 	}
 	return s
 }
 
 // PushObject adds a parser object to the stack.
-func (s *ParserStack) PushObject(obj interface{}) {
+func (s *Stack) PushObject(obj interface{}) {
 	s.objects = append(s.objects, obj)
 }
 
 // PeekObject returns a top parser object
-func (s *ParserStack) PeekObject() interface{} {
+func (s *Stack) PeekObject() interface{} {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
 		return nil
@@ -42,7 +42,7 @@ func (s *ParserStack) PeekObject() interface{} {
 }
 
 // PopObject removes and returns a top parser object
-func (s *ParserStack) PopObject() interface{} {
+func (s *Stack) PopObject() interface{} {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
 		return nil
@@ -53,6 +53,6 @@ func (s *ParserStack) PopObject() interface{} {
 }
 
 // Size return a count of the stack objects
-func (s *ParserStack) Size() int {
+func (s *Stack) Size() int {
 	return len(s.objects)
 }
