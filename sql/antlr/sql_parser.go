@@ -236,7 +236,7 @@ var symbolicNames = []string{
 	"FLATTEN", "FROM", "GROUP", "HAVING", "IN", "COLLECTION_INDEX", "INSERT",
 	"INTERSECT", "INTO", "IS", "LIMIT", "NIL", "OFFSET", "OPTIONS", "ORDER",
 	"SELECT", "SET", "SHOW", "SYNC", "USE", "UNION", "UPDATE", "WHERE", "VALUE",
-	"VALUES", "TRUE", "FALSE", "WS", "ID", "NUMBER", "FLOAT", "STRING",
+	"VALUES", "TRUE", "FALSE", "WS", "IDENTIFIER", "NUMBER", "FLOAT", "STRING",
 }
 
 var ruleNames = []string{
@@ -348,7 +348,7 @@ const (
 	SQLParserTRUE              = 62
 	SQLParserFALSE             = 63
 	SQLParserWS                = 64
-	SQLParserID                = 65
+	SQLParserIDENTIFIER        = 65
 	SQLParserNUMBER            = 66
 	SQLParserFLOAT             = 67
 	SQLParserSTRING            = 68
@@ -1888,7 +1888,7 @@ func (p *SQLParser) Select_core() (localctx ISelect_coreContext) {
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	if (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SQLParserT__0)|(1<<SQLParserT__2)|(1<<SQLParserT__4)|(1<<SQLParserASTERISK)|(1<<SQLParserCURRENT_DATE)|(1<<SQLParserCURRENT_TIME)|(1<<SQLParserCURRENT_TIMESTAMP))) != 0) || (((_la-48)&-(0x1f+1)) == 0 && ((1<<uint((_la-48)))&((1<<(SQLParserNIL-48))|(1<<(SQLParserTRUE-48))|(1<<(SQLParserFALSE-48))|(1<<(SQLParserID-48))|(1<<(SQLParserNUMBER-48))|(1<<(SQLParserFLOAT-48))|(1<<(SQLParserSTRING-48)))) != 0) {
+	if (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SQLParserT__0)|(1<<SQLParserT__2)|(1<<SQLParserT__4)|(1<<SQLParserASTERISK)|(1<<SQLParserCURRENT_DATE)|(1<<SQLParserCURRENT_TIME)|(1<<SQLParserCURRENT_TIMESTAMP))) != 0) || (((_la-48)&-(0x1f+1)) == 0 && ((1<<uint((_la-48)))&((1<<(SQLParserNIL-48))|(1<<(SQLParserTRUE-48))|(1<<(SQLParserFALSE-48))|(1<<(SQLParserIDENTIFIER-48))|(1<<(SQLParserNUMBER-48))|(1<<(SQLParserFLOAT-48))|(1<<(SQLParserSTRING-48)))) != 0) {
 		{
 			p.SetState(181)
 
@@ -2078,7 +2078,7 @@ func (p *SQLParser) Result_column_section() (localctx IResult_column_sectionCont
 			p.Match(SQLParserASTERISK)
 		}
 
-	case SQLParserT__0, SQLParserT__2, SQLParserT__4, SQLParserCURRENT_DATE, SQLParserCURRENT_TIME, SQLParserCURRENT_TIMESTAMP, SQLParserNIL, SQLParserTRUE, SQLParserFALSE, SQLParserID, SQLParserNUMBER, SQLParserFLOAT, SQLParserSTRING:
+	case SQLParserT__0, SQLParserT__2, SQLParserT__4, SQLParserCURRENT_DATE, SQLParserCURRENT_TIME, SQLParserCURRENT_TIMESTAMP, SQLParserNIL, SQLParserTRUE, SQLParserFALSE, SQLParserIDENTIFIER, SQLParserNUMBER, SQLParserFLOAT, SQLParserSTRING:
 		p.EnterOuterAlt(localctx, 2)
 		{
 			p.SetState(195)
@@ -4937,7 +4937,7 @@ func (p *SQLParser) Expression_literal_value() (localctx IExpression_literal_val
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
-	case SQLParserID:
+	case SQLParserIDENTIFIER:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(366)
@@ -5670,8 +5670,8 @@ func NewExpression_functionContext(parser antlr.Parser, parent antlr.ParserRuleC
 
 func (s *Expression_functionContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Expression_functionContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *Expression_functionContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *Expression_functionContext) Function_value() IFunction_valueContext {
@@ -5728,7 +5728,7 @@ func (p *SQLParser) Expression_function() (localctx IExpression_functionContext)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(394)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 	{
 		p.SetState(395)
@@ -5738,7 +5738,7 @@ func (p *SQLParser) Expression_function() (localctx IExpression_functionContext)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	if (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SQLParserT__0)|(1<<SQLParserT__2)|(1<<SQLParserT__4)|(1<<SQLParserASTERISK)|(1<<SQLParserCURRENT_DATE)|(1<<SQLParserCURRENT_TIME)|(1<<SQLParserCURRENT_TIMESTAMP))) != 0) || (((_la-48)&-(0x1f+1)) == 0 && ((1<<uint((_la-48)))&((1<<(SQLParserNIL-48))|(1<<(SQLParserTRUE-48))|(1<<(SQLParserFALSE-48))|(1<<(SQLParserID-48))|(1<<(SQLParserNUMBER-48))|(1<<(SQLParserFLOAT-48))|(1<<(SQLParserSTRING-48)))) != 0) {
+	if (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SQLParserT__0)|(1<<SQLParserT__2)|(1<<SQLParserT__4)|(1<<SQLParserASTERISK)|(1<<SQLParserCURRENT_DATE)|(1<<SQLParserCURRENT_TIME)|(1<<SQLParserCURRENT_TIMESTAMP))) != 0) || (((_la-48)&-(0x1f+1)) == 0 && ((1<<uint((_la-48)))&((1<<(SQLParserNIL-48))|(1<<(SQLParserTRUE-48))|(1<<(SQLParserFALSE-48))|(1<<(SQLParserIDENTIFIER-48))|(1<<(SQLParserNUMBER-48))|(1<<(SQLParserFLOAT-48))|(1<<(SQLParserSTRING-48)))) != 0) {
 		{
 			p.SetState(396)
 			p.Function_value()
@@ -5791,8 +5791,8 @@ func NewFunction_nameContext(parser antlr.Parser, parent antlr.ParserRuleContext
 
 func (s *Function_nameContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Function_nameContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *Function_nameContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *Function_nameContext) GetRuleContext() antlr.RuleContext {
@@ -5838,7 +5838,7 @@ func (p *SQLParser) Function_name() (localctx IFunction_nameContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(401)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 
 	return localctx
@@ -5962,7 +5962,7 @@ func (p *SQLParser) Function_value() (localctx IFunction_valueContext) {
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
-	case SQLParserT__0, SQLParserT__2, SQLParserT__4, SQLParserCURRENT_DATE, SQLParserCURRENT_TIME, SQLParserCURRENT_TIMESTAMP, SQLParserNIL, SQLParserTRUE, SQLParserFALSE, SQLParserID, SQLParserNUMBER, SQLParserFLOAT, SQLParserSTRING:
+	case SQLParserT__0, SQLParserT__2, SQLParserT__4, SQLParserCURRENT_DATE, SQLParserCURRENT_TIME, SQLParserCURRENT_TIMESTAMP, SQLParserNIL, SQLParserTRUE, SQLParserFALSE, SQLParserIDENTIFIER, SQLParserNUMBER, SQLParserFLOAT, SQLParserSTRING:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(403)
@@ -6393,8 +6393,8 @@ func NewProperty_literalContext(parser antlr.Parser, parent antlr.ParserRuleCont
 
 func (s *Property_literalContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Property_literalContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *Property_literalContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *Property_literalContext) GetRuleContext() antlr.RuleContext {
@@ -6440,7 +6440,7 @@ func (p *SQLParser) Property_literal() (localctx IProperty_literalContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(422)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 
 	return localctx
@@ -7303,8 +7303,8 @@ func NewPropertyContext(parser antlr.Parser, parent antlr.ParserRuleContext, inv
 
 func (s *PropertyContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *PropertyContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *PropertyContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *PropertyContext) GetRuleContext() antlr.RuleContext {
@@ -7350,7 +7350,7 @@ func (p *SQLParser) Property() (localctx IPropertyContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(446)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 
 	return localctx
@@ -7394,8 +7394,8 @@ func NewValueContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoki
 
 func (s *ValueContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *ValueContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *ValueContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *ValueContext) GetRuleContext() antlr.RuleContext {
@@ -7441,7 +7441,7 @@ func (p *SQLParser) Value() (localctx IValueContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(448)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 
 	return localctx
@@ -7485,8 +7485,8 @@ func NewNameContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokin
 
 func (s *NameContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *NameContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *NameContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *NameContext) GetRuleContext() antlr.RuleContext {
@@ -7532,7 +7532,7 @@ func (p *SQLParser) Name() (localctx INameContext) {
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(450)
-		p.Match(SQLParserID)
+		p.Match(SQLParserIDENTIFIER)
 	}
 
 	return localctx
@@ -7673,8 +7673,8 @@ func NewCollection_nameContext(parser antlr.Parser, parent antlr.ParserRuleConte
 
 func (s *Collection_nameContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Collection_nameContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *Collection_nameContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *Collection_nameContext) String_literal() IString_literalContext {
@@ -7731,11 +7731,11 @@ func (p *SQLParser) Collection_name() (localctx ICollection_nameContext) {
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
-	case SQLParserID:
+	case SQLParserIDENTIFIER:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(454)
-			p.Match(SQLParserID)
+			p.Match(SQLParserIDENTIFIER)
 		}
 
 	case SQLParserSTRING:
@@ -8015,8 +8015,8 @@ func NewIndex_nameContext(parser antlr.Parser, parent antlr.ParserRuleContext, i
 
 func (s *Index_nameContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Index_nameContext) ID() antlr.TerminalNode {
-	return s.GetToken(SQLParserID, 0)
+func (s *Index_nameContext) IDENTIFIER() antlr.TerminalNode {
+	return s.GetToken(SQLParserIDENTIFIER, 0)
 }
 
 func (s *Index_nameContext) String_literal() IString_literalContext {
@@ -8073,11 +8073,11 @@ func (p *SQLParser) Index_name() (localctx IIndex_nameContext) {
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
-	case SQLParserID:
+	case SQLParserIDENTIFIER:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(465)
-			p.Match(SQLParserID)
+			p.Match(SQLParserIDENTIFIER)
 		}
 
 	case SQLParserSTRING:

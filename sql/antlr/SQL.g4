@@ -268,11 +268,11 @@ expression_binary_operator
 	;
 
 expression_function
-	: ID '(' (function_value)? ')' 
+	: IDENTIFIER '(' (function_value)? ')' 
 	;
 
 function_name
-	: ID
+	: IDENTIFIER
 	;
 
 function_value
@@ -300,7 +300,7 @@ logical_operator
 	;
 
 property_literal
-	: ID 
+	: IDENTIFIER 
 	;
 
 integer_literal
@@ -351,15 +351,15 @@ condition_operator
 	;
 
 property
-	: ID 
+	: IDENTIFIER 
 	;
 
 value 	
-	: ID	
+	: IDENTIFIER	
 	;
 
 name
-	: ID
+	: IDENTIFIER
 	;
 
 collection_section
@@ -367,7 +367,7 @@ collection_section
 	;
 
 collection_name
-	: ID
+	: IDENTIFIER
 	| string_literal
 	;
 
@@ -380,7 +380,7 @@ index_section
 	;
 
 index_name
-	: ID
+	: IDENTIFIER
 	| string_literal
 	;
 
@@ -762,10 +762,9 @@ WS  :   ( ' '
         )
     ;
 	
-ID  
-	//: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
-	: ('a'..'z'|'A'..'Z'|'_'|'/')('a'..'z'|'A'..'Z'|'_'|'-'|'/'|'.'|'0'..'9')*
-    	;
+IDENTIFIER  
+	: [a-zA-Z_] [a-zA-Z_0-9]* 
+    ;
 
 NUMBER 
 	: '0'..'9'+
