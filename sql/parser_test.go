@@ -15,7 +15,6 @@
 package sql
 
 import (
-	"fmt"
 	"io/ioutil"
 	"regexp"
 	"strings"
@@ -57,7 +56,6 @@ func testQueryString(t *testing.T, queryStr string) {
 
 	queries, err := parser.ParseString(queryStr)
 	if err != nil {
-		t.Errorf(queryStr)
 		t.Error(err)
 		return
 	}
@@ -75,11 +73,9 @@ func testQueryString(t *testing.T, queryStr string) {
 		return
 	}
 
-	fmt.Printf("[S] %s\n", queryStr)
-	//t.Logf("[S] %s\n", queryStr)
+	t.Logf("[S] %s\n", queryStr)
 	for _, query := range queries {
-		fmt.Printf("[P] %s\n", query.String())
-		//t.Logf("[P] %s\n", query.String())
+		t.Logf("[P] %s\n", query.String())
 	}
 }
 
