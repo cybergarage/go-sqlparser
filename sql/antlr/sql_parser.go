@@ -240,20 +240,21 @@ var symbolicNames = []string{
 }
 
 var ruleNames = []string{
-	"queries", "statement", "show_stmt", "use_stmt", "create_collection_stmt",
-	"drop_collection_stmt", "create_index_stmt", "drop_index_stmt", "select_stmt",
-	"select_core", "result_column_section", "from_section", "table_name", "data_source",
-	"grouping_section", "having_section", "sorting_section", "sorting_item",
-	"sorting_specification", "limit_section", "offset_section", "insert_stmt",
-	"insert_columns_section", "insert_values_section", "update_stmt", "property_section",
-	"delete_stmt", "expression", "expression_list", "expression_literal", "expression_literal_value",
-	"expression_dictionary", "dictionary_literal", "expression_array", "array_literal",
-	"expression_logic_operator", "expression_binary_operator", "expression_function",
-	"function_name", "function_value", "expression_operator", "binary_operator",
-	"logical_operator", "property_literal", "integer_literal", "real_literal",
-	"string_literal", "true_literal", "false_literal", "sync_operator", "compound_operator",
-	"condition_operator", "property", "value", "name", "collection_section",
-	"collection_name", "column_section", "index_section", "index_name", "where_section",
+	"queries", "statement", "showStatement", "useStatement", "create_collectionStatement",
+	"drop_collectionStatement", "create_indexStatement", "drop_indexStatement",
+	"selectStatement", "select_core", "result_column_section", "from_section",
+	"table_name", "data_source", "grouping_section", "having_section", "sorting_section",
+	"sorting_item", "sorting_specification", "limit_section", "offset_section",
+	"insertStatement", "insert_columns_section", "insert_values_section", "updateStatement",
+	"property_section", "deleteStatement", "expression", "expression_list",
+	"expression_literal", "expression_literal_value", "expression_dictionary",
+	"dictionary_literal", "expression_array", "array_literal", "expression_logic_operator",
+	"expression_binary_operator", "expression_function", "function_name", "function_value",
+	"expression_operator", "binary_operator", "logical_operator", "property_literal",
+	"integer_literal", "real_literal", "string_literal", "true_literal", "false_literal",
+	"sync_operator", "compound_operator", "condition_operator", "property",
+	"value", "name", "collection_section", "collection_name", "column_section",
+	"index_section", "index_name", "where_section",
 }
 var decisionToDFA = make([]*antlr.DFA, len(deserializedATN.DecisionToState))
 
@@ -358,13 +359,13 @@ const (
 const (
 	SQLParserRULE_queries                    = 0
 	SQLParserRULE_statement                  = 1
-	SQLParserRULE_show_stmt                  = 2
-	SQLParserRULE_use_stmt                   = 3
-	SQLParserRULE_create_collection_stmt     = 4
-	SQLParserRULE_drop_collection_stmt       = 5
-	SQLParserRULE_create_index_stmt          = 6
-	SQLParserRULE_drop_index_stmt            = 7
-	SQLParserRULE_select_stmt                = 8
+	SQLParserRULE_showStatement              = 2
+	SQLParserRULE_useStatement               = 3
+	SQLParserRULE_create_collectionStatement = 4
+	SQLParserRULE_drop_collectionStatement   = 5
+	SQLParserRULE_create_indexStatement      = 6
+	SQLParserRULE_drop_indexStatement        = 7
+	SQLParserRULE_selectStatement            = 8
 	SQLParserRULE_select_core                = 9
 	SQLParserRULE_result_column_section      = 10
 	SQLParserRULE_from_section               = 11
@@ -377,12 +378,12 @@ const (
 	SQLParserRULE_sorting_specification      = 18
 	SQLParserRULE_limit_section              = 19
 	SQLParserRULE_offset_section             = 20
-	SQLParserRULE_insert_stmt                = 21
+	SQLParserRULE_insertStatement            = 21
 	SQLParserRULE_insert_columns_section     = 22
 	SQLParserRULE_insert_values_section      = 23
-	SQLParserRULE_update_stmt                = 24
+	SQLParserRULE_updateStatement            = 24
 	SQLParserRULE_property_section           = 25
-	SQLParserRULE_delete_stmt                = 26
+	SQLParserRULE_deleteStatement            = 26
 	SQLParserRULE_expression                 = 27
 	SQLParserRULE_expression_list            = 28
 	SQLParserRULE_expression_literal         = 29
@@ -594,104 +595,104 @@ func NewStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, in
 
 func (s *StatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *StatementContext) Show_stmt() IShow_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IShow_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) ShowStatement() IShowStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IShowStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IShow_stmtContext)
+	return t.(IShowStatementContext)
 }
 
-func (s *StatementContext) Use_stmt() IUse_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IUse_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) UseStatement() IUseStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IUseStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IUse_stmtContext)
+	return t.(IUseStatementContext)
 }
 
-func (s *StatementContext) Create_collection_stmt() ICreate_collection_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICreate_collection_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) Create_collectionStatement() ICreate_collectionStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICreate_collectionStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(ICreate_collection_stmtContext)
+	return t.(ICreate_collectionStatementContext)
 }
 
-func (s *StatementContext) Create_index_stmt() ICreate_index_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICreate_index_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) Create_indexStatement() ICreate_indexStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICreate_indexStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(ICreate_index_stmtContext)
+	return t.(ICreate_indexStatementContext)
 }
 
-func (s *StatementContext) Drop_collection_stmt() IDrop_collection_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDrop_collection_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) Drop_collectionStatement() IDrop_collectionStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDrop_collectionStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IDrop_collection_stmtContext)
+	return t.(IDrop_collectionStatementContext)
 }
 
-func (s *StatementContext) Drop_index_stmt() IDrop_index_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDrop_index_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) Drop_indexStatement() IDrop_indexStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDrop_indexStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IDrop_index_stmtContext)
+	return t.(IDrop_indexStatementContext)
 }
 
-func (s *StatementContext) Select_stmt() ISelect_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISelect_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) SelectStatement() ISelectStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISelectStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(ISelect_stmtContext)
+	return t.(ISelectStatementContext)
 }
 
-func (s *StatementContext) Insert_stmt() IInsert_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IInsert_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) InsertStatement() IInsertStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IInsertStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IInsert_stmtContext)
+	return t.(IInsertStatementContext)
 }
 
-func (s *StatementContext) Update_stmt() IUpdate_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IUpdate_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) UpdateStatement() IUpdateStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IUpdateStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IUpdate_stmtContext)
+	return t.(IUpdateStatementContext)
 }
 
-func (s *StatementContext) Delete_stmt() IDelete_stmtContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDelete_stmtContext)(nil)).Elem(), 0)
+func (s *StatementContext) DeleteStatement() IDeleteStatementContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDeleteStatementContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IDelete_stmtContext)
+	return t.(IDeleteStatementContext)
 }
 
 func (s *StatementContext) GetRuleContext() antlr.RuleContext {
@@ -741,70 +742,70 @@ func (p *SQLParser) Statement() (localctx IStatementContext) {
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(130)
-			p.Show_stmt()
+			p.ShowStatement()
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
 			p.SetState(131)
-			p.Use_stmt()
+			p.UseStatement()
 		}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
 			p.SetState(132)
-			p.Create_collection_stmt()
+			p.Create_collectionStatement()
 		}
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
 			p.SetState(133)
-			p.Create_index_stmt()
+			p.Create_indexStatement()
 		}
 
 	case 5:
 		p.EnterOuterAlt(localctx, 5)
 		{
 			p.SetState(134)
-			p.Drop_collection_stmt()
+			p.Drop_collectionStatement()
 		}
 
 	case 6:
 		p.EnterOuterAlt(localctx, 6)
 		{
 			p.SetState(135)
-			p.Drop_index_stmt()
+			p.Drop_indexStatement()
 		}
 
 	case 7:
 		p.EnterOuterAlt(localctx, 7)
 		{
 			p.SetState(136)
-			p.Select_stmt()
+			p.SelectStatement()
 		}
 
 	case 8:
 		p.EnterOuterAlt(localctx, 8)
 		{
 			p.SetState(137)
-			p.Insert_stmt()
+			p.InsertStatement()
 		}
 
 	case 9:
 		p.EnterOuterAlt(localctx, 9)
 		{
 			p.SetState(138)
-			p.Update_stmt()
+			p.UpdateStatement()
 		}
 
 	case 10:
 		p.EnterOuterAlt(localctx, 10)
 		{
 			p.SetState(139)
-			p.Delete_stmt()
+			p.DeleteStatement()
 		}
 
 	}
@@ -812,49 +813,49 @@ func (p *SQLParser) Statement() (localctx IStatementContext) {
 	return localctx
 }
 
-// IShow_stmtContext is an interface to support dynamic dispatch.
-type IShow_stmtContext interface {
+// IShowStatementContext is an interface to support dynamic dispatch.
+type IShowStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsShow_stmtContext differentiates from other interfaces.
-	IsShow_stmtContext()
+	// IsShowStatementContext differentiates from other interfaces.
+	IsShowStatementContext()
 }
 
-type Show_stmtContext struct {
+type ShowStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyShow_stmtContext() *Show_stmtContext {
-	var p = new(Show_stmtContext)
+func NewEmptyShowStatementContext() *ShowStatementContext {
+	var p = new(ShowStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_show_stmt
+	p.RuleIndex = SQLParserRULE_showStatement
 	return p
 }
 
-func (*Show_stmtContext) IsShow_stmtContext() {}
+func (*ShowStatementContext) IsShowStatementContext() {}
 
-func NewShow_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Show_stmtContext {
-	var p = new(Show_stmtContext)
+func NewShowStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *ShowStatementContext {
+	var p = new(ShowStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_show_stmt
+	p.RuleIndex = SQLParserRULE_showStatement
 
 	return p
 }
 
-func (s *Show_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *ShowStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Show_stmtContext) SHOW() antlr.TerminalNode {
+func (s *ShowStatementContext) SHOW() antlr.TerminalNode {
 	return s.GetToken(SQLParserSHOW, 0)
 }
 
-func (s *Show_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *ShowStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -864,29 +865,29 @@ func (s *Show_stmtContext) Collection_section() ICollection_sectionContext {
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Show_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *ShowStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Show_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *ShowStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Show_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *ShowStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterShow_stmt(s)
+		listenerT.EnterShowStatement(s)
 	}
 }
 
-func (s *Show_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *ShowStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitShow_stmt(s)
+		listenerT.ExitShowStatement(s)
 	}
 }
 
-func (p *SQLParser) Show_stmt() (localctx IShow_stmtContext) {
-	localctx = NewShow_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 4, SQLParserRULE_show_stmt)
+func (p *SQLParser) ShowStatement() (localctx IShowStatementContext) {
+	localctx = NewShowStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 4, SQLParserRULE_showStatement)
 
 	defer func() {
 		p.ExitRule()
@@ -917,49 +918,49 @@ func (p *SQLParser) Show_stmt() (localctx IShow_stmtContext) {
 	return localctx
 }
 
-// IUse_stmtContext is an interface to support dynamic dispatch.
-type IUse_stmtContext interface {
+// IUseStatementContext is an interface to support dynamic dispatch.
+type IUseStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsUse_stmtContext differentiates from other interfaces.
-	IsUse_stmtContext()
+	// IsUseStatementContext differentiates from other interfaces.
+	IsUseStatementContext()
 }
 
-type Use_stmtContext struct {
+type UseStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyUse_stmtContext() *Use_stmtContext {
-	var p = new(Use_stmtContext)
+func NewEmptyUseStatementContext() *UseStatementContext {
+	var p = new(UseStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_use_stmt
+	p.RuleIndex = SQLParserRULE_useStatement
 	return p
 }
 
-func (*Use_stmtContext) IsUse_stmtContext() {}
+func (*UseStatementContext) IsUseStatementContext() {}
 
-func NewUse_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Use_stmtContext {
-	var p = new(Use_stmtContext)
+func NewUseStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *UseStatementContext {
+	var p = new(UseStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_use_stmt
+	p.RuleIndex = SQLParserRULE_useStatement
 
 	return p
 }
 
-func (s *Use_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *UseStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Use_stmtContext) USE() antlr.TerminalNode {
+func (s *UseStatementContext) USE() antlr.TerminalNode {
 	return s.GetToken(SQLParserUSE, 0)
 }
 
-func (s *Use_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *UseStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -969,29 +970,29 @@ func (s *Use_stmtContext) Collection_section() ICollection_sectionContext {
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Use_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *UseStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Use_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *UseStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Use_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *UseStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterUse_stmt(s)
+		listenerT.EnterUseStatement(s)
 	}
 }
 
-func (s *Use_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *UseStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitUse_stmt(s)
+		listenerT.ExitUseStatement(s)
 	}
 }
 
-func (p *SQLParser) Use_stmt() (localctx IUse_stmtContext) {
-	localctx = NewUse_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, SQLParserRULE_use_stmt)
+func (p *SQLParser) UseStatement() (localctx IUseStatementContext) {
+	localctx = NewUseStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, SQLParserRULE_useStatement)
 
 	defer func() {
 		p.ExitRule()
@@ -1022,53 +1023,53 @@ func (p *SQLParser) Use_stmt() (localctx IUse_stmtContext) {
 	return localctx
 }
 
-// ICreate_collection_stmtContext is an interface to support dynamic dispatch.
-type ICreate_collection_stmtContext interface {
+// ICreate_collectionStatementContext is an interface to support dynamic dispatch.
+type ICreate_collectionStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsCreate_collection_stmtContext differentiates from other interfaces.
-	IsCreate_collection_stmtContext()
+	// IsCreate_collectionStatementContext differentiates from other interfaces.
+	IsCreate_collectionStatementContext()
 }
 
-type Create_collection_stmtContext struct {
+type Create_collectionStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyCreate_collection_stmtContext() *Create_collection_stmtContext {
-	var p = new(Create_collection_stmtContext)
+func NewEmptyCreate_collectionStatementContext() *Create_collectionStatementContext {
+	var p = new(Create_collectionStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_create_collection_stmt
+	p.RuleIndex = SQLParserRULE_create_collectionStatement
 	return p
 }
 
-func (*Create_collection_stmtContext) IsCreate_collection_stmtContext() {}
+func (*Create_collectionStatementContext) IsCreate_collectionStatementContext() {}
 
-func NewCreate_collection_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Create_collection_stmtContext {
-	var p = new(Create_collection_stmtContext)
+func NewCreate_collectionStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Create_collectionStatementContext {
+	var p = new(Create_collectionStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_create_collection_stmt
+	p.RuleIndex = SQLParserRULE_create_collectionStatement
 
 	return p
 }
 
-func (s *Create_collection_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *Create_collectionStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Create_collection_stmtContext) CREATE() antlr.TerminalNode {
+func (s *Create_collectionStatementContext) CREATE() antlr.TerminalNode {
 	return s.GetToken(SQLParserCREATE, 0)
 }
 
-func (s *Create_collection_stmtContext) COLLECTION() antlr.TerminalNode {
+func (s *Create_collectionStatementContext) COLLECTION() antlr.TerminalNode {
 	return s.GetToken(SQLParserCOLLECTION, 0)
 }
 
-func (s *Create_collection_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *Create_collectionStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1078,11 +1079,11 @@ func (s *Create_collection_stmtContext) Collection_section() ICollection_section
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Create_collection_stmtContext) OPTIONS() antlr.TerminalNode {
+func (s *Create_collectionStatementContext) OPTIONS() antlr.TerminalNode {
 	return s.GetToken(SQLParserOPTIONS, 0)
 }
 
-func (s *Create_collection_stmtContext) Expression() IExpressionContext {
+func (s *Create_collectionStatementContext) Expression() IExpressionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpressionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1092,29 +1093,29 @@ func (s *Create_collection_stmtContext) Expression() IExpressionContext {
 	return t.(IExpressionContext)
 }
 
-func (s *Create_collection_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *Create_collectionStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Create_collection_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *Create_collectionStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Create_collection_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *Create_collectionStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterCreate_collection_stmt(s)
+		listenerT.EnterCreate_collectionStatement(s)
 	}
 }
 
-func (s *Create_collection_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *Create_collectionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitCreate_collection_stmt(s)
+		listenerT.ExitCreate_collectionStatement(s)
 	}
 }
 
-func (p *SQLParser) Create_collection_stmt() (localctx ICreate_collection_stmtContext) {
-	localctx = NewCreate_collection_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, SQLParserRULE_create_collection_stmt)
+func (p *SQLParser) Create_collectionStatement() (localctx ICreate_collectionStatementContext) {
+	localctx = NewCreate_collectionStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 8, SQLParserRULE_create_collectionStatement)
 	var _la int
 
 	defer func() {
@@ -1165,53 +1166,53 @@ func (p *SQLParser) Create_collection_stmt() (localctx ICreate_collection_stmtCo
 	return localctx
 }
 
-// IDrop_collection_stmtContext is an interface to support dynamic dispatch.
-type IDrop_collection_stmtContext interface {
+// IDrop_collectionStatementContext is an interface to support dynamic dispatch.
+type IDrop_collectionStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsDrop_collection_stmtContext differentiates from other interfaces.
-	IsDrop_collection_stmtContext()
+	// IsDrop_collectionStatementContext differentiates from other interfaces.
+	IsDrop_collectionStatementContext()
 }
 
-type Drop_collection_stmtContext struct {
+type Drop_collectionStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyDrop_collection_stmtContext() *Drop_collection_stmtContext {
-	var p = new(Drop_collection_stmtContext)
+func NewEmptyDrop_collectionStatementContext() *Drop_collectionStatementContext {
+	var p = new(Drop_collectionStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_drop_collection_stmt
+	p.RuleIndex = SQLParserRULE_drop_collectionStatement
 	return p
 }
 
-func (*Drop_collection_stmtContext) IsDrop_collection_stmtContext() {}
+func (*Drop_collectionStatementContext) IsDrop_collectionStatementContext() {}
 
-func NewDrop_collection_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Drop_collection_stmtContext {
-	var p = new(Drop_collection_stmtContext)
+func NewDrop_collectionStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Drop_collectionStatementContext {
+	var p = new(Drop_collectionStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_drop_collection_stmt
+	p.RuleIndex = SQLParserRULE_drop_collectionStatement
 
 	return p
 }
 
-func (s *Drop_collection_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *Drop_collectionStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Drop_collection_stmtContext) DROP() antlr.TerminalNode {
+func (s *Drop_collectionStatementContext) DROP() antlr.TerminalNode {
 	return s.GetToken(SQLParserDROP, 0)
 }
 
-func (s *Drop_collection_stmtContext) COLLECTION() antlr.TerminalNode {
+func (s *Drop_collectionStatementContext) COLLECTION() antlr.TerminalNode {
 	return s.GetToken(SQLParserCOLLECTION, 0)
 }
 
-func (s *Drop_collection_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *Drop_collectionStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1221,29 +1222,29 @@ func (s *Drop_collection_stmtContext) Collection_section() ICollection_sectionCo
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Drop_collection_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *Drop_collectionStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Drop_collection_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *Drop_collectionStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Drop_collection_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *Drop_collectionStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterDrop_collection_stmt(s)
+		listenerT.EnterDrop_collectionStatement(s)
 	}
 }
 
-func (s *Drop_collection_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *Drop_collectionStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitDrop_collection_stmt(s)
+		listenerT.ExitDrop_collectionStatement(s)
 	}
 }
 
-func (p *SQLParser) Drop_collection_stmt() (localctx IDrop_collection_stmtContext) {
-	localctx = NewDrop_collection_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 10, SQLParserRULE_drop_collection_stmt)
+func (p *SQLParser) Drop_collectionStatement() (localctx IDrop_collectionStatementContext) {
+	localctx = NewDrop_collectionStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 10, SQLParserRULE_drop_collectionStatement)
 
 	defer func() {
 		p.ExitRule()
@@ -1278,53 +1279,53 @@ func (p *SQLParser) Drop_collection_stmt() (localctx IDrop_collection_stmtContex
 	return localctx
 }
 
-// ICreate_index_stmtContext is an interface to support dynamic dispatch.
-type ICreate_index_stmtContext interface {
+// ICreate_indexStatementContext is an interface to support dynamic dispatch.
+type ICreate_indexStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsCreate_index_stmtContext differentiates from other interfaces.
-	IsCreate_index_stmtContext()
+	// IsCreate_indexStatementContext differentiates from other interfaces.
+	IsCreate_indexStatementContext()
 }
 
-type Create_index_stmtContext struct {
+type Create_indexStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyCreate_index_stmtContext() *Create_index_stmtContext {
-	var p = new(Create_index_stmtContext)
+func NewEmptyCreate_indexStatementContext() *Create_indexStatementContext {
+	var p = new(Create_indexStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_create_index_stmt
+	p.RuleIndex = SQLParserRULE_create_indexStatement
 	return p
 }
 
-func (*Create_index_stmtContext) IsCreate_index_stmtContext() {}
+func (*Create_indexStatementContext) IsCreate_indexStatementContext() {}
 
-func NewCreate_index_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Create_index_stmtContext {
-	var p = new(Create_index_stmtContext)
+func NewCreate_indexStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Create_indexStatementContext {
+	var p = new(Create_indexStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_create_index_stmt
+	p.RuleIndex = SQLParserRULE_create_indexStatement
 
 	return p
 }
 
-func (s *Create_index_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *Create_indexStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Create_index_stmtContext) CREATE() antlr.TerminalNode {
+func (s *Create_indexStatementContext) CREATE() antlr.TerminalNode {
 	return s.GetToken(SQLParserCREATE, 0)
 }
 
-func (s *Create_index_stmtContext) COLLECTION_INDEX() antlr.TerminalNode {
+func (s *Create_indexStatementContext) COLLECTION_INDEX() antlr.TerminalNode {
 	return s.GetToken(SQLParserCOLLECTION_INDEX, 0)
 }
 
-func (s *Create_index_stmtContext) Index_section() IIndex_sectionContext {
+func (s *Create_indexStatementContext) Index_section() IIndex_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IIndex_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1334,29 +1335,29 @@ func (s *Create_index_stmtContext) Index_section() IIndex_sectionContext {
 	return t.(IIndex_sectionContext)
 }
 
-func (s *Create_index_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *Create_indexStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Create_index_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *Create_indexStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Create_index_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *Create_indexStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterCreate_index_stmt(s)
+		listenerT.EnterCreate_indexStatement(s)
 	}
 }
 
-func (s *Create_index_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *Create_indexStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitCreate_index_stmt(s)
+		listenerT.ExitCreate_indexStatement(s)
 	}
 }
 
-func (p *SQLParser) Create_index_stmt() (localctx ICreate_index_stmtContext) {
-	localctx = NewCreate_index_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, SQLParserRULE_create_index_stmt)
+func (p *SQLParser) Create_indexStatement() (localctx ICreate_indexStatementContext) {
+	localctx = NewCreate_indexStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 12, SQLParserRULE_create_indexStatement)
 
 	defer func() {
 		p.ExitRule()
@@ -1391,53 +1392,53 @@ func (p *SQLParser) Create_index_stmt() (localctx ICreate_index_stmtContext) {
 	return localctx
 }
 
-// IDrop_index_stmtContext is an interface to support dynamic dispatch.
-type IDrop_index_stmtContext interface {
+// IDrop_indexStatementContext is an interface to support dynamic dispatch.
+type IDrop_indexStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsDrop_index_stmtContext differentiates from other interfaces.
-	IsDrop_index_stmtContext()
+	// IsDrop_indexStatementContext differentiates from other interfaces.
+	IsDrop_indexStatementContext()
 }
 
-type Drop_index_stmtContext struct {
+type Drop_indexStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyDrop_index_stmtContext() *Drop_index_stmtContext {
-	var p = new(Drop_index_stmtContext)
+func NewEmptyDrop_indexStatementContext() *Drop_indexStatementContext {
+	var p = new(Drop_indexStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_drop_index_stmt
+	p.RuleIndex = SQLParserRULE_drop_indexStatement
 	return p
 }
 
-func (*Drop_index_stmtContext) IsDrop_index_stmtContext() {}
+func (*Drop_indexStatementContext) IsDrop_indexStatementContext() {}
 
-func NewDrop_index_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Drop_index_stmtContext {
-	var p = new(Drop_index_stmtContext)
+func NewDrop_indexStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Drop_indexStatementContext {
+	var p = new(Drop_indexStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_drop_index_stmt
+	p.RuleIndex = SQLParserRULE_drop_indexStatement
 
 	return p
 }
 
-func (s *Drop_index_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *Drop_indexStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Drop_index_stmtContext) DROP() antlr.TerminalNode {
+func (s *Drop_indexStatementContext) DROP() antlr.TerminalNode {
 	return s.GetToken(SQLParserDROP, 0)
 }
 
-func (s *Drop_index_stmtContext) COLLECTION_INDEX() antlr.TerminalNode {
+func (s *Drop_indexStatementContext) COLLECTION_INDEX() antlr.TerminalNode {
 	return s.GetToken(SQLParserCOLLECTION_INDEX, 0)
 }
 
-func (s *Drop_index_stmtContext) Index_section() IIndex_sectionContext {
+func (s *Drop_indexStatementContext) Index_section() IIndex_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IIndex_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1447,29 +1448,29 @@ func (s *Drop_index_stmtContext) Index_section() IIndex_sectionContext {
 	return t.(IIndex_sectionContext)
 }
 
-func (s *Drop_index_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *Drop_indexStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Drop_index_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *Drop_indexStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Drop_index_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *Drop_indexStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterDrop_index_stmt(s)
+		listenerT.EnterDrop_indexStatement(s)
 	}
 }
 
-func (s *Drop_index_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *Drop_indexStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitDrop_index_stmt(s)
+		listenerT.ExitDrop_indexStatement(s)
 	}
 }
 
-func (p *SQLParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
-	localctx = NewDrop_index_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 14, SQLParserRULE_drop_index_stmt)
+func (p *SQLParser) Drop_indexStatement() (localctx IDrop_indexStatementContext) {
+	localctx = NewDrop_indexStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, SQLParserRULE_drop_indexStatement)
 
 	defer func() {
 		p.ExitRule()
@@ -1504,45 +1505,45 @@ func (p *SQLParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
 	return localctx
 }
 
-// ISelect_stmtContext is an interface to support dynamic dispatch.
-type ISelect_stmtContext interface {
+// ISelectStatementContext is an interface to support dynamic dispatch.
+type ISelectStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsSelect_stmtContext differentiates from other interfaces.
-	IsSelect_stmtContext()
+	// IsSelectStatementContext differentiates from other interfaces.
+	IsSelectStatementContext()
 }
 
-type Select_stmtContext struct {
+type SelectStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptySelect_stmtContext() *Select_stmtContext {
-	var p = new(Select_stmtContext)
+func NewEmptySelectStatementContext() *SelectStatementContext {
+	var p = new(SelectStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_select_stmt
+	p.RuleIndex = SQLParserRULE_selectStatement
 	return p
 }
 
-func (*Select_stmtContext) IsSelect_stmtContext() {}
+func (*SelectStatementContext) IsSelectStatementContext() {}
 
-func NewSelect_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Select_stmtContext {
-	var p = new(Select_stmtContext)
+func NewSelectStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *SelectStatementContext {
+	var p = new(SelectStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_select_stmt
+	p.RuleIndex = SQLParserRULE_selectStatement
 
 	return p
 }
 
-func (s *Select_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *SelectStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Select_stmtContext) Select_core() ISelect_coreContext {
+func (s *SelectStatementContext) Select_core() ISelect_coreContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISelect_coreContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1552,7 +1553,7 @@ func (s *Select_stmtContext) Select_core() ISelect_coreContext {
 	return t.(ISelect_coreContext)
 }
 
-func (s *Select_stmtContext) Sorting_section() ISorting_sectionContext {
+func (s *SelectStatementContext) Sorting_section() ISorting_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISorting_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1562,7 +1563,7 @@ func (s *Select_stmtContext) Sorting_section() ISorting_sectionContext {
 	return t.(ISorting_sectionContext)
 }
 
-func (s *Select_stmtContext) Limit_section() ILimit_sectionContext {
+func (s *SelectStatementContext) Limit_section() ILimit_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ILimit_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1572,7 +1573,7 @@ func (s *Select_stmtContext) Limit_section() ILimit_sectionContext {
 	return t.(ILimit_sectionContext)
 }
 
-func (s *Select_stmtContext) Offset_section() IOffset_sectionContext {
+func (s *SelectStatementContext) Offset_section() IOffset_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IOffset_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -1582,29 +1583,29 @@ func (s *Select_stmtContext) Offset_section() IOffset_sectionContext {
 	return t.(IOffset_sectionContext)
 }
 
-func (s *Select_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *SelectStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Select_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *SelectStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Select_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *SelectStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterSelect_stmt(s)
+		listenerT.EnterSelectStatement(s)
 	}
 }
 
-func (s *Select_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *SelectStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitSelect_stmt(s)
+		listenerT.ExitSelectStatement(s)
 	}
 }
 
-func (p *SQLParser) Select_stmt() (localctx ISelect_stmtContext) {
-	localctx = NewSelect_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 16, SQLParserRULE_select_stmt)
+func (p *SQLParser) SelectStatement() (localctx ISelectStatementContext) {
+	localctx = NewSelectStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, SQLParserRULE_selectStatement)
 	var _la int
 
 	defer func() {
@@ -3310,53 +3311,53 @@ func (p *SQLParser) Offset_section() (localctx IOffset_sectionContext) {
 	return localctx
 }
 
-// IInsert_stmtContext is an interface to support dynamic dispatch.
-type IInsert_stmtContext interface {
+// IInsertStatementContext is an interface to support dynamic dispatch.
+type IInsertStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsInsert_stmtContext differentiates from other interfaces.
-	IsInsert_stmtContext()
+	// IsInsertStatementContext differentiates from other interfaces.
+	IsInsertStatementContext()
 }
 
-type Insert_stmtContext struct {
+type InsertStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyInsert_stmtContext() *Insert_stmtContext {
-	var p = new(Insert_stmtContext)
+func NewEmptyInsertStatementContext() *InsertStatementContext {
+	var p = new(InsertStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_insert_stmt
+	p.RuleIndex = SQLParserRULE_insertStatement
 	return p
 }
 
-func (*Insert_stmtContext) IsInsert_stmtContext() {}
+func (*InsertStatementContext) IsInsertStatementContext() {}
 
-func NewInsert_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Insert_stmtContext {
-	var p = new(Insert_stmtContext)
+func NewInsertStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *InsertStatementContext {
+	var p = new(InsertStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_insert_stmt
+	p.RuleIndex = SQLParserRULE_insertStatement
 
 	return p
 }
 
-func (s *Insert_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *InsertStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Insert_stmtContext) INSERT() antlr.TerminalNode {
+func (s *InsertStatementContext) INSERT() antlr.TerminalNode {
 	return s.GetToken(SQLParserINSERT, 0)
 }
 
-func (s *Insert_stmtContext) INTO() antlr.TerminalNode {
+func (s *InsertStatementContext) INTO() antlr.TerminalNode {
 	return s.GetToken(SQLParserINTO, 0)
 }
 
-func (s *Insert_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *InsertStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3366,7 +3367,7 @@ func (s *Insert_stmtContext) Collection_section() ICollection_sectionContext {
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Insert_stmtContext) Insert_values_section() IInsert_values_sectionContext {
+func (s *InsertStatementContext) Insert_values_section() IInsert_values_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IInsert_values_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3376,7 +3377,7 @@ func (s *Insert_stmtContext) Insert_values_section() IInsert_values_sectionConte
 	return t.(IInsert_values_sectionContext)
 }
 
-func (s *Insert_stmtContext) Sync_operator() ISync_operatorContext {
+func (s *InsertStatementContext) Sync_operator() ISync_operatorContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISync_operatorContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3386,7 +3387,7 @@ func (s *Insert_stmtContext) Sync_operator() ISync_operatorContext {
 	return t.(ISync_operatorContext)
 }
 
-func (s *Insert_stmtContext) Insert_columns_section() IInsert_columns_sectionContext {
+func (s *InsertStatementContext) Insert_columns_section() IInsert_columns_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IInsert_columns_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3396,29 +3397,29 @@ func (s *Insert_stmtContext) Insert_columns_section() IInsert_columns_sectionCon
 	return t.(IInsert_columns_sectionContext)
 }
 
-func (s *Insert_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *InsertStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Insert_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *InsertStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Insert_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *InsertStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterInsert_stmt(s)
+		listenerT.EnterInsertStatement(s)
 	}
 }
 
-func (s *Insert_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *InsertStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitInsert_stmt(s)
+		listenerT.ExitInsertStatement(s)
 	}
 }
 
-func (p *SQLParser) Insert_stmt() (localctx IInsert_stmtContext) {
-	localctx = NewInsert_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 42, SQLParserRULE_insert_stmt)
+func (p *SQLParser) InsertStatement() (localctx IInsertStatementContext) {
+	localctx = NewInsertStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 42, SQLParserRULE_insertStatement)
 	var _la int
 
 	defer func() {
@@ -3754,49 +3755,49 @@ func (p *SQLParser) Insert_values_section() (localctx IInsert_values_sectionCont
 	return localctx
 }
 
-// IUpdate_stmtContext is an interface to support dynamic dispatch.
-type IUpdate_stmtContext interface {
+// IUpdateStatementContext is an interface to support dynamic dispatch.
+type IUpdateStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsUpdate_stmtContext differentiates from other interfaces.
-	IsUpdate_stmtContext()
+	// IsUpdateStatementContext differentiates from other interfaces.
+	IsUpdateStatementContext()
 }
 
-type Update_stmtContext struct {
+type UpdateStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyUpdate_stmtContext() *Update_stmtContext {
-	var p = new(Update_stmtContext)
+func NewEmptyUpdateStatementContext() *UpdateStatementContext {
+	var p = new(UpdateStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_update_stmt
+	p.RuleIndex = SQLParserRULE_updateStatement
 	return p
 }
 
-func (*Update_stmtContext) IsUpdate_stmtContext() {}
+func (*UpdateStatementContext) IsUpdateStatementContext() {}
 
-func NewUpdate_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Update_stmtContext {
-	var p = new(Update_stmtContext)
+func NewUpdateStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *UpdateStatementContext {
+	var p = new(UpdateStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_update_stmt
+	p.RuleIndex = SQLParserRULE_updateStatement
 
 	return p
 }
 
-func (s *Update_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *UpdateStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Update_stmtContext) UPDATE() antlr.TerminalNode {
+func (s *UpdateStatementContext) UPDATE() antlr.TerminalNode {
 	return s.GetToken(SQLParserUPDATE, 0)
 }
 
-func (s *Update_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *UpdateStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3806,11 +3807,11 @@ func (s *Update_stmtContext) Collection_section() ICollection_sectionContext {
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Update_stmtContext) SET() antlr.TerminalNode {
+func (s *UpdateStatementContext) SET() antlr.TerminalNode {
 	return s.GetToken(SQLParserSET, 0)
 }
 
-func (s *Update_stmtContext) AllProperty_section() []IProperty_sectionContext {
+func (s *UpdateStatementContext) AllProperty_section() []IProperty_sectionContext {
 	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IProperty_sectionContext)(nil)).Elem())
 	var tst = make([]IProperty_sectionContext, len(ts))
 
@@ -3823,7 +3824,7 @@ func (s *Update_stmtContext) AllProperty_section() []IProperty_sectionContext {
 	return tst
 }
 
-func (s *Update_stmtContext) Property_section(i int) IProperty_sectionContext {
+func (s *UpdateStatementContext) Property_section(i int) IProperty_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IProperty_sectionContext)(nil)).Elem(), i)
 
 	if t == nil {
@@ -3833,7 +3834,7 @@ func (s *Update_stmtContext) Property_section(i int) IProperty_sectionContext {
 	return t.(IProperty_sectionContext)
 }
 
-func (s *Update_stmtContext) Sync_operator() ISync_operatorContext {
+func (s *UpdateStatementContext) Sync_operator() ISync_operatorContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISync_operatorContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3843,15 +3844,15 @@ func (s *Update_stmtContext) Sync_operator() ISync_operatorContext {
 	return t.(ISync_operatorContext)
 }
 
-func (s *Update_stmtContext) AllCOMMA() []antlr.TerminalNode {
+func (s *UpdateStatementContext) AllCOMMA() []antlr.TerminalNode {
 	return s.GetTokens(SQLParserCOMMA)
 }
 
-func (s *Update_stmtContext) COMMA(i int) antlr.TerminalNode {
+func (s *UpdateStatementContext) COMMA(i int) antlr.TerminalNode {
 	return s.GetToken(SQLParserCOMMA, i)
 }
 
-func (s *Update_stmtContext) Where_section() IWhere_sectionContext {
+func (s *UpdateStatementContext) Where_section() IWhere_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IWhere_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -3861,29 +3862,29 @@ func (s *Update_stmtContext) Where_section() IWhere_sectionContext {
 	return t.(IWhere_sectionContext)
 }
 
-func (s *Update_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *UpdateStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Update_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *UpdateStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Update_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *UpdateStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterUpdate_stmt(s)
+		listenerT.EnterUpdateStatement(s)
 	}
 }
 
-func (s *Update_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *UpdateStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitUpdate_stmt(s)
+		listenerT.ExitUpdateStatement(s)
 	}
 }
 
-func (p *SQLParser) Update_stmt() (localctx IUpdate_stmtContext) {
-	localctx = NewUpdate_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 48, SQLParserRULE_update_stmt)
+func (p *SQLParser) UpdateStatement() (localctx IUpdateStatementContext) {
+	localctx = NewUpdateStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 48, SQLParserRULE_updateStatement)
 	var _la int
 
 	defer func() {
@@ -4082,53 +4083,53 @@ func (p *SQLParser) Property_section() (localctx IProperty_sectionContext) {
 	return localctx
 }
 
-// IDelete_stmtContext is an interface to support dynamic dispatch.
-type IDelete_stmtContext interface {
+// IDeleteStatementContext is an interface to support dynamic dispatch.
+type IDeleteStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsDelete_stmtContext differentiates from other interfaces.
-	IsDelete_stmtContext()
+	// IsDeleteStatementContext differentiates from other interfaces.
+	IsDeleteStatementContext()
 }
 
-type Delete_stmtContext struct {
+type DeleteStatementContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyDelete_stmtContext() *Delete_stmtContext {
-	var p = new(Delete_stmtContext)
+func NewEmptyDeleteStatementContext() *DeleteStatementContext {
+	var p = new(DeleteStatementContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SQLParserRULE_delete_stmt
+	p.RuleIndex = SQLParserRULE_deleteStatement
 	return p
 }
 
-func (*Delete_stmtContext) IsDelete_stmtContext() {}
+func (*DeleteStatementContext) IsDeleteStatementContext() {}
 
-func NewDelete_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Delete_stmtContext {
-	var p = new(Delete_stmtContext)
+func NewDeleteStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *DeleteStatementContext {
+	var p = new(DeleteStatementContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLParserRULE_delete_stmt
+	p.RuleIndex = SQLParserRULE_deleteStatement
 
 	return p
 }
 
-func (s *Delete_stmtContext) GetParser() antlr.Parser { return s.parser }
+func (s *DeleteStatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Delete_stmtContext) DELETE() antlr.TerminalNode {
+func (s *DeleteStatementContext) DELETE() antlr.TerminalNode {
 	return s.GetToken(SQLParserDELETE, 0)
 }
 
-func (s *Delete_stmtContext) FROM() antlr.TerminalNode {
+func (s *DeleteStatementContext) FROM() antlr.TerminalNode {
 	return s.GetToken(SQLParserFROM, 0)
 }
 
-func (s *Delete_stmtContext) Collection_section() ICollection_sectionContext {
+func (s *DeleteStatementContext) Collection_section() ICollection_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICollection_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -4138,7 +4139,7 @@ func (s *Delete_stmtContext) Collection_section() ICollection_sectionContext {
 	return t.(ICollection_sectionContext)
 }
 
-func (s *Delete_stmtContext) Sync_operator() ISync_operatorContext {
+func (s *DeleteStatementContext) Sync_operator() ISync_operatorContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISync_operatorContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -4148,7 +4149,7 @@ func (s *Delete_stmtContext) Sync_operator() ISync_operatorContext {
 	return t.(ISync_operatorContext)
 }
 
-func (s *Delete_stmtContext) Where_section() IWhere_sectionContext {
+func (s *DeleteStatementContext) Where_section() IWhere_sectionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IWhere_sectionContext)(nil)).Elem(), 0)
 
 	if t == nil {
@@ -4158,29 +4159,29 @@ func (s *Delete_stmtContext) Where_section() IWhere_sectionContext {
 	return t.(IWhere_sectionContext)
 }
 
-func (s *Delete_stmtContext) GetRuleContext() antlr.RuleContext {
+func (s *DeleteStatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Delete_stmtContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *DeleteStatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Delete_stmtContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *DeleteStatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.EnterDelete_stmt(s)
+		listenerT.EnterDeleteStatement(s)
 	}
 }
 
-func (s *Delete_stmtContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *DeleteStatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLListener); ok {
-		listenerT.ExitDelete_stmt(s)
+		listenerT.ExitDeleteStatement(s)
 	}
 }
 
-func (p *SQLParser) Delete_stmt() (localctx IDelete_stmtContext) {
-	localctx = NewDelete_stmtContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 52, SQLParserRULE_delete_stmt)
+func (p *SQLParser) DeleteStatement() (localctx IDeleteStatementContext) {
+	localctx = NewDeleteStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 52, SQLParserRULE_deleteStatement)
 	var _la int
 
 	defer func() {
