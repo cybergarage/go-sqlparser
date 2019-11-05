@@ -32,47 +32,47 @@ func (s *BaseSQLListener) EnterStatement(ctx *StatementContext) {}
 // ExitStatement is called when production statement is exited.
 func (s *BaseSQLListener) ExitStatement(ctx *StatementContext) {}
 
-// EnterShow_stmt is called when production show_stmt is entered.
-func (s *BaseSQLListener) EnterShow_stmt(ctx *Show_stmtContext) {}
+// EnterShowStatement is called when production showStatement is entered.
+func (s *BaseSQLListener) EnterShowStatement(ctx *ShowStatementContext) {}
 
-// ExitShow_stmt is called when production show_stmt is exited.
-func (s *BaseSQLListener) ExitShow_stmt(ctx *Show_stmtContext) {}
+// ExitShowStatement is called when production showStatement is exited.
+func (s *BaseSQLListener) ExitShowStatement(ctx *ShowStatementContext) {}
 
-// EnterUse_stmt is called when production use_stmt is entered.
-func (s *BaseSQLListener) EnterUse_stmt(ctx *Use_stmtContext) {}
+// EnterUseStatement is called when production useStatement is entered.
+func (s *BaseSQLListener) EnterUseStatement(ctx *UseStatementContext) {}
 
-// ExitUse_stmt is called when production use_stmt is exited.
-func (s *BaseSQLListener) ExitUse_stmt(ctx *Use_stmtContext) {}
+// ExitUseStatement is called when production useStatement is exited.
+func (s *BaseSQLListener) ExitUseStatement(ctx *UseStatementContext) {}
 
-// EnterCreate_collection_stmt is called when production create_collection_stmt is entered.
-func (s *BaseSQLListener) EnterCreate_collection_stmt(ctx *Create_collection_stmtContext) {}
+// EnterCreate_collectionStatement is called when production create_collectionStatement is entered.
+func (s *BaseSQLListener) EnterCreate_collectionStatement(ctx *Create_collectionStatementContext) {}
 
-// ExitCreate_collection_stmt is called when production create_collection_stmt is exited.
-func (s *BaseSQLListener) ExitCreate_collection_stmt(ctx *Create_collection_stmtContext) {}
+// ExitCreate_collectionStatement is called when production create_collectionStatement is exited.
+func (s *BaseSQLListener) ExitCreate_collectionStatement(ctx *Create_collectionStatementContext) {}
 
-// EnterDrop_collection_stmt is called when production drop_collection_stmt is entered.
-func (s *BaseSQLListener) EnterDrop_collection_stmt(ctx *Drop_collection_stmtContext) {}
+// EnterDrop_collectionStatement is called when production drop_collectionStatement is entered.
+func (s *BaseSQLListener) EnterDrop_collectionStatement(ctx *Drop_collectionStatementContext) {}
 
-// ExitDrop_collection_stmt is called when production drop_collection_stmt is exited.
-func (s *BaseSQLListener) ExitDrop_collection_stmt(ctx *Drop_collection_stmtContext) {}
+// ExitDrop_collectionStatement is called when production drop_collectionStatement is exited.
+func (s *BaseSQLListener) ExitDrop_collectionStatement(ctx *Drop_collectionStatementContext) {}
 
-// EnterCreate_index_stmt is called when production create_index_stmt is entered.
-func (s *BaseSQLListener) EnterCreate_index_stmt(ctx *Create_index_stmtContext) {}
+// EnterCreate_indexStatement is called when production create_indexStatement is entered.
+func (s *BaseSQLListener) EnterCreate_indexStatement(ctx *Create_indexStatementContext) {}
 
-// ExitCreate_index_stmt is called when production create_index_stmt is exited.
-func (s *BaseSQLListener) ExitCreate_index_stmt(ctx *Create_index_stmtContext) {}
+// ExitCreate_indexStatement is called when production create_indexStatement is exited.
+func (s *BaseSQLListener) ExitCreate_indexStatement(ctx *Create_indexStatementContext) {}
 
-// EnterDrop_index_stmt is called when production drop_index_stmt is entered.
-func (s *BaseSQLListener) EnterDrop_index_stmt(ctx *Drop_index_stmtContext) {}
+// EnterDrop_indexStatement is called when production drop_indexStatement is entered.
+func (s *BaseSQLListener) EnterDrop_indexStatement(ctx *Drop_indexStatementContext) {}
 
-// ExitDrop_index_stmt is called when production drop_index_stmt is exited.
-func (s *BaseSQLListener) ExitDrop_index_stmt(ctx *Drop_index_stmtContext) {}
+// ExitDrop_indexStatement is called when production drop_indexStatement is exited.
+func (s *BaseSQLListener) ExitDrop_indexStatement(ctx *Drop_indexStatementContext) {}
 
-// EnterSelect_stmt is called when production select_stmt is entered.
-func (s *BaseSQLListener) EnterSelect_stmt(ctx *Select_stmtContext) {}
+// EnterSelectStatement is called when production selectStatement is entered.
+func (s *BaseSQLListener) EnterSelectStatement(ctx *SelectStatementContext) {}
 
-// ExitSelect_stmt is called when production select_stmt is exited.
-func (s *BaseSQLListener) ExitSelect_stmt(ctx *Select_stmtContext) {}
+// ExitSelectStatement is called when production selectStatement is exited.
+func (s *BaseSQLListener) ExitSelectStatement(ctx *SelectStatementContext) {}
 
 // EnterSelect_core is called when production select_core is entered.
 func (s *BaseSQLListener) EnterSelect_core(ctx *Select_coreContext) {}
@@ -146,11 +146,11 @@ func (s *BaseSQLListener) EnterOffset_section(ctx *Offset_sectionContext) {}
 // ExitOffset_section is called when production offset_section is exited.
 func (s *BaseSQLListener) ExitOffset_section(ctx *Offset_sectionContext) {}
 
-// EnterInsert_stmt is called when production insert_stmt is entered.
-func (s *BaseSQLListener) EnterInsert_stmt(ctx *Insert_stmtContext) {}
+// EnterInsertStatement is called when production insertStatement is entered.
+func (s *BaseSQLListener) EnterInsertStatement(ctx *InsertStatementContext) {}
 
-// ExitInsert_stmt is called when production insert_stmt is exited.
-func (s *BaseSQLListener) ExitInsert_stmt(ctx *Insert_stmtContext) {}
+// ExitInsertStatement is called when production insertStatement is exited.
+func (s *BaseSQLListener) ExitInsertStatement(ctx *InsertStatementContext) {}
 
 // EnterInsert_columns_section is called when production insert_columns_section is entered.
 func (s *BaseSQLListener) EnterInsert_columns_section(ctx *Insert_columns_sectionContext) {}
@@ -164,11 +164,11 @@ func (s *BaseSQLListener) EnterInsert_values_section(ctx *Insert_values_sectionC
 // ExitInsert_values_section is called when production insert_values_section is exited.
 func (s *BaseSQLListener) ExitInsert_values_section(ctx *Insert_values_sectionContext) {}
 
-// EnterUpdate_stmt is called when production update_stmt is entered.
-func (s *BaseSQLListener) EnterUpdate_stmt(ctx *Update_stmtContext) {}
+// EnterUpdateStatement is called when production updateStatement is entered.
+func (s *BaseSQLListener) EnterUpdateStatement(ctx *UpdateStatementContext) {}
 
-// ExitUpdate_stmt is called when production update_stmt is exited.
-func (s *BaseSQLListener) ExitUpdate_stmt(ctx *Update_stmtContext) {}
+// ExitUpdateStatement is called when production updateStatement is exited.
+func (s *BaseSQLListener) ExitUpdateStatement(ctx *UpdateStatementContext) {}
 
 // EnterProperty_section is called when production property_section is entered.
 func (s *BaseSQLListener) EnterProperty_section(ctx *Property_sectionContext) {}
@@ -176,11 +176,11 @@ func (s *BaseSQLListener) EnterProperty_section(ctx *Property_sectionContext) {}
 // ExitProperty_section is called when production property_section is exited.
 func (s *BaseSQLListener) ExitProperty_section(ctx *Property_sectionContext) {}
 
-// EnterDelete_stmt is called when production delete_stmt is entered.
-func (s *BaseSQLListener) EnterDelete_stmt(ctx *Delete_stmtContext) {}
+// EnterDeleteStatement is called when production deleteStatement is entered.
+func (s *BaseSQLListener) EnterDeleteStatement(ctx *DeleteStatementContext) {}
 
-// ExitDelete_stmt is called when production delete_stmt is exited.
-func (s *BaseSQLListener) ExitDelete_stmt(ctx *Delete_stmtContext) {}
+// ExitDeleteStatement is called when production deleteStatement is exited.
+func (s *BaseSQLListener) ExitDeleteStatement(ctx *DeleteStatementContext) {}
 
 // EnterExpression is called when production expression is entered.
 func (s *BaseSQLListener) EnterExpression(ctx *ExpressionContext) {}

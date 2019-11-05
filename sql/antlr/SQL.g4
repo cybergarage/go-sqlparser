@@ -27,16 +27,16 @@ queries
 	;	
 
 statement
-	: show_stmt
-	| use_stmt
-	| create_collection_stmt
-	| create_index_stmt
-	| drop_collection_stmt
-	| drop_index_stmt
-	| select_stmt
-	| insert_stmt
-	| update_stmt
-	| delete_stmt
+	: showStmt
+	| useStmt
+	| create_collectionStmt
+	| create_indexStmt
+	| drop_collectionStmt
+	| drop_indexStmt
+	| selectStmt
+	| insertStmt
+	| updateStmt
+	| deleteStmt
 	;
 
 /******************************************************************
@@ -45,7 +45,7 @@ statement
 *
 ******************************************************************/
 
-show_stmt
+showStmt
 	: SHOW collection_section
 	;
 
@@ -55,7 +55,7 @@ show_stmt
 *
 ******************************************************************/
 
-use_stmt
+useStmt
 	: USE collection_section
 	;
 	
@@ -65,7 +65,7 @@ use_stmt
 *
 ******************************************************************/
 
-create_collection_stmt
+create_collectionStmt
 	: CREATE COLLECTION collection_section (OPTIONS expression)?
 	;
 
@@ -75,7 +75,7 @@ create_collection_stmt
 *
 ******************************************************************/
 
-drop_collection_stmt
+drop_collectionStmt
 	: DROP COLLECTION collection_section
 	;
 
@@ -85,7 +85,7 @@ drop_collection_stmt
 *
 ******************************************************************/
 
-create_index_stmt
+create_indexStmt
 	: CREATE COLLECTION_INDEX index_section
 	;
 
@@ -95,7 +95,7 @@ create_index_stmt
 *
 ******************************************************************/
 
-drop_index_stmt
+drop_indexStmt
 	: DROP COLLECTION_INDEX index_section
 	;
 
@@ -105,7 +105,7 @@ drop_index_stmt
 *
 ******************************************************************/
 
-select_stmt
+selectStmt
 	: select_core (sorting_section)? (limit_section)? (offset_section)? 
 	;
 
@@ -170,7 +170,7 @@ offset_section
 *
 ******************************************************************/
 
-insert_stmt
+insertStmt
 	: (sync_operator)? INSERT INTO collection_section (insert_columns_section)? insert_values_section
 	;
 
@@ -189,7 +189,7 @@ insert_values_section
 *
 ******************************************************************/
 
-update_stmt
+updateStmt
 	: (sync_operator)? UPDATE collection_section SET property_section (COMMA property_section)* (where_section)?
 	;
 
@@ -203,7 +203,7 @@ property_section
 *
 ******************************************************************/
 
-delete_stmt
+deleteStmt
 	: (sync_operator)? DELETE FROM collection_section (where_section)?
 	;
 

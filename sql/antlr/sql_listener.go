@@ -13,26 +13,26 @@ type SQLListener interface {
 	// EnterStatement is called when entering the statement production.
 	EnterStatement(c *StatementContext)
 
-	// EnterShow_stmt is called when entering the show_stmt production.
-	EnterShow_stmt(c *Show_stmtContext)
+	// EnterShowStatement is called when entering the showStatement production.
+	EnterShowStatement(c *ShowStatementContext)
 
-	// EnterUse_stmt is called when entering the use_stmt production.
-	EnterUse_stmt(c *Use_stmtContext)
+	// EnterUseStatement is called when entering the useStatement production.
+	EnterUseStatement(c *UseStatementContext)
 
-	// EnterCreate_collection_stmt is called when entering the create_collection_stmt production.
-	EnterCreate_collection_stmt(c *Create_collection_stmtContext)
+	// EnterCreate_collectionStatement is called when entering the create_collectionStatement production.
+	EnterCreate_collectionStatement(c *Create_collectionStatementContext)
 
-	// EnterDrop_collection_stmt is called when entering the drop_collection_stmt production.
-	EnterDrop_collection_stmt(c *Drop_collection_stmtContext)
+	// EnterDrop_collectionStatement is called when entering the drop_collectionStatement production.
+	EnterDrop_collectionStatement(c *Drop_collectionStatementContext)
 
-	// EnterCreate_index_stmt is called when entering the create_index_stmt production.
-	EnterCreate_index_stmt(c *Create_index_stmtContext)
+	// EnterCreate_indexStatement is called when entering the create_indexStatement production.
+	EnterCreate_indexStatement(c *Create_indexStatementContext)
 
-	// EnterDrop_index_stmt is called when entering the drop_index_stmt production.
-	EnterDrop_index_stmt(c *Drop_index_stmtContext)
+	// EnterDrop_indexStatement is called when entering the drop_indexStatement production.
+	EnterDrop_indexStatement(c *Drop_indexStatementContext)
 
-	// EnterSelect_stmt is called when entering the select_stmt production.
-	EnterSelect_stmt(c *Select_stmtContext)
+	// EnterSelectStatement is called when entering the selectStatement production.
+	EnterSelectStatement(c *SelectStatementContext)
 
 	// EnterSelect_core is called when entering the select_core production.
 	EnterSelect_core(c *Select_coreContext)
@@ -70,8 +70,8 @@ type SQLListener interface {
 	// EnterOffset_section is called when entering the offset_section production.
 	EnterOffset_section(c *Offset_sectionContext)
 
-	// EnterInsert_stmt is called when entering the insert_stmt production.
-	EnterInsert_stmt(c *Insert_stmtContext)
+	// EnterInsertStatement is called when entering the insertStatement production.
+	EnterInsertStatement(c *InsertStatementContext)
 
 	// EnterInsert_columns_section is called when entering the insert_columns_section production.
 	EnterInsert_columns_section(c *Insert_columns_sectionContext)
@@ -79,14 +79,14 @@ type SQLListener interface {
 	// EnterInsert_values_section is called when entering the insert_values_section production.
 	EnterInsert_values_section(c *Insert_values_sectionContext)
 
-	// EnterUpdate_stmt is called when entering the update_stmt production.
-	EnterUpdate_stmt(c *Update_stmtContext)
+	// EnterUpdateStatement is called when entering the updateStatement production.
+	EnterUpdateStatement(c *UpdateStatementContext)
 
 	// EnterProperty_section is called when entering the property_section production.
 	EnterProperty_section(c *Property_sectionContext)
 
-	// EnterDelete_stmt is called when entering the delete_stmt production.
-	EnterDelete_stmt(c *Delete_stmtContext)
+	// EnterDeleteStatement is called when entering the deleteStatement production.
+	EnterDeleteStatement(c *DeleteStatementContext)
 
 	// EnterExpression is called when entering the expression production.
 	EnterExpression(c *ExpressionContext)
@@ -196,26 +196,26 @@ type SQLListener interface {
 	// ExitStatement is called when exiting the statement production.
 	ExitStatement(c *StatementContext)
 
-	// ExitShow_stmt is called when exiting the show_stmt production.
-	ExitShow_stmt(c *Show_stmtContext)
+	// ExitShowStatement is called when exiting the showStatement production.
+	ExitShowStatement(c *ShowStatementContext)
 
-	// ExitUse_stmt is called when exiting the use_stmt production.
-	ExitUse_stmt(c *Use_stmtContext)
+	// ExitUseStatement is called when exiting the useStatement production.
+	ExitUseStatement(c *UseStatementContext)
 
-	// ExitCreate_collection_stmt is called when exiting the create_collection_stmt production.
-	ExitCreate_collection_stmt(c *Create_collection_stmtContext)
+	// ExitCreate_collectionStatement is called when exiting the create_collectionStatement production.
+	ExitCreate_collectionStatement(c *Create_collectionStatementContext)
 
-	// ExitDrop_collection_stmt is called when exiting the drop_collection_stmt production.
-	ExitDrop_collection_stmt(c *Drop_collection_stmtContext)
+	// ExitDrop_collectionStatement is called when exiting the drop_collectionStatement production.
+	ExitDrop_collectionStatement(c *Drop_collectionStatementContext)
 
-	// ExitCreate_index_stmt is called when exiting the create_index_stmt production.
-	ExitCreate_index_stmt(c *Create_index_stmtContext)
+	// ExitCreate_indexStatement is called when exiting the create_indexStatement production.
+	ExitCreate_indexStatement(c *Create_indexStatementContext)
 
-	// ExitDrop_index_stmt is called when exiting the drop_index_stmt production.
-	ExitDrop_index_stmt(c *Drop_index_stmtContext)
+	// ExitDrop_indexStatement is called when exiting the drop_indexStatement production.
+	ExitDrop_indexStatement(c *Drop_indexStatementContext)
 
-	// ExitSelect_stmt is called when exiting the select_stmt production.
-	ExitSelect_stmt(c *Select_stmtContext)
+	// ExitSelectStatement is called when exiting the selectStatement production.
+	ExitSelectStatement(c *SelectStatementContext)
 
 	// ExitSelect_core is called when exiting the select_core production.
 	ExitSelect_core(c *Select_coreContext)
@@ -253,8 +253,8 @@ type SQLListener interface {
 	// ExitOffset_section is called when exiting the offset_section production.
 	ExitOffset_section(c *Offset_sectionContext)
 
-	// ExitInsert_stmt is called when exiting the insert_stmt production.
-	ExitInsert_stmt(c *Insert_stmtContext)
+	// ExitInsertStatement is called when exiting the insertStatement production.
+	ExitInsertStatement(c *InsertStatementContext)
 
 	// ExitInsert_columns_section is called when exiting the insert_columns_section production.
 	ExitInsert_columns_section(c *Insert_columns_sectionContext)
@@ -262,14 +262,14 @@ type SQLListener interface {
 	// ExitInsert_values_section is called when exiting the insert_values_section production.
 	ExitInsert_values_section(c *Insert_values_sectionContext)
 
-	// ExitUpdate_stmt is called when exiting the update_stmt production.
-	ExitUpdate_stmt(c *Update_stmtContext)
+	// ExitUpdateStatement is called when exiting the updateStatement production.
+	ExitUpdateStatement(c *UpdateStatementContext)
 
 	// ExitProperty_section is called when exiting the property_section production.
 	ExitProperty_section(c *Property_sectionContext)
 
-	// ExitDelete_stmt is called when exiting the delete_stmt production.
-	ExitDelete_stmt(c *Delete_stmtContext)
+	// ExitDeleteStatement is called when exiting the deleteStatement production.
+	ExitDeleteStatement(c *DeleteStatementContext)
 
 	// ExitExpression is called when exiting the expression production.
 	ExitExpression(c *ExpressionContext)
