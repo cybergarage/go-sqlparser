@@ -106,21 +106,12 @@ drop_indexStmt
 ******************************************************************/
 
 selectStmt
-	: select_core (sorting_section)? (limit_section)? (offset_section)? 
+	: SELECT (DISTINCT | ALL)? columns from_section (where_section)? (grouping_section)? (having_section)? (sorting_section)? (limit_section)? (offset_section)? 
 	;
 
-select_core
-	: SELECT (DISTINCT | ALL)?
-	  (columnSection = result_column_section)?
-	  (fromSection = from_section)//? 
-	  (whereSection = where_section)?
-	  (groupSection = grouping_section)? 
-	  (havingSection = having_section)? 
-	;
-
-result_column_section
+columns
 	: ASTERISK
-	| column_section (',' column_section)*
+	| column (',' column)*
 	;
 
 from_section
@@ -175,7 +166,7 @@ insertStmt
 	;
 
 insert_columns_section
-	: '(' column_section (',' column_section)* ')'
+	: '(' column (',' column)* ')'
 	;
 
 insert_values_section
@@ -371,7 +362,7 @@ collection_name
 	| string_literal
 	;
 
-column_section
+column
 	: ((expression) (AS name)?)
 	;
 
@@ -759,7 +750,7 @@ WS  :   ( ' '
         | '\t'
         | '\r'
         | '\n'
-        )
+        ) -> skip
     ;
 	
 IDENTIFIER  
