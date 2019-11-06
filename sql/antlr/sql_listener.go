@@ -19,8 +19,14 @@ type SQLListener interface {
 	// EnterUseStmt is called when entering the useStmt production.
 	EnterUseStmt(c *UseStmtContext)
 
-	// EnterCreate_collectionStmt is called when entering the create_collectionStmt production.
-	EnterCreate_collectionStmt(c *Create_collectionStmtContext)
+	// EnterCreateStmt is called when entering the createStmt production.
+	EnterCreateStmt(c *CreateStmtContext)
+
+	// EnterCreateDatabase is called when entering the createDatabase production.
+	EnterCreateDatabase(c *CreateDatabaseContext)
+
+	// EnterCreateCollection is called when entering the createCollection production.
+	EnterCreateCollection(c *CreateCollectionContext)
 
 	// EnterDrop_collectionStmt is called when entering the drop_collectionStmt production.
 	EnterDrop_collectionStmt(c *Drop_collectionStmtContext)
@@ -175,6 +181,9 @@ type SQLListener interface {
 	// EnterCollection_name is called when entering the collection_name production.
 	EnterCollection_name(c *Collection_nameContext)
 
+	// EnterDatabase is called when entering the database production.
+	EnterDatabase(c *DatabaseContext)
+
 	// EnterColumn is called when entering the column production.
 	EnterColumn(c *ColumnContext)
 
@@ -199,8 +208,14 @@ type SQLListener interface {
 	// ExitUseStmt is called when exiting the useStmt production.
 	ExitUseStmt(c *UseStmtContext)
 
-	// ExitCreate_collectionStmt is called when exiting the create_collectionStmt production.
-	ExitCreate_collectionStmt(c *Create_collectionStmtContext)
+	// ExitCreateStmt is called when exiting the createStmt production.
+	ExitCreateStmt(c *CreateStmtContext)
+
+	// ExitCreateDatabase is called when exiting the createDatabase production.
+	ExitCreateDatabase(c *CreateDatabaseContext)
+
+	// ExitCreateCollection is called when exiting the createCollection production.
+	ExitCreateCollection(c *CreateCollectionContext)
 
 	// ExitDrop_collectionStmt is called when exiting the drop_collectionStmt production.
 	ExitDrop_collectionStmt(c *Drop_collectionStmtContext)
@@ -354,6 +369,9 @@ type SQLListener interface {
 
 	// ExitCollection_name is called when exiting the collection_name production.
 	ExitCollection_name(c *Collection_nameContext)
+
+	// ExitDatabase is called when exiting the database production.
+	ExitDatabase(c *DatabaseContext)
 
 	// ExitColumn is called when exiting the column production.
 	ExitColumn(c *ColumnContext)
