@@ -29,7 +29,7 @@ queries
 statement
 	: showStmt
 	| useStmt
-	| create_collectionStmt
+	| createStmt
 	| create_indexStmt
 	| drop_collectionStmt
 	| drop_indexStmt
@@ -65,7 +65,16 @@ useStmt
 *
 ******************************************************************/
 
-create_collectionStmt
+createStmt
+	: createDatabase
+	| createCollection
+	;
+
+createDatabase
+	: CREATE DATABASE database
+	;
+
+createCollection
 	: CREATE COLLECTION collection_section (OPTIONS expression)?
 	;
 
@@ -359,7 +368,10 @@ collection_section
 
 collection_name
 	: IDENTIFIER
-	| string_literal
+	;
+
+database
+	: IDENTIFIER
 	;
 
 column
@@ -606,6 +618,10 @@ CURRENT_TIME
 
 CURRENT_TIMESTAMP
 	: C U R R E N T '_' T I M E S T A M P
+	;
+
+DATABASE
+	: D A T A B A S E
 	;
 
 DESC

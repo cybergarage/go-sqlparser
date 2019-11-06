@@ -44,11 +44,23 @@ func (s *BaseSQLListener) EnterUseStmt(ctx *UseStmtContext) {}
 // ExitUseStmt is called when production useStmt is exited.
 func (s *BaseSQLListener) ExitUseStmt(ctx *UseStmtContext) {}
 
-// EnterCreate_collectionStmt is called when production create_collectionStmt is entered.
-func (s *BaseSQLListener) EnterCreate_collectionStmt(ctx *Create_collectionStmtContext) {}
+// EnterCreateStmt is called when production createStmt is entered.
+func (s *BaseSQLListener) EnterCreateStmt(ctx *CreateStmtContext) {}
 
-// ExitCreate_collectionStmt is called when production create_collectionStmt is exited.
-func (s *BaseSQLListener) ExitCreate_collectionStmt(ctx *Create_collectionStmtContext) {}
+// ExitCreateStmt is called when production createStmt is exited.
+func (s *BaseSQLListener) ExitCreateStmt(ctx *CreateStmtContext) {}
+
+// EnterCreateDatabase is called when production createDatabase is entered.
+func (s *BaseSQLListener) EnterCreateDatabase(ctx *CreateDatabaseContext) {}
+
+// ExitCreateDatabase is called when production createDatabase is exited.
+func (s *BaseSQLListener) ExitCreateDatabase(ctx *CreateDatabaseContext) {}
+
+// EnterCreateCollection is called when production createCollection is entered.
+func (s *BaseSQLListener) EnterCreateCollection(ctx *CreateCollectionContext) {}
+
+// ExitCreateCollection is called when production createCollection is exited.
+func (s *BaseSQLListener) ExitCreateCollection(ctx *CreateCollectionContext) {}
 
 // EnterDrop_collectionStmt is called when production drop_collectionStmt is entered.
 func (s *BaseSQLListener) EnterDrop_collectionStmt(ctx *Drop_collectionStmtContext) {}
@@ -355,6 +367,12 @@ func (s *BaseSQLListener) EnterCollection_name(ctx *Collection_nameContext) {}
 
 // ExitCollection_name is called when production collection_name is exited.
 func (s *BaseSQLListener) ExitCollection_name(ctx *Collection_nameContext) {}
+
+// EnterDatabase is called when production database is entered.
+func (s *BaseSQLListener) EnterDatabase(ctx *DatabaseContext) {}
+
+// ExitDatabase is called when production database is exited.
+func (s *BaseSQLListener) ExitDatabase(ctx *DatabaseContext) {}
 
 // EnterColumn is called when production column is entered.
 func (s *BaseSQLListener) EnterColumn(ctx *ColumnContext) {}
