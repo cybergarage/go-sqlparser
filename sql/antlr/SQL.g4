@@ -23,7 +23,7 @@ grammar SQL;
 ******************************************************************/
 
 queries
-	: statement (SEMICOLON statement)*
+	: statement (SEMICOLON statement)* ';'*
 	;	
 
 statement
@@ -695,7 +695,7 @@ LIMIT
 NIL
 	: N U L L
 	;
-	
+
 OFFSET
 	: O F F S E T
 	;
