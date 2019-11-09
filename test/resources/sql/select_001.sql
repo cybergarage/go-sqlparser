@@ -1,1 +1,3 @@
 SELECT C1 FROM T
+
+SELECT offset FROM T

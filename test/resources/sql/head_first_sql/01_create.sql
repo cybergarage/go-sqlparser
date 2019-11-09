@@ -1,2 +1,1 @@
-CREATE DATABASE gregs_list;
-
+CREATE DATABASE gregs_list
