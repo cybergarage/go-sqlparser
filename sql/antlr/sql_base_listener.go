@@ -44,11 +44,23 @@ func (s *BaseSQLListener) EnterUseStmt(ctx *UseStmtContext) {}
 // ExitUseStmt is called when production useStmt is exited.
 func (s *BaseSQLListener) ExitUseStmt(ctx *UseStmtContext) {}
 
-// EnterCreate_collectionStmt is called when production create_collectionStmt is entered.
-func (s *BaseSQLListener) EnterCreate_collectionStmt(ctx *Create_collectionStmtContext) {}
+// EnterCreateStmt is called when production createStmt is entered.
+func (s *BaseSQLListener) EnterCreateStmt(ctx *CreateStmtContext) {}
 
-// ExitCreate_collectionStmt is called when production create_collectionStmt is exited.
-func (s *BaseSQLListener) ExitCreate_collectionStmt(ctx *Create_collectionStmtContext) {}
+// ExitCreateStmt is called when production createStmt is exited.
+func (s *BaseSQLListener) ExitCreateStmt(ctx *CreateStmtContext) {}
+
+// EnterCreateDatabase is called when production createDatabase is entered.
+func (s *BaseSQLListener) EnterCreateDatabase(ctx *CreateDatabaseContext) {}
+
+// ExitCreateDatabase is called when production createDatabase is exited.
+func (s *BaseSQLListener) ExitCreateDatabase(ctx *CreateDatabaseContext) {}
+
+// EnterCreateCollection is called when production createCollection is entered.
+func (s *BaseSQLListener) EnterCreateCollection(ctx *CreateCollectionContext) {}
+
+// ExitCreateCollection is called when production createCollection is exited.
+func (s *BaseSQLListener) ExitCreateCollection(ctx *CreateCollectionContext) {}
 
 // EnterDrop_collectionStmt is called when production drop_collectionStmt is entered.
 func (s *BaseSQLListener) EnterDrop_collectionStmt(ctx *Drop_collectionStmtContext) {}
@@ -74,17 +86,11 @@ func (s *BaseSQLListener) EnterSelectStmt(ctx *SelectStmtContext) {}
 // ExitSelectStmt is called when production selectStmt is exited.
 func (s *BaseSQLListener) ExitSelectStmt(ctx *SelectStmtContext) {}
 
-// EnterSelect_core is called when production select_core is entered.
-func (s *BaseSQLListener) EnterSelect_core(ctx *Select_coreContext) {}
+// EnterColumns is called when production columns is entered.
+func (s *BaseSQLListener) EnterColumns(ctx *ColumnsContext) {}
 
-// ExitSelect_core is called when production select_core is exited.
-func (s *BaseSQLListener) ExitSelect_core(ctx *Select_coreContext) {}
-
-// EnterResult_column_section is called when production result_column_section is entered.
-func (s *BaseSQLListener) EnterResult_column_section(ctx *Result_column_sectionContext) {}
-
-// ExitResult_column_section is called when production result_column_section is exited.
-func (s *BaseSQLListener) ExitResult_column_section(ctx *Result_column_sectionContext) {}
+// ExitColumns is called when production columns is exited.
+func (s *BaseSQLListener) ExitColumns(ctx *ColumnsContext) {}
 
 // EnterFrom_section is called when production from_section is entered.
 func (s *BaseSQLListener) EnterFrom_section(ctx *From_sectionContext) {}
@@ -362,11 +368,17 @@ func (s *BaseSQLListener) EnterCollection_name(ctx *Collection_nameContext) {}
 // ExitCollection_name is called when production collection_name is exited.
 func (s *BaseSQLListener) ExitCollection_name(ctx *Collection_nameContext) {}
 
-// EnterColumn_section is called when production column_section is entered.
-func (s *BaseSQLListener) EnterColumn_section(ctx *Column_sectionContext) {}
+// EnterDatabase is called when production database is entered.
+func (s *BaseSQLListener) EnterDatabase(ctx *DatabaseContext) {}
 
-// ExitColumn_section is called when production column_section is exited.
-func (s *BaseSQLListener) ExitColumn_section(ctx *Column_sectionContext) {}
+// ExitDatabase is called when production database is exited.
+func (s *BaseSQLListener) ExitDatabase(ctx *DatabaseContext) {}
+
+// EnterColumn is called when production column is entered.
+func (s *BaseSQLListener) EnterColumn(ctx *ColumnContext) {}
+
+// ExitColumn is called when production column is exited.
+func (s *BaseSQLListener) ExitColumn(ctx *ColumnContext) {}
 
 // EnterIndex_section is called when production index_section is entered.
 func (s *BaseSQLListener) EnterIndex_section(ctx *Index_sectionContext) {}

@@ -29,7 +29,7 @@ queries
 statement
 	: showStmt
 	| useStmt
-	| create_collectionStmt
+	| createStmt
 	| create_indexStmt
 	| drop_collectionStmt
 	| drop_indexStmt
@@ -65,7 +65,16 @@ useStmt
 *
 ******************************************************************/
 
-create_collectionStmt
+createStmt
+	: createDatabase
+	| createCollection
+	;
+
+createDatabase
+	: CREATE DATABASE database
+	;
+
+createCollection
 	: CREATE COLLECTION collection_section (OPTIONS expression)?
 	;
 
@@ -106,21 +115,12 @@ drop_indexStmt
 ******************************************************************/
 
 selectStmt
-	: select_core (sorting_section)? (limit_section)? (offset_section)? 
+	: SELECT (DISTINCT | ALL)? columns from_section (where_section)? (grouping_section)? (having_section)? (sorting_section)? (limit_section)? (offset_section)? 
 	;
 
-select_core
-	: SELECT (DISTINCT | ALL)?
-	  (columnSection = result_column_section)?
-	  (fromSection = from_section)//? 
-	  (whereSection = where_section)?
-	  (groupSection = grouping_section)? 
-	  (havingSection = having_section)? 
-	;
-
-result_column_section
+columns
 	: ASTERISK
-	| column_section (',' column_section)*
+	| column (',' column)*
 	;
 
 from_section
@@ -175,7 +175,7 @@ insertStmt
 	;
 
 insert_columns_section
-	: '(' column_section (',' column_section)* ')'
+	: '(' column (',' column)* ')'
 	;
 
 insert_values_section
@@ -368,10 +368,13 @@ collection_section
 
 collection_name
 	: IDENTIFIER
-	| string_literal
 	;
 
-column_section
+database
+	: IDENTIFIER
+	;
+
+column
 	: ((expression) (AS name)?)
 	;
 
@@ -615,6 +618,10 @@ CURRENT_TIME
 
 CURRENT_TIMESTAMP
 	: C U R R E N T '_' T I M E S T A M P
+	;
+
+DATABASE
+	: D A T A B A S E
 	;
 
 DESC

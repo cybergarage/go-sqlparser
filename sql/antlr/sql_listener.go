@@ -19,8 +19,14 @@ type SQLListener interface {
 	// EnterUseStmt is called when entering the useStmt production.
 	EnterUseStmt(c *UseStmtContext)
 
-	// EnterCreate_collectionStmt is called when entering the create_collectionStmt production.
-	EnterCreate_collectionStmt(c *Create_collectionStmtContext)
+	// EnterCreateStmt is called when entering the createStmt production.
+	EnterCreateStmt(c *CreateStmtContext)
+
+	// EnterCreateDatabase is called when entering the createDatabase production.
+	EnterCreateDatabase(c *CreateDatabaseContext)
+
+	// EnterCreateCollection is called when entering the createCollection production.
+	EnterCreateCollection(c *CreateCollectionContext)
 
 	// EnterDrop_collectionStmt is called when entering the drop_collectionStmt production.
 	EnterDrop_collectionStmt(c *Drop_collectionStmtContext)
@@ -34,11 +40,8 @@ type SQLListener interface {
 	// EnterSelectStmt is called when entering the selectStmt production.
 	EnterSelectStmt(c *SelectStmtContext)
 
-	// EnterSelect_core is called when entering the select_core production.
-	EnterSelect_core(c *Select_coreContext)
-
-	// EnterResult_column_section is called when entering the result_column_section production.
-	EnterResult_column_section(c *Result_column_sectionContext)
+	// EnterColumns is called when entering the columns production.
+	EnterColumns(c *ColumnsContext)
 
 	// EnterFrom_section is called when entering the from_section production.
 	EnterFrom_section(c *From_sectionContext)
@@ -178,8 +181,11 @@ type SQLListener interface {
 	// EnterCollection_name is called when entering the collection_name production.
 	EnterCollection_name(c *Collection_nameContext)
 
-	// EnterColumn_section is called when entering the column_section production.
-	EnterColumn_section(c *Column_sectionContext)
+	// EnterDatabase is called when entering the database production.
+	EnterDatabase(c *DatabaseContext)
+
+	// EnterColumn is called when entering the column production.
+	EnterColumn(c *ColumnContext)
 
 	// EnterIndex_section is called when entering the index_section production.
 	EnterIndex_section(c *Index_sectionContext)
@@ -202,8 +208,14 @@ type SQLListener interface {
 	// ExitUseStmt is called when exiting the useStmt production.
 	ExitUseStmt(c *UseStmtContext)
 
-	// ExitCreate_collectionStmt is called when exiting the create_collectionStmt production.
-	ExitCreate_collectionStmt(c *Create_collectionStmtContext)
+	// ExitCreateStmt is called when exiting the createStmt production.
+	ExitCreateStmt(c *CreateStmtContext)
+
+	// ExitCreateDatabase is called when exiting the createDatabase production.
+	ExitCreateDatabase(c *CreateDatabaseContext)
+
+	// ExitCreateCollection is called when exiting the createCollection production.
+	ExitCreateCollection(c *CreateCollectionContext)
 
 	// ExitDrop_collectionStmt is called when exiting the drop_collectionStmt production.
 	ExitDrop_collectionStmt(c *Drop_collectionStmtContext)
@@ -217,11 +229,8 @@ type SQLListener interface {
 	// ExitSelectStmt is called when exiting the selectStmt production.
 	ExitSelectStmt(c *SelectStmtContext)
 
-	// ExitSelect_core is called when exiting the select_core production.
-	ExitSelect_core(c *Select_coreContext)
-
-	// ExitResult_column_section is called when exiting the result_column_section production.
-	ExitResult_column_section(c *Result_column_sectionContext)
+	// ExitColumns is called when exiting the columns production.
+	ExitColumns(c *ColumnsContext)
 
 	// ExitFrom_section is called when exiting the from_section production.
 	ExitFrom_section(c *From_sectionContext)
@@ -361,8 +370,11 @@ type SQLListener interface {
 	// ExitCollection_name is called when exiting the collection_name production.
 	ExitCollection_name(c *Collection_nameContext)
 
-	// ExitColumn_section is called when exiting the column_section production.
-	ExitColumn_section(c *Column_sectionContext)
+	// ExitDatabase is called when exiting the database production.
+	ExitDatabase(c *DatabaseContext)
+
+	// ExitColumn is called when exiting the column production.
+	ExitColumn(c *ColumnContext)
 
 	// ExitIndex_section is called when exiting the index_section production.
 	ExitIndex_section(c *Index_sectionContext)
