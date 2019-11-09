@@ -71,7 +71,7 @@ createStmt
 	;
 
 createDatabase
-	: CREATE DATABASE database
+	: CREATE DATABASE databaseName
 	;
 
 createCollection
@@ -132,7 +132,7 @@ table_name
 	;
 
 data_source
-	: collection_name
+	: collectionName
 	;
 
 grouping_section
@@ -224,6 +224,7 @@ expression_list
 	| '(' expression_array (COMMA expression_array)* ')'
 	| '{' (expression_dictionary) (COMMA expression_dictionary)* '}'
 	| '[' expression_array (COMMA expression_array)* ']'
+	| unreserved_keyword
 	;
 
 expression_literal
@@ -360,18 +361,20 @@ value
 
 name
 	: IDENTIFIER
+	| unreserved_keyword
+	| 
 	;
 
 collection_section
-	: collection_name
+	: collectionName
 	;
 
-collection_name
-	: IDENTIFIER
+collectionName
+	: name
 	;
 
-database
-	: IDENTIFIER
+databaseName
+	: name
 	;
 
 column
@@ -389,6 +392,16 @@ index_name
 
 where_section
 	: WHERE expression
+	;
+
+/******************************************************************
+*
+* UNRESERVED KEYWORDS
+*
+******************************************************************/
+
+unreserved_keyword
+	: OFFSET
 	;
 
 /******************************************************************
