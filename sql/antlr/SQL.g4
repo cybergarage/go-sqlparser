@@ -23,7 +23,7 @@ grammar SQL;
 ******************************************************************/
 
 queries
-	: statement (SEMICOLON statement)*
+	: statement (SEMICOLON statement)* (SEMICOLON)*
 	;	
 
 statement
