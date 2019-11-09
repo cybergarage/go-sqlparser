@@ -16,13 +16,15 @@ package sql
 
 // Column represents a column.
 type Column struct {
-	Name string
+	name  string
+	value interface{}
 }
 
 // NewColumn returns a column instance.
 func NewColumn() *Column {
 	col := &Column{
-		Name: "",
+		name:  "",
+		value: nil,
 	}
 	return col
 }
@@ -30,12 +32,32 @@ func NewColumn() *Column {
 // NewColumnWithName returns a column instance with the specified name.
 func NewColumnWithName(name string) *Column {
 	col := &Column{
-		Name: name,
+		name: name,
 	}
 	return col
 }
 
+// SetName sets a name into the column.
+func (col *Column) SetName(name string) {
+	col.name = name
+}
+
+// Name returns the column name.
+func (col *Column) Name() string {
+	return col.name
+}
+
+// SetValue sets a value into the column.
+func (col *Column) SetValue(value interface{}) {
+	col.value = value
+}
+
+// Value returns the column value.
+func (col *Column) Value() interface{} {
+	return col.value
+}
+
 // String returns the string representation.
 func (col *Column) String() string {
-	return col.Name
+	return col.name
 }
