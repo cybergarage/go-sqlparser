@@ -178,11 +178,11 @@ type SQLListener interface {
 	// EnterCollection_section is called when entering the collection_section production.
 	EnterCollection_section(c *Collection_sectionContext)
 
-	// EnterCollection_name is called when entering the collection_name production.
-	EnterCollection_name(c *Collection_nameContext)
+	// EnterCollectionName is called when entering the collectionName production.
+	EnterCollectionName(c *CollectionNameContext)
 
-	// EnterDatabase is called when entering the database production.
-	EnterDatabase(c *DatabaseContext)
+	// EnterDatabaseName is called when entering the databaseName production.
+	EnterDatabaseName(c *DatabaseNameContext)
 
 	// EnterColumn is called when entering the column production.
 	EnterColumn(c *ColumnContext)
@@ -195,6 +195,9 @@ type SQLListener interface {
 
 	// EnterWhere_section is called when entering the where_section production.
 	EnterWhere_section(c *Where_sectionContext)
+
+	// EnterUnreserved_keyword is called when entering the unreserved_keyword production.
+	EnterUnreserved_keyword(c *Unreserved_keywordContext)
 
 	// ExitQueries is called when exiting the queries production.
 	ExitQueries(c *QueriesContext)
@@ -367,11 +370,11 @@ type SQLListener interface {
 	// ExitCollection_section is called when exiting the collection_section production.
 	ExitCollection_section(c *Collection_sectionContext)
 
-	// ExitCollection_name is called when exiting the collection_name production.
-	ExitCollection_name(c *Collection_nameContext)
+	// ExitCollectionName is called when exiting the collectionName production.
+	ExitCollectionName(c *CollectionNameContext)
 
-	// ExitDatabase is called when exiting the database production.
-	ExitDatabase(c *DatabaseContext)
+	// ExitDatabaseName is called when exiting the databaseName production.
+	ExitDatabaseName(c *DatabaseNameContext)
 
 	// ExitColumn is called when exiting the column production.
 	ExitColumn(c *ColumnContext)
@@ -384,4 +387,7 @@ type SQLListener interface {
 
 	// ExitWhere_section is called when exiting the where_section production.
 	ExitWhere_section(c *Where_sectionContext)
+
+	// ExitUnreserved_keyword is called when exiting the unreserved_keyword production.
+	ExitUnreserved_keyword(c *Unreserved_keywordContext)
 }
