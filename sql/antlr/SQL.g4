@@ -23,7 +23,7 @@ grammar SQL;
 ******************************************************************/
 
 queries
-	: statement (SEMICOLON statement)* ';'*
+	: statement (SEMICOLON statement)* (SEMICOLON)*
 	;	
 
 statement
@@ -71,7 +71,7 @@ createStmt
 	;
 
 createDatabase
-	: CREATE DATABASE database
+	: CREATE DATABASE databaseName
 	;
 
 createCollection
@@ -132,7 +132,7 @@ table_name
 	;
 
 data_source
-	: collection_name
+	: collectionName
 	;
 
 grouping_section
@@ -224,6 +224,7 @@ expression_list
 	| '(' expression_array (COMMA expression_array)* ')'
 	| '{' (expression_dictionary) (COMMA expression_dictionary)* '}'
 	| '[' expression_array (COMMA expression_array)* ']'
+	| unreserved_keyword
 	;
 
 expression_literal
@@ -360,18 +361,20 @@ value
 
 name
 	: IDENTIFIER
+	| unreserved_keyword
+	| 
 	;
 
 collection_section
-	: collection_name
+	: collectionName
 	;
 
-collection_name
-	: IDENTIFIER
+collectionName
+	: name
 	;
 
-database
-	: IDENTIFIER
+databaseName
+	: name
 	;
 
 column
@@ -391,10 +394,21 @@ where_section
 	: WHERE expression
 	;
 
-/*------------------------------------------------------------------
- * LEXER RULES
- *------------------------------------------------------------------*/
+/******************************************************************
+*
+* UNRESERVED KEYWORDS
+*
+******************************************************************/
 
+unreserved_keyword
+	: OFFSET
+	;
+
+/******************************************************************
+*
+* LEXER RULES (SYMBOL)
+*
+******************************************************************/
 
 ASTERISK
 	: '*'
@@ -446,135 +460,12 @@ SEMICOLON
 	: ';'
 	;
 	
-fragment 
-A	: 'A'
-	| 'a'
-	;
 
-fragment 
-B	: 'B'
-	| 'b'
-	;
-
-fragment 
-C	: 'C'
-	| 'c'
-	;
-
-fragment 
-D	: 'D'
-	| 'd'
-	;
-
-fragment 
-E	: 'E'
-	| 'e'
-	;
-
-fragment 
-F	: 'F'
-	| 'f'
-	;
-
-fragment 
-G	: 'G'
-	| 'g'
-	;
-
-fragment 
-H	: 'H'
-	| 'h'
-	;
-
-fragment 
-I	: 'I'
-	| 'i'
-	;
-
-fragment 
-J	: 'J'
-	| 'j'
-	;
-
-fragment 
-K	: 'K'
-	| 'k'
-	;
-
-fragment 
-L	: 'L'
-	| 'l'
-	;
-
-fragment 
-M	: 'M'
-	| 'm'
-	;
-
-fragment 
-N	: 'N'
-	| 'n'
-	;
-
-fragment 
-O	: 'O'
-	| 'o'
-	;
-
-fragment 
-P	: 'P'
-	| 'p'
-	;
-
-fragment 
-Q	: 'Q'
-	| 'q'
-	;
-
-fragment 
-R	: 'R'
-	| 'r'
-	;
-
-fragment 
-S	: 'S'
-	| 's'
-	;
-
-fragment 
-T	: 'T'
-	| 't'
-	;
-
-fragment 
-U	: 'U'
-	| 'u'
-	;
-
-fragment 
-V	: 'V'
-	| 'v'
-	;
-
-fragment 
-W	: 'W'
-	| 'w'
-	;
-
-fragment 
-X	: 'X'
-	| 'x'
-	;
-
-fragment 
-Y	: 'Y'
-	| 'y'
-	;
-
-fragment 
-Z	: 'Z'
-	| 'z'
-	;
+/******************************************************************
+*
+* LEXER RULES (STATIC)
+*
+******************************************************************/
 
 ALL
 	: A L L
@@ -758,16 +649,11 @@ FALSE
 
 /******************************************************************
 *
-* COMMON
+* LEXER RULES (BASIC)
 *
 ******************************************************************/
 
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) -> skip
-    ;
+WS : [ \t\r\n]+ -> skip;
 	
 IDENTIFIER  
 	: [a-zA-Z_] [a-zA-Z_0-9]* 
@@ -787,8 +673,144 @@ STRING
 	: '\'' ( ~'\'' | '\'\'' )* '\''
 	;
 
+/******************************************************************
+*
+* LEXER RULES (FRAGMENTS)
+*
+******************************************************************/
+
 fragment
 EXPONENT : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
 
 fragment
 HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment 
+A	: 'A'
+	| 'a'
+	;
+
+fragment 
+B	: 'B'
+	| 'b'
+	;
+
+fragment 
+C	: 'C'
+	| 'c'
+	;
+
+fragment 
+D	: 'D'
+	| 'd'
+	;
+
+fragment 
+E	: 'E'
+	| 'e'
+	;
+
+fragment 
+F	: 'F'
+	| 'f'
+	;
+
+fragment 
+G	: 'G'
+	| 'g'
+	;
+
+fragment 
+H	: 'H'
+	| 'h'
+	;
+
+fragment 
+I	: 'I'
+	| 'i'
+	;
+
+fragment 
+J	: 'J'
+	| 'j'
+	;
+
+fragment 
+K	: 'K'
+	| 'k'
+	;
+
+fragment 
+L	: 'L'
+	| 'l'
+	;
+
+fragment 
+M	: 'M'
+	| 'm'
+	;
+
+fragment 
+N	: 'N'
+	| 'n'
+	;
+
+fragment 
+O	: 'O'
+	| 'o'
+	;
+
+fragment 
+P	: 'P'
+	| 'p'
+	;
+
+fragment 
+Q	: 'Q'
+	| 'q'
+	;
+
+fragment 
+R	: 'R'
+	| 'r'
+	;
+
+fragment 
+S	: 'S'
+	| 's'
+	;
+
+fragment 
+T	: 'T'
+	| 't'
+	;
+
+fragment 
+U	: 'U'
+	| 'u'
+	;
+
+fragment 
+V	: 'V'
+	| 'v'
+	;
+
+fragment 
+W	: 'W'
+	| 'w'
+	;
+
+fragment 
+X	: 'X'
+	| 'x'
+	;
+
+fragment 
+Y	: 'Y'
+	| 'y'
+	;
+
+fragment 
+Z	: 'Z'
+	| 'z'
+	;

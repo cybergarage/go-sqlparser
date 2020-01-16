@@ -362,17 +362,17 @@ func (s *BaseSQLListener) EnterCollection_section(ctx *Collection_sectionContext
 // ExitCollection_section is called when production collection_section is exited.
 func (s *BaseSQLListener) ExitCollection_section(ctx *Collection_sectionContext) {}
 
-// EnterCollection_name is called when production collection_name is entered.
-func (s *BaseSQLListener) EnterCollection_name(ctx *Collection_nameContext) {}
+// EnterCollectionName is called when production collectionName is entered.
+func (s *BaseSQLListener) EnterCollectionName(ctx *CollectionNameContext) {}
 
-// ExitCollection_name is called when production collection_name is exited.
-func (s *BaseSQLListener) ExitCollection_name(ctx *Collection_nameContext) {}
+// ExitCollectionName is called when production collectionName is exited.
+func (s *BaseSQLListener) ExitCollectionName(ctx *CollectionNameContext) {}
 
-// EnterDatabase is called when production database is entered.
-func (s *BaseSQLListener) EnterDatabase(ctx *DatabaseContext) {}
+// EnterDatabaseName is called when production databaseName is entered.
+func (s *BaseSQLListener) EnterDatabaseName(ctx *DatabaseNameContext) {}
 
-// ExitDatabase is called when production database is exited.
-func (s *BaseSQLListener) ExitDatabase(ctx *DatabaseContext) {}
+// ExitDatabaseName is called when production databaseName is exited.
+func (s *BaseSQLListener) ExitDatabaseName(ctx *DatabaseNameContext) {}
 
 // EnterColumn is called when production column is entered.
 func (s *BaseSQLListener) EnterColumn(ctx *ColumnContext) {}
@@ -397,3 +397,9 @@ func (s *BaseSQLListener) EnterWhere_section(ctx *Where_sectionContext) {}
 
 // ExitWhere_section is called when production where_section is exited.
 func (s *BaseSQLListener) ExitWhere_section(ctx *Where_sectionContext) {}
+
+// EnterUnreserved_keyword is called when production unreserved_keyword is entered.
+func (s *BaseSQLListener) EnterUnreserved_keyword(ctx *Unreserved_keywordContext) {}
+
+// ExitUnreserved_keyword is called when production unreserved_keyword is exited.
+func (s *BaseSQLListener) ExitUnreserved_keyword(ctx *Unreserved_keywordContext) {}
