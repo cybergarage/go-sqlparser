@@ -1,7 +1,7 @@
-// Code generated from SQL.g4 by ANTLR 4.7.2. DO NOT EDIT.
+// Code generated from SQL.g4 by ANTLR 4.12.0. DO NOT EDIT.
 
 package antlr // SQL
-import "github.com/antlr/antlr4/runtime/Go/antlr"
+import "github.com/antlr/antlr4/runtime/Go/antlr/v4"
 
 // SQLListener is a complete listener for a parse tree produced by SQLParser.
 type SQLListener interface {

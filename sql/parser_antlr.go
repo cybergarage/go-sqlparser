@@ -17,7 +17,7 @@ package sql
 import (
 	"fmt"
 
-	go_antlr "github.com/antlr/antlr4/runtime/Go/antlr"
+	go_antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
 
 	antlr "github.com/cybergarage/go-sql/sql/antlr"
 )

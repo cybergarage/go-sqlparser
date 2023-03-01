@@ -17,7 +17,7 @@ package sql
 import (
 	"fmt"
 
-	antlr "github.com/antlr/antlr4/runtime/Go/antlr"
+	antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
 )
 
 type antlrParserErrorListener struct {
