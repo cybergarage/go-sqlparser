@@ -40,13 +40,13 @@ func (parser *antlrParser) ParseString(queryString string) ([]Query, error) {
 	}
 
 	input := go_antlr.NewInputStream(queryString)
-	lexer := antlr.NewSQLLexer(input)
+	lexer := antlr.NewSQLiteLexer(input)
 	stream := go_antlr.NewCommonTokenStream(lexer, 0)
-	p := antlr.NewSQLParser(stream)
+	p := antlr.NewSQLiteParser(stream)
 	el := newANTLRParserErrorListener()
 	p.AddErrorListener(el)
 	p.BuildParseTrees = true
-	tree := p.Queries()
+	tree := p.Parse()
 	pl := newANTLRParserListener()
 	go_antlr.ParseTreeWalkerDefault.Walk(pl, tree)
 	if !el.IsSuccess() {

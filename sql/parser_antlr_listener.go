@@ -20,14 +20,14 @@ import (
 )
 
 type antlrParserListener struct {
-	*antlr.BaseSQLListener
+	*antlr.BaseSQLiteParserListener
 	*util.Stack
 }
 
 func newANTLRParserListener() *antlrParserListener {
 	l := &antlrParserListener{
-		BaseSQLListener: &antlr.BaseSQLListener{},
-		Stack:           util.NewStack(),
+		BaseSQLiteParserListener: &antlr.BaseSQLiteParserListener{},
+		Stack:                    util.NewStack(),
 	}
 	return l
 }
