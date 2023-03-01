@@ -1,4 +1,6 @@
 github.com/antlr/antlr4 v0.0.0-20191011202612-ad2bd05285ca h1:QHbltbNkVcw97h4zA/L8gA4o3dJiFvBZ0gyZHrYXHbs=
 github.com/antlr/antlr4 v0.0.0-20191011202612-ad2bd05285ca/go.mod h1:T7PbCXFs94rrTttyxjbyT5+/1V8T2TYDejxUfHJjw1Y=
+github.com/antlr/antlr4 v4.11.1+incompatible h1:c9zLiKJ6xe5QqGqLWIJWIHEC7pTqs7JRfA+BR3LQgFA=
+github.com/antlr/antlr4 v4.11.1+incompatible/go.mod h1:T7PbCXFs94rrTttyxjbyT5+/1V8T2TYDejxUfHJjw1Y=
 github.com/cybergarage/go-sql v0.0.0-20180529054652-2d9d236dfb5a h1:DbZ55O6n4eb+us+Odsg8VS37d6QWEHwz6n5eujH8Ipg=
 github.com/cybergarage/go-sql v0.0.0-20180529054652-2d9d236dfb5a/go.mod h1:clDpThXaUd9Np05u3GrrIW4J2n5kec5c5XEkG1RajD0=
