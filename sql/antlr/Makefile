@@ -1,10 +1,10 @@
-# Copyright (C) 2019 The go-sqlparser Authors. All rights reserved.
+# Copyright (C} 2019  The go-sqlparser Authors. All rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License"};
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    http:#www.apache.org/licenses/LICENSE-2.0
+#	http:#www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,22 @@
 
 SHELL := bash
 
-all: parser
+.PHONY: ${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
 
-parser:
-	@antlr -package antlr -Dlanguage=Go SQL.g4
+GIT_RAW_URL=https://raw.githubusercontent.com/antlr/grammars-v4/master/sql/sqlite/
+PKG_NAME=go-sql
+SQL_GRAMMER_G4 = SQLiteParser.g4
+SQL_LEXER_G4 = SQLiteLexer.g4
+SQL_GRAMMER_FILES = ${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
+ANTLR=antlr
+
+all: antlr
+
+${SQL_LEXER_G4}:
+	wget -N ${GIT_RAW_URL}${SQL_LEXER_G4}
+
+${SQL_GRAMMER_G4}:
+	wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
+
+antlr:${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
+	@${ANTLR} -package antlr -Dlanguage=Go ${SQL_GRAMMER_FILES}
