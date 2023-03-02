@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package sqltest
 
 import (
 	"io/ioutil"
@@ -20,7 +20,8 @@ import (
 	"strings"
 	"testing"
 
-	util "github.com/cybergarage/go-sql/sql/util"
+	"github.com/cybergarage/go-sql/sql"
+	"github.com/cybergarage/go-sql/sql/util"
 )
 
 const (
@@ -52,7 +53,7 @@ func TestDeleteQueries(t *testing.T) {
 }
 
 func testQueryString(t *testing.T, queryStr string) {
-	parser := NewParser()
+	parser := sql.NewParser()
 
 	queries, err := parser.ParseString(queryStr)
 	if err != nil {
