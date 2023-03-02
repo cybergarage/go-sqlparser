@@ -18,41 +18,53 @@ PREFIX?=$(shell pwd)
 
 GIT_ROOT=github.com/cybergarage
 PRODUCT_NAME=go-sql
-PACKAGE_NAME=sql
 
-
-PACKAGE_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${PACKAGE_NAME}
-PACKAGES=\
-	${PACKAGE_ROOT} \
-	${PACKAGE_ROOT}/antlr
+PKG_NAME=sql
+PKG_SRC_ROOT=${PKG_NAME}
+PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${PKG_NAME}
+PKGS=\
+	${PKG_ROOT} \
+	${PKG_ROOT}/antlr
+PKG_SRCS=\
+	${PKG_ROOT} \
+	${PKG_ROOT}/antlr
                
-SOURCE_ROOT=${PACKAGE_NAME}
+TEST_PKG_NAME=${PKG_NAME}test
+TEST_PKG_SRC_ROOT=${TEST_PKG_NAME}
+TEST_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${TEST_PKG_NAME}
+TEST_PKGS=\
+	${TEST_PKG_ROOT}
+TEST_PKG_SRCS=\
+	${TEST_PKG_ROOT}
 
 .PHONY: version antlr clean
 
 all: test
 
-VERSION_GO=${SOURCE_ROOT}/version.go
+VERSION_GO=${PKG_SRC_ROOT}/version.go
 
-${VERSION_GO}: ${SOURCE_ROOT}/version.gen
+${VERSION_GO}: ${PKG_SRC_ROOT}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
 
 antlr:
-	- pushd ${SOURCE_ROOT}/antlr && make && popd
+	- pushd ${PKG_SRC_ROOT}/antlr && make && popd
 
 format:
-	gofmt -w ${SOURCE_ROOT}
+	gofmt -w ${PKG_SRC_ROOT} ${TEST_PKG_SRC_ROOT}
 
 vet: format
-	go vet ${PACKAGES}
+	go vet ${PKGS}
+
+lint: vet
+	golangci-lint run ${PKG_SRCS} ${TEST_PKG_SRCS}
 
 build: vet
-	go build -v ${PACKAGES}
+	go build -v ${PKGS}
 
 test: vet
-	go test -v -cover ${PACKAGES}
+	go test -v -cover ${PKGS} ${TEST_PKGS}
 
 clean:
-	go clean -i ${PACKAGES}
+	go clean -i ${PKGS} ${TEST_PKGS}
