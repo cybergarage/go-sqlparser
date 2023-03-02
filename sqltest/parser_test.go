@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/cybergarage/go-sql/sql"
-	"github.com/cybergarage/go-sql/sql/util"
+	"github.com/cybergarage/go-sql/sqltest/util"
 )
 
 const (
