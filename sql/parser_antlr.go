@@ -19,7 +19,7 @@ import (
 
 	go_antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
 
-	antlr "github.com/cybergarage/go-sql/sql/antlr"
+	antlr "github.com/cybergarage/go-sqlparser/sql/antlr"
 )
 
 // antlrParser represents a FQL parser based on ANTLR.

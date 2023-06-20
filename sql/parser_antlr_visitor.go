@@ -15,7 +15,7 @@
 package sql
 
 import (
-	antlr "github.com/cybergarage/go-sql/sql/antlr"
+	antlr "github.com/cybergarage/go-sqlparser/sql/antlr"
 )
 
 type antlrParserVisitor struct {
