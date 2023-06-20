@@ -15,6 +15,6 @@
 package sql
 
 const (
-	errorEmptyQuery        = "Empty query"
-	errorInvalidTimeFormat = "Invalid time format : %s"
+	errorEmptyQuery        = "empty query"
+	errorInvalidTimeFormat = "invalid time format : %s"
 )
