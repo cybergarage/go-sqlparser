@@ -32,4 +32,4 @@ ${SQL_GRAMMER_G4}:
 	wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
 
 antlr:${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
-	@${ANTLR} -package antlr -Dlanguage=Go ${SQL_GRAMMER_FILES}
+	@${ANTLR} -package antlr -Dlanguage=Go -visitor ${SQL_GRAMMER_FILES}
