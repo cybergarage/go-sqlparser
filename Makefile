@@ -55,10 +55,10 @@ format:
 vet: format
 	go vet ${PKGS}
 
-lint: vet
+lint:
 	golangci-lint run ${PKG_SRCS} ${TEST_PKG_SRCS}
 
-build: vet
+build: lint
 	go build -v ${PKGS}
 
 test: vet
