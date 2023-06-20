@@ -15,23 +15,14 @@
 package sqltest
 
 import (
-	"io/ioutil"
-	"regexp"
-	"strings"
 	"testing"
-
-	"github.com/cybergarage/go-sql/sql"
-	"github.com/cybergarage/go-sql/sqltest/util"
-)
-
-const (
-	sqlTestResourceQueriesDirectory = "../test/resources/sql/"
 )
 
 func TestCreateQueries(t *testing.T) {
 	re := ".*create.*\\.sql"
 	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
+
 func TestInsertQueries(t *testing.T) {
 	re := ".*insert.*\\.sql"
 	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
@@ -50,67 +41,4 @@ func TestSelectQueries(t *testing.T) {
 func TestDeleteQueries(t *testing.T) {
 	re := ".*delete.*\\.sql"
 	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
-}
-
-func testQueryString(t *testing.T, queryStr string) {
-	parser := sql.NewParser()
-
-	queries, err := parser.ParseString(queryStr)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	repStrings := []string{"\n", "\t", "  "}
-	for _, repString := range repStrings {
-		queryStr = strings.ReplaceAll(queryStr, repString, " ")
-	}
-
-	if err != nil {
-		t.Errorf("%s\n", queryStr)
-		for _, query := range queries {
-			t.Errorf("%s\n", query.String())
-		}
-		return
-	}
-
-	t.Logf("[S] %s\n", queryStr)
-	for _, query := range queries {
-		t.Logf("[P] %s\n", query.String())
-	}
-}
-
-func testQueryFile(t *testing.T, file *util.File) {
-	queryBytes, err := ioutil.ReadFile(file.Path)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	queries := strings.Split(string(queryBytes), "\n\n")
-	for _, query := range queries {
-		query = strings.TrimSpace(query)
-		if len(query) <= 0 {
-			continue
-		}
-		testQueryString(t, query)
-	}
-}
-
-func testQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
-	re, err := regexp.Compile(fileRegex)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	searchPath := util.NewFileWithPath(dir)
-	files, err := searchPath.ListFilesWithRegexp(re)
-	if err != nil {
-		t.Error(err)
-	}
-
-	for _, file := range files {
-		testQueryFile(t, file)
-	}
 }
