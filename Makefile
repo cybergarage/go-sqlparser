@@ -17,7 +17,7 @@ SHELL := bash
 PREFIX?=$(shell pwd)
 
 GIT_ROOT=github.com/cybergarage
-PRODUCT_NAME=go-sql
+PRODUCT_NAME=go-sqlparser
 
 PKG_NAME=sql
 PKG_SRC_ROOT=${PKG_NAME}
