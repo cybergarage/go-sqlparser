@@ -47,7 +47,7 @@ format:
 	gofmt -w ${PKG_SRC_ROOT} ${TEST_PKG_SRC_ROOT}
 
 vet: format
-	go vet ${PKGS}
+	go vet ${PKGS} ${TEST_PKGS}
 
 lint:
 	golangci-lint run ${PKGS} ${TEST_PKGS}
