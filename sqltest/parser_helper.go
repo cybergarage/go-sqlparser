@@ -15,7 +15,8 @@
 package sqltest
 
 import (
-	"io/ioutil"
+	"io"
+	"os"
 	"regexp"
 	"strings"
 	"testing"
@@ -27,6 +28,21 @@ import (
 const (
 	sqlTestResourceQueriesDirectory = "resources/sql/"
 )
+
+func readQueryFile(filename string) ([]byte, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	data, err := io.ReadAll(file)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
 
 func testQueryString(t *testing.T, queryStr string) {
 	parser := sql.NewParser()
@@ -57,7 +73,7 @@ func testQueryString(t *testing.T, queryStr string) {
 }
 
 func testQueryFile(t *testing.T, file *util.File) {
-	queryBytes, err := ioutil.ReadFile(file.Path)
+	queryBytes, err := readQueryFile(file.Path)
 	if err != nil {
 		t.Error(err)
 		return
