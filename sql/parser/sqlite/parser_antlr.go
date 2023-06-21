@@ -48,18 +48,11 @@ func (parser *Parser) ParseString(queryString string) ([]query.Statement, error)
 	p.BuildParseTrees = true
 	tree := p.Parse()
 
-	v := newANTLRVisitor()
-	tree.Accept(v)
+	v := tree.Accept(newANTLRVisitor())
 	if !el.IsSuccess() {
 		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
 	}
 
-	pl := newANTLRListener()
-	go_antlr.ParseTreeWalkerDefault.Walk(pl, tree)
-
-	if !el.IsSuccess() {
-		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
-	}
-
-	return nil, nil
+	stmtList, _ := v.(query.StatementList)
+	return stmtList, nil
 }
