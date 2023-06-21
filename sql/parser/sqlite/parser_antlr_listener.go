@@ -19,13 +19,13 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util"
 )
 
-type antlrParserListener struct {
+type antlrListener struct {
 	*antlr.BaseSQLiteParserListener
 	*util.Stack
 }
 
-func newANTLRParserListener() *antlrParserListener {
-	l := &antlrParserListener{
+func newANTLRListener() *antlrListener {
+	l := &antlrListener{
 		BaseSQLiteParserListener: &antlr.BaseSQLiteParserListener{},
 		Stack:                    util.NewStack(),
 	}
