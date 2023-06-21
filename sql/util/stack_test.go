@@ -31,9 +31,7 @@ func TestNewStack(t *testing.T) {
 	}
 
 	for n := 1; n <= 10; n++ {
-		var value int
-		value = n
-		s.PushObject(value)
+		s.PushObject(n)
 		if s.Size() != n {
 			t.Errorf(errorInvalidStackSize, s.Size(), n)
 		}
