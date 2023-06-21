@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package stmt
 
-import (
-	"testing"
-)
+import "testing"
 
-func TestNewColum(t *testing.T) {
-	_ = NewColumn()
+func TestNewColums(t *testing.T) {
+	NewColumns()
 }

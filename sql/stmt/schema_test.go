@@ -1,4 +1,4 @@
-// Copyright (C) 2019 Satoshi Konno. All rights reserved.
+// Copyright (C) 2022 Satoshi Konno. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package stmt
 
-// Query represents a query interface.
-type Query interface {
-	String() string
+import (
+	"testing"
+)
+
+func TestSchema(t *testing.T) {
+	NewSchema()
 }

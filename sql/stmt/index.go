@@ -12,19 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package stmt
 
-// Schema represents a schema.
-type Schema struct {
+type IndexType int
+
+const (
+	UnknownIndex   IndexType = 0
+	PrimaryIndex   IndexType = 1
+	SecondaryIndex IndexType = 2
+)
+
+type Index struct {
 	Name string
+	Type IndexType
 	Columns
 }
 
-// NewSchema returns a blank schema.
-func NewSchema() *Schema {
-	s := &Schema{
+// NewIndex returns a blank index.
+func NewIndex() *Index {
+	idx := &Index{
 		Name:    "",
+		Type:    UnknownIndex,
 		Columns: NewColumns(),
 	}
-	return s
+	return idx
 }
