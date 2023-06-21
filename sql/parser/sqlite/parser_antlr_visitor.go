@@ -16,23 +16,35 @@ package sqlite
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-type antlrParserVisitor struct {
+type antlrVisitor struct {
 	*antlr.BaseSQLiteParserVisitor
 }
 
-func newANTLRParserVisitor() *antlrParserVisitor {
-	v := &antlrParserVisitor{
+func newANTLRVisitor() *antlrVisitor {
+	v := &antlrVisitor{
 		BaseSQLiteParserVisitor: &antlr.BaseSQLiteParserVisitor{},
 	}
 	return v
 }
 
-func (v *antlrParserVisitor) VisitSql_stmt_list(ctx *antlr.Sql_stmt_listContext) interface{} {
-	return v.VisitChildren(ctx)
+func (v *antlrVisitor) VisitParse(ctx *antlr.ParseContext) interface{} {
+	return v.visitStatementList(ctx.AllSql_stmt_list())
 }
 
-func (v *antlrParserVisitor) VisitSql_stmt(ctx *antlr.Sql_stmtContext) interface{} {
-	return v.VisitChildren(ctx)
+func (v *antlrVisitor) visitStatementList(ctxList []antlr.ISql_stmt_listContext) query.StatementList {
+	stmtList := query.NewStatementList()
+	for _, ctx := range ctxList {
+		for _, stmt := range ctx.AllSql_stmt() {
+			stmtList = append(stmtList, v.visitSqlStatement(stmt))
+		}
+	}
+	return stmtList
+}
+
+func (v *antlrVisitor) visitSqlStatement(ctx antlr.ISql_stmtContext) query.Statement {
+	stmt := query.NewStatement()
+	return stmt
 }
