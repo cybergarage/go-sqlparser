@@ -14,24 +14,29 @@
 
 package query
 
-// CreateDatabase is a "CREATE DATABASE" statement.
-type CreateDatabase struct {
-	*Database
+// Database represents a database.
+type Database struct {
+	name string
 }
 
-// NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified name.
-func NewCreateDatabaseWith(name string) *CreateDatabase {
-	return &CreateDatabase{
-		Database: NewDatabaseWith(name),
+// NewDatabaseWith returns a new Database instance with the specified name.
+func NewDatabaseWith(name string) *Database {
+	return &Database{
+		name: name,
 	}
 }
 
-// StatementType returns the statement type.
-func (stmt *CreateDatabase) StatementType() StatementType {
-	return CreateDatabaseStatement
+// Database returns the database.
+func (db *Database) Database() *Database {
+	return db
 }
 
-// String returns the statement string representation.
-func (stmt *CreateDatabase) String() string {
-	return "CREATE DATABASE " + stmt.name
+// Name returns the database name.
+func (db *Database) Name() string {
+	return db.name
+}
+
+// String returns the string representation.
+func (db *Database) String() string {
+	return db.name
 }
