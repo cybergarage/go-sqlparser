@@ -50,12 +50,12 @@ vet: format
 	go vet ${PKGS} ${TEST_PKGS}
 
 lint:
-	golangci-lint run ${PKGS} ${TEST_PKGS}
+	golangci-lint run ${PKG_SRC_ROOT}/... ${TEST_PKG_SRC_ROOT}/...
 
 build: lint
 	go build -v ${PKGS}
 
-test: vet
+test: lint
 	go test -v -cover ${PKGS} ${TEST_PKGS}
 
 watchvet:
