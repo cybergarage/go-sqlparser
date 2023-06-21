@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package stmt
 
-// Columns represens a column array.
-type Columns []*Column
+import "testing"
 
-// NewColumns returns a column array instance.
-func NewColumns() Columns {
-	return make(Columns, 0)
+func TestNewColums(t *testing.T) {
+	NewColumns()
 }

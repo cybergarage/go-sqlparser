@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The go-sqlparser Authors. All rights reserved.
+// Copyright (C) 2022 The go-sqlparser Authors All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,11 +10,30 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License..
+// limitations under the License.
 
-package sql
+package stmt
+
+type IndexType int
 
 const (
-	errorEmptyQuery        = "empty query"
-	errorInvalidTimeFormat = "invalid time format : %s"
+	UnknownIndex   IndexType = 0
+	PrimaryIndex   IndexType = 1
+	SecondaryIndex IndexType = 2
 )
+
+type Index struct {
+	Name string
+	Type IndexType
+	Columns
+}
+
+// NewIndex returns a blank index.
+func NewIndex() *Index {
+	idx := &Index{
+		Name:    "",
+		Type:    UnknownIndex,
+		Columns: NewColumns(),
+	}
+	return idx
+}
