@@ -12,31 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package sqlite
 
 import (
 	"fmt"
 
 	go_antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
 
-	antlr "github.com/cybergarage/go-sqlparser/sql/antlr"
+	errors "github.com/cybergarage/go-sqlparser/sql/parser"
+	antlr "github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
+	"github.com/cybergarage/go-sqlparser/sql/stmt"
 )
 
-// antlrParser represents a FQL parser based on ANTLR.
-type antlrParser struct {
-	Parser
+// Parser represents a FQL parser based on ANTLR.
+type Parser struct {
 }
 
-// NewParser returns a new parse.
-func NewParser() Parser {
-	parser := &antlrParser{}
+// NewParser returns a new parser.
+func NewParser() *Parser {
+	parser := &Parser{}
 	return parser
 }
 
 // ParseString parses a specified FQL string.
-func (parser *antlrParser) ParseString(queryString string) ([]Query, error) {
+func (parser *Parser) ParseString(queryString string) ([]stmt.Query, error) {
 	if len(queryString) <= 0 {
-		return nil, fmt.Errorf(errorEmptyQuery)
+		return nil, errors.ErrEmptyQuery
 	}
 
 	input := go_antlr.NewInputStream(queryString)

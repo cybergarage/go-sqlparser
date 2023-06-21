@@ -12,19 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package sqlite
 
 import (
-	antlr "github.com/cybergarage/go-sqlparser/sql/antlr"
+	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
+	"github.com/cybergarage/go-sqlparser/sql/util"
 )
 
-type antlrParserVisitor struct {
-	*antlr.BaseSQLiteParserVisitor
+type antlrParserListener struct {
+	*antlr.BaseSQLiteParserListener
+	*util.Stack
 }
 
-func newANTLRParserVisitor() *antlrParserVisitor {
-	v := &antlrParserVisitor{
-		BaseSQLiteParserVisitor: &antlr.BaseSQLiteParserVisitor{},
+func newANTLRParserListener() *antlrParserListener {
+	l := &antlrParserListener{
+		BaseSQLiteParserListener: &antlr.BaseSQLiteParserListener{},
+		Stack:                    util.NewStack(),
 	}
-	return v
+	return l
 }
