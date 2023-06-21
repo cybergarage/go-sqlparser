@@ -1,7 +1,7 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.12.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
 
 package antlr // SQLiteParser
-import "github.com/antlr/antlr4/runtime/Go/antlr/v4"
+import "github.com/antlr4-go/antlr/v4"
 
 // A complete Visitor for a parse tree produced by SQLiteParser.
 type SQLiteParserVisitor interface {
@@ -45,6 +45,9 @@ type SQLiteParserVisitor interface {
 
 	// Visit a parse tree produced by SQLiteParser#indexed_column.
 	VisitIndexed_column(ctx *Indexed_columnContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#create_database_stmt.
+	VisitCreate_database_stmt(ctx *Create_database_stmtContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#create_table_stmt.
 	VisitCreate_table_stmt(ctx *Create_table_stmtContext) interface{}
@@ -276,6 +279,9 @@ type SQLiteParserVisitor interface {
 
 	// Visit a parse tree produced by SQLiteParser#name.
 	VisitName(ctx *NameContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#database_name.
+	VisitDatabase_name(ctx *Database_nameContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#function_name.
 	VisitFunction_name(ctx *Function_nameContext) interface{}

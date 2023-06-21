@@ -1,7 +1,7 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.12.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
 
 package antlr // SQLiteParser
-import "github.com/antlr/antlr4/runtime/Go/antlr/v4"
+import "github.com/antlr4-go/antlr/v4"
 
 type BaseSQLiteParserVisitor struct {
 	*antlr.BaseParseTreeVisitor
@@ -56,6 +56,10 @@ func (v *BaseSQLiteParserVisitor) VisitCreate_index_stmt(ctx *Create_index_stmtC
 }
 
 func (v *BaseSQLiteParserVisitor) VisitIndexed_column(ctx *Indexed_columnContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitCreate_database_stmt(ctx *Create_database_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -364,6 +368,10 @@ func (v *BaseSQLiteParserVisitor) VisitKeyword(ctx *KeywordContext) interface{} 
 }
 
 func (v *BaseSQLiteParserVisitor) VisitName(ctx *NameContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDatabase_name(ctx *Database_nameContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 

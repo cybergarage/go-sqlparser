@@ -30,6 +30,7 @@ ${SQL_LEXER_G4}:
 
 ${SQL_GRAMMER_G4}:
 	wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
+	patch ${SQL_GRAMMER_G4} < ${SQL_GRAMMER_G4}.patch
 
 antlr:${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
 	@${ANTLR} -package antlr -Dlanguage=Go -visitor ${SQL_GRAMMER_FILES}

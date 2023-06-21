@@ -47,6 +47,7 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
         | attach_stmt
         | begin_stmt
         | commit_stmt
+        | create_database_stmt
         | create_index_stmt
         | create_table_stmt
         | create_trigger_stmt
@@ -115,6 +116,10 @@ create_index_stmt:
 ;
 
 indexed_column: (column_name | expr) (COLLATE_ collation_name)? asc_desc?
+;
+
+create_database_stmt:
+    CREATE_ DATABASE_ (IF_ NOT_ EXISTS_)? database_name
 ;
 
 create_table_stmt:
@@ -816,6 +821,10 @@ keyword:
 // TODO: check all names below
 
 name:
+    any_name
+;
+
+database_name:
     any_name
 ;
 
