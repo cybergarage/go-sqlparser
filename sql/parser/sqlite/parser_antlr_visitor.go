@@ -37,14 +37,21 @@ func (v *antlrVisitor) VisitParse(ctx *antlr.ParseContext) interface{} {
 func (v *antlrVisitor) visitStatementList(ctxList []antlr.ISql_stmt_listContext) query.StatementList {
 	stmtList := query.NewStatementList()
 	for _, ctx := range ctxList {
-		for _, stmt := range ctx.AllSql_stmt() {
-			stmtList = append(stmtList, v.visitSqlStatement(stmt))
+		for _, sqlStmt := range ctx.AllSql_stmt() {
+			stmt := v.visitSqlStatement(sqlStmt)
+			if stmt == nil {
+				continue
+			}
+			stmtList = append(stmtList, stmt)
 		}
 	}
 	return stmtList
 }
 
 func (v *antlrVisitor) visitSqlStatement(ctx antlr.ISql_stmtContext) query.Statement {
-	stmt := query.NewStatement()
-	return stmt
+	if createStmt := ctx.Create_database_stmt(); createStmt != nil {
+		dbName := createStmt.Database_name().GetText()
+		return query.NewCreateDatabaseWith(dbName)
+	}
+	return nil
 }

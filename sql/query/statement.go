@@ -24,6 +24,8 @@ func NewStatementList() StatementList {
 
 // Statement represents a statement interface.
 type Statement interface {
-	// String returns a statement string.
+	// StatementType returns the statement type.
+	StatementType() StatementType
+	// String returns the statement string representation.
 	String() string
 }
