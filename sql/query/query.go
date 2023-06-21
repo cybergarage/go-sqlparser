@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stmt
+package query
 
-import "testing"
-
-func TestNewColums(t *testing.T) {
-	NewColumns()
+// Query represents a query interface.
+type Query interface {
+	String() string
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2019 Satoshi Konno. All rights reserved.
+// Copyright (C) 2022 Satoshi Konno. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stmt
+package query
 
-// Columns represens a column array.
-type Columns []*Column
+import (
+	"testing"
+)
 
-// NewColumns returns a column array instance.
-func NewColumns() Columns {
-	return make(Columns, 0)
+func TestSchema(t *testing.T) {
+	NewSchema()
 }
