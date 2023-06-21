@@ -16,20 +16,22 @@ package sqlite
 
 import (
 	"fmt"
+	"strconv"
 
-	antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 type antlrParserErrorListener struct {
-	antlr.ErrorListener
+	*antlr.DiagnosticErrorListener
 	done bool
 	msg  string
 }
 
 func newANTLRParserErrorListener() *antlrParserErrorListener {
 	l := &antlrParserErrorListener{
-		done: true,
-		msg:  "",
+		DiagnosticErrorListener: antlr.NewDiagnosticErrorListener(true),
+		done:                    true,
+		msg:                     "",
 	}
 	return l
 }
@@ -43,18 +45,18 @@ func (l *antlrParserErrorListener) GetError() error {
 }
 
 func (l *antlrParserErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
+	l.msg = "line " + strconv.Itoa(line) + ":" + strconv.Itoa(column) + " " + msg
 	l.done = false
-	l.msg = msg
 }
 
-func (l *antlrParserErrorListener) ReportAmbiguity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, exact bool, ambigAlts *antlr.BitSet, configs antlr.ATNConfigSet) {
-
+func (l *antlrParserErrorListener) ReportAmbiguity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, exact bool, ambigAlts *antlr.BitSet, configs *antlr.ATNConfigSet) {
+	// l.DiagnosticErrorListener.ReportAmbiguity(recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs)
 }
 
-func (l *antlrParserErrorListener) ReportAttemptingFullContext(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, conflictingAlts *antlr.BitSet, configs antlr.ATNConfigSet) {
-
+func (l *antlrParserErrorListener) ReportAttemptingFullContext(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex int, conflictingAlts *antlr.BitSet, configs *antlr.ATNConfigSet) {
+	// l.DiagnosticErrorListener.ReportAttemptingFullContext(recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs)
 }
 
-func (l *antlrParserErrorListener) ReportContextSensitivity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex, prediction int, configs antlr.ATNConfigSet) {
-
+func (l *antlrParserErrorListener) ReportContextSensitivity(recognizer antlr.Parser, dfa *antlr.DFA, startIndex, stopIndex, prediction int, configs *antlr.ATNConfigSet) {
+	// l.DiagnosticErrorListener.ReportContextSensitivity(recognizer, dfa, startIndex, stopIndex, prediction, configs)
 }
