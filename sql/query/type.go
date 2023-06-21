@@ -19,4 +19,5 @@ type StatementType int
 
 const (
 	CreateDatabaseStatement = iota
+	CreateTableStatement
 )
