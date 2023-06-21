@@ -64,5 +64,11 @@ build: lint
 test: vet
 	go test -v -cover ${PKGS} ${TEST_PKGS}
 
+watchtest:
+	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make test
+
+watchlint:
+	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make lint
+
 clean:
 	go clean -i ${PKGS} ${TEST_PKGS}
