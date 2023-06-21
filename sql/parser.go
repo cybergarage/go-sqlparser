@@ -14,7 +14,12 @@
 
 package sql
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/stmt"
+)
+
 // Parser represents a parser interface for SQL.
 type Parser interface {
-	ParseString(string) ([]Query, error)
+	// ParseString parses a SQL statement string and returns the query statements.
+	ParseString(string) ([]stmt.Query, error)
 }
