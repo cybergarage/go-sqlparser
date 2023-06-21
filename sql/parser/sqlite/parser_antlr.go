@@ -48,7 +48,7 @@ func (parser *Parser) ParseString(queryString string) ([]query.Statement, error)
 	p.BuildParseTrees = true
 	tree := p.Parse()
 
-	v := newANTLRParserVisitor()
+	v := newANTLRVisitor()
 	tree.Accept(v)
 	if !el.IsSuccess() {
 		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
