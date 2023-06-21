@@ -17,12 +17,14 @@ package query
 // CreateTable is a "CREATE TABLE" statement.
 type CreateTable struct {
 	*Table
+	Columns
 }
 
 // NewCreateTableWith returns a new CreateTable statement instance with the specified name.
-func NewCreateTableWith(name string) *CreateTable {
+func NewCreateTableWith(name string, colums Columns) *CreateTable {
 	return &CreateTable{
-		Table: NewTableWith(name),
+		Table:   NewTableWith(name),
+		Columns: colums,
 	}
 }
 
