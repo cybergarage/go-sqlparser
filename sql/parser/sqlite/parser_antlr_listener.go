@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package sqlite
 
 import (
-	antlr "github.com/cybergarage/go-sqlparser/sql/antlr"
-	util "github.com/cybergarage/go-sqlparser/sql/util"
+	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
+	"github.com/cybergarage/go-sqlparser/sql/util"
 )
 
 type antlrParserListener struct {
