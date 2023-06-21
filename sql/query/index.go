@@ -14,6 +14,7 @@
 
 package query
 
+// IndexType represents a index type.
 type IndexType int
 
 const (
@@ -22,18 +23,34 @@ const (
 	SecondaryIndex IndexType = 2
 )
 
+// Index represents a index.
 type Index struct {
-	Name string
-	Type IndexType
+	name string
+	typ  IndexType
 	Columns
 }
 
-// NewIndex returns a blank index.
-func NewIndex() *Index {
+// NewIndex returns a new Index instance.
+func NewIndexWith(name string, t IndexType, colums Columns) *Index {
 	idx := &Index{
-		Name:    "",
-		Type:    UnknownIndex,
-		Columns: NewColumns(),
+		name:    name,
+		typ:     UnknownIndex,
+		Columns: colums,
 	}
 	return idx
+}
+
+// Name returns the index name.
+func (idx *Index) Name() string {
+	return idx.name
+}
+
+// Type returns the index type.
+func (idx *Index) Type() IndexType {
+	return idx.typ
+}
+
+// String returns the index string representation.
+func (idx *Index) String() string {
+	return idx.name
 }
