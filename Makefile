@@ -22,18 +22,12 @@ PRODUCT_NAME=go-sqlparser
 PKG_NAME=sql
 PKG_SRC_ROOT=${PKG_NAME}
 PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${PKG_NAME}
-PKGS=\
-	${PKG_ROOT}/...
-PKG_SRCS=\
-	${PKG_ROOT}/...
+PKGS=${PKG_ROOT}/...
                
 TEST_PKG_NAME=${PKG_NAME}test
 TEST_PKG_SRC_ROOT=${TEST_PKG_NAME}
 TEST_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${TEST_PKG_NAME}
-TEST_PKGS=\
-	${TEST_PKG_ROOT}/...
-TEST_PKG_SRCS=\
-	${TEST_PKG_ROOT}/...
+TEST_PKGS=${TEST_PKG_ROOT}/...
 
 .PHONY: version antlr clean
 
@@ -56,13 +50,16 @@ vet: format
 	go vet ${PKGS}
 
 lint:
-	golangci-lint run ${PKG_SRCS} ${TEST_PKG_SRCS}
+	golangci-lint run ${PKGS} ${TEST_PKGS}
 
 build: lint
 	go build -v ${PKGS}
 
 test: vet
 	go test -v -cover ${PKGS} ${TEST_PKGS}
+
+watchvet:
+	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make vet
 
 watchtest:
 	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make test
