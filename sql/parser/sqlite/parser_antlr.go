@@ -20,7 +20,7 @@ import (
 	go_antlr "github.com/antlr4-go/antlr/v4"
 	errors "github.com/cybergarage/go-sqlparser/sql/parser"
 	antlr "github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
-	"github.com/cybergarage/go-sqlparser/sql/stmt"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 // Parser represents a FQL parser based on ANTLR.
@@ -34,7 +34,7 @@ func NewParser() *Parser {
 }
 
 // ParseString parses a specified FQL string.
-func (parser *Parser) ParseString(queryString string) ([]stmt.Query, error) {
+func (parser *Parser) ParseString(queryString string) ([]query.Statement, error) {
 	if len(queryString) <= 0 {
 		return nil, errors.ErrEmptyQuery
 	}
