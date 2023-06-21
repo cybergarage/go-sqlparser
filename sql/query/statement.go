@@ -14,7 +14,7 @@
 
 package query
 
-// Query represents a query interface.
-type Query interface {
+// Statement represents a statement interface.
+type Statement interface {
 	String() string
 }
