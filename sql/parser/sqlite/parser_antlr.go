@@ -54,7 +54,7 @@ func (parser *Parser) ParseString(queryString string) ([]query.Statement, error)
 		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
 	}
 
-	pl := newANTLRParserListener()
+	pl := newANTLRListener()
 	go_antlr.ParseTreeWalkerDefault.Walk(pl, tree)
 
 	if !el.IsSuccess() {
