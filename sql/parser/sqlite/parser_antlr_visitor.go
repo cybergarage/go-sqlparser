@@ -53,5 +53,15 @@ func (v *antlrVisitor) visitSqlStatement(ctx antlr.ISql_stmtContext) query.State
 		dbName := createStmt.Database_name().GetText()
 		return query.NewCreateDatabaseWith(dbName)
 	}
+	if createStmt := ctx.Create_table_stmt(); createStmt != nil {
+		colums := query.NewColumns()
+		for _, columDef := range createStmt.AllColumn_def() {
+			colum := query.NewColumn()
+			colum.SetName(columDef.Column_name().GetText())
+			colums = append(colums, colum)
+		}
+		tblName := createStmt.Table_name().GetText()
+		return query.NewCreateTableWith(tblName, colums)
+	}
 	return nil
 }
