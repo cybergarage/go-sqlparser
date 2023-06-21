@@ -14,7 +14,16 @@
 
 package query
 
+// StatementList represents a statement list.
+type StatementList = []Statement
+
+// NewStatementList returns a new statement list.
+func NewStatementList() StatementList {
+	return make(StatementList, 0)
+}
+
 // Statement represents a statement interface.
 type Statement interface {
+	// String returns a statement string.
 	String() string
 }
