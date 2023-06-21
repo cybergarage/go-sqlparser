@@ -1,7 +1,7 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.12.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
 
 package antlr // SQLiteParser
-import "github.com/antlr/antlr4/runtime/Go/antlr/v4"
+import "github.com/antlr4-go/antlr/v4"
 
 // BaseSQLiteParserListener is a complete listener for a parse tree produced by SQLiteParser.
 type BaseSQLiteParserListener struct{}
@@ -97,6 +97,12 @@ func (s *BaseSQLiteParserListener) EnterIndexed_column(ctx *Indexed_columnContex
 
 // ExitIndexed_column is called when production indexed_column is exited.
 func (s *BaseSQLiteParserListener) ExitIndexed_column(ctx *Indexed_columnContext) {}
+
+// EnterCreate_database_stmt is called when production create_database_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterCreate_database_stmt(ctx *Create_database_stmtContext) {}
+
+// ExitCreate_database_stmt is called when production create_database_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitCreate_database_stmt(ctx *Create_database_stmtContext) {}
 
 // EnterCreate_table_stmt is called when production create_table_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterCreate_table_stmt(ctx *Create_table_stmtContext) {}
@@ -568,6 +574,12 @@ func (s *BaseSQLiteParserListener) EnterName(ctx *NameContext) {}
 
 // ExitName is called when production name is exited.
 func (s *BaseSQLiteParserListener) ExitName(ctx *NameContext) {}
+
+// EnterDatabase_name is called when production database_name is entered.
+func (s *BaseSQLiteParserListener) EnterDatabase_name(ctx *Database_nameContext) {}
+
+// ExitDatabase_name is called when production database_name is exited.
+func (s *BaseSQLiteParserListener) ExitDatabase_name(ctx *Database_nameContext) {}
 
 // EnterFunction_name is called when production function_name is entered.
 func (s *BaseSQLiteParserListener) EnterFunction_name(ctx *Function_nameContext) {}

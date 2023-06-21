@@ -1,7 +1,7 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.12.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
 
 package antlr // SQLiteParser
-import "github.com/antlr/antlr4/runtime/Go/antlr/v4"
+import "github.com/antlr4-go/antlr/v4"
 
 // SQLiteParserListener is a complete listener for a parse tree produced by SQLiteParser.
 type SQLiteParserListener interface {
@@ -45,6 +45,9 @@ type SQLiteParserListener interface {
 
 	// EnterIndexed_column is called when entering the indexed_column production.
 	EnterIndexed_column(c *Indexed_columnContext)
+
+	// EnterCreate_database_stmt is called when entering the create_database_stmt production.
+	EnterCreate_database_stmt(c *Create_database_stmtContext)
 
 	// EnterCreate_table_stmt is called when entering the create_table_stmt production.
 	EnterCreate_table_stmt(c *Create_table_stmtContext)
@@ -277,6 +280,9 @@ type SQLiteParserListener interface {
 	// EnterName is called when entering the name production.
 	EnterName(c *NameContext)
 
+	// EnterDatabase_name is called when entering the database_name production.
+	EnterDatabase_name(c *Database_nameContext)
+
 	// EnterFunction_name is called when entering the function_name production.
 	EnterFunction_name(c *Function_nameContext)
 
@@ -384,6 +390,9 @@ type SQLiteParserListener interface {
 
 	// ExitIndexed_column is called when exiting the indexed_column production.
 	ExitIndexed_column(c *Indexed_columnContext)
+
+	// ExitCreate_database_stmt is called when exiting the create_database_stmt production.
+	ExitCreate_database_stmt(c *Create_database_stmtContext)
 
 	// ExitCreate_table_stmt is called when exiting the create_table_stmt production.
 	ExitCreate_table_stmt(c *Create_table_stmtContext)
@@ -615,6 +624,9 @@ type SQLiteParserListener interface {
 
 	// ExitName is called when exiting the name production.
 	ExitName(c *NameContext)
+
+	// ExitDatabase_name is called when exiting the database_name production.
+	ExitDatabase_name(c *Database_nameContext)
 
 	// ExitFunction_name is called when exiting the function_name production.
 	ExitFunction_name(c *Function_nameContext)
