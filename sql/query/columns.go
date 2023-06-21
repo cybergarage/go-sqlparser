@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stmt
+package query
 
 // Columns represens a column array.
 type Columns []*Column

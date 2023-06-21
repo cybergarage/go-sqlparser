@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The go-sqlparser Authors. All rights reserved.
+// Copyright (C) 2022 The go-sqlparser Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stmt
+package query
 
 import (
 	"testing"
 )
 
-func TestNewColum(t *testing.T) {
-	_ = NewColumn()
+func TestSchema(t *testing.T) {
+	NewSchema()
 }

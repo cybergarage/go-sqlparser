@@ -28,3 +28,11 @@ func newANTLRParserVisitor() *antlrParserVisitor {
 	}
 	return v
 }
+
+func (v *antlrParserVisitor) VisitSql_stmt_list(ctx *antlr.Sql_stmt_listContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *antlrParserVisitor) VisitSql_stmt(ctx *antlr.Sql_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}

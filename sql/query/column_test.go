@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package stmt
+package query
 
-// Query represents a query interface.
-type Query interface {
-	String() string
+import (
+	"testing"
+)
+
+func TestNewColum(t *testing.T) {
+	_ = NewColumn()
 }
