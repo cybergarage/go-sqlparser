@@ -17,8 +17,7 @@ package sqlite
 import (
 	"fmt"
 
-	go_antlr "github.com/antlr/antlr4/runtime/Go/antlr/v4"
-
+	go_antlr "github.com/antlr4-go/antlr/v4"
 	errors "github.com/cybergarage/go-sqlparser/sql/parser"
 	antlr "github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/stmt"
@@ -48,8 +47,16 @@ func (parser *Parser) ParseString(queryString string) ([]stmt.Query, error) {
 	p.AddErrorListener(el)
 	p.BuildParseTrees = true
 	tree := p.Parse()
+
+	v := newANTLRParserVisitor()
+	tree.Accept(v)
+	if !el.IsSuccess() {
+		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
+	}
+
 	pl := newANTLRParserListener()
 	go_antlr.ParseTreeWalkerDefault.Walk(pl, tree)
+
 	if !el.IsSuccess() {
 		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
 	}
