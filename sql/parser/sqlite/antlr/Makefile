@@ -35,7 +35,7 @@ ${SQL_GRAMMER_G4}:
 diff:
 	@mv ${SQL_GRAMMER_G4} ${SQL_GRAMMER_G4}.new
 	@wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
-	@diff ${SQL_GRAMMER_G4}.new ${SQL_GRAMMER_G4} > ${SQL_GRAMMER_G4}.patch
+	-@diff -c ${SQL_GRAMMER_G4}.new ${SQL_GRAMMER_G4} > ${SQL_GRAMMER_G4}.patch
 	@mv ${SQL_GRAMMER_G4}.new ${SQL_GRAMMER_G4}
 
 antlr:${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
