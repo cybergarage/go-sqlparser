@@ -14,7 +14,7 @@
 
 SHELL := bash
 
-.PHONY: ${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
+.PHONY: ${SQL_LEXER_G4} ${SQL_GRAMMER_G4} diff
 
 GIT_RAW_URL=https://raw.githubusercontent.com/antlr/grammars-v4/master/sql/sqlite/
 PKG_NAME=go-sql
@@ -31,6 +31,12 @@ ${SQL_LEXER_G4}:
 ${SQL_GRAMMER_G4}:
 	wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
 	patch ${SQL_GRAMMER_G4} < ${SQL_GRAMMER_G4}.patch
+
+diff:
+	@mv ${SQL_GRAMMER_G4} ${SQL_GRAMMER_G4}.new
+	@wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
+	diff ${SQL_GRAMMER_G4}.new ${SQL_GRAMMER_G4}
+	mv ${SQL_GRAMMER_G4}.new ${SQL_GRAMMER_G4}
 
 antlr:${SQL_LEXER_G4} ${SQL_GRAMMER_G4}
 	@${ANTLR} -package antlr -Dlanguage=Go -visitor ${SQL_GRAMMER_FILES}
