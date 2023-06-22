@@ -49,6 +49,9 @@ type SQLiteParserListener interface {
 	// EnterCreate_database_stmt is called when entering the create_database_stmt production.
 	EnterCreate_database_stmt(c *Create_database_stmtContext)
 
+	// EnterIf_not_exists is called when entering the if_not_exists production.
+	EnterIf_not_exists(c *If_not_existsContext)
+
 	// EnterCreate_table_stmt is called when entering the create_table_stmt production.
 	EnterCreate_table_stmt(c *Create_table_stmtContext)
 
@@ -393,6 +396,9 @@ type SQLiteParserListener interface {
 
 	// ExitCreate_database_stmt is called when exiting the create_database_stmt production.
 	ExitCreate_database_stmt(c *Create_database_stmtContext)
+
+	// ExitIf_not_exists is called when exiting the if_not_exists production.
+	ExitIf_not_exists(c *If_not_existsContext)
 
 	// ExitCreate_table_stmt is called when exiting the create_table_stmt production.
 	ExitCreate_table_stmt(c *Create_table_stmtContext)

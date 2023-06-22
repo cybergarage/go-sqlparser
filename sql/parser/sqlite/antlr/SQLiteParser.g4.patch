@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	2023-06-22 18:58:51.000000000 +0900
---- SQLiteParser.g4	2023-06-22 19:01:10.000000000 +0900
+*** SQLiteParser.g4.new	2023-06-22 19:05:35.000000000 +0900
+--- SQLiteParser.g4	2023-06-22 19:05:43.000000000 +0900
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -11,20 +11,94 @@
           | create_trigger_stmt
 --- 47,52 ----
 ***************
-*** 118,127 ****
+*** 111,133 ****
+  ;
+  
+  create_index_stmt:
+!     CREATE_ UNIQUE_? INDEX_ (if_not_exists)? (schema_name DOT)? index_name ON_ table_name OPEN_PAR
+          indexed_column (COMMA indexed_column)* CLOSE_PAR (WHERE_ expr)?
+  ;
+  
   indexed_column: (column_name | expr) (COLLATE_ collation_name)? asc_desc?
   ;
   
 - create_database_stmt:
--     CREATE_ DATABASE_ (IF_ NOT_ EXISTS_)? database_name
+-     CREATE_ DATABASE_ (if_not_exists)? database_name
+- ;
+- 
+- if_not_exists:
+-     IF_ NOT_ EXISTS_
 - ;
 - 
   create_table_stmt:
-      CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (IF_ NOT_ EXISTS_)? (
+!     CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (if_not_exists)? (
           schema_name DOT
---- 117,122 ----
+      )? table_name (
+          OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
+--- 110,124 ----
+  ;
+  
+  create_index_stmt:
+!     CREATE_ UNIQUE_? INDEX_ (IF_ NOT_ EXISTS_)? (schema_name DOT)? index_name ON_ table_name OPEN_PAR
+          indexed_column (COMMA indexed_column)* CLOSE_PAR (WHERE_ expr)?
+  ;
+  
+  indexed_column: (column_name | expr) (COLLATE_ collation_name)? asc_desc?
+  ;
+  
+  create_table_stmt:
+!     CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (IF_ NOT_ EXISTS_)? (
+          schema_name DOT
+      )? table_name (
+          OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
 ***************
-*** 824,833 ****
+*** 199,205 ****
+  ;
+  
+  create_trigger_stmt:
+!     CREATE_ (TEMP_ | TEMPORARY_)? TRIGGER_ (if_not_exists)? (
+          schema_name DOT
+      )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
+          DELETE_
+--- 190,196 ----
+  ;
+  
+  create_trigger_stmt:
+!     CREATE_ (TEMP_ | TEMPORARY_)? TRIGGER_ (IF_ NOT_ EXISTS_)? (
+          schema_name DOT
+      )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
+          DELETE_
+***************
+*** 211,223 ****
+  ;
+  
+  create_view_stmt:
+!     CREATE_ (TEMP_ | TEMPORARY_)? VIEW_ (if_not_exists)? (
+          schema_name DOT
+      )? view_name (OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR)? AS_ select_stmt
+  ;
+  
+  create_virtual_table_stmt:
+!     CREATE_ VIRTUAL_ TABLE_ (if_not_exists)? (schema_name DOT)? table_name USING_ module_name (
+          OPEN_PAR module_argument (COMMA module_argument)* CLOSE_PAR
+      )?
+  ;
+--- 202,214 ----
+  ;
+  
+  create_view_stmt:
+!     CREATE_ (TEMP_ | TEMPORARY_)? VIEW_ (IF_ NOT_ EXISTS_)? (
+          schema_name DOT
+      )? view_name (OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR)? AS_ select_stmt
+  ;
+  
+  create_virtual_table_stmt:
+!     CREATE_ VIRTUAL_ TABLE_ (IF_ NOT_ EXISTS_)? (schema_name DOT)? table_name USING_ module_name (
+          OPEN_PAR module_argument (COMMA module_argument)* CLOSE_PAR
+      )?
+  ;
+***************
+*** 828,837 ****
       any_name
   ;
   
