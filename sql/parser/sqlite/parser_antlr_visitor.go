@@ -65,11 +65,12 @@ func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) *query.Create
 
 func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable {
 	colums := query.NewColumns()
+	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
 		colum := query.NewColumn()
 		colum.SetName(columDef.Column_name().GetText())
 		colums = append(colums, colum)
 	}
 	tblName := ctx.Table_name().GetText()
-	return query.NewCreateTableWith(tblName, colums)
+	return query.NewCreateTableWith(tblName, colums, indexes)
 }
