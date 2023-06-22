@@ -104,6 +104,12 @@ func (s *BaseSQLiteParserListener) EnterCreate_database_stmt(ctx *Create_databas
 // ExitCreate_database_stmt is called when production create_database_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitCreate_database_stmt(ctx *Create_database_stmtContext) {}
 
+// EnterIf_not_exists is called when production if_not_exists is entered.
+func (s *BaseSQLiteParserListener) EnterIf_not_exists(ctx *If_not_existsContext) {}
+
+// ExitIf_not_exists is called when production if_not_exists is exited.
+func (s *BaseSQLiteParserListener) ExitIf_not_exists(ctx *If_not_existsContext) {}
+
 // EnterCreate_table_stmt is called when production create_table_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterCreate_table_stmt(ctx *Create_table_stmtContext) {}
 

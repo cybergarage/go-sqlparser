@@ -63,6 +63,10 @@ func (v *BaseSQLiteParserVisitor) VisitCreate_database_stmt(ctx *Create_database
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitIf_not_exists(ctx *If_not_existsContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitCreate_table_stmt(ctx *Create_table_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }

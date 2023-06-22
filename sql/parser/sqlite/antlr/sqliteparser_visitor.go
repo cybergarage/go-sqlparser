@@ -49,6 +49,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#create_database_stmt.
 	VisitCreate_database_stmt(ctx *Create_database_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#if_not_exists.
+	VisitIf_not_exists(ctx *If_not_existsContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#create_table_stmt.
 	VisitCreate_table_stmt(ctx *Create_table_stmtContext) interface{}
 

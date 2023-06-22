@@ -111,7 +111,7 @@ release_stmt:
 ;
 
 create_index_stmt:
-    CREATE_ UNIQUE_? INDEX_ (IF_ NOT_ EXISTS_)? (schema_name DOT)? index_name ON_ table_name OPEN_PAR
+    CREATE_ UNIQUE_? INDEX_ (if_not_exists)? (schema_name DOT)? index_name ON_ table_name OPEN_PAR
         indexed_column (COMMA indexed_column)* CLOSE_PAR (WHERE_ expr)?
 ;
 
@@ -119,11 +119,15 @@ indexed_column: (column_name | expr) (COLLATE_ collation_name)? asc_desc?
 ;
 
 create_database_stmt:
-    CREATE_ DATABASE_ (IF_ NOT_ EXISTS_)? database_name
+    CREATE_ DATABASE_ (if_not_exists)? database_name
+;
+
+if_not_exists:
+    IF_ NOT_ EXISTS_
 ;
 
 create_table_stmt:
-    CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (IF_ NOT_ EXISTS_)? (
+    CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (if_not_exists)? (
         schema_name DOT
     )? table_name (
         OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
@@ -195,7 +199,7 @@ conflict_clause:
 ;
 
 create_trigger_stmt:
-    CREATE_ (TEMP_ | TEMPORARY_)? TRIGGER_ (IF_ NOT_ EXISTS_)? (
+    CREATE_ (TEMP_ | TEMPORARY_)? TRIGGER_ (if_not_exists)? (
         schema_name DOT
     )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
         DELETE_
@@ -207,13 +211,13 @@ create_trigger_stmt:
 ;
 
 create_view_stmt:
-    CREATE_ (TEMP_ | TEMPORARY_)? VIEW_ (IF_ NOT_ EXISTS_)? (
+    CREATE_ (TEMP_ | TEMPORARY_)? VIEW_ (if_not_exists)? (
         schema_name DOT
     )? view_name (OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR)? AS_ select_stmt
 ;
 
 create_virtual_table_stmt:
-    CREATE_ VIRTUAL_ TABLE_ (IF_ NOT_ EXISTS_)? (schema_name DOT)? table_name USING_ module_name (
+    CREATE_ VIRTUAL_ TABLE_ (if_not_exists)? (schema_name DOT)? table_name USING_ module_name (
         OPEN_PAR module_argument (COMMA module_argument)* CLOSE_PAR
     )?
 ;
