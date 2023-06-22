@@ -16,17 +16,13 @@ package query
 
 // CreateTable is a "CREATE TABLE" statement.
 type CreateTable struct {
-	*Table
-	Columns
-	Indexes
+	*Schema
 }
 
 // NewCreateTableWith returns a new CreateTable statement instance with the specified name.
-func NewCreateTableWith(name string, colums Columns, indexes Indexes) *CreateTable {
+func NewCreateTableWith(schema *Schema) *CreateTable {
 	return &CreateTable{
-		Table:   NewTableWith(name),
-		Columns: colums,
-		Indexes: indexes,
+		Schema: schema,
 	}
 }
 
@@ -37,5 +33,5 @@ func (stmt *CreateTable) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateTable) String() string {
-	return "CREATE TABLE " + stmt.name
+	return stmt.Schema.String()
 }
