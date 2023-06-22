@@ -31,14 +31,14 @@ func newANTLRVisitor() *antlrVisitor {
 }
 
 func (v *antlrVisitor) VisitParse(ctx *antlr.ParseContext) interface{} {
-	return v.visitStatementList(ctx.AllSql_stmt_list())
+	return newStatementListWith(ctx.AllSql_stmt_list())
 }
 
-func (v *antlrVisitor) visitStatementList(ctxList []antlr.ISql_stmt_listContext) query.StatementList {
+func newStatementListWith(ctxList []antlr.ISql_stmt_listContext) query.StatementList {
 	stmtList := query.NewStatementList()
 	for _, ctx := range ctxList {
 		for _, sqlStmt := range ctx.AllSql_stmt() {
-			stmt := v.visitSqlStatement(sqlStmt)
+			stmt := newStatementWith(sqlStmt)
 			if stmt == nil {
 				continue
 			}
@@ -48,20 +48,28 @@ func (v *antlrVisitor) visitStatementList(ctxList []antlr.ISql_stmt_listContext)
 	return stmtList
 }
 
-func (v *antlrVisitor) visitSqlStatement(ctx antlr.ISql_stmtContext) query.Statement {
-	if createStmt := ctx.Create_database_stmt(); createStmt != nil {
-		dbName := createStmt.Database_name().GetText()
-		return query.NewCreateDatabaseWith(dbName)
+func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
+	if stmt := ctx.Create_database_stmt(); stmt != nil {
+		return newCreateDatabaseWith(stmt)
 	}
-	if createStmt := ctx.Create_table_stmt(); createStmt != nil {
-		colums := query.NewColumns()
-		for _, columDef := range createStmt.AllColumn_def() {
-			colum := query.NewColumn()
-			colum.SetName(columDef.Column_name().GetText())
-			colums = append(colums, colum)
-		}
-		tblName := createStmt.Table_name().GetText()
-		return query.NewCreateTableWith(tblName, colums)
+	if stmt := ctx.Create_table_stmt(); stmt != nil {
+		return newCreateTableWith(stmt)
 	}
 	return nil
+}
+
+func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) *query.CreateDatabase {
+	dbName := ctx.Database_name().GetText()
+	return query.NewCreateDatabaseWith(dbName)
+}
+
+func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable {
+	colums := query.NewColumns()
+	for _, columDef := range ctx.AllColumn_def() {
+		colum := query.NewColumn()
+		colum.SetName(columDef.Column_name().GetText())
+		colums = append(colums, colum)
+	}
+	tblName := ctx.Table_name().GetText()
+	return query.NewCreateTableWith(tblName, colums)
 }
