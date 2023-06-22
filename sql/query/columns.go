@@ -22,6 +22,13 @@ func NewColumns() Columns {
 	return make(Columns, 0)
 }
 
+// NewColumnsWith returns a column array instance with the specified columns.
+func NewColumnsWith(columns ...*Column) Columns {
+	c := make(Columns, len(columns))
+	copy(c, columns)
+	return c
+}
+
 // Column returns a column array.
 func (colums Columns) Columns() Columns {
 	return colums
