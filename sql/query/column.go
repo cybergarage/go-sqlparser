@@ -17,29 +17,18 @@ package query
 // Column represents a column.
 type Column struct {
 	name  string
-	value interface{}
+	t     DataType
+	value any
 }
 
 // NewColumn returns a column instance.
-func NewColumn() *Column {
+func NewColumnWith(name string, t DataType, v any) *Column {
 	col := &Column{
-		name:  "",
-		value: nil,
+		name:  name,
+		t:     t,
+		value: v,
 	}
 	return col
-}
-
-// NewColumnWithName returns a column instance with the specified name.
-func NewColumnWithName(name string) *Column {
-	col := &Column{
-		name: name,
-	}
-	return col
-}
-
-// SetName sets a name into the column.
-func (col *Column) SetName(name string) {
-	col.name = name
 }
 
 // Name returns the column name.
@@ -47,9 +36,9 @@ func (col *Column) Name() string {
 	return col.name
 }
 
-// SetValue sets a value into the column.
-func (col *Column) SetValue(value interface{}) {
-	col.value = value
+// Type returns the column type.
+func (col *Column) Type() DataType {
+	return col.t
 }
 
 // Value returns the column value.
