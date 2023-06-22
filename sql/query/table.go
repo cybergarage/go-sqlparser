@@ -27,16 +27,16 @@ func NewTableWith(name string) *Table {
 }
 
 // Table returns the table.
-func (db *Table) Table() *Table {
-	return db
+func (tbl *Table) Table() *Table {
+	return tbl
 }
 
 // Name returns the table name.
-func (db *Table) Name() string {
-	return db.name
+func (tbl *Table) Name() string {
+	return tbl.name
 }
 
 // String returns the string representation.
-func (db *Table) String() string {
-	return db.name
+func (tbl *Table) String() string {
+	return tbl.name
 }
