@@ -60,11 +60,19 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 
 func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) *query.CreateDatabase {
 	dbName := ctx.Database_name().GetText()
-	return query.NewCreateDatabaseWith(dbName)
+	ifNotExists := query.NewIfNotExistsWith(false)
+	if ctx.If_not_exists() != nil {
+		ifNotExists = query.NewIfNotExistsWith(true)
+	}
+	return query.NewCreateDatabaseWith(dbName, ifNotExists)
 }
 
 func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable {
-	return query.NewCreateTableWith(newSchemaWith(ctx))
+	ifNotExists := query.NewIfNotExistsWith(false)
+	if ctx.If_not_exists() != nil {
+		ifNotExists = query.NewIfNotExistsWith(true)
+	}
+	return query.NewCreateTableWith(newSchemaWith(ctx), ifNotExists)
 }
 
 func newSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
