@@ -30,7 +30,7 @@ ${SQL_LEXER_G4}:
 
 ${SQL_GRAMMER_G4}:
 	wget -N ${GIT_RAW_URL}${SQL_GRAMMER_G4}
-	patch ${SQL_GRAMMER_G4} < ${SQL_GRAMMER_G4}.patch
+	patch -c ${SQL_GRAMMER_G4} < ${SQL_GRAMMER_G4}.patch
 
 diff:
 	@mv ${SQL_GRAMMER_G4} ${SQL_GRAMMER_G4}.new
