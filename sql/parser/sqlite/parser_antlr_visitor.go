@@ -64,13 +64,30 @@ func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) *query.Create
 }
 
 func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable {
+	return query.NewCreateTableWith(newSchemaWith(ctx))
+}
+
+func newSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
+	tblName := ctx.Table_name().GetText()
 	colums := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
-		colum := query.NewColumn()
-		colum.SetName(columDef.Column_name().GetText())
+		colum := newColumnWith(columDef)
 		colums = append(colums, colum)
+		for _, columnConst := range columDef.AllColumn_constraint() {
+			if isPrimary := columnConst.PRIMARY_(); isPrimary != nil {
+				indexes = append(indexes, query.NewIndexWith("", query.PrimaryIndex, query.NewColumnsWith(colum)))
+			}
+		}
 	}
-	tblName := ctx.Table_name().GetText()
-	return query.NewCreateTableWith(tblName, colums, indexes)
+	return query.NewSchemaWith(tblName, colums, indexes)
+}
+
+func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
+	name := ctx.Column_name().GetText()
+	t, err := query.NewDataTypeFrom(ctx.Type_name().GetText())
+	if err != nil {
+		t = query.UnknownData
+	}
+	return query.NewColumnWith(name, t, nil)
 }
