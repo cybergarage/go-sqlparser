@@ -21,3 +21,8 @@ type Columns []*Column
 func NewColumns() Columns {
 	return make(Columns, 0)
 }
+
+// Column returns a column array.
+func (colums Columns) Columns() Columns {
+	return colums
+}
