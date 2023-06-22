@@ -14,10 +14,15 @@
 
 package query
 
-// Indexes represents a list of Index.
+// Indexes represents an index array.
 type Indexes []*Index
 
 // NewIndexes returns a new Indexes instance.
 func NewIndexes() Indexes {
 	return make(Indexes, 0)
+}
+
+// Indexes returns an index array.
+func (indexes Indexes) Indexes() Indexes {
+	return indexes
 }
