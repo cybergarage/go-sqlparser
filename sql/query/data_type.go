@@ -20,7 +20,8 @@ import "fmt"
 type DataType int
 
 const (
-	BigIntData = iota
+	UnknownData = iota
+	BigIntData  = iota
 	BinaryData
 	BitData
 	BlobData
@@ -55,8 +56,8 @@ const (
 	YearData
 )
 
-// GetDataTypeString returns the data type of the specified string.
-func GetDataTypeFrom(s string) (DataType, error) {
+// NewDataTypeFrom returns the data type of the specified string.
+func NewDataTypeFrom(s string) (DataType, error) {
 	switch s {
 	case "BIGINT":
 		return BigIntData, nil
@@ -125,6 +126,6 @@ func GetDataTypeFrom(s string) (DataType, error) {
 	case "YEAR":
 		return YearData, nil
 	default:
-		return -1, fmt.Errorf("invalid data type: %s", s)
+		return UnknownData, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 	}
 }
