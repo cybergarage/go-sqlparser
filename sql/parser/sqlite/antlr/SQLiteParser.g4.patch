@@ -1,0 +1,38 @@
+*** SQLiteParser.g4.new	2023-06-22 18:58:51.000000000 +0900
+--- SQLiteParser.g4	2023-06-22 19:01:10.000000000 +0900
+***************
+*** 47,53 ****
+          | attach_stmt
+          | begin_stmt
+          | commit_stmt
+-         | create_database_stmt
+          | create_index_stmt
+          | create_table_stmt
+          | create_trigger_stmt
+--- 47,52 ----
+***************
+*** 118,127 ****
+  indexed_column: (column_name | expr) (COLLATE_ collation_name)? asc_desc?
+  ;
+  
+- create_database_stmt:
+-     CREATE_ DATABASE_ (IF_ NOT_ EXISTS_)? database_name
+- ;
+- 
+  create_table_stmt:
+      CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (IF_ NOT_ EXISTS_)? (
+          schema_name DOT
+--- 117,122 ----
+***************
+*** 824,833 ****
+      any_name
+  ;
+  
+- database_name:
+-     any_name
+- ;
+- 
+  function_name:
+      any_name
+  ;
+--- 819,824 ----
