@@ -18,13 +18,15 @@ package query
 type CreateTable struct {
 	*Table
 	Columns
+	Indexes
 }
 
 // NewCreateTableWith returns a new CreateTable statement instance with the specified name.
-func NewCreateTableWith(name string, colums Columns) *CreateTable {
+func NewCreateTableWith(name string, colums Columns, indexes Indexes) *CreateTable {
 	return &CreateTable{
 		Table:   NewTableWith(name),
 		Columns: colums,
+		Indexes: indexes,
 	}
 }
 
