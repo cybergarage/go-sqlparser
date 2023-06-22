@@ -17,12 +17,14 @@ package query
 // CreateDatabase is a "CREATE DATABASE" statement.
 type CreateDatabase struct {
 	*Database
+	*IfNotExists
 }
 
 // NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified name.
-func NewCreateDatabaseWith(name string) *CreateDatabase {
+func NewCreateDatabaseWith(name string, ifne *IfNotExists) *CreateDatabase {
 	return &CreateDatabase{
-		Database: NewDatabaseWith(name),
+		Database:    NewDatabaseWith(name),
+		IfNotExists: ifne,
 	}
 }
 
