@@ -17,7 +17,10 @@ package query
 import "fmt"
 
 // DataType represents a data type.
-type DataType int
+type DataType struct {
+	Type   int
+	Length int
+}
 
 const (
 	UnknownData = iota
@@ -57,75 +60,75 @@ const (
 )
 
 // NewDataTypeFrom returns the data type of the specified string.
-func NewDataTypeFrom(s string) (DataType, error) {
+func NewDataTypeFrom(s string, l int) (*DataType, error) {
 	switch s {
 	case "BIGINT":
-		return BigIntData, nil
+		return &DataType{BigIntData, l}, nil
 	case "BINARY":
-		return BinaryData, nil
+		return &DataType{BinaryData, l}, nil
 	case "BIT":
-		return BitData, nil
+		return &DataType{BitData, l}, nil
 	case "BLOB":
-		return BlobData, nil
+		return &DataType{BlobData, l}, nil
 	case "BOOLEAN":
-		return BooleanData, nil
+		return &DataType{BooleanData, l}, nil
 	case "CHAR":
-		return CharData, nil
+		return &DataType{CharData, l}, nil
 	case "CHARACTER":
-		return CharacterData, nil
+		return &DataType{CharacterData, l}, nil
 	case "CLOB":
-		return ClobData, nil
+		return &DataType{ClobData, l}, nil
 	case "DATE":
-		return DateData, nil
+		return &DataType{DateData, l}, nil
 	case "DECIMAL":
-		return DecimalData, nil
+		return &DataType{DecimalData, l}, nil
 	case "DOUBLE":
-		return DoubleData, nil
+		return &DataType{DoubleData, l}, nil
 	case "FLOAT":
-		return FloatData, nil
+		return &DataType{FloatData, l}, nil
 	case "INT":
-		return IntData, nil
+		return &DataType{IntData, l}, nil
 	case "INTEGER":
-		return IntegerData, nil
+		return &DataType{IntegerData, l}, nil
 	case "LONGBLOB":
-		return LongBlobData, nil
+		return &DataType{LongBlobData, l}, nil
 	case "LONGTEXT":
-		return LongTextData, nil
+		return &DataType{LongTextData, l}, nil
 	case "MEDIUMBLOB":
-		return MediumBlobData, nil
+		return &DataType{MediumBlobData, l}, nil
 	case "MEDIUMINT":
-		return MediumIntData, nil
+		return &DataType{MediumIntData, l}, nil
 	case "MEDIUMTEXT":
-		return MediumTextData, nil
+		return &DataType{MediumTextData, l}, nil
 	case "NUMERIC":
-		return NumericData, nil
+		return &DataType{NumericData, l}, nil
 	case "REAL":
-		return RealData, nil
+		return &DataType{RealData, l}, nil
 	case "SET":
-		return SetData, nil
+		return &DataType{SetData, l}, nil
 	case "SMALLINT":
-		return SmallIntData, nil
+		return &DataType{SmallIntData, l}, nil
 	case "TEXT":
-		return TextData, nil
+		return &DataType{TextData, l}, nil
 	case "TIME":
-		return TimeData, nil
+		return &DataType{TimeData, l}, nil
 	case "TIMESTAMP":
-		return TimeStampData, nil
+		return &DataType{TimeStampData, l}, nil
 	case "TINYBLOB":
-		return TinyBlobData, nil
+		return &DataType{TinyBlobData, l}, nil
 	case "TINYINT":
-		return TinyIntData, nil
+		return &DataType{TinyIntData, l}, nil
 	case "TINYTEXT":
-		return TinyTextData, nil
+		return &DataType{TinyTextData, l}, nil
 	case "VARBINARY":
-		return VarBinaryData, nil
+		return &DataType{VarBinaryData, l}, nil
 	case "VARCHAR":
-		return VarCharData, nil
+		return &DataType{VarCharData, l}, nil
 	case "VARCHARACTER":
-		return VarCharacterData, nil
+		return &DataType{VarCharacterData, l}, nil
 	case "YEAR":
-		return YearData, nil
+		return &DataType{YearData, l}, nil
 	default:
-		return UnknownData, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
+		return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 	}
 }
