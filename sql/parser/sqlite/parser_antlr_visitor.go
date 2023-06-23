@@ -93,9 +93,9 @@ func newSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	name := ctx.Column_name().GetText()
-	t, err := query.NewDataTypeFrom(ctx.Type_name().GetText())
+	t, err := query.NewDataTypeFrom(ctx.Type_name().GetText(), -1)
 	if err != nil {
-		t = query.UnknownData
+		t = &query.DataType{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWith(name, t, nil)
 }
