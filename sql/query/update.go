@@ -14,13 +14,21 @@
 
 package query
 
-// StatementType is a statement type.
-type StatementType int
+// Update is a "UPDATE" statement.
+type Update struct {
+}
 
-const (
-	CreateDatabaseStatement = iota
-	CreateTableStatement
-	InsertStatement
-	SelectStatement
-	UpdateStatement
-)
+// NewUpdateWith returns a new Update statement instance with the specified parameters.
+func NewUpdateWith() *Update {
+	return &Update{}
+}
+
+// StatementType returns the statement type.
+func (stmt *Update) StatementType() StatementType {
+	return UpdateStatement
+}
+
+// String returns the statement string representation.
+func (stmt *Update) String() string {
+	return ""
+}
