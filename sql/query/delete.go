@@ -14,14 +14,21 @@
 
 package query
 
-// StatementType is a statement type.
-type StatementType int
+// Delete is a "DELETE" statement.
+type Delete struct {
+}
 
-const (
-	CreateDatabaseStatement = iota
-	CreateTableStatement
-	InsertStatement
-	SelectStatement
-	UpdateStatement
-	DeleteStatement
-)
+// NewDeleteWith returns a new Delete statement instance with the specified parameters.
+func NewDeleteWith() *Delete {
+	return &Delete{}
+}
+
+// StatementType returns the statement type.
+func (stmt *Delete) StatementType() StatementType {
+	return DeleteStatement
+}
+
+// String returns the statement string representation.
+func (stmt *Delete) String() string {
+	return ""
+}
