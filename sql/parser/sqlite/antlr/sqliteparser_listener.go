@@ -109,6 +109,9 @@ type SQLiteParserListener interface {
 	// EnterDrop_stmt is called when entering the drop_stmt production.
 	EnterDrop_stmt(c *Drop_stmtContext)
 
+	// EnterIf_exists is called when entering the if_exists production.
+	EnterIf_exists(c *If_existsContext)
+
 	// EnterExpr is called when entering the expr production.
 	EnterExpr(c *ExprContext)
 
@@ -456,6 +459,9 @@ type SQLiteParserListener interface {
 
 	// ExitDrop_stmt is called when exiting the drop_stmt production.
 	ExitDrop_stmt(c *Drop_stmtContext)
+
+	// ExitIf_exists is called when exiting the if_exists production.
+	ExitIf_exists(c *If_existsContext)
 
 	// ExitExpr is called when exiting the expr production.
 	ExitExpr(c *ExprContext)

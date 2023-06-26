@@ -143,6 +143,10 @@ func (v *BaseSQLiteParserVisitor) VisitDrop_stmt(ctx *Drop_stmtContext) interfac
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitIf_exists(ctx *If_existsContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitExpr(ctx *ExprContext) interface{} {
 	return v.VisitChildren(ctx)
 }
