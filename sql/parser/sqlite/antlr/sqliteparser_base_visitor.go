@@ -143,6 +143,26 @@ func (v *BaseSQLiteParserVisitor) VisitDrop_stmt(ctx *Drop_stmtContext) interfac
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitDrop_database_stmt(ctx *Drop_database_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDrop_index_stmt(ctx *Drop_index_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDrop_table_stmt(ctx *Drop_table_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDrop_trigger_stmt(ctx *Drop_trigger_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDrop_view_stmt(ctx *Drop_view_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitIf_exists(ctx *If_existsContext) interface{} {
 	return v.VisitChildren(ctx)
 }

@@ -56,7 +56,11 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
         | delete_stmt
         | delete_stmt_limited
         | detach_stmt
-        | drop_stmt
+        | drop_database_stmt
+        | drop_index_stmt
+        | drop_table_stmt
+        | drop_trigger_stmt
+        | drop_view_stmt
         | insert_stmt
         | pragma_stmt
         | reindex_stmt
@@ -256,6 +260,36 @@ detach_stmt:
 
 drop_stmt:
     DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
+        if_exists
+    )? (schema_name DOT)? any_name
+;
+
+drop_database_stmt:
+    DROP_  DATABASE_ (
+        if_exists
+    )? database_name
+;
+
+drop_index_stmt:
+    DROP_  INDEX_ (
+        if_exists
+    )? (schema_name DOT)? any_name
+;
+
+drop_table_stmt:
+    DROP_  TABLE_ (
+        if_exists
+    )? (schema_name DOT)? any_name
+;
+
+drop_trigger_stmt:
+    DROP_  TRIGGER_ (
+        if_exists
+    )? (schema_name DOT)? any_name
+;
+
+drop_view_stmt:
+    DROP_  VIEW_ (
         if_exists
     )? (schema_name DOT)? any_name
 ;

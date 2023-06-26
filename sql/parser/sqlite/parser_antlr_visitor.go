@@ -100,6 +100,34 @@ func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) *query.CreateTable 
 	return query.NewCreateTableWith(newIndexSchemaWith(ctx), ifNotExists)
 }
 
+/*
+func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) *query.DropDatabase {
+	dbName := ctx.Database_name().GetText()
+	return query.NewDropDatabaseWith(dbName)
+}
+
+func newDropTableWith(ctx antlr.IDrop_table_stmtContext) *query.DropTable {
+	return query.NewDropTableWith(newTableSchemaWith(ctx))
+}
+
+func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropTable {
+	return query.NewDropTableWith(newIndexSchemaWith(ctx))
+}
+
+func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
+	dbName := ctx.Database_name().GetText()
+	return query.NewAlterDatabaseWith(dbName)
+}
+
+func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
+	return query.NewAlterTableWith(newTableSchemaWith(ctx))
+}
+
+func newAlterIndexWith(ctx antlr.IAlter_index_stmtContext) *query.AlterTable {
+	return query.NewAlterTableWith(newIndexSchemaWith(ctx))
+}
+*/
+
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
 	colums := query.NewColumns()

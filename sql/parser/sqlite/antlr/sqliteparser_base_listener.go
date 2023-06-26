@@ -227,6 +227,36 @@ func (s *BaseSQLiteParserListener) EnterDrop_stmt(ctx *Drop_stmtContext) {}
 // ExitDrop_stmt is called when production drop_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitDrop_stmt(ctx *Drop_stmtContext) {}
 
+// EnterDrop_database_stmt is called when production drop_database_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_database_stmt(ctx *Drop_database_stmtContext) {}
+
+// ExitDrop_database_stmt is called when production drop_database_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_database_stmt(ctx *Drop_database_stmtContext) {}
+
+// EnterDrop_index_stmt is called when production drop_index_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_index_stmt(ctx *Drop_index_stmtContext) {}
+
+// ExitDrop_index_stmt is called when production drop_index_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_index_stmt(ctx *Drop_index_stmtContext) {}
+
+// EnterDrop_table_stmt is called when production drop_table_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_table_stmt(ctx *Drop_table_stmtContext) {}
+
+// ExitDrop_table_stmt is called when production drop_table_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_table_stmt(ctx *Drop_table_stmtContext) {}
+
+// EnterDrop_trigger_stmt is called when production drop_trigger_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_trigger_stmt(ctx *Drop_trigger_stmtContext) {}
+
+// ExitDrop_trigger_stmt is called when production drop_trigger_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_trigger_stmt(ctx *Drop_trigger_stmtContext) {}
+
+// EnterDrop_view_stmt is called when production drop_view_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_view_stmt(ctx *Drop_view_stmtContext) {}
+
+// ExitDrop_view_stmt is called when production drop_view_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_view_stmt(ctx *Drop_view_stmtContext) {}
+
 // EnterIf_exists is called when production if_exists is entered.
 func (s *BaseSQLiteParserListener) EnterIf_exists(ctx *If_existsContext) {}
 
