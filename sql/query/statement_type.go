@@ -20,6 +20,7 @@ type StatementType int
 const (
 	CreateDatabaseStatement = iota
 	CreateTableStatement
+	CreateIndexStatement
 	InsertStatement
 	SelectStatement
 	UpdateStatement
