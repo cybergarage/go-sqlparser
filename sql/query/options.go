@@ -19,7 +19,7 @@ type IfNotExists struct {
 	enabled bool
 }
 
-// NewIndex returns a new Index instance.
+// NewIfNotExistsWith returns a new IfNotExists option instance.
 func NewIfNotExistsWith(v bool) *IfNotExists {
 	return &IfNotExists{
 		enabled: v,
@@ -28,5 +28,22 @@ func NewIfNotExistsWith(v bool) *IfNotExists {
 
 // IfNotExists returns the IF NOT EXISTS option.
 func (opt *IfNotExists) IfNotExists() bool {
+	return opt.enabled
+}
+
+// IfExists represents a IF EXISTS option.
+type IfExists struct {
+	enabled bool
+}
+
+// NewIfExistsWith returns a new IfExists option instance.
+func NewIfExistsWith(v bool) *IfExists {
+	return &IfExists{
+		enabled: v,
+	}
+}
+
+// IfExists returns the IF EXISTS option.
+func (opt *IfExists) IfExists() bool {
 	return opt.enabled
 }
