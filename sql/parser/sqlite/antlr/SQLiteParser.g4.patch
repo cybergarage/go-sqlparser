@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Jun 26 23:38:50 2023
---- SQLiteParser.g4	Mon Jun 26 23:40:30 2023
+*** SQLiteParser.g4.new	Mon Jun 26 23:59:31 2023
+--- SQLiteParser.g4	Tue Jun 27 00:00:12 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -11,7 +11,28 @@
           | create_trigger_stmt
 --- 47,52 ----
 ***************
-*** 111,133 ****
+*** 56,66 ****
+          | delete_stmt
+          | delete_stmt_limited
+          | detach_stmt
+!         | drop_database_stmt
+!         | drop_index_stmt
+!         | drop_table_stmt
+!         | drop_trigger_stmt
+!         | drop_view_stmt
+          | insert_stmt
+          | pragma_stmt
+          | reindex_stmt
+--- 55,61 ----
+          | delete_stmt
+          | delete_stmt_limited
+          | detach_stmt
+!         | drop_stmt
+          | insert_stmt
+          | pragma_stmt
+          | reindex_stmt
+***************
+*** 115,137 ****
   ;
   
   create_index_stmt:
@@ -52,7 +73,7 @@
       )? table_name (
           OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
 ***************
-*** 199,205 ****
+*** 203,209 ****
   ;
   
   create_trigger_stmt:
@@ -69,7 +90,7 @@
       )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
           DELETE_
 ***************
-*** 211,223 ****
+*** 215,227 ****
   ;
   
   create_view_stmt:
@@ -98,7 +119,7 @@
       )?
   ;
 ***************
-*** 256,269 ****
+*** 260,303 ****
   
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
@@ -106,6 +127,36 @@
       )? (schema_name DOT)? any_name
   ;
   
+- drop_database_stmt:
+-     DROP_  DATABASE_ (
+-         if_exists
+-     )? database_name
+- ;
+- 
+- drop_index_stmt:
+-     DROP_  INDEX_ (
+-         if_exists
+-     )? (schema_name DOT)? any_name
+- ;
+- 
+- drop_table_stmt:
+-     DROP_  TABLE_ (
+-         if_exists
+-     )? (schema_name DOT)? any_name
+- ;
+- 
+- drop_trigger_stmt:
+-     DROP_  TRIGGER_ (
+-         if_exists
+-     )? (schema_name DOT)? any_name
+- ;
+- 
+- drop_view_stmt:
+-     DROP_  VIEW_ (
+-         if_exists
+-     )? (schema_name DOT)? any_name
+- ;
+- 
 - if_exists:
 -     IF_ NOT_ EXISTS_
 - ;
@@ -125,7 +176,7 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 829,838 ****
+*** 863,872 ****
   // TODO: check all names below
   
   name:

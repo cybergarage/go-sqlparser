@@ -109,6 +109,21 @@ type SQLiteParserListener interface {
 	// EnterDrop_stmt is called when entering the drop_stmt production.
 	EnterDrop_stmt(c *Drop_stmtContext)
 
+	// EnterDrop_database_stmt is called when entering the drop_database_stmt production.
+	EnterDrop_database_stmt(c *Drop_database_stmtContext)
+
+	// EnterDrop_index_stmt is called when entering the drop_index_stmt production.
+	EnterDrop_index_stmt(c *Drop_index_stmtContext)
+
+	// EnterDrop_table_stmt is called when entering the drop_table_stmt production.
+	EnterDrop_table_stmt(c *Drop_table_stmtContext)
+
+	// EnterDrop_trigger_stmt is called when entering the drop_trigger_stmt production.
+	EnterDrop_trigger_stmt(c *Drop_trigger_stmtContext)
+
+	// EnterDrop_view_stmt is called when entering the drop_view_stmt production.
+	EnterDrop_view_stmt(c *Drop_view_stmtContext)
+
 	// EnterIf_exists is called when entering the if_exists production.
 	EnterIf_exists(c *If_existsContext)
 
@@ -459,6 +474,21 @@ type SQLiteParserListener interface {
 
 	// ExitDrop_stmt is called when exiting the drop_stmt production.
 	ExitDrop_stmt(c *Drop_stmtContext)
+
+	// ExitDrop_database_stmt is called when exiting the drop_database_stmt production.
+	ExitDrop_database_stmt(c *Drop_database_stmtContext)
+
+	// ExitDrop_index_stmt is called when exiting the drop_index_stmt production.
+	ExitDrop_index_stmt(c *Drop_index_stmtContext)
+
+	// ExitDrop_table_stmt is called when exiting the drop_table_stmt production.
+	ExitDrop_table_stmt(c *Drop_table_stmtContext)
+
+	// ExitDrop_trigger_stmt is called when exiting the drop_trigger_stmt production.
+	ExitDrop_trigger_stmt(c *Drop_trigger_stmtContext)
+
+	// ExitDrop_view_stmt is called when exiting the drop_view_stmt production.
+	ExitDrop_view_stmt(c *Drop_view_stmtContext)
 
 	// ExitIf_exists is called when exiting the if_exists production.
 	ExitIf_exists(c *If_existsContext)
