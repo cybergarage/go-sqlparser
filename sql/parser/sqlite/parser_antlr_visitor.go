@@ -59,6 +59,9 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Create_index_stmt(); stmt != nil {
 		return newCreateIndexWith(stmt)
 	}
+	if stmt := ctx.Drop_database_stmt(); stmt != nil {
+		return newDropDatabaseWith(stmt)
+	}
 	// DMQL (Data Manipulation Language)
 	if stmt := ctx.Insert_stmt(); stmt != nil {
 		return newInsertWith(stmt)
@@ -100,12 +103,16 @@ func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) *query.CreateTable 
 	return query.NewCreateTableWith(newIndexSchemaWith(ctx), ifNotExists)
 }
 
-/*
 func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) *query.DropDatabase {
 	dbName := ctx.Database_name().GetText()
-	return query.NewDropDatabaseWith(dbName)
+	ifExists := query.NewIfExistsWith(false)
+	if ctx.If_exists() != nil {
+		ifExists = query.NewIfExistsWith(true)
+	}
+	return query.NewDropDatabaseWith(dbName, ifExists)
 }
 
+/*
 func newDropTableWith(ctx antlr.IDrop_table_stmtContext) *query.DropTable {
 	return query.NewDropTableWith(newTableSchemaWith(ctx))
 }
@@ -114,6 +121,7 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropTable {
 	return query.NewDropTableWith(newIndexSchemaWith(ctx))
 }
 
+/*
 func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
 	dbName := ctx.Database_name().GetText()
 	return query.NewAlterDatabaseWith(dbName)
