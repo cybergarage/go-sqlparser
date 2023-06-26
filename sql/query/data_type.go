@@ -132,3 +132,13 @@ func NewDataTypeFrom(s string, l int) (*DataType, error) {
 		return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 	}
 }
+
+// DataType returns the column data type.
+func (da *DataType) DataType() int {
+	return da.Type
+}
+
+// DataLength returns the column data length.
+func (da *DataType) DataLength() int {
+	return da.Length
+}
