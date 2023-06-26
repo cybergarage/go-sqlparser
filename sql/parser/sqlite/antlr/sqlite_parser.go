@@ -675,20 +675,20 @@ func sqliteparserParserInit() {
 		0, 908, 910, 3, 78, 39, 0, 909, 908, 1, 0, 0, 0, 909, 910, 1, 0, 0, 0,
 		910, 914, 1, 0, 0, 0, 911, 912, 3, 200, 100, 0, 912, 913, 5, 2, 0, 0, 913,
 		915, 1, 0, 0, 0, 914, 911, 1, 0, 0, 0, 914, 915, 1, 0, 0, 0, 915, 916,
-		1, 0, 0, 0, 916, 917, 3, 242, 121, 0, 917, 71, 1, 0, 0, 0, 918, 919, 5,
+		1, 0, 0, 0, 916, 917, 3, 212, 106, 0, 917, 71, 1, 0, 0, 0, 918, 919, 5,
 		63, 0, 0, 919, 921, 5, 132, 0, 0, 920, 922, 3, 78, 39, 0, 921, 920, 1,
 		0, 0, 0, 921, 922, 1, 0, 0, 0, 922, 926, 1, 0, 0, 0, 923, 924, 3, 200,
 		100, 0, 924, 925, 5, 2, 0, 0, 925, 927, 1, 0, 0, 0, 926, 923, 1, 0, 0,
-		0, 926, 927, 1, 0, 0, 0, 927, 928, 1, 0, 0, 0, 928, 929, 3, 242, 121, 0,
+		0, 926, 927, 1, 0, 0, 0, 927, 928, 1, 0, 0, 0, 928, 929, 3, 202, 101, 0,
 		929, 73, 1, 0, 0, 0, 930, 931, 5, 63, 0, 0, 931, 933, 5, 138, 0, 0, 932,
 		934, 3, 78, 39, 0, 933, 932, 1, 0, 0, 0, 933, 934, 1, 0, 0, 0, 934, 938,
 		1, 0, 0, 0, 935, 936, 3, 200, 100, 0, 936, 937, 5, 2, 0, 0, 937, 939, 1,
 		0, 0, 0, 938, 935, 1, 0, 0, 0, 938, 939, 1, 0, 0, 0, 939, 940, 1, 0, 0,
-		0, 940, 941, 3, 242, 121, 0, 941, 75, 1, 0, 0, 0, 942, 943, 5, 63, 0, 0,
+		0, 940, 941, 3, 214, 107, 0, 941, 75, 1, 0, 0, 0, 942, 943, 5, 63, 0, 0,
 		943, 945, 5, 145, 0, 0, 944, 946, 3, 78, 39, 0, 945, 944, 1, 0, 0, 0, 945,
 		946, 1, 0, 0, 0, 946, 950, 1, 0, 0, 0, 947, 948, 3, 200, 100, 0, 948, 949,
 		5, 2, 0, 0, 949, 951, 1, 0, 0, 0, 950, 947, 1, 0, 0, 0, 950, 951, 1, 0,
-		0, 0, 951, 952, 1, 0, 0, 0, 952, 953, 3, 242, 121, 0, 953, 77, 1, 0, 0,
+		0, 0, 951, 952, 1, 0, 0, 0, 952, 953, 3, 216, 108, 0, 953, 77, 1, 0, 0,
 		0, 954, 955, 5, 80, 0, 0, 955, 956, 5, 102, 0, 0, 956, 957, 5, 70, 0, 0,
 		957, 79, 1, 0, 0, 0, 958, 959, 6, 40, -1, 0, 959, 1047, 3, 84, 42, 0, 960,
 		1047, 5, 187, 0, 0, 961, 962, 3, 200, 100, 0, 962, 963, 5, 2, 0, 0, 963,
@@ -12452,7 +12452,7 @@ type IDrop_index_stmtContext interface {
 	// Getter signatures
 	DROP_() antlr.TerminalNode
 	INDEX_() antlr.TerminalNode
-	Any_name() IAny_nameContext
+	Index_name() IIndex_nameContext
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
@@ -12501,10 +12501,10 @@ func (s *Drop_index_stmtContext) INDEX_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserINDEX_, 0)
 }
 
-func (s *Drop_index_stmtContext) Any_name() IAny_nameContext {
+func (s *Drop_index_stmtContext) Index_name() IIndex_nameContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAny_nameContext); ok {
+		if _, ok := ctx.(IIndex_nameContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -12514,7 +12514,7 @@ func (s *Drop_index_stmtContext) Any_name() IAny_nameContext {
 		return nil
 	}
 
-	return t.(IAny_nameContext)
+	return t.(IIndex_nameContext)
 }
 
 func (s *Drop_index_stmtContext) If_exists() IIf_existsContext {
@@ -12637,7 +12637,7 @@ func (p *SQLiteParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
 	}
 	{
 		p.SetState(916)
-		p.Any_name()
+		p.Index_name()
 	}
 
 errorExit:
@@ -12663,7 +12663,7 @@ type IDrop_table_stmtContext interface {
 	// Getter signatures
 	DROP_() antlr.TerminalNode
 	TABLE_() antlr.TerminalNode
-	Any_name() IAny_nameContext
+	Table_name() ITable_nameContext
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
@@ -12712,10 +12712,10 @@ func (s *Drop_table_stmtContext) TABLE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserTABLE_, 0)
 }
 
-func (s *Drop_table_stmtContext) Any_name() IAny_nameContext {
+func (s *Drop_table_stmtContext) Table_name() ITable_nameContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAny_nameContext); ok {
+		if _, ok := ctx.(ITable_nameContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -12725,7 +12725,7 @@ func (s *Drop_table_stmtContext) Any_name() IAny_nameContext {
 		return nil
 	}
 
-	return t.(IAny_nameContext)
+	return t.(ITable_nameContext)
 }
 
 func (s *Drop_table_stmtContext) If_exists() IIf_existsContext {
@@ -12848,7 +12848,7 @@ func (p *SQLiteParser) Drop_table_stmt() (localctx IDrop_table_stmtContext) {
 	}
 	{
 		p.SetState(928)
-		p.Any_name()
+		p.Table_name()
 	}
 
 errorExit:
@@ -12874,7 +12874,7 @@ type IDrop_trigger_stmtContext interface {
 	// Getter signatures
 	DROP_() antlr.TerminalNode
 	TRIGGER_() antlr.TerminalNode
-	Any_name() IAny_nameContext
+	Trigger_name() ITrigger_nameContext
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
@@ -12923,10 +12923,10 @@ func (s *Drop_trigger_stmtContext) TRIGGER_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserTRIGGER_, 0)
 }
 
-func (s *Drop_trigger_stmtContext) Any_name() IAny_nameContext {
+func (s *Drop_trigger_stmtContext) Trigger_name() ITrigger_nameContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAny_nameContext); ok {
+		if _, ok := ctx.(ITrigger_nameContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -12936,7 +12936,7 @@ func (s *Drop_trigger_stmtContext) Any_name() IAny_nameContext {
 		return nil
 	}
 
-	return t.(IAny_nameContext)
+	return t.(ITrigger_nameContext)
 }
 
 func (s *Drop_trigger_stmtContext) If_exists() IIf_existsContext {
@@ -13059,7 +13059,7 @@ func (p *SQLiteParser) Drop_trigger_stmt() (localctx IDrop_trigger_stmtContext) 
 	}
 	{
 		p.SetState(940)
-		p.Any_name()
+		p.Trigger_name()
 	}
 
 errorExit:
@@ -13085,7 +13085,7 @@ type IDrop_view_stmtContext interface {
 	// Getter signatures
 	DROP_() antlr.TerminalNode
 	VIEW_() antlr.TerminalNode
-	Any_name() IAny_nameContext
+	View_name() IView_nameContext
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
@@ -13134,10 +13134,10 @@ func (s *Drop_view_stmtContext) VIEW_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserVIEW_, 0)
 }
 
-func (s *Drop_view_stmtContext) Any_name() IAny_nameContext {
+func (s *Drop_view_stmtContext) View_name() IView_nameContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAny_nameContext); ok {
+		if _, ok := ctx.(IView_nameContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -13147,7 +13147,7 @@ func (s *Drop_view_stmtContext) Any_name() IAny_nameContext {
 		return nil
 	}
 
-	return t.(IAny_nameContext)
+	return t.(IView_nameContext)
 }
 
 func (s *Drop_view_stmtContext) If_exists() IIf_existsContext {
@@ -13270,7 +13270,7 @@ func (p *SQLiteParser) Drop_view_stmt() (localctx IDrop_view_stmtContext) {
 	}
 	{
 		p.SetState(952)
-		p.Any_name()
+		p.View_name()
 	}
 
 errorExit:
