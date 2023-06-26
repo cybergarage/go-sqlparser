@@ -20,7 +20,7 @@ type CreateDatabase struct {
 	*IfNotExists
 }
 
-// NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified name.
+// NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified options.
 func NewCreateDatabaseWith(name string, ifne *IfNotExists) *CreateDatabase {
 	return &CreateDatabase{
 		Database:    NewDatabaseWith(name),
