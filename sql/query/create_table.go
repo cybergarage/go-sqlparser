@@ -20,7 +20,7 @@ type CreateTable struct {
 	*IfNotExists
 }
 
-// NewCreateTableWith returns a new CreateTable statement instance with the specified name.
+// NewCreateTableWith returns a new CreateTable statement instance with the specified options.
 func NewCreateTableWith(schema *Schema, ifne *IfNotExists) *CreateTable {
 	return &CreateTable{
 		Schema:      schema,
