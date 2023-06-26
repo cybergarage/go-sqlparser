@@ -14,21 +14,24 @@
 
 package query
 
-// StatementType is a statement type.
-type StatementType int
+// AlterTable is a "ALTER TABLE" statement.
+type AlterTable struct {
+	*Schema
+}
 
-const (
-	CreateDatabaseStatement = iota
-	CreateTableStatement
-	CreateIndexStatement
-	InsertStatement
-	SelectStatement
-	UpdateStatement
-	DeleteStatement
-	DropDatabaseStatement
-	DropTableStatement
-	DropIndexStatement
-	AlterDatabaseStatement
-	AlterTableStatement
-	AlterndexStatement
-)
+// NewAlterTableWith returns a new AlterTable statement instance with the specified options.
+func NewAlterTableWith(schema *Schema) *AlterTable {
+	return &AlterTable{
+		Schema: schema,
+	}
+}
+
+// StatementType returns the statement type.
+func (stmt *AlterTable) StatementType() StatementType {
+	return AlterTableStatement
+}
+
+// String returns the statement string representation.
+func (stmt *AlterTable) String() string {
+	return stmt.Schema.String()
+}
