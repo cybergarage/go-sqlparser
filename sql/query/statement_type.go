@@ -30,5 +30,5 @@ const (
 	DropIndexStatement
 	AlterDatabaseStatement
 	AlterTableStatement
-	AlterndexStatement
+	AlterIndexStatement
 )
