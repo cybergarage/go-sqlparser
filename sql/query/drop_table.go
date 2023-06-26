@@ -17,13 +17,15 @@ package query
 // DropTable is a "DROP TABLE" statement.
 type DropTable struct {
 	*Schema
+	*Table
 	*IfExists
 }
 
 // NewDropTableWith returns a new DropTable statement instance with the specified parameters.
-func NewDropTableWith(schema *Schema, ife *IfExists) *DropTable {
+func NewDropTableWith(schemaName string, tblName string, ife *IfExists) *DropTable {
 	return &DropTable{
-		Schema:   schema,
+		Schema:   NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
+		Table:    NewTableWith(tblName),
 		IfExists: ife,
 	}
 }
