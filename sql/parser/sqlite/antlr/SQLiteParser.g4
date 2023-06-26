@@ -256,8 +256,12 @@ detach_stmt:
 
 drop_stmt:
     DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
-        IF_ EXISTS_
+        if_exists
     )? (schema_name DOT)? any_name
+;
+
+if_exists:
+    IF_ NOT_ EXISTS_
 ;
 
 /*

@@ -109,6 +109,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#drop_stmt.
 	VisitDrop_stmt(ctx *Drop_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#if_exists.
+	VisitIf_exists(ctx *If_existsContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#expr.
 	VisitExpr(ctx *ExprContext) interface{}
 

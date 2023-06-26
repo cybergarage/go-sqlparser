@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	2023-06-22 19:05:35.000000000 +0900
---- SQLiteParser.g4	2023-06-22 19:05:43.000000000 +0900
+*** SQLiteParser.g4.new	Mon Jun 26 23:38:50 2023
+--- SQLiteParser.g4	Mon Jun 26 23:40:30 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -98,15 +98,42 @@
       )?
   ;
 ***************
-*** 828,837 ****
-      any_name
+*** 256,269 ****
+  
+  drop_stmt:
+      DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
+!         if_exists
+      )? (schema_name DOT)? any_name
   ;
   
-- database_name:
+- if_exists:
+-     IF_ NOT_ EXISTS_
+- ;
+- 
+  /*
+   SQLite understands the following binary operators, in order from highest to lowest precedence:
+      ||
+--- 247,256 ----
+  
+  drop_stmt:
+      DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
+!         IF_ EXISTS_
+      )? (schema_name DOT)? any_name
+  ;
+  
+  /*
+   SQLite understands the following binary operators, in order from highest to lowest precedence:
+      ||
+***************
+*** 829,838 ****
+  // TODO: check all names below
+  
+  name:
 -     any_name
 - ;
 - 
-  function_name:
+- database_name:
       any_name
   ;
---- 819,824 ----
+  
+--- 816,821 ----

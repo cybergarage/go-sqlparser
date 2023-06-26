@@ -227,6 +227,12 @@ func (s *BaseSQLiteParserListener) EnterDrop_stmt(ctx *Drop_stmtContext) {}
 // ExitDrop_stmt is called when production drop_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitDrop_stmt(ctx *Drop_stmtContext) {}
 
+// EnterIf_exists is called when production if_exists is entered.
+func (s *BaseSQLiteParserListener) EnterIf_exists(ctx *If_existsContext) {}
+
+// ExitIf_exists is called when production if_exists is exited.
+func (s *BaseSQLiteParserListener) ExitIf_exists(ctx *If_existsContext) {}
+
 // EnterExpr is called when production expr is entered.
 func (s *BaseSQLiteParserListener) EnterExpr(ctx *ExprContext) {}
 
