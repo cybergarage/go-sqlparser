@@ -273,25 +273,25 @@ drop_database_stmt:
 drop_index_stmt:
     DROP_  INDEX_ (
         if_exists
-    )? (schema_name DOT)? any_name
+    )? (schema_name DOT)? index_name
 ;
 
 drop_table_stmt:
     DROP_  TABLE_ (
         if_exists
-    )? (schema_name DOT)? any_name
+    )? (schema_name DOT)? table_name
 ;
 
 drop_trigger_stmt:
     DROP_  TRIGGER_ (
         if_exists
-    )? (schema_name DOT)? any_name
+    )? (schema_name DOT)? trigger_name
 ;
 
 drop_view_stmt:
     DROP_  VIEW_ (
         if_exists
-    )? (schema_name DOT)? any_name
+    )? (schema_name DOT)? view_name
 ;
 
 if_exists:
