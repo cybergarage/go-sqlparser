@@ -36,11 +36,6 @@ func (col *Column) Name() string {
 	return col.name
 }
 
-// Type returns the column type.
-func (col *Column) Type() *DataType {
-	return col.dataType
-}
-
 // Value returns the column value.
 func (col *Column) Value() interface{} {
 	return col.value
