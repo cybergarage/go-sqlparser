@@ -20,7 +20,7 @@ type DropTable struct {
 	*IfExists
 }
 
-// NewDropTableWith returns a new DropTable statement instance with the specified name.
+// NewDropTableWith returns a new DropTable statement instance with the specified parameters.
 func NewDropTableWith(schema *Schema, ife *IfExists) *DropTable {
 	return &DropTable{
 		Schema:   schema,
