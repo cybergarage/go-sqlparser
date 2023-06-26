@@ -49,11 +49,28 @@ func newStatementListWith(ctxList []antlr.ISql_stmt_listContext) query.Statement
 }
 
 func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
+	// DDL (Data Definition Language)
 	if stmt := ctx.Create_database_stmt(); stmt != nil {
 		return newCreateDatabaseWith(stmt)
 	}
 	if stmt := ctx.Create_table_stmt(); stmt != nil {
 		return newCreateTableWith(stmt)
+	}
+	if stmt := ctx.Create_index_stmt(); stmt != nil {
+		return newCreateIndexWith(stmt)
+	}
+	// DMQL (Data Manipulation Language)
+	if stmt := ctx.Insert_stmt(); stmt != nil {
+		return newInsertWith(stmt)
+	}
+	if stmt := ctx.Update_stmt(); stmt != nil {
+		return newUpdateWith(stmt)
+	}
+	if stmt := ctx.Select_stmt(); stmt != nil {
+		return newSelectWith(stmt)
+	}
+	if stmt := ctx.Delete_stmt(); stmt != nil {
+		return newDeleteWith(stmt)
 	}
 	return nil
 }
@@ -72,10 +89,18 @@ func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable 
 	if ctx.If_not_exists() != nil {
 		ifNotExists = query.NewIfNotExistsWith(true)
 	}
-	return query.NewCreateTableWith(newSchemaWith(ctx), ifNotExists)
+	return query.NewCreateTableWith(newTableSchemaWith(ctx), ifNotExists)
 }
 
-func newSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
+func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) *query.CreateTable {
+	ifNotExists := query.NewIfNotExistsWith(false)
+	if ctx.If_not_exists() != nil {
+		ifNotExists = query.NewIfNotExistsWith(true)
+	}
+	return query.NewCreateTableWith(newIndexSchemaWith(ctx), ifNotExists)
+}
+
+func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
 	colums := query.NewColumns()
 	indexes := query.NewIndexes()
@@ -91,6 +116,17 @@ func newSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	return query.NewSchemaWith(tblName, colums, indexes)
 }
 
+func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
+	tblName := ctx.Table_name().GetText()
+	colums := query.NewColumns()
+	indexes := query.NewIndexes()
+	for _, columDef := range ctx.AllIndexed_column() {
+		colum := newIndexedColumnWith(columDef)
+		colums = append(colums, colum)
+	}
+	return query.NewSchemaWith(tblName, colums, indexes)
+}
+
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	name := ctx.Column_name().GetText()
 	t, err := query.NewDataTypeFrom(ctx.Type_name().GetText(), -1)
@@ -98,4 +134,29 @@ func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 		t = &query.DataType{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWith(name, t, nil)
+}
+
+func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
+	name := ctx.Column_name().GetText()
+	t, err := query.NewDataTypeFrom("", -1) // FIXME
+	if err != nil {
+		t = &query.DataType{Type: query.UnknownData, Length: -1}
+	}
+	return query.NewColumnWith(name, t, nil)
+}
+
+func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
+	return query.NewInsertWith()
+}
+
+func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
+	return query.NewUpdateWith()
+}
+
+func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
+	return query.NewSelectWith()
+}
+
+func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
+	return query.NewDeleteWith()
 }
