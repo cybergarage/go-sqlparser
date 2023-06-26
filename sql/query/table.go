@@ -31,8 +31,8 @@ func (tbl *Table) Table() *Table {
 	return tbl
 }
 
-// TableName returns the table name.
-func (tbl *Table) TableName() string {
+// Name returns the table name.
+func (tbl *Table) Name() string {
 	return tbl.name
 }
 
