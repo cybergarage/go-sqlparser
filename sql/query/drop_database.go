@@ -16,14 +16,14 @@ package query
 
 // DropDatabase is a "DROP DATABASE" statement.
 type DropDatabase struct {
-	*Schema
+	*Database
 	*IfExists
 }
 
 // NewDropDatabaseWith returns a new DropDatabase statement instance with the specified parameters.
-func NewDropDatabaseWith(schema *Schema, ife *IfExists) *DropDatabase {
+func NewDropDatabaseWith(name string, ife *IfExists) *DropDatabase {
 	return &DropDatabase{
-		Schema:   schema,
+		Database: NewDatabaseWith(name),
 		IfExists: ife,
 	}
 }
@@ -35,5 +35,5 @@ func (stmt *DropDatabase) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *DropDatabase) String() string {
-	return stmt.Schema.String()
+	return "DROP DATABASE " + stmt.Database.String()
 }
