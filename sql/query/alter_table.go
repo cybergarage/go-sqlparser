@@ -17,12 +17,14 @@ package query
 // AlterTable is a "ALTER TABLE" statement.
 type AlterTable struct {
 	*Schema
+	*Table
 }
 
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
-func NewAlterTableWith(schema *Schema) *AlterTable {
+func NewAlterTableWith(schemaName string, tblName string) *AlterTable {
 	return &AlterTable{
-		Schema: schema,
+		Schema: NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
+		Table:  NewTableWith(tblName),
 	}
 }
 
