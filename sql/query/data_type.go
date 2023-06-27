@@ -123,5 +123,9 @@ func (da *DataType) DataLength() int {
 
 // String returns the string representation.
 func (da *DataType) String() string {
+	s, ok := dataTypeStrings[da.Type]
+	if ok {
+		return s
+	}
 	return ""
 }
