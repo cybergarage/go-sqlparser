@@ -69,6 +69,10 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Drop_index_stmt(); stmt != nil {
 		return newDropIndexWith(stmt)
 	}
+	// DDL (Data Definition Language) - ALTER
+	if stmt := ctx.Alter_table_stmt(); stmt != nil {
+		return newAlterTableWith(stmt)
+	}
 	// DML (Data Manipulation Language)
 	if stmt := ctx.Insert_stmt(); stmt != nil {
 		return newInsertWith(stmt)
@@ -145,20 +149,14 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
 	return query.NewDropIndexWith(schemaName, idxName, ifExists)
 }
 
-/*
-func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
-	dbName := ctx.Database_name().GetText()
-	return query.NewAlterDatabaseWith(dbName)
-}
-
 func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
-	return query.NewAlterTableWith(newTableSchemaWith(ctx))
+	schemaName := ""
+	if ctx.Schema_name() != nil {
+		schemaName = ctx.Schema_name().GetText()
+	}
+	tblName := "" // ctx.Table_name().GetText()
+	return query.NewAlterTableWith(schemaName, tblName)
 }
-
-func newAlterIndexWith(ctx antlr.IAlter_index_stmtContext) *query.AlterTable {
-	return query.NewAlterTableWith(newIndexSchemaWith(ctx))
-}
-*/
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
