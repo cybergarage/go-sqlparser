@@ -14,7 +14,10 @@
 
 package query
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // DataType represents a data type.
 type DataType struct {
@@ -59,78 +62,53 @@ const (
 	YearData
 )
 
+var dataTypeStrings = map[int]string{
+	BigIntData:       "BIGINT",
+	BinaryData:       "BINARY",
+	BitData:          "BIT",
+	BlobData:         "BLOB",
+	BooleanData:      "BOOLEAN",
+	CharData:         "CHAR",
+	CharacterData:    "CHARACTER",
+	ClobData:         "CLOB",
+	DateData:         "DATE",
+	DecimalData:      "DECIMAL",
+	DoubleData:       "DOUBLE",
+	FloatData:        "FLOAT",
+	IntData:          "INT",
+	IntegerData:      "INTEGER",
+	LongBlobData:     "LONGBLOB",
+	LongTextData:     "LONGTEXT",
+	MediumBlobData:   "MEDIUMBLOB",
+	MediumIntData:    "MEDIUMINT",
+	MediumTextData:   "MEDIUMTEXT",
+	NumericData:      "NUMERIC",
+	RealData:         "REAL",
+	SetData:          "SET",
+	SmallIntData:     "SMALLINT",
+	TextData:         "TEXT",
+	TimeData:         "TIME",
+	TimeStampData:    "TIMESTAMP",
+	TinyBlobData:     "TINYBLOB",
+	TinyIntData:      "TINYINT",
+	TinyTextData:     "TINYTEXT",
+	VarBinaryData:    "VARBINARY",
+	VarCharData:      "VARCHAR",
+	VarCharacterData: "VARCHARACTER",
+	YearData:         "YEAR",
+}
+
 // NewDataTypeFrom returns the data type of the specified string.
 func NewDataTypeFrom(s string, l int) (*DataType, error) {
-	switch s {
-	case "BIGINT":
-		return &DataType{BigIntData, l}, nil
-	case "BINARY":
-		return &DataType{BinaryData, l}, nil
-	case "BIT":
-		return &DataType{BitData, l}, nil
-	case "BLOB":
-		return &DataType{BlobData, l}, nil
-	case "BOOLEAN":
-		return &DataType{BooleanData, l}, nil
-	case "CHAR":
-		return &DataType{CharData, l}, nil
-	case "CHARACTER":
-		return &DataType{CharacterData, l}, nil
-	case "CLOB":
-		return &DataType{ClobData, l}, nil
-	case "DATE":
-		return &DataType{DateData, l}, nil
-	case "DECIMAL":
-		return &DataType{DecimalData, l}, nil
-	case "DOUBLE":
-		return &DataType{DoubleData, l}, nil
-	case "FLOAT":
-		return &DataType{FloatData, l}, nil
-	case "INT":
-		return &DataType{IntData, l}, nil
-	case "INTEGER":
-		return &DataType{IntegerData, l}, nil
-	case "LONGBLOB":
-		return &DataType{LongBlobData, l}, nil
-	case "LONGTEXT":
-		return &DataType{LongTextData, l}, nil
-	case "MEDIUMBLOB":
-		return &DataType{MediumBlobData, l}, nil
-	case "MEDIUMINT":
-		return &DataType{MediumIntData, l}, nil
-	case "MEDIUMTEXT":
-		return &DataType{MediumTextData, l}, nil
-	case "NUMERIC":
-		return &DataType{NumericData, l}, nil
-	case "REAL":
-		return &DataType{RealData, l}, nil
-	case "SET":
-		return &DataType{SetData, l}, nil
-	case "SMALLINT":
-		return &DataType{SmallIntData, l}, nil
-	case "TEXT":
-		return &DataType{TextData, l}, nil
-	case "TIME":
-		return &DataType{TimeData, l}, nil
-	case "TIMESTAMP":
-		return &DataType{TimeStampData, l}, nil
-	case "TINYBLOB":
-		return &DataType{TinyBlobData, l}, nil
-	case "TINYINT":
-		return &DataType{TinyIntData, l}, nil
-	case "TINYTEXT":
-		return &DataType{TinyTextData, l}, nil
-	case "VARBINARY":
-		return &DataType{VarBinaryData, l}, nil
-	case "VARCHAR":
-		return &DataType{VarCharData, l}, nil
-	case "VARCHARACTER":
-		return &DataType{VarCharacterData, l}, nil
-	case "YEAR":
-		return &DataType{YearData, l}, nil
-	default:
-		return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
+	for dataType, dataTypeString := range dataTypeStrings {
+		if dataTypeString == strings.ToUpper(s) {
+			return &DataType{
+				Type:   dataType,
+				Length: l,
+			}, nil
+		}
 	}
+	return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 }
 
 // DataType returns the column data type.
@@ -141,4 +119,9 @@ func (da *DataType) DataType() int {
 // DataLength returns the column data length.
 func (da *DataType) DataLength() int {
 	return da.Length
+}
+
+// String returns the string representation.
+func (da *DataType) String() string {
+	return ""
 }
