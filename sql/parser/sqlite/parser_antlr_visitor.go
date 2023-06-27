@@ -49,7 +49,7 @@ func newStatementListWith(ctxList []antlr.ISql_stmt_listContext) query.Statement
 }
 
 func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
-	// DDL (Data Definition Language)
+	// DDL (Data Definition Language) - CREATE
 	if stmt := ctx.Create_database_stmt(); stmt != nil {
 		return newCreateDatabaseWith(stmt)
 	}
@@ -59,10 +59,17 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Create_index_stmt(); stmt != nil {
 		return newCreateIndexWith(stmt)
 	}
+	// DDL (Data Definition Language) - DROP
 	if stmt := ctx.Drop_database_stmt(); stmt != nil {
 		return newDropDatabaseWith(stmt)
 	}
-	// DMQL (Data Manipulation Language)
+	if stmt := ctx.Drop_table_stmt(); stmt != nil {
+		return newDropTableWith(stmt)
+	}
+	if stmt := ctx.Drop_index_stmt(); stmt != nil {
+		return newDropIndexWith(stmt)
+	}
+	// DML (Data Manipulation Language)
 	if stmt := ctx.Insert_stmt(); stmt != nil {
 		return newInsertWith(stmt)
 	}
@@ -112,13 +119,30 @@ func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) *query.DropDataba
 	return query.NewDropDatabaseWith(dbName, ifExists)
 }
 
-/*
 func newDropTableWith(ctx antlr.IDrop_table_stmtContext) *query.DropTable {
-	return query.NewDropTableWith(newTableSchemaWith(ctx))
+	schemaName := ""
+	if ctx.Schema_name() != nil {
+		schemaName = ctx.Schema_name().GetText()
+	}
+	tblName := ctx.Table_name().GetText()
+	ifExists := query.NewIfExistsWith(false)
+	if ctx.If_exists() != nil {
+		ifExists = query.NewIfExistsWith(true)
+	}
+	return query.NewDropTableWith(schemaName, tblName, ifExists)
 }
 
-func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropTable {
-	return query.NewDropTableWith(newIndexSchemaWith(ctx))
+func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
+	schemaName := ""
+	if ctx.Schema_name() != nil {
+		schemaName = ctx.Schema_name().GetText()
+	}
+	tblName := ctx.Index_name().GetText()
+	ifExists := query.NewIfExistsWith(false)
+	if ctx.If_exists() != nil {
+		ifExists = query.NewIfExistsWith(true)
+	}
+	return query.NewDropIndexWith(schemaName, tblName, ifExists)
 }
 
 /*
