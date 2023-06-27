@@ -31,6 +31,11 @@ func (opt *IfNotExists) IfNotExists() bool {
 	return opt.enabled
 }
 
+// Enabled returns true whether the option is enabled.
+func (opt *IfNotExists) Enabled() bool {
+	return opt.enabled
+}
+
 // String returns the string representation.
 func (opt *IfNotExists) String() string {
 	if opt.enabled {
@@ -49,6 +54,11 @@ func NewIfExistsWith(v bool) *IfExists {
 	return &IfExists{
 		enabled: v,
 	}
+}
+
+// Enabled returns true whether the option is enabled.
+func (opt *IfExists) Enabled() bool {
+	return opt.enabled
 }
 
 // IfExists returns the IF EXISTS option.
