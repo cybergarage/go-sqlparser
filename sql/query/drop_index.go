@@ -16,16 +16,16 @@ package query
 
 // DropIndex is a "DROP INDEX" statement.
 type DropIndex struct {
-	*Table
+	*Index
 	*Schema
 	*IfExists
 }
 
 // NewDropIndexWith returns a new DropIndex statement instance with the specified parameters.
-func NewDropIndexWith(schemaName string, tblName string, ife *IfExists) *DropIndex {
+func NewDropIndexWith(schemaName string, idxName string, ife *IfExists) *DropIndex {
 	return &DropIndex{
 		Schema:   NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
-		Table:    NewTableWith(tblName),
+		Index:    NewIndexWith(idxName, UnknownIndex, NewColumns()),
 		IfExists: ife,
 	}
 }
