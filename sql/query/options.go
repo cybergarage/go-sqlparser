@@ -31,6 +31,14 @@ func (opt *IfNotExists) IfNotExists() bool {
 	return opt.enabled
 }
 
+// IfNotExists returns the IF NOT EXISTS option.
+func (opt *IfNotExists) String() string {
+	if opt.enabled {
+		return "IF NOT EXISTS"
+	}
+	return ""
+}
+
 // IfExists represents a IF EXISTS option.
 type IfExists struct {
 	enabled bool
