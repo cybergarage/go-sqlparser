@@ -31,7 +31,7 @@ func (opt *IfNotExists) IfNotExists() bool {
 	return opt.enabled
 }
 
-// IfNotExists returns the IF NOT EXISTS option.
+// String returns the string representation.
 func (opt *IfNotExists) String() string {
 	if opt.enabled {
 		return "IF NOT EXISTS"
@@ -54,4 +54,12 @@ func NewIfExistsWith(v bool) *IfExists {
 // IfExists returns the IF EXISTS option.
 func (opt *IfExists) IfExists() bool {
 	return opt.enabled
+}
+
+// String returns the string representation.
+func (opt *IfExists) String() string {
+	if opt.enabled {
+		return "IF EXISTS"
+	}
+	return ""
 }
