@@ -70,7 +70,7 @@ func testQueryString(t *testing.T, queryStr string) {
 		return
 	}
 
-	if err != nil {
+	if err != nil || len(parsedQueries) != 1 {
 		t.Errorf("%s\n", queryStr)
 		for _, query := range parsedQueries {
 			t.Errorf("%s\n", query.String())
@@ -78,16 +78,24 @@ func testQueryString(t *testing.T, queryStr string) {
 		return
 	}
 
+	parsedQuery := parsedQueries[0]
 	queryStr = formalizeQuery(queryStr)
 	t.Logf("[S] %s\n", queryStr)
-	for _, parsedQuery := range parsedQueries {
-		parsedQueryStr := formalizeQuery(parsedQuery.String())
-		if queryStr == parsedQueryStr {
-			t.Logf("[P] %s\n", parsedQueryStr)
-		} else {
-			t.Errorf("[P] %s\n", parsedQueryStr)
+	parsedQueryStr := formalizeQuery(parsedQuery.String())
+	if queryStr != parsedQueryStr {
+		reParsedQueries, err := parser.ParseString(parsedQueryStr)
+		if err != nil || len(reParsedQueries) != 1 {
+			t.Error(err)
+			return
+		}
+		reParsedQuery := reParsedQueries[0]
+		reParsedQueryStr := formalizeQuery(reParsedQuery.String())
+		if queryStr != reParsedQueryStr {
+			t.Errorf("[P] %s\n", reParsedQueryStr)
+			return
 		}
 	}
+	t.Logf("[P] %s\n", parsedQueryStr)
 }
 
 func testQueryFile(t *testing.T, file *util.File) {
