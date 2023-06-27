@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
+
 // CreateDatabase is a "CREATE DATABASE" statement.
 type CreateDatabase struct {
 	*Database
@@ -35,5 +39,11 @@ func (stmt *CreateDatabase) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateDatabase) String() string {
-	return "CREATE DATABASE " + stmt.name
+	elems := []string{
+		"CREATE DATABASE"}
+	if stmt.IfNotExists.Enabled() {
+		elems = append(elems, stmt.IfNotExists.String())
+	}
+	elems = append(elems, stmt.name)
+	return strings.Join(elems)
 }
