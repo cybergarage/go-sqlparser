@@ -137,12 +137,12 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
 	if ctx.Schema_name() != nil {
 		schemaName = ctx.Schema_name().GetText()
 	}
-	tblName := ctx.Index_name().GetText()
+	idxName := ctx.Index_name().GetText()
 	ifExists := query.NewIfExistsWith(false)
 	if ctx.If_exists() != nil {
 		ifExists = query.NewIfExistsWith(true)
 	}
-	return query.NewDropIndexWith(schemaName, tblName, ifExists)
+	return query.NewDropIndexWith(schemaName, idxName, ifExists)
 }
 
 /*
