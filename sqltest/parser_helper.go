@@ -44,31 +44,45 @@ func readQueryFile(filename string) ([]byte, error) {
 	return data, nil
 }
 
+func formalizeQuery(query string) string {
+	query = strings.TrimSpace(query)
+	trimStrings := []string{";"}
+	for _, trimString := range trimStrings {
+		query = strings.Trim(query, trimString)
+	}
+	repStrings := []string{"\n", "\t"}
+	for _, repString := range repStrings {
+		query = strings.ReplaceAll(query, repString, " ")
+	}
+	re := regexp.MustCompile(`\s{2,}`)
+	query = re.ReplaceAllString(query, " ")
+	query = strings.ReplaceAll(query, "( ", "(")
+	query = strings.ReplaceAll(query, ") ", ")")
+	return query
+}
+
 func testQueryString(t *testing.T, queryStr string) {
 	parser := sql.NewParser()
 
-	queries, err := parser.ParseString(queryStr)
+	parsedQueries, err := parser.ParseString(queryStr)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	repStrings := []string{"\n", "\t", "  "}
-	for _, repString := range repStrings {
-		queryStr = strings.ReplaceAll(queryStr, repString, " ")
-	}
-
 	if err != nil {
 		t.Errorf("%s\n", queryStr)
-		for _, query := range queries {
+		for _, query := range parsedQueries {
 			t.Errorf("%s\n", query.String())
 		}
 		return
 	}
 
+	queryStr = formalizeQuery(queryStr)
 	t.Logf("[S] %s\n", queryStr)
-	for _, query := range queries {
-		t.Logf("[P] %s\n", query.String())
+	for _, parsedQuery := range parsedQueries {
+		parsedQueryStr := formalizeQuery(parsedQuery.String())
+		t.Logf("[P] %s\n", parsedQueryStr)
 	}
 }
 
