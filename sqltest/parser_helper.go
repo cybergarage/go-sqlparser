@@ -82,7 +82,11 @@ func testQueryString(t *testing.T, queryStr string) {
 	t.Logf("[S] %s\n", queryStr)
 	for _, parsedQuery := range parsedQueries {
 		parsedQueryStr := formalizeQuery(parsedQuery.String())
-		t.Logf("[P] %s\n", parsedQueryStr)
+		if queryStr == parsedQueryStr {
+			t.Logf("[P] %s\n", parsedQueryStr)
+		} else {
+			t.Errorf("[P] %s\n", parsedQueryStr)
+		}
 	}
 }
 
