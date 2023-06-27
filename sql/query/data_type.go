@@ -124,8 +124,11 @@ func (da *DataType) DataLength() int {
 // String returns the string representation.
 func (da *DataType) String() string {
 	s, ok := dataTypeStrings[da.Type]
-	if ok {
-		return s
+	if !ok {
+		return ""
 	}
-	return ""
+	if 0 < da.Length {
+		s += fmt.Sprintf("(%d)", da.Length)
+	}
+	return s
 }
