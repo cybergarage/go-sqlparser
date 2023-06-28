@@ -214,7 +214,9 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 }
 
 func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
-	return query.NewInsertWith()
+	tbl := query.NewTableWith(ctx.Table_name().GetText())
+	colums := query.NewColumns()
+	return query.NewInsertWith(tbl, colums)
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {

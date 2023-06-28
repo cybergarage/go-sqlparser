@@ -16,11 +16,16 @@ package query
 
 // Insert is a "INSERT" statement.
 type Insert struct {
+	*Table
+	Columns
 }
 
 // NewInsertWith returns a new Insert statement instance with the specified parameters.
-func NewInsertWith() *Insert {
-	return &Insert{}
+func NewInsertWith(tbl *Table, colums Columns) *Insert {
+	return &Insert{
+		Table:   tbl,
+		Columns: colums,
+	}
 }
 
 // StatementType returns the statement type.
