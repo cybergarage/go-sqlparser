@@ -33,3 +33,16 @@ func NewColumnsWith(columns ...*Column) Columns {
 func (colums Columns) Columns() Columns {
 	return colums
 }
+
+// String returns the statement string representation.
+func (colums Columns) DefString() string {
+	str := "("
+	for n, col := range colums {
+		if 0 < n {
+			str += ", "
+		}
+		str += col.DefString()
+	}
+	str += ")"
+	return str
+}
