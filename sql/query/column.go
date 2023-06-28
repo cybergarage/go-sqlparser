@@ -45,3 +45,8 @@ func (col *Column) Value() interface{} {
 func (col *Column) String() string {
 	return col.name
 }
+
+// String returns the string representation.
+func (col *Column) DefString() string {
+	return col.name + " " + col.dataType.String()
+}
