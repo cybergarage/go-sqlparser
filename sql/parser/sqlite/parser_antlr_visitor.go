@@ -167,7 +167,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 		colums = append(colums, colum)
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
-				indexes = append(indexes, query.NewIndexWith("", query.PrimaryIndex, query.NewColumnsWith(colum)))
+				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(colum)))
 			}
 		}
 	}
@@ -178,7 +178,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 				colum := newIndexedColumnWith(columDef)
 				indexColums = append(indexColums, colum)
 			}
-			indexes = append(indexes, query.NewIndexWith("", query.PrimaryIndex, indexColums))
+			indexes = append(indexes, query.NewPrimaryIndexWith(indexColums))
 		}
 	}
 	return query.NewSchemaWith(tblName, colums, indexes)
