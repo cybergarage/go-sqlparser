@@ -153,7 +153,7 @@ type_name:
 ;
 
 column_constraint: (CONSTRAINT_ name)? (
-        (PRIMARY_ KEY_ asc_desc? conflict_clause? AUTOINCREMENT_?)
+        primary_key_constraint
         | (NOT_? NULL_ | UNIQUE_) conflict_clause?
         | CHECK_ OPEN_PAR expr CLOSE_PAR
         | DEFAULT_ (signed_number | literal_value | OPEN_PAR expr CLOSE_PAR)
@@ -164,6 +164,10 @@ column_constraint: (CONSTRAINT_ name)? (
             | VIRTUAL_
         )?
     )
+;
+
+primary_key_constraint:
+    (PRIMARY_ KEY_ asc_desc? conflict_clause? AUTOINCREMENT_?)
 ;
 
 signed_number: (PLUS | MINUS)? NUMERIC_LITERAL
