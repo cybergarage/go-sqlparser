@@ -1,0 +1,9 @@
+= SQL Conformance
+
+== References
+
+- https://en.wikipedia.org/wiki/SQL[SQL - Wikipedia]
+- https://modern-sql.com/standard[Get the SQL Standard: ISO 9075 or use these free resources]
+- https://dev.mysql.com/doc/refman/8.0/en/compatibility.html[MySQL :: MySQL 8.0 Reference Manual :: 1.6 MySQL Standards Compliance]
+- https://www.postgresql.org/docs/current/index.html[PostgreSQL: Documentation: 15: PostgreSQL 15.3 Documentation]
+- https://developer.mimer.com/products/documentation/[Documentation - Mimer Developer]

@@ -5,3 +5,5 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/cybergarage/go-sqlparser.svg)](https://pkg.go.dev/github.com/cybergarage/go-sqlparser)
 
 The go-sqlparser is a simple SQL parser for SQL92 standard ....
+
+- [SQL Conformance](doc/conformance.md)
