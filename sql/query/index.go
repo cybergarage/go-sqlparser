@@ -84,6 +84,6 @@ func (idx *Index) DefString() string {
 	s := idx.typ.String()
 	s += " ("
 	s += strings.Join(idx.Columns.Names(), ", ")
-	s += " )"
+	s += ")"
 	return s
 }
