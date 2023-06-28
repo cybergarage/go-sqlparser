@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // Schema represents a table schema.
 type Schema struct {
 	*Table
@@ -37,5 +39,9 @@ func (schema *Schema) Schema() *Schema {
 
 // String returns the statement string representation.
 func (schema *Schema) String() string {
-	return "CREATE TABLE " + schema.name
+	elems := []string{
+		"CREATE TABLE",
+		schema.Table.String(),
+		schema.Columns.DefString()}
+	return strings.Join(elems)
 }
