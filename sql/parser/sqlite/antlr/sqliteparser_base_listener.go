@@ -134,6 +134,12 @@ func (s *BaseSQLiteParserListener) EnterColumn_constraint(ctx *Column_constraint
 // ExitColumn_constraint is called when production column_constraint is exited.
 func (s *BaseSQLiteParserListener) ExitColumn_constraint(ctx *Column_constraintContext) {}
 
+// EnterPrimary_key_constraint is called when production primary_key_constraint is entered.
+func (s *BaseSQLiteParserListener) EnterPrimary_key_constraint(ctx *Primary_key_constraintContext) {}
+
+// ExitPrimary_key_constraint is called when production primary_key_constraint is exited.
+func (s *BaseSQLiteParserListener) ExitPrimary_key_constraint(ctx *Primary_key_constraintContext) {}
+
 // EnterSigned_number is called when production signed_number is entered.
 func (s *BaseSQLiteParserListener) EnterSigned_number(ctx *Signed_numberContext) {}
 

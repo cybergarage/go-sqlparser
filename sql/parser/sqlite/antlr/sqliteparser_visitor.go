@@ -64,6 +64,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#column_constraint.
 	VisitColumn_constraint(ctx *Column_constraintContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#primary_key_constraint.
+	VisitPrimary_key_constraint(ctx *Primary_key_constraintContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#signed_number.
 	VisitSigned_number(ctx *Signed_numberContext) interface{}
 

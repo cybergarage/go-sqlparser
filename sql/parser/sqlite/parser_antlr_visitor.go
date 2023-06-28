@@ -166,7 +166,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 		colum := newColumnWith(columDef)
 		colums = append(colums, colum)
 		for _, columnConst := range columDef.AllColumn_constraint() {
-			if isPrimary := columnConst.PRIMARY_(); isPrimary != nil {
+			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
 				indexes = append(indexes, query.NewIndexWith("", query.PrimaryIndex, query.NewColumnsWith(colum)))
 			}
 		}
