@@ -14,6 +14,8 @@
 
 package query
 
+import "strings"
+
 // IndexType represents a index type.
 type IndexType int
 
@@ -65,4 +67,13 @@ func (idx *Index) Type() IndexType {
 // String returns the index string representation.
 func (idx *Index) String() string {
 	return idx.name
+}
+
+// DefString returns the index definition string representation.
+func (idx *Index) DefString() string {
+	s := idx.typ.String()
+	s += " ("
+	s += strings.Join(idx.Columns.Names(), ", ")
+	s += " )"
+	return s
 }
