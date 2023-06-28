@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"strings"
+)
+
 // Indexes represents an index array.
 type Indexes []*Index
 
@@ -25,4 +29,13 @@ func NewIndexes() Indexes {
 // Indexes returns an index array.
 func (indexes Indexes) Indexes() Indexes {
 	return indexes
+}
+
+// DefString returns the index definition string representation.
+func (indexes Indexes) DefString() string {
+	elems := make([]string, len(indexes))
+	for n, index := range indexes {
+		elems[n] = index.DefString()
+	}
+	return strings.Join(elems, ",")
 }
