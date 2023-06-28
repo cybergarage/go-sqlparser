@@ -50,14 +50,29 @@ func formalizeQuery(query string) string {
 	for _, trimString := range trimStrings {
 		query = strings.Trim(query, trimString)
 	}
-	repStrings := []string{"\n", "\t"}
-	for _, repString := range repStrings {
-		query = strings.ReplaceAll(query, repString, " ")
+	regExps := []struct {
+		From string
+		To   string
+	}{
+		{`\s{2,}`, " "},
 	}
-	re := regexp.MustCompile(`\s{2,}`)
-	query = re.ReplaceAllString(query, " ")
-	query = strings.ReplaceAll(query, "( ", "(")
-	query = strings.ReplaceAll(query, ") ", ")")
+	for _, regExp := range regExps {
+		re := regexp.MustCompile(regExp.From)
+		query = re.ReplaceAllString(query, regExp.To)
+	}
+	repStrings := []struct {
+		From string
+		To   string
+	}{
+		{"\n", " "},
+		{"\t", " "},
+		{"( ", "("},
+		{") ", ")"},
+		{" )", ")"},
+	}
+	for _, repString := range repStrings {
+		query = strings.ReplaceAll(query, repString.From, repString.To)
+	}
 	return query
 }
 
