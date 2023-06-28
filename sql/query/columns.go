@@ -36,13 +36,12 @@ func (colums Columns) Columns() Columns {
 
 // String returns the statement string representation.
 func (colums Columns) DefString() string {
-	str := "("
+	var str string
 	for n, col := range colums {
 		if 0 < n {
 			str += ", "
 		}
 		str += col.DefString()
 	}
-	str += ")"
 	return str
 }
