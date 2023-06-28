@@ -73,6 +73,12 @@ type SQLiteParserListener interface {
 	// EnterTable_constraint is called when entering the table_constraint production.
 	EnterTable_constraint(c *Table_constraintContext)
 
+	// EnterPrimary_key_def is called when entering the primary_key_def production.
+	EnterPrimary_key_def(c *Primary_key_defContext)
+
+	// EnterUnique_key_def is called when entering the unique_key_def production.
+	EnterUnique_key_def(c *Unique_key_defContext)
+
 	// EnterForeign_key_clause is called when entering the foreign_key_clause production.
 	EnterForeign_key_clause(c *Foreign_key_clauseContext)
 
@@ -441,6 +447,12 @@ type SQLiteParserListener interface {
 
 	// ExitTable_constraint is called when exiting the table_constraint production.
 	ExitTable_constraint(c *Table_constraintContext)
+
+	// ExitPrimary_key_def is called when exiting the primary_key_def production.
+	ExitPrimary_key_def(c *Primary_key_defContext)
+
+	// ExitUnique_key_def is called when exiting the unique_key_def production.
+	ExitUnique_key_def(c *Unique_key_defContext)
 
 	// ExitForeign_key_clause is called when exiting the foreign_key_clause production.
 	ExitForeign_key_clause(c *Foreign_key_clauseContext)

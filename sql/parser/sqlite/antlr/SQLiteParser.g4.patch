@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	2023-06-28 19:30:27.000000000 +0900
---- SQLiteParser.g4	2023-06-28 19:30:39.000000000 +0900
+*** SQLiteParser.g4.new	2023-06-28 19:40:15.000000000 +0900
+--- SQLiteParser.g4	2023-06-28 19:40:21.000000000 +0900
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -90,7 +90,7 @@
           | CHECK_ OPEN_PAR expr CLOSE_PAR
           | DEFAULT_ (signed_number | literal_value | OPEN_PAR expr CLOSE_PAR)
 ***************
-*** 166,175 ****
+*** 166,198 ****
       )
   ;
   
@@ -101,9 +101,50 @@
   signed_number: (PLUS | MINUS)? NUMERIC_LITERAL
   ;
   
---- 153,158 ----
+  table_constraint: (CONSTRAINT_ name)? (
+!         primary_key_def
+!         | unique_key_def
+          | CHECK_ OPEN_PAR expr CLOSE_PAR
+          | FOREIGN_ KEY_ OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR foreign_key_clause
+      )
+  ;
+  
+- primary_key_def:
+-         PRIMARY_ KEY_ OPEN_PAR indexed_column (
+-             COMMA indexed_column
+-         )* CLOSE_PAR conflict_clause?
+- ;
+- 
+- unique_key_def:
+-         UNIQUE_ OPEN_PAR indexed_column (
+-             COMMA indexed_column
+-         )* CLOSE_PAR conflict_clause?
+- ;
+- 
+  foreign_key_clause:
+      REFERENCES_ foreign_table (
+          OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+--- 153,170 ----
+      )
+  ;
+  
+  signed_number: (PLUS | MINUS)? NUMERIC_LITERAL
+  ;
+  
+  table_constraint: (CONSTRAINT_ name)? (
+!         (PRIMARY_ KEY_ | UNIQUE_) OPEN_PAR indexed_column (
+!             COMMA indexed_column
+!         )* CLOSE_PAR conflict_clause?
+          | CHECK_ OPEN_PAR expr CLOSE_PAR
+          | FOREIGN_ KEY_ OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR foreign_key_clause
+      )
+  ;
+  
+  foreign_key_clause:
+      REFERENCES_ foreign_table (
+          OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
 ***************
-*** 207,213 ****
+*** 218,224 ****
   ;
   
   create_trigger_stmt:
@@ -120,7 +161,7 @@
       )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
           DELETE_
 ***************
-*** 219,231 ****
+*** 230,242 ****
   ;
   
   create_view_stmt:
@@ -149,7 +190,7 @@
       )?
   ;
 ***************
-*** 264,307 ****
+*** 275,318 ****
   
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
@@ -206,7 +247,7 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 870,879 ****
+*** 881,890 ****
       any_name
   ;
   

@@ -73,6 +73,12 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#table_constraint.
 	VisitTable_constraint(ctx *Table_constraintContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#primary_key_def.
+	VisitPrimary_key_def(ctx *Primary_key_defContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#unique_key_def.
+	VisitUnique_key_def(ctx *Unique_key_defContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#foreign_key_clause.
 	VisitForeign_key_clause(ctx *Foreign_key_clauseContext) interface{}
 

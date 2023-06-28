@@ -95,6 +95,14 @@ func (v *BaseSQLiteParserVisitor) VisitTable_constraint(ctx *Table_constraintCon
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitPrimary_key_def(ctx *Primary_key_defContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitUnique_key_def(ctx *Unique_key_defContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitForeign_key_clause(ctx *Foreign_key_clauseContext) interface{} {
 	return v.VisitChildren(ctx)
 }
