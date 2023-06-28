@@ -34,6 +34,15 @@ func (colums Columns) Columns() Columns {
 	return colums
 }
 
+// Names returns a column name array.
+func (colums Columns) Names() []string {
+	names := make([]string, len(colums))
+	for n, col := range colums {
+		names[n] = col.Name()
+	}
+	return names
+}
+
 // String returns the statement string representation.
 func (colums Columns) DefString() string {
 	var str string
