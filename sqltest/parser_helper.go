@@ -97,7 +97,9 @@ func testQueryString(t *testing.T, queryStr string) {
 	queryStr = formalizeQuery(queryStr)
 	t.Logf("[S] %s\n", queryStr)
 	parsedQueryStr := formalizeQuery(parsedQuery.String())
+	// STEP1: Compare the parsed query with the original query for an exact match.
 	if queryStr != parsedQueryStr {
+		// STEP2: Compare the parsed query with the original query for semantic match.
 		reParsedQueries, err := parser.ParseString(parsedQueryStr)
 		if err == nil && len(reParsedQueries) == 1 {
 			reParsedQuery := reParsedQueries[0]
