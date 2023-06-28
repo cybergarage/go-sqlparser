@@ -69,3 +69,16 @@ watchlint:
 
 clean:
 	go clean -i ${PKGS} ${TEST_PKGS}
+
+#
+# Document
+#
+
+%.md : %.adoc
+	asciidoctor -b docbook -a leveloffset=+1 -o - $< | pandoc -t markdown_strict --wrap=none -f docbook > $@
+csvs := $(wildcard doc/*/*.csv)
+docs := $(patsubst %.adoc,%.md,$(wildcard doc/*.adoc))
+doc_touch: $(csvs)
+	touch doc/*.adoc
+
+doc: doc_touch $(docs)
