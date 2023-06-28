@@ -171,6 +171,16 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 			}
 		}
 	}
+	for _, tblConst := range ctx.AllTable_constraint() {
+		if primaryDef := tblConst.Primary_key_def(); primaryDef != nil {
+			indexColums := query.NewColumns()
+			for _, columDef := range primaryDef.AllIndexed_column() {
+				colum := newIndexedColumnWith(columDef)
+				indexColums = append(indexColums, colum)
+			}
+			indexes = append(indexes, query.NewIndexWith("", query.PrimaryIndex, indexColums))
+		}
+	}
 	return query.NewSchemaWith(tblName, colums, indexes)
 }
 
