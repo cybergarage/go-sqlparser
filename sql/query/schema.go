@@ -39,9 +39,18 @@ func (schema *Schema) Schema() *Schema {
 
 // String returns the statement string representation.
 func (schema *Schema) String() string {
+	columsStr := "("
+	columsStr += schema.Columns.DefString()
+	if 0 < len(schema.Indexes) {
+		columsStr += ","
+		columsStr += schema.Indexes.DefString()
+	}
+	columsStr += ")"
+
 	elems := []string{
 		"CREATE TABLE",
 		schema.Table.String(),
-		schema.Columns.DefString()}
+		columsStr,
+	}
 	return strings.Join(elems)
 }
