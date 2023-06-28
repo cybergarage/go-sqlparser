@@ -23,6 +23,18 @@ const (
 	SecondaryIndex IndexType = 2
 )
 
+// String returns the string representation.
+func (t IndexType) String() string {
+	switch t {
+	case PrimaryIndex:
+		return "PRIMARY KEY"
+	case SecondaryIndex:
+		return "SECONDARY KEY"
+	default:
+		return "UNKNOWN KEY"
+	}
+}
+
 // Index represents a index.
 type Index struct {
 	name string
