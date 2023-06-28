@@ -42,7 +42,7 @@ func (schema *Schema) String() string {
 	columsStr := "("
 	columsStr += schema.Columns.DefString()
 	if 0 < len(schema.Indexes) {
-		columsStr += " ,"
+		columsStr += ", "
 		columsStr += schema.Indexes.DefString()
 	}
 	columsStr += ")"
