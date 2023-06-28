@@ -152,6 +152,18 @@ func (s *BaseSQLiteParserListener) EnterTable_constraint(ctx *Table_constraintCo
 // ExitTable_constraint is called when production table_constraint is exited.
 func (s *BaseSQLiteParserListener) ExitTable_constraint(ctx *Table_constraintContext) {}
 
+// EnterPrimary_key_def is called when production primary_key_def is entered.
+func (s *BaseSQLiteParserListener) EnterPrimary_key_def(ctx *Primary_key_defContext) {}
+
+// ExitPrimary_key_def is called when production primary_key_def is exited.
+func (s *BaseSQLiteParserListener) ExitPrimary_key_def(ctx *Primary_key_defContext) {}
+
+// EnterUnique_key_def is called when production unique_key_def is entered.
+func (s *BaseSQLiteParserListener) EnterUnique_key_def(ctx *Unique_key_defContext) {}
+
+// ExitUnique_key_def is called when production unique_key_def is exited.
+func (s *BaseSQLiteParserListener) ExitUnique_key_def(ctx *Unique_key_defContext) {}
+
 // EnterForeign_key_clause is called when production foreign_key_clause is entered.
 func (s *BaseSQLiteParserListener) EnterForeign_key_clause(ctx *Foreign_key_clauseContext) {}
 

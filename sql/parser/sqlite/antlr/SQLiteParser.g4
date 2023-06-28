@@ -174,12 +174,23 @@ signed_number: (PLUS | MINUS)? NUMERIC_LITERAL
 ;
 
 table_constraint: (CONSTRAINT_ name)? (
-        (PRIMARY_ KEY_ | UNIQUE_) OPEN_PAR indexed_column (
-            COMMA indexed_column
-        )* CLOSE_PAR conflict_clause?
+        primary_key_def
+        | unique_key_def
         | CHECK_ OPEN_PAR expr CLOSE_PAR
         | FOREIGN_ KEY_ OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR foreign_key_clause
     )
+;
+
+primary_key_def:
+        PRIMARY_ KEY_ OPEN_PAR indexed_column (
+            COMMA indexed_column
+        )* CLOSE_PAR conflict_clause?
+;
+
+unique_key_def:
+        UNIQUE_ OPEN_PAR indexed_column (
+            COMMA indexed_column
+        )* CLOSE_PAR conflict_clause?
 ;
 
 foreign_key_clause:
