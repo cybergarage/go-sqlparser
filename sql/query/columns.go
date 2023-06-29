@@ -14,7 +14,10 @@
 
 package query
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // Columns represens a column array.
 type Columns []*Column
@@ -50,6 +53,15 @@ func (colums Columns) NameString() string {
 	strs := make([]string, len(colums))
 	for n, col := range colums {
 		strs[n] = col.Name()
+	}
+	return strings.Join(strs, ", ")
+}
+
+// ValueString returns a string representation of the the colum values.
+func (colums Columns) ValueString() string {
+	strs := make([]string, len(colums))
+	for n, col := range colums {
+		strs[n] = fmt.Sprintf("%v", col.Value())
 	}
 	return strings.Join(strs, ", ")
 }
