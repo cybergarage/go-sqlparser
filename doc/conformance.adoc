@@ -11,6 +11,8 @@
 * https://jakewheat.github.io/sql-overview/[SQL overview]
 ** https://jakewheat.github.io/sql-overview/sql-1999-grammar.html[SQL:1999]
 ** https://jakewheat.github.io/sql-overview/sql-92-grammar.html[SQL-92]
+* http://savage.net.au/SQL/index.html[BNF Grammars for SQL-92, SQL-99 and SQL-2003]
+** https://github.com/ronsavage/SQL[ronsavage/SQL: BNF Grammars for SQL-92, SQL-99 and SQL-2003]
 * MySQL
 ** https://dev.mysql.com/doc/refman/8.0/en/compatibility.html[MySQL :: MySQL 8.0 Reference Manual :: 1.6 MySQL Standards Compliance]
 * PostgreSQL
