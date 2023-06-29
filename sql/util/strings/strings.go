@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-// Join returns a string by joining the specified elements with a space.
-func Join(elems []string) string {
+// JoinWithSpace returns a string by joining the specified elements with a space.
+func JoinWithSpace(elems []string) string {
 	return strings.Join(elems, " ")
 }

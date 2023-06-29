@@ -45,5 +45,5 @@ func (stmt *CreateDatabase) String() string {
 		elems = append(elems, stmt.IfNotExists.String())
 	}
 	elems = append(elems, stmt.name)
-	return strings.Join(elems)
+	return strings.JoinWithSpace(elems)
 }
