@@ -45,7 +45,16 @@ func (colums Columns) Names() []string {
 	return names
 }
 
-// String returns the statement string representation.
+// NameString returns a string representation of the the colum names.
+func (colums Columns) NameString() string {
+	strs := make([]string, len(colums))
+	for n, col := range colums {
+		strs[n] = col.Name()
+	}
+	return strings.Join(strs, ", ")
+}
+
+// DefString returns a string representation of the the colum definitions.
 func (colums Columns) DefString() string {
 	strs := make([]string, len(colums))
 	for n, col := range colums {
