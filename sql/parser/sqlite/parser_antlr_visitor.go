@@ -215,8 +215,22 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 
 func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	tbl := query.NewTableWith(ctx.Table_name().GetText())
+	names := []string{}
+	for _, column := range ctx.AllColumn_name() {
+		names = append(names, column.Any_name().GetText())
+	}
+	values := []any{}
+	for _, row := range ctx.Values_clause().AllValue_row() {
+		for _, value := range row.AllExpr() {
+			values = append(values, newLiteralWith(value.Literal_value()))
+		}
+	}
 	colums := query.NewColumns()
 	return query.NewInsertWith(tbl, colums)
+}
+
+func newLiteralWith(ctx antlr.ILiteral_valueContext) any {
+	return nil
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
