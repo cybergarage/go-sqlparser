@@ -15,7 +15,7 @@
 package query
 
 import (
-	"strings"
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 // Tables represens a column array.
@@ -44,5 +44,5 @@ func (colums Tables) String() string {
 	for n, tbl := range colums {
 		strs[n] = tbl.String()
 	}
-	return strings.Join(strs, ", ")
+	return strings.JoinWithComma(strs)
 }

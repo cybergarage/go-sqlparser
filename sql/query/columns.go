@@ -16,7 +16,8 @@ package query
 
 import (
 	"fmt"
-	"strings"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 // Columns represens a column array.
@@ -54,7 +55,7 @@ func (colums Columns) NameString() string {
 	for n, col := range colums {
 		strs[n] = col.Name()
 	}
-	return strings.Join(strs, ", ")
+	return strings.JoinWithComma(strs)
 }
 
 // ValueString returns a string representation of the the colum values.
@@ -63,7 +64,7 @@ func (colums Columns) ValueString() string {
 	for n, col := range colums {
 		strs[n] = fmt.Sprintf("%v", col.Value())
 	}
-	return strings.Join(strs, ", ")
+	return strings.JoinWithComma(strs)
 }
 
 // DefString returns a string representation of the the colum definitions.
@@ -72,5 +73,5 @@ func (colums Columns) DefString() string {
 	for n, col := range colums {
 		strs[n] = col.DefString()
 	}
-	return strings.Join(strs, ", ")
+	return strings.JoinWithComma(strs)
 }
