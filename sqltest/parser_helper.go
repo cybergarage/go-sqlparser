@@ -67,7 +67,6 @@ func formalizeQuery(query string) string {
 		{"\n", " "},
 		{"\t", " "},
 		{"( ", "("},
-		{") ", ")"},
 		{" )", ")"},
 	}
 	for _, repString := range repStrings {
