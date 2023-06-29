@@ -20,6 +20,10 @@
 
     -   [SQL-92](https://jakewheat.github.io/sql-overview/sql-92-grammar.html)
 
+-   [BNF Grammars for SQL-92, SQL-99 and SQL-2003](http://savage.net.au/SQL/index.html)
+
+    -   [ronsavage/SQL: BNF Grammars for SQL-92, SQL-99 and SQL-2003](https://github.com/ronsavage/SQL)
+
 -   MySQL
 
     -   [MySQL :: MySQL 8.0 Reference Manual :: 1.6 MySQL Standards Compliance](https://dev.mysql.com/doc/refman/8.0/en/compatibility.html)
