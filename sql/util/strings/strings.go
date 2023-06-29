@@ -22,3 +22,8 @@ import (
 func JoinWithSpace(elems []string) string {
 	return strings.Join(elems, " ")
 }
+
+// JoinWithComma returns a string by joining the specified elements with a comma.
+func JoinWithComma(elems []string) string {
+	return strings.Join(elems, ", ")
+}
