@@ -35,5 +35,8 @@ func (stmt *Insert) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Insert) String() string {
-	return ""
+	s := "INSERT INTO " + stmt.Table.String()
+	s += " (" + stmt.Columns.NameString() + ")"
+	s += " VALUES (" + stmt.Columns.ValueString() + ")"
+	return s
 }
