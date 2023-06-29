@@ -52,5 +52,5 @@ func (schema *Schema) String() string {
 		schema.Table.String(),
 		columsStr,
 	}
-	return strings.Join(elems)
+	return strings.JoinWithSpace(elems)
 }
