@@ -216,21 +216,32 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	tbl := query.NewTableWith(ctx.Table_name().GetText())
 	names := []string{}
-	for _, column := range ctx.AllColumn_name() {
-		names = append(names, column.Any_name().GetText())
+	for _, name := range ctx.AllColumn_name() {
+		names = append(names, name.GetText())
 	}
 	values := []any{}
 	for _, row := range ctx.Values_clause().AllValue_row() {
-		for _, value := range row.AllExpr() {
-			values = append(values, newLiteralWith(value.Literal_value()))
+		for _, expr := range row.AllExpr() {
+			v := expr.Literal_value()
+			values = append(values, newLiteralWith(v))
 		}
 	}
 	colums := query.NewColumns()
+	for n, name := range names {
+		var v any
+		if n < len(values) {
+			v = values[n]
+		}
+		colums = append(colums, query.NewColumnWith(name, nil, v))
+	}
 	return query.NewInsertWith(tbl, colums)
 }
 
 func newLiteralWith(ctx antlr.ILiteral_valueContext) any {
-	return nil
+	if ctx == nil {
+		return nil
+	}
+	return ctx.GetText()
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
