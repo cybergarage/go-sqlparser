@@ -14,6 +14,8 @@
 
 package query
 
+import "strings"
+
 // Columns represens a column array.
 type Columns []*Column
 
@@ -45,12 +47,9 @@ func (colums Columns) Names() []string {
 
 // String returns the statement string representation.
 func (colums Columns) DefString() string {
-	var str string
+	strs := make([]string, len(colums))
 	for n, col := range colums {
-		if 0 < n {
-			str += ", "
-		}
-		str += col.DefString()
+		strs[n] = col.DefString()
 	}
-	return str
+	return strings.Join(strs, ", ")
 }
