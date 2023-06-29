@@ -48,5 +48,8 @@ func (col *Column) String() string {
 
 // String returns the string representation.
 func (col *Column) DefString() string {
+	if col.dataType == nil {
+		return col.name
+	}
 	return col.name + " " + col.dataType.String()
 }
