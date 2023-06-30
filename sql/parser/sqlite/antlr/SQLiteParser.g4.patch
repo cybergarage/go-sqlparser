@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jun 30 13:02:32 2023
---- SQLiteParser.g4	Fri Jun 30 13:03:14 2023
+*** SQLiteParser.g4.new	Fri Jun 30 16:55:55 2023
+--- SQLiteParser.g4	Fri Jun 30 16:56:02 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -251,7 +251,7 @@
   ;
   
   select_stmt:
-!     common_table_stmt? parent_query=select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
+!     common_table_stmt? parentQuery=select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
   ;
   
   join_clause:
