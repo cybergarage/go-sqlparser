@@ -30,8 +30,8 @@ type OrExpr struct {
 	Right Expr
 }
 
-// CompExprOperator is an enum for ComparisonExpr.Operator
-type CompExprOperator int8
+// CompExprOperator is an enum for CompExpr.Operator
+type CompExprOperator uint8
 
 // Constants for Enum Type - CompExprOperator
 const (
