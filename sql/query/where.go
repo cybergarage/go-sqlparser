@@ -16,16 +16,24 @@ package query
 
 // Where represents a where condition.
 type Where struct {
+	expr Expr
 }
 
 // NewWhereWith returns a new where condition instance with the specified parameters.
-func NewWhereWith() *Where {
-	return &Where{}
+func NewWhereWith(expr Expr) *Where {
+	return &Where{
+		expr: expr,
+	}
 }
 
 // Where returns the table.
 func (w *Where) Where() *Where {
 	return w
+}
+
+// Expr returns the top expression.
+func (w *Where) Expr() Expr {
+	return w.expr
 }
 
 // String returns the string representation.
