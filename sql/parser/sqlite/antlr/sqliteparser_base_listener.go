@@ -287,6 +287,12 @@ func (s *BaseSQLiteParserListener) EnterExpr(ctx *ExprContext) {}
 // ExitExpr is called when production expr is exited.
 func (s *BaseSQLiteParserListener) ExitExpr(ctx *ExprContext) {}
 
+// EnterComparison_expr is called when production comparison_expr is entered.
+func (s *BaseSQLiteParserListener) EnterComparison_expr(ctx *Comparison_exprContext) {}
+
+// ExitComparison_expr is called when production comparison_expr is exited.
+func (s *BaseSQLiteParserListener) ExitComparison_expr(ctx *Comparison_exprContext) {}
+
 // EnterRaise_function is called when production raise_function is entered.
 func (s *BaseSQLiteParserListener) EnterRaise_function(ctx *Raise_functionContext) {}
 
