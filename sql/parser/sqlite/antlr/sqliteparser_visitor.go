@@ -187,6 +187,21 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#compound_select_stmt.
 	VisitCompound_select_stmt(ctx *Compound_select_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#from.
+	VisitFrom(ctx *FromContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#from_table.
+	VisitFrom_table(ctx *From_tableContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#from_function.
+	VisitFrom_function(ctx *From_functionContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#from_table_or_subquery.
+	VisitFrom_table_or_subquery(ctx *From_table_or_subqueryContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#from_select.
+	VisitFrom_select(ctx *From_selectContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#table_or_subquery.
 	VisitTable_or_subquery(ctx *Table_or_subqueryContext) interface{}
 

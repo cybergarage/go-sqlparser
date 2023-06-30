@@ -247,6 +247,26 @@ func (v *BaseSQLiteParserVisitor) VisitCompound_select_stmt(ctx *Compound_select
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitFrom(ctx *FromContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitFrom_table(ctx *From_tableContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitFrom_function(ctx *From_functionContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitFrom_table_or_subquery(ctx *From_table_or_subqueryContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitFrom_select(ctx *From_selectContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitTable_or_subquery(ctx *Table_or_subqueryContext) interface{} {
 	return v.VisitChildren(ctx)
 }

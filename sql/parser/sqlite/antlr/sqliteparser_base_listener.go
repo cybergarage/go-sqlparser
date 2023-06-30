@@ -383,6 +383,36 @@ func (s *BaseSQLiteParserListener) EnterCompound_select_stmt(ctx *Compound_selec
 // ExitCompound_select_stmt is called when production compound_select_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitCompound_select_stmt(ctx *Compound_select_stmtContext) {}
 
+// EnterFrom is called when production from is entered.
+func (s *BaseSQLiteParserListener) EnterFrom(ctx *FromContext) {}
+
+// ExitFrom is called when production from is exited.
+func (s *BaseSQLiteParserListener) ExitFrom(ctx *FromContext) {}
+
+// EnterFrom_table is called when production from_table is entered.
+func (s *BaseSQLiteParserListener) EnterFrom_table(ctx *From_tableContext) {}
+
+// ExitFrom_table is called when production from_table is exited.
+func (s *BaseSQLiteParserListener) ExitFrom_table(ctx *From_tableContext) {}
+
+// EnterFrom_function is called when production from_function is entered.
+func (s *BaseSQLiteParserListener) EnterFrom_function(ctx *From_functionContext) {}
+
+// ExitFrom_function is called when production from_function is exited.
+func (s *BaseSQLiteParserListener) ExitFrom_function(ctx *From_functionContext) {}
+
+// EnterFrom_table_or_subquery is called when production from_table_or_subquery is entered.
+func (s *BaseSQLiteParserListener) EnterFrom_table_or_subquery(ctx *From_table_or_subqueryContext) {}
+
+// ExitFrom_table_or_subquery is called when production from_table_or_subquery is exited.
+func (s *BaseSQLiteParserListener) ExitFrom_table_or_subquery(ctx *From_table_or_subqueryContext) {}
+
+// EnterFrom_select is called when production from_select is entered.
+func (s *BaseSQLiteParserListener) EnterFrom_select(ctx *From_selectContext) {}
+
+// ExitFrom_select is called when production from_select is exited.
+func (s *BaseSQLiteParserListener) ExitFrom_select(ctx *From_selectContext) {}
+
 // EnterTable_or_subquery is called when production table_or_subquery is entered.
 func (s *BaseSQLiteParserListener) EnterTable_or_subquery(ctx *Table_or_subqueryContext) {}
 

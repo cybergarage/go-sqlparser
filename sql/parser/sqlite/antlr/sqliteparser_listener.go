@@ -187,6 +187,21 @@ type SQLiteParserListener interface {
 	// EnterCompound_select_stmt is called when entering the compound_select_stmt production.
 	EnterCompound_select_stmt(c *Compound_select_stmtContext)
 
+	// EnterFrom is called when entering the from production.
+	EnterFrom(c *FromContext)
+
+	// EnterFrom_table is called when entering the from_table production.
+	EnterFrom_table(c *From_tableContext)
+
+	// EnterFrom_function is called when entering the from_function production.
+	EnterFrom_function(c *From_functionContext)
+
+	// EnterFrom_table_or_subquery is called when entering the from_table_or_subquery production.
+	EnterFrom_table_or_subquery(c *From_table_or_subqueryContext)
+
+	// EnterFrom_select is called when entering the from_select production.
+	EnterFrom_select(c *From_selectContext)
+
 	// EnterTable_or_subquery is called when entering the table_or_subquery production.
 	EnterTable_or_subquery(c *Table_or_subqueryContext)
 
@@ -561,6 +576,21 @@ type SQLiteParserListener interface {
 
 	// ExitCompound_select_stmt is called when exiting the compound_select_stmt production.
 	ExitCompound_select_stmt(c *Compound_select_stmtContext)
+
+	// ExitFrom is called when exiting the from production.
+	ExitFrom(c *FromContext)
+
+	// ExitFrom_table is called when exiting the from_table production.
+	ExitFrom_table(c *From_tableContext)
+
+	// ExitFrom_function is called when exiting the from_function production.
+	ExitFrom_function(c *From_functionContext)
+
+	// ExitFrom_table_or_subquery is called when exiting the from_table_or_subquery production.
+	ExitFrom_table_or_subquery(c *From_table_or_subqueryContext)
+
+	// ExitFrom_select is called when exiting the from_select production.
+	ExitFrom_select(c *From_selectContext)
 
 	// ExitTable_or_subquery is called when exiting the table_or_subquery production.
 	ExitTable_or_subquery(c *Table_or_subqueryContext)

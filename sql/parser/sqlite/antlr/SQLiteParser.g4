@@ -462,7 +462,7 @@ join_clause:
 select_core:
     (
         SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
-            FROM_ (table_or_subquery (COMMA table_or_subquery)* | join_clause)
+            FROM_ (from (COMMA from)* | join_clause)
         )? (WHERE_ whereExpr=expr)? (
           GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
               HAVING_ havingExpr=expr
@@ -487,6 +487,34 @@ compound_select_stmt:
     common_table_stmt? select_core (
         (UNION_ ALL_? | INTERSECT_ | EXCEPT_) select_core
     )+ order_by_stmt? limit_stmt?
+;
+
+from:
+    from_table
+    | from_function
+    | from_select
+    | from_table_or_subquery
+;
+
+from_table: 
+    (schema_name DOT)? table_name (AS_? table_alias)? (
+        INDEXED_ BY_ index_name
+        | NOT_ INDEXED_
+    )?
+;
+
+from_function:
+    (schema_name DOT)? table_function_name OPEN_PAR expr (COMMA expr)* CLOSE_PAR (
+        AS_? table_alias
+    )?
+;
+
+from_table_or_subquery:
+    OPEN_PAR (table_or_subquery (COMMA table_or_subquery)* | join_clause) CLOSE_PAR
+;
+
+from_select:
+    OPEN_PAR select_stmt CLOSE_PAR (AS_? table_alias)?
 ;
 
 table_or_subquery: (
