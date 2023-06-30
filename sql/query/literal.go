@@ -21,7 +21,7 @@ type Literal struct {
 }
 
 // NewLiteralWith returns a new Literal instance with the specified parameters.
-func NewLiteralWith(t DataType v any) *Literal {
+func NewLiteralWith(t DataType, v any) *Literal {
 	return &Literal{
 		Type:  t,
 		Value: v,
