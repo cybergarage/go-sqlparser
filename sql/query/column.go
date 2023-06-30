@@ -14,21 +14,28 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/query"
+
 // Column represents a column.
 type Column struct {
 	name     string
-	dataType *DataType
+	dataType *Data
 	value    any
 }
 
 // NewColumn returns a column instance.
-func NewColumnWith(name string, t *DataType, v any) *Column {
+func NewColumnWith(name string, t *Data, v any) *Column {
 	col := &Column{
 		name:     name,
 		dataType: t,
 		value:    v,
 	}
 	return col
+}
+
+// NewColumn returns a column instance.
+func NewColumnWithName(name string) *Column {
+	return NewColumnWith(name, query.NewDataWith(query.UnknownData, 0), nil)
 }
 
 // Name returns the column name.
