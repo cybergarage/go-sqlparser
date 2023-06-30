@@ -16,6 +16,14 @@ package query
 
 // Literal represents a constant value.
 type Literal struct {
-	Type DataType
-	Val  string
+	Type  DataType
+	Value any
+}
+
+// NewLiteralWith returns a new Literal instance with the specified parameters.
+func NewLiteralWith(t DataType v any) *Literal {
+	return &Literal{
+		Type:  t,
+		Value: v,
+	}
 }
