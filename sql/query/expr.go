@@ -49,12 +49,12 @@ const (
 // CompExpr represents an comparsion expression.
 type CompExpr struct {
 	Operator CompExprOperator
-	Left     Expr
-	Right    Expr
+	Left     *Column
+	Right    *Literal
 }
 
 // NewCompExpr returns a new CompExpr instance with the specified parameters.
-func NewCompExpr(op CompExprOperator, left Expr, right Expr) *CompExpr {
+func NewCompExpr(op CompExprOperator, left *Column, right *Literal) *CompExpr {
 	return &CompExpr{
 		Operator: op,
 		Left:     left,
@@ -63,6 +63,6 @@ func NewCompExpr(op CompExprOperator, left Expr, right Expr) *CompExpr {
 }
 
 // NewEqWith returns a new CompExpr instance with the specified parameters.
-func NewEqWith(left Expr, right Expr) *CompExpr {
+func NewEqWith(left *Column, right *Literal) *CompExpr {
 	return NewCompExpr(EqualOp, left, right)
 }
