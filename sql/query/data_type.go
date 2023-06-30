@@ -110,8 +110,8 @@ func (t DataType) String() string {
 	return s
 }
 
-// NewDataTypeWith returns a new DataType instance with the specified type and length.
-func NewDataTypeWith(t DataType, l int) *Data {
+// NewDataWith returns a new DataType instance with the specified type and length.
+func NewDataWith(t DataType, l int) *Data {
 	return &Data{
 		Type:   t,
 		Length: l,
@@ -122,14 +122,14 @@ func NewDataTypeWith(t DataType, l int) *Data {
 func NewDataFrom(s string, l int) (*Data, error) {
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == strings.ToUpper(s) {
-			return NewDataTypeWith(dataType, l), nil
+			return NewDataWith(dataType, l), nil
 		}
 	}
 	return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 }
 
 // DataType returns the column data type.
-func (da *Data) DataType() int {
+func (da *Data) DataType() DataType {
 	return da.Type
 }
 
