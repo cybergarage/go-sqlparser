@@ -452,7 +452,7 @@ reindex_stmt:
 ;
 
 select_stmt:
-    common_table_stmt? select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
+    common_table_stmt? parent_query=select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
 ;
 
 join_clause:

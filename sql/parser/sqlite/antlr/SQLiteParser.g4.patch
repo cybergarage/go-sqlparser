@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	2023-06-28 19:40:15.000000000 +0900
---- SQLiteParser.g4	2023-06-28 19:40:21.000000000 +0900
+*** SQLiteParser.g4.new	Fri Jun 30 13:02:32 2023
+--- SQLiteParser.g4	Fri Jun 30 13:03:14 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -247,15 +247,32 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 881,890 ****
-      any_name
+*** 452,458 ****
   ;
   
-- database_name:
+  select_stmt:
+!     common_table_stmt? parent_query=select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
+  ;
+  
+  join_clause:
+--- 390,396 ----
+  ;
+  
+  select_stmt:
+!     common_table_stmt? select_core (compound_operator select_core)* order_by_stmt? limit_stmt?
+  ;
+  
+  join_clause:
+***************
+*** 878,887 ****
+  // TODO: check all names below
+  
+  name:
 -     any_name
 - ;
 - 
-  function_name:
+- database_name:
       any_name
   ;
---- 819,824 ----
+  
+--- 816,821 ----
