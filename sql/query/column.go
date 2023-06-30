@@ -16,24 +16,24 @@ package query
 
 // Column represents a column.
 type Column struct {
-	name    string
-	data    *Data
-	literal *Literal
+	name string
+	*Data
+	*Literal
 }
 
 // NewColumn returns a column instance.
-func NewColumnWith(name string, t *Data, v any) *Column {
+func NewColumnWith(name string, t *Data, l *Literal) *Column {
 	col := &Column{
 		name:    name,
-		data:    t,
-		literal: NewLiteralWith(v),
+		Data:    t,
+		Literal: l,
 	}
 	return col
 }
 
 // NewColumn returns a column instance.
 func NewColumnWithName(name string) *Column {
-	return NewColumnWith(name, NewDataWith(UnknownData, 0), nil)
+	return NewColumnWith(name, NewDataWith(UnknownData, 0), NullLiteral)
 }
 
 // Name returns the column name.
@@ -48,8 +48,8 @@ func (col *Column) String() string {
 
 // String returns the string representation.
 func (col *Column) DefString() string {
-	if col.data == nil {
+	if col.Data == nil {
 		return col.name
 	}
-	return col.name + " " + col.data.String()
+	return col.name + " " + col.Data.String()
 }
