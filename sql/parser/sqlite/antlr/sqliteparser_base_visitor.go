@@ -183,6 +183,10 @@ func (v *BaseSQLiteParserVisitor) VisitExpr(ctx *ExprContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitComparison_expr(ctx *Comparison_exprContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitRaise_function(ctx *Raise_functionContext) interface{} {
 	return v.VisitChildren(ctx)
 }

@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jun 30 17:02:20 2023
---- SQLiteParser.g4	Fri Jun 30 17:02:24 2023
+*** SQLiteParser.g4.new	Fri Jun 30 22:34:08 2023
+--- SQLiteParser.g4	Fri Jun 30 22:34:14 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -247,7 +247,44 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 452,458 ****
+*** 333,341 ****
+      | expr ( STAR | DIV | MOD) expr
+      | expr ( PLUS | MINUS) expr
+      | expr ( LT2 | GT2 | AMP | PIPE) expr
+!     | comparison_expr 
+      | expr (
+          ASSIGN
+          | IS_
+          | IS_ NOT_
+          | IN_
+--- 271,282 ----
+      | expr ( STAR | DIV | MOD) expr
+      | expr ( PLUS | MINUS) expr
+      | expr ( LT2 | GT2 | AMP | PIPE) expr
+!     | expr ( LT | LT_EQ | GT | GT_EQ) expr
+      | expr (
+          ASSIGN
++         | EQ
++         | NOT_EQ1
++         | NOT_EQ2
+          | IS_
+          | IS_ NOT_
+          | IN_
+***************
+*** 366,375 ****
+      | raise_function
+  ;
+  
+- comparison_expr:
+-     column_name (EQ | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
+- ;
+- 
+  raise_function:
+      RAISE_ OPEN_PAR (
+          IGNORE_
+--- 307,312 ----
+***************
+*** 453,459 ****
   ;
   
   select_stmt:
@@ -264,7 +301,7 @@
   
   join_clause:
 ***************
-*** 462,468 ****
+*** 463,469 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -281,7 +318,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 489,522 ****
+*** 490,523 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -318,7 +355,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 906,915 ****
+*** 907,916 ****
   // TODO: check all names below
   
   name:

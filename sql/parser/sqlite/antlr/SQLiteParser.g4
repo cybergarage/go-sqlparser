@@ -333,12 +333,9 @@ expr:
     | expr ( STAR | DIV | MOD) expr
     | expr ( PLUS | MINUS) expr
     | expr ( LT2 | GT2 | AMP | PIPE) expr
-    | expr ( LT | LT_EQ | GT | GT_EQ) expr
+    | comparison_expr 
     | expr (
         ASSIGN
-        | EQ
-        | NOT_EQ1
-        | NOT_EQ2
         | IS_
         | IS_ NOT_
         | IN_
@@ -367,6 +364,10 @@ expr:
     | ((NOT_)? EXISTS_)? OPEN_PAR select_stmt CLOSE_PAR
     | CASE_ expr? (WHEN_ expr THEN_ expr)+ (ELSE_ expr)? END_
     | raise_function
+;
+
+comparison_expr:
+    column_name (EQ | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 ;
 
 raise_function:
