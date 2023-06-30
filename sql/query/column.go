@@ -16,17 +16,17 @@ package query
 
 // Column represents a column.
 type Column struct {
-	name  string
-	data  *Data
-	value any
+	name    string
+	data    *Data
+	literal *Literal
 }
 
 // NewColumn returns a column instance.
 func NewColumnWith(name string, t *Data, v any) *Column {
 	col := &Column{
-		name:  name,
-		data:  t,
-		value: v,
+		name:    name,
+		data:    t,
+		literal: NewLiteralWith(v),
 	}
 	return col
 }
@@ -39,11 +39,6 @@ func NewColumnWithName(name string) *Column {
 // Name returns the column name.
 func (col *Column) Name() string {
 	return col.name
-}
-
-// Value returns the column value.
-func (col *Column) Value() interface{} {
-	return col.value
 }
 
 // String returns the string representation.
