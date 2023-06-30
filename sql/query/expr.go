@@ -52,3 +52,17 @@ type CompExpr struct {
 	Left     Expr
 	Right    Expr
 }
+
+// NewCompExpr returns a new CompExpr instance with the specified parameters.
+func NewCompExpr(op CompExprOperator, left Expr, right Expr) *CompExpr {
+	return &CompExpr{
+		Operator: op,
+		Left:     left,
+		Right:    right,
+	}
+}
+
+// NewEqWith returns a new CompExpr instance with the specified parameters.
+func NewEqWith(left Expr, right Expr) *CompExpr {
+	return NewCompExpr(EqualOp, left, right)
+}
