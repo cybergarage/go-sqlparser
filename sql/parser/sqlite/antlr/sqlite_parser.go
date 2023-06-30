@@ -18660,11 +18660,11 @@ type ISelect_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// GetParent_query returns the parent_query rule contexts.
-	GetParent_query() ISelect_coreContext
+	// GetParentQuery returns the parentQuery rule contexts.
+	GetParentQuery() ISelect_coreContext
 
-	// SetParent_query sets the parent_query rule contexts.
-	SetParent_query(ISelect_coreContext)
+	// SetParentQuery sets the parentQuery rule contexts.
+	SetParentQuery(ISelect_coreContext)
 
 	// Getter signatures
 	AllSelect_core() []ISelect_coreContext
@@ -18681,8 +18681,8 @@ type ISelect_stmtContext interface {
 
 type Select_stmtContext struct {
 	antlr.BaseParserRuleContext
-	parser       antlr.Parser
-	parent_query ISelect_coreContext
+	parser      antlr.Parser
+	parentQuery ISelect_coreContext
 }
 
 func NewEmptySelect_stmtContext() *Select_stmtContext {
@@ -18712,9 +18712,9 @@ func NewSelect_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, 
 
 func (s *Select_stmtContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Select_stmtContext) GetParent_query() ISelect_coreContext { return s.parent_query }
+func (s *Select_stmtContext) GetParentQuery() ISelect_coreContext { return s.parentQuery }
 
-func (s *Select_stmtContext) SetParent_query(v ISelect_coreContext) { s.parent_query = v }
+func (s *Select_stmtContext) SetParentQuery(v ISelect_coreContext) { s.parentQuery = v }
 
 func (s *Select_stmtContext) AllSelect_core() []ISelect_coreContext {
 	children := s.GetChildren()
@@ -18903,7 +18903,7 @@ func (p *SQLiteParser) Select_stmt() (localctx ISelect_stmtContext) {
 
 		var _x = p.Select_core()
 
-		localctx.(*Select_stmtContext).parent_query = _x
+		localctx.(*Select_stmtContext).parentQuery = _x
 	}
 	p.SetState(1368)
 	p.GetErrorHandler().Sync(p)
