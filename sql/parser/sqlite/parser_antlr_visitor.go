@@ -249,7 +249,26 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 }
 
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
-	return query.NewSelectWith()
+	tbls := query.NewTables()
+	var topExpr query.Expr
+	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
+		for _, from := range ctx.GetParentQuery().AllFrom() {
+			if tbl := from.From_table(); tbl != nil {
+				tbls = append(tbls, query.NewTableWith(tbl.GetText()))
+			}
+		}
+		if w := parentQuery.GetWhereExpr(); w != nil {
+			topExpr = newWhereExprWith(w)
+		}
+	}
+	return query.NewSelectWith(tbls, query.NewWhereWith(topExpr))
+}
+
+func newWhereExprWith(ctx antlr.IExprContext) query.Expr {
+	if ctx == nil {
+		return nil
+	}
+	return nil
 }
 
 func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
