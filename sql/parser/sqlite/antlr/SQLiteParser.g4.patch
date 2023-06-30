@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jun 30 16:55:55 2023
---- SQLiteParser.g4	Fri Jun 30 16:56:02 2023
+*** SQLiteParser.g4.new	Fri Jun 30 17:02:20 2023
+--- SQLiteParser.g4	Fri Jun 30 17:02:24 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -264,7 +264,61 @@
   
   join_clause:
 ***************
-*** 878,887 ****
+*** 462,468 ****
+  select_core:
+      (
+          SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
+!             FROM_ (from (COMMA from)* | join_clause)
+          )? (WHERE_ whereExpr=expr)? (
+            GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
+                HAVING_ havingExpr=expr
+--- 400,406 ----
+  select_core:
+      (
+          SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
+!             FROM_ (table_or_subquery (COMMA table_or_subquery)* | join_clause)
+          )? (WHERE_ whereExpr=expr)? (
+            GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
+                HAVING_ havingExpr=expr
+***************
+*** 489,522 ****
+      )+ order_by_stmt? limit_stmt?
+  ;
+  
+- from:
+-     from_table
+-     | from_function
+-     | from_select
+-     | from_table_or_subquery
+- ;
+- 
+- from_table: 
+-     (schema_name DOT)? table_name (AS_? table_alias)? (
+-         INDEXED_ BY_ index_name
+-         | NOT_ INDEXED_
+-     )?
+- ;
+- 
+- from_function:
+-     (schema_name DOT)? table_function_name OPEN_PAR expr (COMMA expr)* CLOSE_PAR (
+-         AS_? table_alias
+-     )?
+- ;
+- 
+- from_table_or_subquery:
+-     OPEN_PAR (table_or_subquery (COMMA table_or_subquery)* | join_clause) CLOSE_PAR
+- ;
+- 
+- from_select:
+-     OPEN_PAR select_stmt CLOSE_PAR (AS_? table_alias)?
+- ;
+- 
+  table_or_subquery: (
+          (schema_name DOT)? table_name (AS_? table_alias)? (
+              INDEXED_ BY_ index_name
+--- 427,432 ----
+***************
+*** 906,915 ****
   // TODO: check all names below
   
   name:
