@@ -197,18 +197,18 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	name := ctx.Column_name().GetText()
-	t, err := query.NewDataTypeFrom(ctx.Type_name().GetText(), -1)
+	t, err := query.NewDataFrom(ctx.Type_name().GetText(), -1)
 	if err != nil {
-		t = &query.DataType{Type: query.UnknownData, Length: -1}
+		t = &query.Data{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWith(name, t, nil)
 }
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 	name := ctx.Column_name().GetText()
-	t, err := query.NewDataTypeFrom("", -1) // FIXME
+	t, err := query.NewDataFrom("", -1) // FIXME
 	if err != nil {
-		t = &query.DataType{Type: query.UnknownData, Length: -1}
+		t = &query.Data{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWith(name, t, nil)
 }
@@ -223,7 +223,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	for _, row := range ctx.Values_clause().AllValue_row() {
 		for _, expr := range row.AllExpr() {
 			v := expr.Literal_value()
-			values = append(values, newLiteralWith(v))
+			values = append(values, newLiteralValueWith(v))
 		}
 	}
 	colums := query.NewColumns()
@@ -237,7 +237,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	return query.NewInsertWith(tbl, colums)
 }
 
-func newLiteralWith(ctx antlr.ILiteral_valueContext) any {
+func newLiteralValueWith(ctx antlr.ILiteral_valueContext) any {
 	if ctx == nil {
 		return nil
 	}
@@ -262,15 +262,16 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 			}
 		}
 		if w := parentQuery.GetWhereExpr(); w != nil {
-			topExpr = newWhereExprWith(w)
+			topExpr = newExprWith(w)
 		}
 	}
 	return query.NewSelectWith(cols, tbls, query.NewWhereWith(topExpr))
 }
 
-func newWhereExprWith(ctx antlr.IExprContext) query.Expr {
-	if ctx == nil {
-		return nil
+func newExprWith(ctx antlr.IExprContext) query.Expr {
+	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
+		query.NewColumnWithName(cmpExpr.Column_name().GetText())
+		newLiteralValueWith(cmpExpr.Literal_value())
 	}
 	return nil
 }
