@@ -14,17 +14,21 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // Select is a "SELECT" statement.
 type Select struct {
 	Tables
+	Columns
 	*Where
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(tbls Tables, wehre *Where) *Select {
+func NewSelectWith(colums Columns, tbls Tables, wehre *Where) *Select {
 	return &Select{
-		Tables: tbls,
-		Where:  wehre,
+		Columns: colums,
+		Tables:  tbls,
+		Where:   wehre,
 	}
 }
 
@@ -35,7 +39,17 @@ func (stmt *Select) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Select) String() string {
-	s := "SELECT "
-	s += "FROM " + stmt.Tables.String()
-	return s
+	columnsStr := "*"
+	if 0 < len(stmt.Columns) {
+		columnsStr = stmt.Columns.NameString()
+	}
+	strs := []string{
+		"SELECT",
+		columnsStr,
+		"FROM",
+		stmt.Tables.String(),
+		"WHERE",
+		stmt.Where.String(),
+	}
+	return strings.JoinWithSpace(strs)
 }
