@@ -17,12 +17,14 @@ package query
 // Select is a "SELECT" statement.
 type Select struct {
 	Tables
+	*Where
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(tbls Tables) *Select {
+func NewSelectWith(tbls Tables, wehre *Where) *Select {
 	return &Select{
 		Tables: tbls,
+		Where:  wehre,
 	}
 }
 
