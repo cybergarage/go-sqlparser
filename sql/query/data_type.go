@@ -20,14 +20,17 @@ import (
 )
 
 // DataType represents a data type.
-type DataType struct {
-	Type   int
+type DataType int
+
+// Data represents a data type.
+type Data struct {
+	Type   DataType
 	Length int
 }
 
 const (
 	UnknownData = iota
-	BigIntData  = iota
+	BigIntData
 	BinaryData
 	BitData
 	BlobData
@@ -62,7 +65,7 @@ const (
 	YearData
 )
 
-var dataTypeStrings = map[int]string{
+var dataTypeStrings = map[DataType]string{
 	BigIntData:       "BIGINT",
 	BinaryData:       "BINARY",
 	BitData:          "BIT",
@@ -98,31 +101,45 @@ var dataTypeStrings = map[int]string{
 	YearData:         "YEAR",
 }
 
-// NewDataTypeFrom returns the data type of the specified string.
-func NewDataTypeFrom(s string, l int) (*DataType, error) {
+// String returns the string representation.
+func (t DataType) String() string {
+	s, ok := dataTypeStrings[t]
+	if !ok {
+		return ""
+	}
+	return s
+}
+
+// NewDataTypeWith returns a new DataType instance with the specified type and length.
+func NewDataTypeWith(t DataType, l int) *Data {
+	return &Data{
+		Type:   t,
+		Length: l,
+	}
+}
+
+// NewDataFrom returns the data type of the specified string.
+func NewDataFrom(s string, l int) (*Data, error) {
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == strings.ToUpper(s) {
-			return &DataType{
-				Type:   dataType,
-				Length: l,
-			}, nil
+			return NewDataTypeWith(dataType, l), nil
 		}
 	}
 	return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
 }
 
 // DataType returns the column data type.
-func (da *DataType) DataType() int {
+func (da *Data) DataType() int {
 	return da.Type
 }
 
 // DataLength returns the column data length.
-func (da *DataType) DataLength() int {
+func (da *Data) DataLength() int {
 	return da.Length
 }
 
 // String returns the string representation.
-func (da *DataType) String() string {
+func (da *Data) String() string {
 	s, ok := dataTypeStrings[da.Type]
 	if !ok {
 		return ""
