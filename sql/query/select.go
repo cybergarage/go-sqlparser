@@ -16,11 +16,14 @@ package query
 
 // Select is a "SELECT" statement.
 type Select struct {
+	Tables
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith() *Select {
-	return &Select{}
+func NewSelectWith(tbls Tables) *Select {
+	return &Select{
+		Tables: tbls,
+	}
 }
 
 // StatementType returns the statement type.
@@ -30,5 +33,7 @@ func (stmt *Select) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Select) String() string {
-	return ""
+	s := "SELECT "
+	s += "FROM " + stmt.Tables.String()
+	return s
 }
