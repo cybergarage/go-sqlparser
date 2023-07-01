@@ -30,7 +30,7 @@ const (
 )
 
 var compExprOpsStrings = map[CompExprOperator]string{
-	EqualOp:        "==",
+	EqualOp:        "=",
 	NotEqualOp:     "!=", // "<>",
 	LessThanOp:     "<",
 	GreaterThanOp:  ">",
