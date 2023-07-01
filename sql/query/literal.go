@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"fmt"
+)
+
 // Literal represents a constant value.
 type Literal struct {
 	v any
@@ -37,4 +41,9 @@ func (lit *Literal) Literal() *Literal {
 // Value returns the literal value.
 func (lit *Literal) Value() any {
 	return lit.v
+}
+
+// String returns the string representation.
+func (lit *Literal) String() string {
+	return fmt.Sprintf("%v", lit.v)
 }
