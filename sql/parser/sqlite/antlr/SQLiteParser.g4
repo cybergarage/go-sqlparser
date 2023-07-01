@@ -335,7 +335,7 @@ expr:
     | expr ( LT2 | GT2 | AMP | PIPE) expr
     | comparison_expr 
     | expr (
-        ASSIGN
+        EQ
         | IS_
         | IS_ NOT_
         | IN_
@@ -367,7 +367,7 @@ expr:
 ;
 
 comparison_expr:
-    column_name (EQ | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
+    column_name (ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 ;
 
 raise_function:
