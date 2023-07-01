@@ -36,11 +36,11 @@ type CompExprOperator uint8
 // Constants for Enum Type - CompExprOperator
 const (
 	EqualOp CompExprOperator = iota
+	NotEqualOp
 	LessThanOp
 	GreaterThanOp
 	LessEqualOp
 	GreaterEqualOp
-	NotEqualOp
 	NullSafeEqualOp
 	InOp
 	NotInOp
@@ -60,9 +60,4 @@ func NewCompExpr(op CompExprOperator, left *Column, right *Literal) *CompExpr {
 		Left:     left,
 		Right:    right,
 	}
-}
-
-// NewEqWith returns a new CompExpr instance with the specified parameters.
-func NewEqWith(left *Column, right *Literal) *CompExpr {
-	return NewCompExpr(EqualOp, left, right)
 }
