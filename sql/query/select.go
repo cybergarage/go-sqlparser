@@ -48,8 +48,9 @@ func (stmt *Select) String() string {
 		columnsStr,
 		"FROM",
 		stmt.Tables.String(),
-		"WHERE",
-		stmt.Where.String(),
+	}
+	if stmt.Where != nil {
+		strs = append(strs, "WHERE", stmt.Where.String())
 	}
 	return strings.JoinWithSpace(strs)
 }
