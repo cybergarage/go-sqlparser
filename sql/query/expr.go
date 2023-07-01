@@ -16,6 +16,8 @@ package query
 
 // Expr represents an expression.
 type Expr interface {
+	// String returns the index string representation.
+	String() string
 }
 
 // AndExpr represents an AND expression.
@@ -28,36 +30,4 @@ type AndExpr struct {
 type OrExpr struct {
 	Left  Expr
 	Right Expr
-}
-
-// CompExprOperator is an enum for CompExpr.Operator
-type CompExprOperator uint8
-
-// Constants for Enum Type - CompExprOperator
-const (
-	EqualOp CompExprOperator = iota
-	NotEqualOp
-	LessThanOp
-	GreaterThanOp
-	LessEqualOp
-	GreaterEqualOp
-	NullSafeEqualOp
-	InOp
-	NotInOp
-)
-
-// CompExpr represents an comparsion expression.
-type CompExpr struct {
-	Operator CompExprOperator
-	Left     *Column
-	Right    *Literal
-}
-
-// NewCompExpr returns a new CompExpr instance with the specified parameters.
-func NewCompExpr(op CompExprOperator, left *Column, right *Literal) *CompExpr {
-	return &CompExpr{
-		Operator: op,
-		Left:     left,
-		Right:    right,
-	}
 }
