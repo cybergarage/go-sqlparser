@@ -38,5 +38,5 @@ func (w *Where) Expr() Expr {
 
 // String returns the string representation.
 func (w *Where) String() string {
-	return ""
+	return w.expr.String()
 }
