@@ -232,16 +232,16 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 		if n < len(values) {
 			v = values[n]
 		}
-		colums = append(colums, query.NewColumnWith(name, nil, v))
+		colums = append(colums, query.NewColumnWith(name, nil, query.NewLiteralWith(v)))
 	}
 	return query.NewInsertWith(tbl, colums)
 }
 
-func newLiteralValueWith(ctx antlr.ILiteral_valueContext) any {
+func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
 	if ctx == nil {
 		return nil
 	}
-	return ctx.GetText()
+	return query.NewLiteralWith(ctx.GetText())
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
@@ -270,8 +270,26 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 
 func newExprWith(ctx antlr.IExprContext) query.Expr {
 	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
-		query.NewColumnWithName(cmpExpr.Column_name().GetText())
-		newLiteralValueWith(cmpExpr.Literal_value())
+		c := query.NewColumnWithName(cmpExpr.Column_name().GetText())
+		l := newLiteralValueWith(cmpExpr.Literal_value())
+		if cmpExpr.EQ() != nil {
+			return query.NewCompExpr(query.EqualOp, c, l)
+		}
+		if cmpExpr.NOT_EQ1() != nil || cmpExpr.NOT_EQ2() != nil {
+			return query.NewCompExpr(query.NotEqualOp, c, l)
+		}
+		if cmpExpr.LT() != nil {
+			return query.NewCompExpr(query.LessThanOp, c, l)
+		}
+		if cmpExpr.GT() != nil {
+			return query.NewCompExpr(query.GreaterThanOp, c, l)
+		}
+		if cmpExpr.LT_EQ() != nil {
+			return query.NewCompExpr(query.LessEqualOp, c, l)
+		}
+		if cmpExpr.GT_EQ() != nil {
+			return query.NewCompExpr(query.GreaterEqualOp, c, l)
+		}
 	}
 	return nil
 }
