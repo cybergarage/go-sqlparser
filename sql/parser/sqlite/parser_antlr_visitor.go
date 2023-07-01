@@ -265,7 +265,11 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 			topExpr = newExprWith(w)
 		}
 	}
-	return query.NewSelectWith(cols, tbls, query.NewWhereWith(topExpr))
+	var where *query.Where
+	if topExpr != nil {
+		where = query.NewWhereWith(topExpr)
+	}
+	return query.NewSelectWith(cols, tbls, where)
 }
 
 func newExprWith(ctx antlr.IExprContext) query.Expr {
