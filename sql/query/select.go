@@ -24,11 +24,11 @@ type Select struct {
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(colums Columns, tbls Tables, wehre *Where) *Select {
+func NewSelectWith(colums Columns, tbls Tables, w *Where) *Select {
 	return &Select{
 		Columns: colums,
 		Tables:  tbls,
-		Where:   wehre,
+		Where:   w,
 	}
 }
 
