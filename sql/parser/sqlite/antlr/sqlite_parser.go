@@ -23724,25 +23724,37 @@ type IUpdate_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetTable returns the table rule contexts.
+	GetTable() IQualified_table_nameContext
+
+	// GetWhereExpr returns the whereExpr rule contexts.
+	GetWhereExpr() IExprContext
+
+	// SetTable sets the table rule contexts.
+	SetTable(IQualified_table_nameContext)
+
+	// SetWhereExpr sets the whereExpr rule contexts.
+	SetWhereExpr(IExprContext)
+
 	// Getter signatures
 	UPDATE_() antlr.TerminalNode
-	Qualified_table_name() IQualified_table_nameContext
 	SET_() antlr.TerminalNode
 	AllUpdate_column_set() []IUpdate_column_setContext
 	Update_column_set(i int) IUpdate_column_setContext
+	Qualified_table_name() IQualified_table_nameContext
 	With_clause() IWith_clauseContext
 	OR_() antlr.TerminalNode
 	AllCOMMA() []antlr.TerminalNode
 	COMMA(i int) antlr.TerminalNode
 	FROM_() antlr.TerminalNode
 	WHERE_() antlr.TerminalNode
-	Expr() IExprContext
 	Returning_clause() IReturning_clauseContext
 	ROLLBACK_() antlr.TerminalNode
 	ABORT_() antlr.TerminalNode
 	REPLACE_() antlr.TerminalNode
 	FAIL_() antlr.TerminalNode
 	IGNORE_() antlr.TerminalNode
+	Expr() IExprContext
 	AllTable_or_subquery() []ITable_or_subqueryContext
 	Table_or_subquery(i int) ITable_or_subqueryContext
 	Join_clause() IJoin_clauseContext
@@ -23753,7 +23765,9 @@ type IUpdate_stmtContext interface {
 
 type Update_stmtContext struct {
 	antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser    antlr.Parser
+	table     IQualified_table_nameContext
+	whereExpr IExprContext
 }
 
 func NewEmptyUpdate_stmtContext() *Update_stmtContext {
@@ -23783,24 +23797,16 @@ func NewUpdate_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, 
 
 func (s *Update_stmtContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *Update_stmtContext) GetTable() IQualified_table_nameContext { return s.table }
+
+func (s *Update_stmtContext) GetWhereExpr() IExprContext { return s.whereExpr }
+
+func (s *Update_stmtContext) SetTable(v IQualified_table_nameContext) { s.table = v }
+
+func (s *Update_stmtContext) SetWhereExpr(v IExprContext) { s.whereExpr = v }
+
 func (s *Update_stmtContext) UPDATE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserUPDATE_, 0)
-}
-
-func (s *Update_stmtContext) Qualified_table_name() IQualified_table_nameContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IQualified_table_nameContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IQualified_table_nameContext)
 }
 
 func (s *Update_stmtContext) SET_() antlr.TerminalNode {
@@ -23848,6 +23854,22 @@ func (s *Update_stmtContext) Update_column_set(i int) IUpdate_column_setContext 
 	return t.(IUpdate_column_setContext)
 }
 
+func (s *Update_stmtContext) Qualified_table_name() IQualified_table_nameContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IQualified_table_nameContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IQualified_table_nameContext)
+}
+
 func (s *Update_stmtContext) With_clause() IWith_clauseContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -23884,22 +23906,6 @@ func (s *Update_stmtContext) WHERE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserWHERE_, 0)
 }
 
-func (s *Update_stmtContext) Expr() IExprContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExprContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IExprContext)
-}
-
 func (s *Update_stmtContext) Returning_clause() IReturning_clauseContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -23934,6 +23940,22 @@ func (s *Update_stmtContext) FAIL_() antlr.TerminalNode {
 
 func (s *Update_stmtContext) IGNORE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserIGNORE_, 0)
+}
+
+func (s *Update_stmtContext) Expr() IExprContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IExprContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExprContext)
 }
 
 func (s *Update_stmtContext) AllTable_or_subquery() []ITable_or_subqueryContext {
@@ -24080,7 +24102,10 @@ func (p *SQLiteParser) Update_stmt() (localctx IUpdate_stmtContext) {
 	}
 	{
 		p.SetState(1698)
-		p.Qualified_table_name()
+
+		var _x = p.Qualified_table_name()
+
+		localctx.(*Update_stmtContext).table = _x
 	}
 	{
 		p.SetState(1699)
@@ -24208,7 +24233,10 @@ func (p *SQLiteParser) Update_stmt() (localctx IUpdate_stmtContext) {
 		}
 		{
 			p.SetState(1723)
-			p.expr(0)
+
+			var _x = p.expr(0)
+
+			localctx.(*Update_stmtContext).whereExpr = _x
 		}
 
 	}
