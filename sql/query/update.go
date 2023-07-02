@@ -16,11 +16,18 @@ package query
 
 // Update is a "UPDATE" statement.
 type Update struct {
+	*Table
+	Columns
+	*Where
 }
 
 // NewUpdateWith returns a new Update statement instance with the specified parameters.
-func NewUpdateWith() *Update {
-	return &Update{}
+func NewUpdateWith(tbl *Table, colums Columns, w *Where) *Update {
+	return &Update{
+		Table:   tbl,
+		Columns: colums,
+		Where:   w,
+	}
 }
 
 // StatementType returns the statement type.
