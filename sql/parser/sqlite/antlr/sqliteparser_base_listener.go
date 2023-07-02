@@ -455,6 +455,12 @@ func (s *BaseSQLiteParserListener) EnterUpdate_stmt(ctx *Update_stmtContext) {}
 // ExitUpdate_stmt is called when production update_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitUpdate_stmt(ctx *Update_stmtContext) {}
 
+// EnterUpdate_column_set is called when production update_column_set is entered.
+func (s *BaseSQLiteParserListener) EnterUpdate_column_set(ctx *Update_column_setContext) {}
+
+// ExitUpdate_column_set is called when production update_column_set is exited.
+func (s *BaseSQLiteParserListener) ExitUpdate_column_set(ctx *Update_column_setContext) {}
+
 // EnterColumn_name_list is called when production column_name_list is entered.
 func (s *BaseSQLiteParserListener) EnterColumn_name_list(ctx *Column_name_listContext) {}
 

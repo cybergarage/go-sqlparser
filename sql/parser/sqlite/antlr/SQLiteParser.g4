@@ -556,11 +556,15 @@ compound_operator:
 update_stmt:
     with_clause? UPDATE_ (
         OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
-    )? qualified_table_name SET_ (column_name | column_name_list) ASSIGN expr (
-        COMMA (column_name | column_name_list) ASSIGN expr
+    )? qualified_table_name SET_ update_column_set (
+        COMMA update_column_set
     )* (
         FROM_ (table_or_subquery (COMMA table_or_subquery)* | join_clause)
     )? (WHERE_ expr)? returning_clause?
+;
+
+update_column_set:
+    (column_name | column_name_list) ASSIGN expr
 ;
 
 column_name_list:

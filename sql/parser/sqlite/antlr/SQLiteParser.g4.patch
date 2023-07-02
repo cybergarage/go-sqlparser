@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Sun Jul  2 00:55:26 2023
---- SQLiteParser.g4	Sun Jul  2 00:56:48 2023
+*** SQLiteParser.g4.new	Sun Jul  2 22:31:08 2023
+--- SQLiteParser.g4	Sun Jul  2 22:34:33 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -355,7 +355,40 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 907,916 ****
+*** 556,572 ****
+  update_stmt:
+      with_clause? UPDATE_ (
+          OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
+!     )? qualified_table_name SET_ update_column_set (
+!         COMMA update_column_set
+      )* (
+          FROM_ (table_or_subquery (COMMA table_or_subquery)* | join_clause)
+      )? (WHERE_ expr)? returning_clause?
+  ;
+  
+- update_column_set:
+-     (column_name | column_name_list) ASSIGN expr
+- ;
+- 
+  column_name_list:
+      OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+  ;
+--- 465,477 ----
+  update_stmt:
+      with_clause? UPDATE_ (
+          OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
+!     )? qualified_table_name SET_ (column_name | column_name_list) ASSIGN expr (
+!         COMMA (column_name | column_name_list) ASSIGN expr
+      )* (
+          FROM_ (table_or_subquery (COMMA table_or_subquery)* | join_clause)
+      )? (WHERE_ expr)? returning_clause?
+  ;
+  
+  column_name_list:
+      OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+  ;
+***************
+*** 911,920 ****
   // TODO: check all names below
   
   name:
