@@ -223,6 +223,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#update_stmt.
 	VisitUpdate_stmt(ctx *Update_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#update_column_set.
+	VisitUpdate_column_set(ctx *Update_column_setContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#column_name_list.
 	VisitColumn_name_list(ctx *Column_name_listContext) interface{}
 

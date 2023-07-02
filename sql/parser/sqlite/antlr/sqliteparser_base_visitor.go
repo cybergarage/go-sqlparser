@@ -295,6 +295,10 @@ func (v *BaseSQLiteParserVisitor) VisitUpdate_stmt(ctx *Update_stmtContext) inte
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitUpdate_column_set(ctx *Update_column_setContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitColumn_name_list(ctx *Column_name_listContext) interface{} {
 	return v.VisitChildren(ctx)
 }

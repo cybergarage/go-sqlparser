@@ -223,6 +223,9 @@ type SQLiteParserListener interface {
 	// EnterUpdate_stmt is called when entering the update_stmt production.
 	EnterUpdate_stmt(c *Update_stmtContext)
 
+	// EnterUpdate_column_set is called when entering the update_column_set production.
+	EnterUpdate_column_set(c *Update_column_setContext)
+
 	// EnterColumn_name_list is called when entering the column_name_list production.
 	EnterColumn_name_list(c *Column_name_listContext)
 
@@ -615,6 +618,9 @@ type SQLiteParserListener interface {
 
 	// ExitUpdate_stmt is called when exiting the update_stmt production.
 	ExitUpdate_stmt(c *Update_stmtContext)
+
+	// ExitUpdate_column_set is called when exiting the update_column_set production.
+	ExitUpdate_column_set(c *Update_column_setContext)
 
 	// ExitColumn_name_list is called when exiting the column_name_list production.
 	ExitColumn_name_list(c *Column_name_listContext)
