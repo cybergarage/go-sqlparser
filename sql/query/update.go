@@ -14,7 +14,11 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"fmt"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
 // Update is a "UPDATE" statement.
 type Update struct {
@@ -43,6 +47,18 @@ func (stmt *Update) String() string {
 		"UPDATE",
 		stmt.Table.String(),
 		"SET",
+	}
+	for _, colum := range stmt.Columns {
+		name := colum.Name()
+		value := colum.Value()
+		var str string
+		switch v := value.(type) {
+		case *Literal:
+			str = fmt.Sprintf("%s = %v", name, v.String())
+		default:
+			str = fmt.Sprintf("%s = %v", name, v)
+		}
+		strs = append(strs, str)
 	}
 	if stmt.Where != nil {
 		strs = append(strs, "WHERE", stmt.Where.String())
