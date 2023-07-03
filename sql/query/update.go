@@ -58,5 +58,4 @@ func (stmt *Update) String() string {
 		strs = append(strs, "WHERE", stmt.Where.String())
 	}
 	return strings.JoinWithSpace(strs)
-
 }
