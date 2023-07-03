@@ -260,7 +260,7 @@ common_table_expression:
 ;
 
 delete_stmt:
-    with_clause? DELETE_ FROM_ qualified_table_name (WHERE_ expr)? returning_clause?
+    with_clause? DELETE_ FROM_ table=qualified_table_name (WHERE_ whereExpr=expr)? returning_clause?
 ;
 
 delete_stmt_limited:
