@@ -253,7 +253,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 		if v == nil {
 			continue
 		}
-		cols = append(cols, query.NewColumnWith(name, nil, query.NewLiteralWith(v)))
+		cols = append(cols, query.NewColumnWith(name, nil, newLiteralValueWith(v)))
 	}
 	var where *query.Where
 	if w := ctx.GetWhereExpr(); w != nil {
