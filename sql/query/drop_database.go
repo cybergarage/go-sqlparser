@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // DropDatabase is a "DROP DATABASE" statement.
 type DropDatabase struct {
 	*Database
@@ -35,5 +37,13 @@ func (stmt *DropDatabase) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *DropDatabase) String() string {
-	return "DROP DATABASE " + stmt.Database.String()
+	strs := []string{
+		"DROP",
+		"DATABASE",
+	}
+	if stmt.IfExists.Enabled() {
+		strs = append(strs, stmt.IfExists.String())
+	}
+	strs = append(strs, stmt.Database.String())
+	return strings.JoinWithSpace(strs)
 }
