@@ -1,0 +1,1 @@
+DELETE FROM usertable WHERE YCSB_KEY = 'key001'
