@@ -51,13 +51,7 @@ func (stmt *Update) String() string {
 	for _, colum := range stmt.Columns {
 		name := colum.Name()
 		value := colum.Value()
-		var str string
-		switch v := value.(type) {
-		case *Literal:
-			str = fmt.Sprintf("%s = %v", name, v.String())
-		default:
-			str = fmt.Sprintf("%s = %v", name, v)
-		}
+		str := fmt.Sprintf("%s = %v", name, value)
 		strs = append(strs, str)
 	}
 	if stmt.Where != nil {
