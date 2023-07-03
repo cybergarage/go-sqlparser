@@ -245,7 +245,21 @@ func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
-	return query.NewUpdateWith()
+	tbl := query.NewTableWith(ctx.GetTable().GetText())
+	cols := query.NewColumns()
+	for _, set := range ctx.AllUpdate_column_set() {
+		name := set.Column_name().GetText()
+		v := set.Expr().Literal_value()
+		if v == nil {
+			continue
+		}
+		cols = append(cols, query.NewColumnWith(name, nil, query.NewLiteralWith(v)))
+	}
+	var where *query.Where
+	if w := ctx.GetWhereExpr(); w != nil {
+		where = query.NewWhereWith(newExprWith(w))
+	}
+	return query.NewUpdateWith(tbl, cols, where)
 }
 
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
@@ -276,7 +290,7 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
 		c := query.NewColumnWithName(cmpExpr.Column_name().GetText())
 		l := newLiteralValueWith(cmpExpr.Literal_value())
-		if cmpExpr.EQ() != nil {
+		if cmpExpr.ASSIGN() != nil {
 			return query.NewCompExpr(query.EqualOp, c, l)
 		}
 		if cmpExpr.NOT_EQ1() != nil || cmpExpr.NOT_EQ2() != nil {
