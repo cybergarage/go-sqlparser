@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Jul  3 08:43:32 2023
---- SQLiteParser.g4	Mon Jul  3 08:43:35 2023
+*** SQLiteParser.g4.new	Mon Jul  3 15:56:10 2023
+--- SQLiteParser.g4	Mon Jul  3 15:56:30 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -189,6 +189,23 @@
           OPEN_PAR module_argument (COMMA module_argument)* CLOSE_PAR
       )?
   ;
+***************
+*** 260,266 ****
+  ;
+  
+  delete_stmt:
+!     with_clause? DELETE_ FROM_ table=qualified_table_name (WHERE_ whereExpr=expr)? returning_clause?
+  ;
+  
+  delete_stmt_limited:
+--- 232,238 ----
+  ;
+  
+  delete_stmt:
+!     with_clause? DELETE_ FROM_ qualified_table_name (WHERE_ expr)? returning_clause?
+  ;
+  
+  delete_stmt_limited:
 ***************
 *** 275,318 ****
   

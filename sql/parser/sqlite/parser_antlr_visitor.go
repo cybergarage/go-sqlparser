@@ -237,13 +237,6 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	return query.NewInsertWith(tbl, colums)
 }
 
-func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
-	if ctx == nil {
-		return nil
-	}
-	return query.NewLiteralWith(ctx.GetText())
-}
-
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
 	cols := query.NewColumns()
@@ -286,6 +279,22 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	return query.NewSelectWith(cols, tbls, where)
 }
 
+func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
+	tbl := query.NewTableWith(ctx.GetTable().GetText())
+	var where *query.Where
+	if w := ctx.GetWhereExpr(); w != nil {
+		where = query.NewWhereWith(newExprWith(w))
+	}
+	return query.NewDeleteWith(tbl, where)
+}
+
+func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
+	if ctx == nil {
+		return nil
+	}
+	return query.NewLiteralWith(ctx.GetText())
+}
+
 func newExprWith(ctx antlr.IExprContext) query.Expr {
 	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
 		c := query.NewColumnWithName(cmpExpr.Column_name().GetText())
@@ -310,8 +319,4 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 		}
 	}
 	return nil
-}
-
-func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
-	return query.NewDeleteWith()
 }

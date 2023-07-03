@@ -11904,14 +11904,26 @@ type IDelete_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetTable returns the table rule contexts.
+	GetTable() IQualified_table_nameContext
+
+	// GetWhereExpr returns the whereExpr rule contexts.
+	GetWhereExpr() IExprContext
+
+	// SetTable sets the table rule contexts.
+	SetTable(IQualified_table_nameContext)
+
+	// SetWhereExpr sets the whereExpr rule contexts.
+	SetWhereExpr(IExprContext)
+
 	// Getter signatures
 	DELETE_() antlr.TerminalNode
 	FROM_() antlr.TerminalNode
 	Qualified_table_name() IQualified_table_nameContext
 	With_clause() IWith_clauseContext
 	WHERE_() antlr.TerminalNode
-	Expr() IExprContext
 	Returning_clause() IReturning_clauseContext
+	Expr() IExprContext
 
 	// IsDelete_stmtContext differentiates from other interfaces.
 	IsDelete_stmtContext()
@@ -11919,7 +11931,9 @@ type IDelete_stmtContext interface {
 
 type Delete_stmtContext struct {
 	antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser    antlr.Parser
+	table     IQualified_table_nameContext
+	whereExpr IExprContext
 }
 
 func NewEmptyDelete_stmtContext() *Delete_stmtContext {
@@ -11948,6 +11962,14 @@ func NewDelete_stmtContext(parser antlr.Parser, parent antlr.ParserRuleContext, 
 }
 
 func (s *Delete_stmtContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Delete_stmtContext) GetTable() IQualified_table_nameContext { return s.table }
+
+func (s *Delete_stmtContext) GetWhereExpr() IExprContext { return s.whereExpr }
+
+func (s *Delete_stmtContext) SetTable(v IQualified_table_nameContext) { s.table = v }
+
+func (s *Delete_stmtContext) SetWhereExpr(v IExprContext) { s.whereExpr = v }
 
 func (s *Delete_stmtContext) DELETE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserDELETE_, 0)
@@ -11993,22 +12015,6 @@ func (s *Delete_stmtContext) WHERE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserWHERE_, 0)
 }
 
-func (s *Delete_stmtContext) Expr() IExprContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExprContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IExprContext)
-}
-
 func (s *Delete_stmtContext) Returning_clause() IReturning_clauseContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -12023,6 +12029,22 @@ func (s *Delete_stmtContext) Returning_clause() IReturning_clauseContext {
 	}
 
 	return t.(IReturning_clauseContext)
+}
+
+func (s *Delete_stmtContext) Expr() IExprContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IExprContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExprContext)
 }
 
 func (s *Delete_stmtContext) GetRuleContext() antlr.RuleContext {
@@ -12093,7 +12115,10 @@ func (p *SQLiteParser) Delete_stmt() (localctx IDelete_stmtContext) {
 	}
 	{
 		p.SetState(888)
-		p.Qualified_table_name()
+
+		var _x = p.Qualified_table_name()
+
+		localctx.(*Delete_stmtContext).table = _x
 	}
 	p.SetState(891)
 	p.GetErrorHandler().Sync(p)
@@ -12113,7 +12138,10 @@ func (p *SQLiteParser) Delete_stmt() (localctx IDelete_stmtContext) {
 		}
 		{
 			p.SetState(890)
-			p.expr(0)
+
+			var _x = p.expr(0)
+
+			localctx.(*Delete_stmtContext).whereExpr = _x
 		}
 
 	}
