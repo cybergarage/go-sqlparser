@@ -14,13 +14,22 @@
 
 package query
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
+
 // Delete is a "DELETE" statement.
 type Delete struct {
+	*Table
+	*Where
 }
 
 // NewDeleteWith returns a new Delete statement instance with the specified parameters.
-func NewDeleteWith() *Delete {
-	return &Delete{}
+func NewDeleteWith(tbl *Table, w *Where) *Delete {
+	return &Delete{
+		Table: tbl,
+		Where: w,
+	}
 }
 
 // StatementType returns the statement type.
@@ -30,5 +39,13 @@ func (stmt *Delete) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Delete) String() string {
-	return ""
+	strs := []string{
+		"DELETE",
+		"FROM",
+		stmt.Table.String(),
+	}
+	if stmt.Where != nil {
+		strs = append(strs, "WHERE", stmt.Where.String())
+	}
+	return strings.JoinWithSpace(strs)
 }
