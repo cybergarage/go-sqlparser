@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // DropTable is a "DROP TABLE" statement.
 type DropTable struct {
 	*Schema
@@ -37,5 +39,18 @@ func (stmt *DropTable) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *DropTable) String() string {
-	return stmt.Schema.String()
+	strs := []string{
+		"DROP",
+		"TABLE",
+	}
+	if stmt.IfExists.Enabled() {
+		strs = append(strs, stmt.IfExists.String())
+	}
+	var tbl string
+	if 0 < len(stmt.Schema.Name()) {
+		tbl = stmt.Schema.Name() + "."
+	}
+	tbl += stmt.Table.Name()
+	strs = append(strs, tbl)
+	return strings.JoinWithSpace(strs)
 }
