@@ -1,7 +1,7 @@
 # Changelog
 
 ## v1.0.0 (2023-xx-xx)
-- Fix parser interfaces
+- Fix parser and query interfaces
 - Update
   - SELECT
     - Support subqueries
