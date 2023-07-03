@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
+
 // Insert is a "INSERT" statement.
 type Insert struct {
 	*Table
@@ -35,8 +39,13 @@ func (stmt *Insert) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Insert) String() string {
-	s := "INSERT INTO " + stmt.Table.String()
-	s += " (" + stmt.Columns.NameString() + ")"
-	s += " VALUES (" + stmt.Columns.ValueString() + ")"
-	return s
+	strs := []string{
+		"INSERT",
+		"INTO",
+		stmt.Table.String(),
+		"(" + stmt.Columns.NameString() + ")",
+		"VALUES",
+		"(" + stmt.Columns.ValueString() + ")",
+	}
+	return strings.JoinWithSpace(strs)
 }
