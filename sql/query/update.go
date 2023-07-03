@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // Update is a "UPDATE" statement.
 type Update struct {
 	*Table
@@ -37,5 +39,14 @@ func (stmt *Update) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *Update) String() string {
-	return ""
+	strs := []string{
+		"UPDATE",
+		stmt.Table.String(),
+		"SET",
+	}
+	if stmt.Where != nil {
+		strs = append(strs, "WHERE", stmt.Where.String())
+	}
+	return strings.JoinWithSpace(strs)
+
 }
