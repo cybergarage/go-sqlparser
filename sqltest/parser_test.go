@@ -42,3 +42,8 @@ func TestDeleteQueries(t *testing.T) {
 	re := ".*delete.*\\.sql"
 	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
+
+func TestDropQueries(t *testing.T) {
+	re := ".*drop.*\\.sql"
+	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+}
