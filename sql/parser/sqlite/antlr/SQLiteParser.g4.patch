@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Jul  3 15:56:10 2023
---- SQLiteParser.g4	Mon Jul  3 15:56:30 2023
+*** SQLiteParser.g4.new	Thu Jul 13 13:27:48 2023
+--- SQLiteParser.g4	Thu Jul 13 13:28:30 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -264,7 +264,14 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 333,341 ****
+*** 326,341 ****
+   */
+  expr:
+      literal_value
+!     | bind_param
+      | ((schema_name DOT)? table_name DOT)? column_name
+      | unary_operator expr
+      | expr PIPE2 expr
       | expr ( STAR | DIV | MOD) expr
       | expr ( PLUS | MINUS) expr
       | expr ( LT2 | GT2 | AMP | PIPE) expr
@@ -274,7 +281,14 @@
           | IS_
           | IS_ NOT_
           | IN_
---- 271,282 ----
+--- 264,282 ----
+   */
+  expr:
+      literal_value
+!     | BIND_PARAMETER
+      | ((schema_name DOT)? table_name DOT)? column_name
+      | unary_operator expr
+      | expr PIPE2 expr
       | expr ( STAR | DIV | MOD) expr
       | expr ( PLUS | MINUS) expr
       | expr ( LT2 | GT2 | AMP | PIPE) expr
@@ -301,7 +315,20 @@
           IGNORE_
 --- 307,312 ----
 ***************
-*** 453,459 ****
+*** 389,398 ****
+      | CURRENT_TIMESTAMP_
+  ;
+  
+- bind_param:
+-     BIND_PARAMETER
+- ;
+- 
+  value_row:
+      OPEN_PAR expr (COMMA expr)* CLOSE_PAR
+  ;
+--- 326,331 ----
+***************
+*** 457,463 ****
   ;
   
   select_stmt:
@@ -318,7 +345,7 @@
   
   join_clause:
 ***************
-*** 463,469 ****
+*** 467,473 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -335,7 +362,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 490,523 ****
+*** 494,527 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -372,7 +399,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 556,572 ****
+*** 560,576 ****
   update_stmt:
       with_clause? UPDATE_ (
           OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
@@ -405,7 +432,7 @@
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
 ***************
-*** 911,920 ****
+*** 915,924 ****
   // TODO: check all names below
   
   name:

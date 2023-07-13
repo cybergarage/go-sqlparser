@@ -148,6 +148,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#literal_value.
 	VisitLiteral_value(ctx *Literal_valueContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#bind_param.
+	VisitBind_param(ctx *Bind_paramContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#value_row.
 	VisitValue_row(ctx *Value_rowContext) interface{}
 

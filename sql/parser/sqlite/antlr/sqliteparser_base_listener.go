@@ -305,6 +305,12 @@ func (s *BaseSQLiteParserListener) EnterLiteral_value(ctx *Literal_valueContext)
 // ExitLiteral_value is called when production literal_value is exited.
 func (s *BaseSQLiteParserListener) ExitLiteral_value(ctx *Literal_valueContext) {}
 
+// EnterBind_param is called when production bind_param is entered.
+func (s *BaseSQLiteParserListener) EnterBind_param(ctx *Bind_paramContext) {}
+
+// ExitBind_param is called when production bind_param is exited.
+func (s *BaseSQLiteParserListener) ExitBind_param(ctx *Bind_paramContext) {}
+
 // EnterValue_row is called when production value_row is entered.
 func (s *BaseSQLiteParserListener) EnterValue_row(ctx *Value_rowContext) {}
 
