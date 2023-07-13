@@ -19,21 +19,49 @@ type Column struct {
 	name string
 	*Data
 	*Literal
+	*BindParam
 }
 
+// ColumnOption represents a column option function.
+type ColumnOption = func(*Column)
+
 // NewColumn returns a column instance.
-func NewColumnWith(name string, t *Data, l *Literal) *Column {
+func NewColumnWithOptions(opts ...ColumnOption) *Column {
 	col := &Column{
-		name:    name,
-		Data:    t,
-		Literal: l,
+		name:    "",
+		Data:    nil,
+		Literal: nil,
+	}
+	for _, opt := range opts {
+		opt(col)
 	}
 	return col
 }
 
+// WithColumnName sets a column name.
+func WithColumnName(name string) func(*Column) {
+	return func(col *Column) {
+		col.name = name
+	}
+}
+
+// WithColumnData sets a column data.
+func WithColumnData(data *Data) func(*Column) {
+	return func(col *Column) {
+		col.Data = data
+	}
+}
+
+// WithColumnLiteral sets a column data.
+func WithColumnLiteral(l *Literal) func(*Column) {
+	return func(col *Column) {
+		col.Literal = l
+	}
+}
+
 // NewColumn returns a column instance.
 func NewColumnWithName(name string) *Column {
-	return NewColumnWith(name, NewDataWith(UnknownData, 0), NullLiteral)
+	return NewColumnWithOptions(WithColumnName(name))
 }
 
 // Name returns the column name.
