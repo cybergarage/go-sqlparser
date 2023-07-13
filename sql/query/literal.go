@@ -33,6 +33,11 @@ func NewLiteralWith(v any) *Literal {
 	}
 }
 
+// SetValue sets a value.
+func (lit *Literal) SetValue(v any) {
+	lit.v = v
+}
+
 // Literal returns the literal.
 func (lit *Literal) Literal() *Literal {
 	return lit
