@@ -201,7 +201,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	if err != nil {
 		t = &query.Data{Type: query.UnknownData, Length: -1}
 	}
-	return query.NewColumnWith(name, t, nil)
+	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
 }
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
@@ -210,7 +210,7 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 	if err != nil {
 		t = &query.Data{Type: query.UnknownData, Length: -1}
 	}
-	return query.NewColumnWith(name, t, nil)
+	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
 }
 
 func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
@@ -222,8 +222,11 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	values := []any{}
 	for _, row := range ctx.Values_clause().AllValue_row() {
 		for _, expr := range row.AllExpr() {
-			v := expr.Literal_value()
-			values = append(values, newLiteralValueWith(v))
+			if v := expr.Literal_value(); v != nil {
+				values = append(values, query.WithColumnLiteral(newLiteralValueWith(v)))
+			} else if v := expr.Bind_param(); v != nil {
+				values = append(values, query.WithColumnLiteral(newBindParamWith(v)))
+			}
 		}
 	}
 	colums := query.NewColumns()
@@ -232,7 +235,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 		if n < len(values) {
 			v = values[n]
 		}
-		colums = append(colums, query.NewColumnWith(name, nil, query.NewLiteralWith(v)))
+		colums = append(colums, query.NewColumnWithOptions(query.WithColumnName(name), nil, query.WithColumnLiteral(query.NewLiteralWith(v))))
 	}
 	return query.NewInsertWith(tbl, colums)
 }
@@ -242,11 +245,15 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 	cols := query.NewColumns()
 	for _, set := range ctx.AllUpdate_column_set() {
 		name := set.Column_name().GetText()
-		v := set.Expr().Literal_value()
-		if v == nil {
-			continue
+		opts := []query.ColumnOption{
+			query.WithColumnName(name),
 		}
-		cols = append(cols, query.NewColumnWith(name, nil, newLiteralValueWith(v)))
+		if v := set.Expr().Literal_value(); v != nil {
+			opts = append(opts, query.WithColumnLiteral(newLiteralValueWith(v)))
+		} else if v := set.Expr().Bind_param(); v != nil {
+			opts = append(opts, query.WithColumnLiteral(newBindParamWith(v)))
+		}
+		cols = append(cols, query.NewColumnWithOptions(opts...))
 	}
 	var where *query.Where
 	if w := ctx.GetWhereExpr(); w != nil {
@@ -261,7 +268,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
 		for _, col := range parentQuery.AllResult_column() {
-			cols = append(cols, query.NewColumnWith(col.GetText(), nil, nil))
+			cols = append(cols, query.NewColumnWithOptions(query.WithColumnName(col.GetText())))
 		}
 		for _, from := range ctx.GetParentQuery().AllFrom() {
 			if tbl := from.From_table(); tbl != nil {
@@ -293,6 +300,13 @@ func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
 		return nil
 	}
 	return query.NewLiteralWith(ctx.GetText())
+}
+
+func newBindParamWith(ctx antlr.IBind_paramContext) *query.Literal {
+	if ctx == nil {
+		return nil
+	}
+	return query.NewLiteralWith(query.NewBindParamWith(ctx.GetText()))
 }
 
 func newExprWith(ctx antlr.IExprContext) query.Expr {
