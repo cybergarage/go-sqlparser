@@ -44,30 +44,30 @@ func (opt *IfNotExistsOpt) String() string {
 	return ""
 }
 
-// IfExists represents a IF EXISTS option.
-type IfExists struct {
+// IfExistsOpt represents a IF EXISTS option.
+type IfExistsOpt struct {
 	enabled bool
 }
 
 // NewIfExistsWith returns a new IfExists option instance.
-func NewIfExistsWith(v bool) *IfExists {
-	return &IfExists{
+func NewIfExistsWith(v bool) *IfExistsOpt {
+	return &IfExistsOpt{
 		enabled: v,
 	}
 }
 
 // Enabled returns true whether the option is enabled.
-func (opt *IfExists) Enabled() bool {
+func (opt *IfExistsOpt) Enabled() bool {
 	return opt.enabled
 }
 
 // IfExists returns the IF EXISTS option.
-func (opt *IfExists) IfExists() bool {
+func (opt *IfExistsOpt) IfExists() bool {
 	return opt.enabled
 }
 
 // String returns the string representation.
-func (opt *IfExists) String() string {
+func (opt *IfExistsOpt) String() string {
 	if opt.enabled {
 		return "IF EXISTS"
 	}

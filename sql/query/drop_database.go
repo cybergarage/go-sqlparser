@@ -19,14 +19,14 @@ import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 // DropDatabase is a "DROP DATABASE" statement.
 type DropDatabase struct {
 	*Database
-	*IfExists
+	*IfExistsOpt
 }
 
 // NewDropDatabaseWith returns a new DropDatabase statement instance with the specified parameters.
-func NewDropDatabaseWith(name string, ife *IfExists) *DropDatabase {
+func NewDropDatabaseWith(name string, ife *IfExistsOpt) *DropDatabase {
 	return &DropDatabase{
-		Database: NewDatabaseWith(name),
-		IfExists: ife,
+		Database:    NewDatabaseWith(name),
+		IfExistsOpt: ife,
 	}
 }
 
@@ -41,8 +41,8 @@ func (stmt *DropDatabase) String() string {
 		"DROP",
 		"DATABASE",
 	}
-	if stmt.IfExists.Enabled() {
-		strs = append(strs, stmt.IfExists.String())
+	if stmt.IfExistsOpt.Enabled() {
+		strs = append(strs, stmt.IfExistsOpt.String())
 	}
 	strs = append(strs, stmt.Database.String())
 	return strings.JoinWithSpace(strs)
