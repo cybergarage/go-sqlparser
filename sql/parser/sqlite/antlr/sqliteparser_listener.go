@@ -148,6 +148,9 @@ type SQLiteParserListener interface {
 	// EnterLiteral_value is called when entering the literal_value production.
 	EnterLiteral_value(c *Literal_valueContext)
 
+	// EnterBind_param is called when entering the bind_param production.
+	EnterBind_param(c *Bind_paramContext)
+
 	// EnterValue_row is called when entering the value_row production.
 	EnterValue_row(c *Value_rowContext)
 
@@ -543,6 +546,9 @@ type SQLiteParserListener interface {
 
 	// ExitLiteral_value is called when exiting the literal_value production.
 	ExitLiteral_value(c *Literal_valueContext)
+
+	// ExitBind_param is called when exiting the bind_param production.
+	ExitBind_param(c *Bind_paramContext)
 
 	// ExitValue_row is called when exiting the value_row production.
 	ExitValue_row(c *Value_rowContext)

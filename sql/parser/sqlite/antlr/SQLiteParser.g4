@@ -326,7 +326,7 @@ if_exists:
  */
 expr:
     literal_value
-    | BIND_PARAMETER
+    | bind_param
     | ((schema_name DOT)? table_name DOT)? column_name
     | unary_operator expr
     | expr PIPE2 expr
@@ -387,6 +387,10 @@ literal_value:
     | CURRENT_TIME_
     | CURRENT_DATE_
     | CURRENT_TIMESTAMP_
+;
+
+bind_param:
+    BIND_PARAMETER
 ;
 
 value_row:
