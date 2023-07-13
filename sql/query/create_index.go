@@ -17,14 +17,14 @@ package query
 // CreateIndex is a "CREATE INDEX" statement.
 type CreateIndex struct {
 	*Schema
-	*IfNotExists
+	*IfNotExistsOpt
 }
 
 // NewCreateIndexWith returns a new CreateIndex statement instance with the specified parameters.
-func NewCreateIndexWith(schema *Schema, ifne *IfNotExists) *CreateIndex {
+func NewCreateIndexWith(schema *Schema, ifne *IfNotExistsOpt) *CreateIndex {
 	return &CreateIndex{
-		Schema:      schema,
-		IfNotExists: ifne,
+		Schema:         schema,
+		IfNotExistsOpt: ifne,
 	}
 }
 
