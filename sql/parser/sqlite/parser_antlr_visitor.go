@@ -223,9 +223,9 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	for _, row := range ctx.Values_clause().AllValue_row() {
 		for _, expr := range row.AllExpr() {
 			if v := expr.Literal_value(); v != nil {
-				values = append(values, query.WithColumnLiteral(newLiteralValueWith(v)))
+				values = append(values, newLiteralValueWith(v))
 			} else if v := expr.Bind_param(); v != nil {
-				values = append(values, query.WithColumnLiteral(newBindParamWith(v)))
+				values = append(values, newBindParamWith(v))
 			}
 		}
 	}
@@ -235,7 +235,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 		if n < len(values) {
 			v = values[n]
 		}
-		colums = append(colums, query.NewColumnWithOptions(query.WithColumnName(name), nil, query.WithColumnLiteral(query.NewLiteralWith(v))))
+		colums = append(colums, query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnLiteral(query.NewLiteralWith(v))))
 	}
 	return query.NewInsertWith(tbl, colums)
 }
