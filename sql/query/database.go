@@ -31,8 +31,8 @@ func (db *Database) Database() *Database {
 	return db
 }
 
-// Name returns the database name.
-func (db *Database) Name() string {
+// DatabaseName returns the database name.
+func (db *Database) DatabaseName() string {
 	return db.name
 }
 
