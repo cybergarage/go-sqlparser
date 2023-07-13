@@ -17,14 +17,14 @@ package query
 // CreateTable is a "CREATE TABLE" statement.
 type CreateTable struct {
 	*Schema
-	*IfNotExists
+	*IfNotExistsOpt
 }
 
 // NewCreateTableWith returns a new CreateTable statement instance with the specified options.
-func NewCreateTableWith(schema *Schema, ifne *IfNotExists) *CreateTable {
+func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) *CreateTable {
 	return &CreateTable{
-		Schema:      schema,
-		IfNotExists: ifne,
+		Schema:         schema,
+		IfNotExistsOpt: ifne,
 	}
 }
 

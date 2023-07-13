@@ -14,30 +14,30 @@
 
 package query
 
-// IfNotExists represents a IF NOT EXISTS option.
-type IfNotExists struct {
+// IfNotExistsOpt represents a IF NOT EXISTS option.
+type IfNotExistsOpt struct {
 	enabled bool
 }
 
 // NewIfNotExistsWith returns a new IfNotExists option instance.
-func NewIfNotExistsWith(v bool) *IfNotExists {
-	return &IfNotExists{
+func NewIfNotExistsWith(v bool) *IfNotExistsOpt {
+	return &IfNotExistsOpt{
 		enabled: v,
 	}
 }
 
 // IfNotExists returns the IF NOT EXISTS option.
-func (opt *IfNotExists) IfNotExists() bool {
+func (opt *IfNotExistsOpt) IfNotExists() bool {
 	return opt.enabled
 }
 
 // Enabled returns true whether the option is enabled.
-func (opt *IfNotExists) Enabled() bool {
+func (opt *IfNotExistsOpt) Enabled() bool {
 	return opt.enabled
 }
 
 // String returns the string representation.
-func (opt *IfNotExists) String() string {
+func (opt *IfNotExistsOpt) String() string {
 	if opt.enabled {
 		return "IF NOT EXISTS"
 	}

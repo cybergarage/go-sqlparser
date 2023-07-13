@@ -21,14 +21,14 @@ import (
 // CreateDatabase is a "CREATE DATABASE" statement.
 type CreateDatabase struct {
 	*Database
-	*IfNotExists
+	*IfNotExistsOpt
 }
 
 // NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified options.
-func NewCreateDatabaseWith(name string, ifne *IfNotExists) *CreateDatabase {
+func NewCreateDatabaseWith(name string, ifne *IfNotExistsOpt) *CreateDatabase {
 	return &CreateDatabase{
-		Database:    NewDatabaseWith(name),
-		IfNotExists: ifne,
+		Database:       NewDatabaseWith(name),
+		IfNotExistsOpt: ifne,
 	}
 }
 
@@ -41,8 +41,8 @@ func (stmt *CreateDatabase) StatementType() StatementType {
 func (stmt *CreateDatabase) String() string {
 	elems := []string{
 		"CREATE DATABASE"}
-	if stmt.IfNotExists.Enabled() {
-		elems = append(elems, stmt.IfNotExists.String())
+	if stmt.IfNotExistsOpt.Enabled() {
+		elems = append(elems, stmt.IfNotExistsOpt.String())
 	}
 	elems = append(elems, stmt.name)
 	return strings.JoinWithSpace(elems)
