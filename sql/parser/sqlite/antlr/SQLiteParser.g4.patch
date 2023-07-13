@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Thu Jul 13 13:27:48 2023
---- SQLiteParser.g4	Thu Jul 13 13:28:30 2023
+*** SQLiteParser.g4.new	Fri Jul 14 08:41:15 2023
+--- SQLiteParser.g4	Fri Jul 14 08:42:00 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -246,7 +246,7 @@
 - ;
 - 
 - if_exists:
--     IF_ NOT_ EXISTS_
+-     IF_ EXISTS_
 - ;
 - 
   /*
