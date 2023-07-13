@@ -310,7 +310,7 @@ drop_view_stmt:
 ;
 
 if_exists:
-    IF_ NOT_ EXISTS_
+    IF_ EXISTS_
 ;
 
 /*
