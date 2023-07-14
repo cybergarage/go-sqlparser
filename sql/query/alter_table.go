@@ -23,7 +23,7 @@ type AlterTable struct {
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
 func NewAlterTableWith(schemaName string, tblName string) *AlterTable {
 	return &AlterTable{
-		Schema: NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
+		Schema: NewSchemaWith(schemaName),
 		Table:  NewTableWith(tblName),
 	}
 }

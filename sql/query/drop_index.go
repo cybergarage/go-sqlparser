@@ -24,7 +24,7 @@ type DropIndex struct {
 // NewDropIndexWith returns a new DropIndex statement instance with the specified parameters.
 func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) *DropIndex {
 	return &DropIndex{
-		Schema:      NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
+		Schema:      NewSchemaWith(schemaName),
 		Index:       NewIndexWith(idxName, UnknownIndex, NewColumns()),
 		IfExistsOpt: ife,
 	}

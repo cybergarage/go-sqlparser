@@ -26,7 +26,7 @@ type DropTable struct {
 // NewDropTableWith returns a new DropTable statement instance with the specified parameters.
 func NewDropTableWith(schemaName string, tblName string, ife *IfExistsOpt) *DropTable {
 	return &DropTable{
-		Schema:      NewSchemaWith(schemaName, NewColumns(), NewIndexes()),
+		Schema:      NewSchemaWith(schemaName),
 		Table:       NewTableWith(tblName),
 		IfExistsOpt: ife,
 	}
@@ -43,14 +43,14 @@ func (stmt *DropTable) String() string {
 		"DROP",
 		"TABLE",
 	}
-	if stmt.IfExistsOpt.Enabled() {
+	if stmt.IfExists() {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
 	var tbl string
-	if 0 < len(stmt.Schema.Name()) {
-		tbl = stmt.Schema.Name() + "."
+	if 0 < len(stmt.SchemaName()) {
+		tbl = stmt.SchemaName() + "."
 	}
-	tbl += stmt.Table.Name()
+	tbl += stmt.TableName()
 	strs = append(strs, tbl)
 	return strings.JoinWithSpace(strs)
 }
