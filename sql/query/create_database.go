@@ -41,7 +41,7 @@ func (stmt *CreateDatabase) StatementType() StatementType {
 func (stmt *CreateDatabase) String() string {
 	elems := []string{
 		"CREATE DATABASE"}
-	if stmt.IfNotExistsOpt.Enabled() {
+	if stmt.IfNotExists() {
 		elems = append(elems, stmt.IfNotExistsOpt.String())
 	}
 	elems = append(elems, stmt.name)

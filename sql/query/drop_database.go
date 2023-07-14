@@ -41,7 +41,7 @@ func (stmt *DropDatabase) String() string {
 		"DROP",
 		"DATABASE",
 	}
-	if stmt.IfExistsOpt.Enabled() {
+	if stmt.IfExists() {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
 	strs = append(strs, stmt.Database.String())
