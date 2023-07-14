@@ -16,16 +16,21 @@ package query
 
 // CreateTable is a "CREATE TABLE" statement.
 type CreateTable struct {
-	*Schema
+	schema *Schema
 	*IfNotExistsOpt
 }
 
 // NewCreateTableWith returns a new CreateTable statement instance with the specified options.
 func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) *CreateTable {
 	return &CreateTable{
-		Schema:         schema,
+		schema:         schema,
 		IfNotExistsOpt: ifne,
 	}
+}
+
+// Schema returns the schema.
+func (stmt *CreateTable) Schema() *Schema {
+	return stmt.schema
 }
 
 // StatementType returns the statement type.
@@ -35,5 +40,5 @@ func (stmt *CreateTable) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateTable) String() string {
-	return stmt.Schema.String()
+	return stmt.schema.String()
 }
