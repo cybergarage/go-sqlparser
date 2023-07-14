@@ -14,7 +14,9 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
 // Schema represents a table schema.
 type Schema struct {
@@ -23,18 +25,39 @@ type Schema struct {
 	Indexes
 }
 
+// SchemaOption represents a schema option function.
+type SchemaOption = func(*Schema)
+
 // NewSchemaWith returns a new schema statement instance with the parameters.
-func NewSchemaWith(name string, colums Columns, indexes Indexes) *Schema {
-	return &Schema{
+func NewSchemaWith(name string, opts ...SchemaOption) *Schema {
+	s := &Schema{
 		Table:   NewTableWith(name),
-		Columns: colums,
-		Indexes: indexes,
+		Columns: NewColumns(),
+		Indexes: NewIndexes(),
+	}
+	for _, opt := range opts {
+		opt(s)
+	}
+	return s
+}
+
+// WithSchemaColumns returns a schema option to set the columns.
+func WithSchemaColumns(columns Columns) func(*Schema) {
+	return func(schema *Schema) {
+		schema.Columns = columns
 	}
 }
 
-// Schema returns the schema.
-func (schema *Schema) Schema() *Schema {
-	return schema
+// WithSchemaIndexes returns a schema option to set the indexes.
+func WithSchemaIndexes(idxes Indexes) func(*Schema) {
+	return func(schema *Schema) {
+		schema.Indexes = idxes
+	}
+}
+
+// SchemaName returns the table name.
+func (schema *Schema) SchemaName() string {
+	return schema.TableName()
 }
 
 // String returns the statement string representation.
