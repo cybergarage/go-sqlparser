@@ -19,16 +19,16 @@ import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 // Select is a "SELECT" statement.
 type Select struct {
 	Tables
-	Columns
+	ColumnList
 	*Where
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(colums Columns, tbls Tables, w *Where) *Select {
+func NewSelectWith(colums ColumnList, tbls Tables, w *Where) *Select {
 	return &Select{
-		Columns: colums,
-		Tables:  tbls,
-		Where:   w,
+		ColumnList: colums,
+		Tables:     tbls,
+		Where:      w,
 	}
 }
 
@@ -40,8 +40,8 @@ func (stmt *Select) StatementType() StatementType {
 // String returns the statement string representation.
 func (stmt *Select) String() string {
 	columnsStr := "*"
-	if 0 < len(stmt.Columns) {
-		columnsStr = stmt.Columns.NameString()
+	if 0 < len(stmt.ColumnList) {
+		columnsStr = stmt.ColumnList.NameString()
 	}
 	strs := []string{
 		"SELECT",

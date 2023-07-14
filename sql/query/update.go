@@ -23,16 +23,16 @@ import (
 // Update is a "UPDATE" statement.
 type Update struct {
 	*Table
-	Columns
+	ColumnList
 	*Where
 }
 
 // NewUpdateWith returns a new Update statement instance with the specified parameters.
-func NewUpdateWith(tbl *Table, colums Columns, w *Where) *Update {
+func NewUpdateWith(tbl *Table, colums ColumnList, w *Where) *Update {
 	return &Update{
-		Table:   tbl,
-		Columns: colums,
-		Where:   w,
+		Table:      tbl,
+		ColumnList: colums,
+		Where:      w,
 	}
 }
 
@@ -48,7 +48,7 @@ func (stmt *Update) String() string {
 		stmt.Table.String(),
 		"SET",
 	}
-	for _, colum := range stmt.Columns {
+	for _, colum := range stmt.ColumnList {
 		name := colum.Name()
 		value := colum.Value()
 		str := fmt.Sprintf("%s = %v", name, value)
