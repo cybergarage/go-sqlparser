@@ -14,10 +14,6 @@
 
 package query
 
-import (
-	"github.com/cybergarage/go-sqlparser/sql/util/strings"
-)
-
 // Schema represents a table schema.
 type Schema struct {
 	*Table
@@ -58,22 +54,4 @@ func WithSchemaIndexes(idxes Indexes) func(*Schema) {
 // SchemaName returns the table name.
 func (schema *Schema) SchemaName() string {
 	return schema.TableName()
-}
-
-// String returns the statement string representation.
-func (schema *Schema) String() string {
-	columsStr := "("
-	columsStr += schema.Columns.DefString()
-	if 0 < len(schema.Indexes) {
-		columsStr += ", "
-		columsStr += schema.Indexes.DefString()
-	}
-	columsStr += ")"
-
-	elems := []string{
-		"CREATE TABLE",
-		schema.Table.String(),
-		columsStr,
-	}
-	return strings.JoinWithSpace(elems)
 }
