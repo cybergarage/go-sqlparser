@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // CreateTable is a "CREATE TABLE" statement.
 type CreateTable struct {
 	schema *Schema
@@ -45,5 +47,19 @@ func (stmt *CreateTable) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateTable) String() string {
-	return stmt.schema.String()
+	columsStr := "("
+	columsStr += stmt.schema.Columns.DefString()
+	if 0 < len(stmt.schema.Indexes) {
+		columsStr += ", "
+		columsStr += stmt.schema.Indexes.DefString()
+	}
+	columsStr += ")"
+
+	elems := []string{
+		"CREATE TABLE",
+		stmt.IfNotExistsOpt.String(),
+		stmt.TableName(),
+		columsStr,
+	}
+	return strings.JoinWithSpace(elems)
 }
