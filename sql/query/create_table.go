@@ -33,6 +33,11 @@ func (stmt *CreateTable) Schema() *Schema {
 	return stmt.schema
 }
 
+// TableName returns the table name.
+func (stmt *CreateTable) TableName() string {
+	return stmt.schema.TableName()
+}
+
 // StatementType returns the statement type.
 func (stmt *CreateTable) StatementType() StatementType {
 	return CreateTableStatement
