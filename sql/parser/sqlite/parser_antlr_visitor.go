@@ -181,7 +181,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 			indexes = append(indexes, query.NewPrimaryIndexWith(indexColums))
 		}
 	}
-	return query.NewSchemaWith(tblName, colums, indexes)
+	return query.NewSchemaWith(tblName, query.WithSchemaColumns(colums), query.WithSchemaIndexes(indexes))
 }
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
@@ -192,7 +192,7 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 		colum := newIndexedColumnWith(columDef)
 		colums = append(colums, colum)
 	}
-	return query.NewSchemaWith(tblName, colums, indexes)
+	return query.NewSchemaWith(tblName, query.WithSchemaColumns(colums), query.WithSchemaIndexes(indexes))
 }
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
