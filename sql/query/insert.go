@@ -21,14 +21,14 @@ import (
 // Insert is a "INSERT" statement.
 type Insert struct {
 	*Table
-	Columns
+	ColumnList
 }
 
 // NewInsertWith returns a new Insert statement instance with the specified parameters.
-func NewInsertWith(tbl *Table, colums Columns) *Insert {
+func NewInsertWith(tbl *Table, colums ColumnList) *Insert {
 	return &Insert{
-		Table:   tbl,
-		Columns: colums,
+		Table:      tbl,
+		ColumnList: colums,
 	}
 }
 
@@ -43,9 +43,9 @@ func (stmt *Insert) String() string {
 		"INSERT",
 		"INTO",
 		stmt.Table.String(),
-		"(" + stmt.Columns.NameString() + ")",
+		"(" + stmt.ColumnList.NameString() + ")",
 		"VALUES",
-		"(" + stmt.Columns.ValueString() + ")",
+		"(" + stmt.ColumnList.ValueString() + ")",
 	}
 	return strings.JoinWithSpace(strs)
 }

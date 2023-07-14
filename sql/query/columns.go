@@ -20,28 +20,28 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Columns represens a column array.
-type Columns []*Column
+// ColumnList represens a column array.
+type ColumnList []*Column
 
-// NewColumns returns a column array instance.
-func NewColumns() Columns {
-	return make(Columns, 0)
+// NewColumnList returns a column array instance.
+func NewColumnList() ColumnList {
+	return make(ColumnList, 0)
 }
 
-// NewColumnsWith returns a column array instance with the specified columns.
-func NewColumnsWith(columns ...*Column) Columns {
-	c := make(Columns, len(columns))
+// NewColumnListWith returns a column array instance with the specified columns.
+func NewColumnListWith(columns ...*Column) ColumnList {
+	c := make(ColumnList, len(columns))
 	copy(c, columns)
 	return c
 }
 
 // Column returns a column array.
-func (colums Columns) Columns() Columns {
+func (colums ColumnList) Columns() ColumnList {
 	return colums
 }
 
 // Names returns a column name array.
-func (colums Columns) Names() []string {
+func (colums ColumnList) Names() []string {
 	names := make([]string, len(colums))
 	for n, col := range colums {
 		names[n] = col.Name()
@@ -50,7 +50,7 @@ func (colums Columns) Names() []string {
 }
 
 // NameString returns a string representation of the the colum names.
-func (colums Columns) NameString() string {
+func (colums ColumnList) NameString() string {
 	strs := make([]string, len(colums))
 	for n, col := range colums {
 		strs[n] = col.Name()
@@ -59,7 +59,7 @@ func (colums Columns) NameString() string {
 }
 
 // ValueString returns a string representation of the the colum values.
-func (colums Columns) ValueString() string {
+func (colums ColumnList) ValueString() string {
 	strs := make([]string, len(colums))
 	for n, col := range colums {
 		strs[n] = fmt.Sprintf("%v", col.Value())
@@ -68,7 +68,7 @@ func (colums Columns) ValueString() string {
 }
 
 // DefString returns a string representation of the the colum definitions.
-func (colums Columns) DefString() string {
+func (colums ColumnList) DefString() string {
 	strs := make([]string, len(colums))
 	for n, col := range colums {
 		strs[n] = col.DefString()

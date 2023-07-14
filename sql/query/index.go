@@ -41,26 +41,26 @@ func (t IndexType) String() string {
 type Index struct {
 	name string
 	typ  IndexType
-	Columns
+	ColumnList
 }
 
 // NewIndexWith returns a new index instance.
-func NewIndexWith(name string, t IndexType, colums Columns) *Index {
+func NewIndexWith(name string, t IndexType, colums ColumnList) *Index {
 	idx := &Index{
-		name:    name,
-		typ:     t,
-		Columns: colums,
+		name:       name,
+		typ:        t,
+		ColumnList: colums,
 	}
 	return idx
 }
 
 // NewPrimaryIndexWith returns a new primary index instance.
-func NewPrimaryIndexWith(colums Columns) *Index {
+func NewPrimaryIndexWith(colums ColumnList) *Index {
 	return NewIndexWith("", PrimaryIndex, colums)
 }
 
 // NewSecondaryIndexWith returns a new secondary index instance.
-func NewSecondaryIndexWith(name string, colums Columns) *Index {
+func NewSecondaryIndexWith(name string, colums ColumnList) *Index {
 	return NewIndexWith(name, SecondaryIndex, colums)
 }
 
@@ -83,7 +83,7 @@ func (idx *Index) String() string {
 func (idx *Index) DefString() string {
 	s := idx.typ.String()
 	s += " ("
-	s += strings.Join(idx.Columns.Names(), ", ")
+	s += strings.Join(idx.ColumnList.Names(), ", ")
 	s += ")"
 	return s
 }

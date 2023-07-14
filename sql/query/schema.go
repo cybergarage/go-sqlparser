@@ -17,7 +17,7 @@ package query
 // Schema represents a table schema.
 type Schema struct {
 	*Table
-	Columns
+	ColumnList
 	Indexes
 }
 
@@ -27,9 +27,9 @@ type SchemaOption = func(*Schema)
 // NewSchemaWith returns a new schema statement instance with the parameters.
 func NewSchemaWith(name string, opts ...SchemaOption) *Schema {
 	s := &Schema{
-		Table:   NewTableWith(name),
-		Columns: NewColumns(),
-		Indexes: NewIndexes(),
+		Table:      NewTableWith(name),
+		ColumnList: NewColumnList(),
+		Indexes:    NewIndexes(),
 	}
 	for _, opt := range opts {
 		opt(s)
@@ -38,9 +38,9 @@ func NewSchemaWith(name string, opts ...SchemaOption) *Schema {
 }
 
 // WithSchemaColumns returns a schema option to set the columns.
-func WithSchemaColumns(columns Columns) func(*Schema) {
+func WithSchemaColumns(columns ColumnList) func(*Schema) {
 	return func(schema *Schema) {
-		schema.Columns = columns
+		schema.ColumnList = columns
 	}
 }
 
