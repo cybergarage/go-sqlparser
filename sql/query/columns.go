@@ -81,7 +81,7 @@ func IsSelectAll(columns ColumnList) bool {
 	l := len(columns)
 	switch {
 	case l == 1:
-		return columns[0].Name() == "*"
+		return columns[0].Name() == Asterisk
 	case l == 0:
 		return true
 	}
