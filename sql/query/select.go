@@ -18,16 +18,16 @@ import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 
 // Select is a "SELECT" statement.
 type Select struct {
-	Tables
+	TableList
 	ColumnList
 	*Where
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(colums ColumnList, tbls Tables, w *Where) *Select {
+func NewSelectWith(colums ColumnList, tbls TableList, w *Where) *Select {
 	return &Select{
 		ColumnList: colums,
-		Tables:     tbls,
+		TableList:  tbls,
 		Where:      w,
 	}
 }
@@ -47,7 +47,7 @@ func (stmt *Select) String() string {
 		"SELECT",
 		columnsStr,
 		"FROM",
-		stmt.Tables.String(),
+		stmt.TableList.String(),
 	}
 	if stmt.Where != nil {
 		strs = append(strs, "WHERE", stmt.Where.String())
