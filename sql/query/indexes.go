@@ -21,8 +21,8 @@ import (
 // IndexList represents an index array.
 type IndexList []*Index
 
-// NewIndexList returns a new Indexes instance.
-func NewIndexList() IndexList {
+// NewIndexes returns a new Indexes instance.
+func NewIndexes() IndexList {
 	return make(IndexList, 0)
 }
 
