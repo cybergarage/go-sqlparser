@@ -18,21 +18,21 @@ import (
 	"strings"
 )
 
-// Indexes represents an index array.
-type Indexes []*Index
+// IndexList represents an index array.
+type IndexList []*Index
 
-// NewIndexes returns a new Indexes instance.
-func NewIndexes() Indexes {
-	return make(Indexes, 0)
+// NewIndexList returns a new Indexes instance.
+func NewIndexList() IndexList {
+	return make(IndexList, 0)
 }
 
 // Indexes returns an index array.
-func (indexes Indexes) Indexes() Indexes {
+func (indexes IndexList) Indexes() IndexList {
 	return indexes
 }
 
 // DefString returns the index definition string representation.
-func (indexes Indexes) DefString() string {
+func (indexes IndexList) DefString() string {
 	elems := make([]string, len(indexes))
 	for n, index := range indexes {
 		elems[n] = index.DefString()
