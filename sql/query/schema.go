@@ -18,7 +18,7 @@ package query
 type Schema struct {
 	*Table
 	ColumnList
-	Indexes
+	IndexList
 }
 
 // SchemaOption represents a schema option function.
@@ -29,7 +29,7 @@ func NewSchemaWith(name string, opts ...SchemaOption) *Schema {
 	s := &Schema{
 		Table:      NewTableWith(name),
 		ColumnList: NewColumnList(),
-		Indexes:    NewIndexes(),
+		IndexList:  NewIndexList(),
 	}
 	for _, opt := range opts {
 		opt(s)
@@ -45,9 +45,9 @@ func WithSchemaColumns(columns ColumnList) func(*Schema) {
 }
 
 // WithSchemaIndexes returns a schema option to set the indexes.
-func WithSchemaIndexes(idxes Indexes) func(*Schema) {
+func WithSchemaIndexes(idxes IndexList) func(*Schema) {
 	return func(schema *Schema) {
-		schema.Indexes = idxes
+		schema.IndexList = idxes
 	}
 }
 

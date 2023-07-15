@@ -161,7 +161,7 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
 	colums := query.NewColumnList()
-	indexes := query.NewIndexes()
+	indexes := query.NewIndexList()
 	for _, columDef := range ctx.AllColumn_def() {
 		colum := newColumnWith(columDef)
 		colums = append(colums, colum)
@@ -187,7 +187,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
 	colums := query.NewColumnList()
-	indexes := query.NewIndexes()
+	indexes := query.NewIndexList()
 	for _, columDef := range ctx.AllIndexed_column() {
 		colum := newIndexedColumnWith(columDef)
 		colums = append(colums, colum)
