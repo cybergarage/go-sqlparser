@@ -18,30 +18,30 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Tables represens a column array.
-type Tables []*Table
+// TableList represens a column array.
+type TableList []*Table
 
 // NewTables returns a column array instance.
-func NewTables() Tables {
-	return make(Tables, 0)
+func NewTables() TableList {
+	return make(TableList, 0)
 }
 
 // NewTablesWith returns a column array instance with the specified columns.
-func NewTablesWith(columns ...*Table) Tables {
-	c := make(Tables, len(columns))
+func NewTablesWith(columns ...*Table) TableList {
+	c := make(TableList, len(columns))
 	copy(c, columns)
 	return c
 }
 
 // Table returns a column array.
-func (colums Tables) Tables() Tables {
-	return colums
+func (tbls TableList) Tables() TableList {
+	return tbls
 }
 
 // String returns a string representation.
-func (colums Tables) String() string {
-	strs := make([]string, len(colums))
-	for n, tbl := range colums {
+func (tbls TableList) String() string {
+	strs := make([]string, len(tbls))
+	for n, tbl := range tbls {
 		strs[n] = tbl.String()
 	}
 	return strings.JoinWithComma(strs)
