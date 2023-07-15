@@ -23,13 +23,13 @@ import (
 // ColumnList represens a column array.
 type ColumnList []*Column
 
-// NewColumnList returns a column array instance.
-func NewColumnList() ColumnList {
+// NewColumns returns a column array instance.
+func NewColumns() ColumnList {
 	return make(ColumnList, 0)
 }
 
-// NewColumnListWith returns a column array instance with the specified columns.
-func NewColumnListWith(columns ...*Column) ColumnList {
+// NewColumnsWith returns a column array instance with the specified columns.
+func NewColumnsWith(columns ...*Column) ColumnList {
 	c := make(ColumnList, len(columns))
 	copy(c, columns)
 	return c

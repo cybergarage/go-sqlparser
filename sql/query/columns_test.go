@@ -17,5 +17,5 @@ package query
 import "testing"
 
 func TestNewColums(t *testing.T) {
-	NewColumnList()
+	NewColumns()
 }

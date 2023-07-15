@@ -25,7 +25,7 @@ type DropIndex struct {
 func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) *DropIndex {
 	return &DropIndex{
 		Schema:      NewSchemaWith(schemaName),
-		Index:       NewIndexWith(idxName, UnknownIndex, NewColumnList()),
+		Index:       NewIndexWith(idxName, UnknownIndex, NewColumns()),
 		IfExistsOpt: ife,
 	}
 }

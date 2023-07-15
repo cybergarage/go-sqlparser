@@ -160,20 +160,20 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
-	colums := query.NewColumnList()
+	colums := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
 		colum := newColumnWith(columDef)
 		colums = append(colums, colum)
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
-				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnListWith(colum)))
+				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(colum)))
 			}
 		}
 	}
 	for _, tblConst := range ctx.AllTable_constraint() {
 		if primaryDef := tblConst.Primary_key_def(); primaryDef != nil {
-			indexColums := query.NewColumnList()
+			indexColums := query.NewColumns()
 			for _, columDef := range primaryDef.AllIndexed_column() {
 				colum := newIndexedColumnWith(columDef)
 				indexColums = append(indexColums, colum)
@@ -186,7 +186,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
-	colums := query.NewColumnList()
+	colums := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllIndexed_column() {
 		colum := newIndexedColumnWith(columDef)
@@ -229,7 +229,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 			}
 		}
 	}
-	colums := query.NewColumnList()
+	colums := query.NewColumns()
 	for n, name := range names {
 		var v any
 		if n < len(values) {
@@ -242,7 +242,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
-	cols := query.NewColumnList()
+	cols := query.NewColumns()
 	for _, set := range ctx.AllUpdate_column_set() {
 		name := set.Column_name().GetText()
 		opts := []query.ColumnOption{
@@ -263,7 +263,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 }
 
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
-	cols := query.NewColumnList()
+	cols := query.NewColumns()
 	tbls := query.NewTables()
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
