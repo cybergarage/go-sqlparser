@@ -75,3 +75,15 @@ func (colums ColumnList) DefString() string {
 	}
 	return strings.JoinWithComma(strs)
 }
+
+// IsSelectAll returns true if the column list is "*".
+func IsSelectAll(columns ColumnList) bool {
+	l := len(columns)
+	switch {
+	case l == 1:
+		return columns[0].Name() == "*"
+	case l == 0:
+		return true
+	}
+	return false
+}
