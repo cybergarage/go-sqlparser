@@ -110,6 +110,77 @@ func (t DataType) String() string {
 	return s
 }
 
+const (
+	BoolObjectId            = 16
+	ByteaObjectId           = 17
+	CharObjectId            = 18
+	NameObjectId            = 19
+	Int8ObjectId            = 20
+	Int2ObjectId            = 21
+	Int2VectorObjectId      = 22
+	Int4ObjectId            = 23
+	RegProcObjectId         = 24
+	TextObjectId            = 25
+	OidObjectId             = 26
+	TidObjectId             = 27
+	XidObjectId             = 28
+	CidObjectId             = 29
+	XmlObjectId             = 142
+	PointObjectId           = 600
+	LsegObjectId            = 601
+	PathObjectId            = 602
+	BoxObjectId             = 603
+	PolygonObjectId         = 604
+	LineObjectId            = 628
+	LineArrayObjectId       = 629
+	CircleObjectId          = 718
+	CircleArrayObjectId     = 719
+	MacaddrObjectId         = 829
+	Macaddr8ObjectId        = 774
+	InetObjectId            = 869
+	InetArrayObjectId       = 1040
+	CidrObjectId            = 650
+	CidrArrayObjectId       = 651
+	Float4ObjectId          = 700
+	Float8ObjectId          = 701
+	UnknownObjectId         = 705
+	AbstimeObjectId         = 702
+	ReltimeObjectId         = 703
+	TintervalObjectId       = 704
+	PolygonArrayObjectId    = 628
+	OidvectorObjectId       = 30
+	BpcharObjectId          = 1042
+	VarcharObjectId         = 1043
+	DateObjectId            = 1082
+	TimeObjectId            = 1083
+	TimestampObjectId       = 1114
+	TimestampTzObjectId     = 1184
+	IntervalObjectId        = 1186
+	TimeTzObjectId          = 1266
+	BitObjectId             = 1560
+	VarbitObjectId          = 1562
+	NumericObjectId         = 1700
+	RefcursorObjectId       = 1790
+	RegprocedureObjectId    = 2202
+	RegoperObjectId         = 2203
+	RegoperatorObjectId     = 2204
+	RegclassObjectId        = 2205
+	RegtypeObjectId         = 2206
+	RecordObjectId          = 2249
+	CstringObjectId         = 2275
+	AnyObjectId             = 2276
+	AnyarrayObjectId        = 2277
+	VoidObjectId            = 2278
+	TriggerObjectId         = 2279
+	LanguageHandlerObjectId = 2280
+	InternalObjectId        = 2281
+	OpaqueObjectId          = 2282
+	AnyelementObjectId      = 2283
+	AnynonarrayObjectId     = 2776
+	GeometryObjectId        = 3614
+	GeograpyObjectId        = 4326
+)
+
 // NewDataWith returns a new DataType instance with the specified type and length.
 func NewDataWith(t DataType, l int) *Data {
 	return &Data{
