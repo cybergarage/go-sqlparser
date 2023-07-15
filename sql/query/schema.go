@@ -28,7 +28,7 @@ type SchemaOption = func(*Schema)
 func NewSchemaWith(name string, opts ...SchemaOption) *Schema {
 	s := &Schema{
 		Table:      NewTableWith(name),
-		ColumnList: NewColumnList(),
+		ColumnList: NewColumns(),
 		IndexList:  NewIndexes(),
 	}
 	for _, opt := range opts {
