@@ -40,6 +40,16 @@ func (colums ColumnList) Columns() ColumnList {
 	return colums
 }
 
+// ColumnByName returns a column by the specified name.
+func (colums ColumnList) ColumnByName(name string) (*Column, error) {
+	for _, colum := range colums {
+		if colum.Name() == name {
+			return colum, nil
+		}
+	}
+	return nil, newErrColumnNotFound(name)
+}
+
 // Names returns a column name array.
 func (colums ColumnList) Names() []string {
 	names := make([]string, len(colums))
