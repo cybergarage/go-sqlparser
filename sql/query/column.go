@@ -69,6 +69,11 @@ func (col *Column) Name() string {
 	return col.name
 }
 
+// IsName returns true whether the column name is the specified one.
+func (col *Column) IsName(name string) bool {
+	return col.name == name
+}
+
 // String returns the string representation.
 func (col *Column) String() string {
 	return col.name
