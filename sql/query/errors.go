@@ -16,7 +16,15 @@ package query
 
 import (
 	"errors"
+	"fmt"
 )
 
 // ErrInvalidDataType is returned when the data type is invalid.
 var ErrInvalidDataType = errors.New("invalid data type")
+
+// ErrNotFound is returned when the data type is invalid.
+var ErrNotFound = errors.New("not found")
+
+func newErrColumnNotFound(name string) error {
+	return fmt.Errorf("column (%s) %w", name, ErrNotFound)
+}
