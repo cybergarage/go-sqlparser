@@ -24,15 +24,15 @@ import (
 type Update struct {
 	*Table
 	ColumnList
-	*Where
+	*Condition
 }
 
 // NewUpdateWith returns a new Update statement instance with the specified parameters.
-func NewUpdateWith(tbl *Table, colums ColumnList, w *Where) *Update {
+func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *Update {
 	return &Update{
 		Table:      tbl,
-		ColumnList: colums,
-		Where:      w,
+		ColumnList: columns,
+		Condition:  w,
 	}
 }
 
@@ -54,8 +54,8 @@ func (stmt *Update) String() string {
 		str := fmt.Sprintf("%s = %v", name, value)
 		strs = append(strs, str)
 	}
-	if stmt.Where != nil {
-		strs = append(strs, "WHERE", stmt.Where.String())
+	if stmt.Condition != nil {
+		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	return strings.JoinWithSpace(strs)
 }

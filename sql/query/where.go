@@ -14,29 +14,29 @@
 
 package query
 
-// Where represents a where condition.
-type Where struct {
+// Condition represents a where condition.
+type Condition struct {
 	expr Expr
 }
 
-// NewWhereWith returns a new where condition instance with the specified parameters.
-func NewWhereWith(expr Expr) *Where {
-	return &Where{
+// NewConditionWith returns a new where condition instance with the specified parameters.
+func NewConditionWith(expr Expr) *Condition {
+	return &Condition{
 		expr: expr,
 	}
 }
 
 // Where returns the table.
-func (w *Where) Where() *Where {
+func (w *Condition) Where() *Condition {
 	return w
 }
 
 // Expr returns the top expression.
-func (w *Where) Expr() Expr {
+func (w *Condition) Expr() Expr {
 	return w.expr
 }
 
 // String returns the string representation.
-func (w *Where) String() string {
+func (w *Condition) String() string {
 	return w.expr.String()
 }
