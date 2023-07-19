@@ -47,19 +47,19 @@ func (stmt *CreateTable) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateTable) String() string {
-	columsStr := "("
-	columsStr += stmt.schema.ColumnList.DefString()
+	columnsStr := "("
+	columnsStr += stmt.schema.ColumnList.DefString()
 	if 0 < len(stmt.schema.IndexList) {
-		columsStr += ", "
-		columsStr += stmt.schema.IndexList.DefString()
+		columnsStr += ", "
+		columnsStr += stmt.schema.IndexList.DefString()
 	}
-	columsStr += ")"
+	columnsStr += ")"
 
 	elems := []string{
 		"CREATE TABLE",
 		stmt.IfNotExistsOpt.String(),
 		stmt.TableName(),
-		columsStr,
+		columnsStr,
 	}
 	return strings.JoinWithSpace(elems)
 }
