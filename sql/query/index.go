@@ -45,23 +45,23 @@ type Index struct {
 }
 
 // NewIndexWith returns a new index instance.
-func NewIndexWith(name string, t IndexType, colums ColumnList) *Index {
+func NewIndexWith(name string, t IndexType, columns ColumnList) *Index {
 	idx := &Index{
 		name:       name,
 		typ:        t,
-		ColumnList: colums,
+		ColumnList: columns,
 	}
 	return idx
 }
 
 // NewPrimaryIndexWith returns a new primary index instance.
-func NewPrimaryIndexWith(colums ColumnList) *Index {
-	return NewIndexWith("", PrimaryIndex, colums)
+func NewPrimaryIndexWith(columns ColumnList) *Index {
+	return NewIndexWith("", PrimaryIndex, columns)
 }
 
 // NewSecondaryIndexWith returns a new secondary index instance.
-func NewSecondaryIndexWith(name string, colums ColumnList) *Index {
-	return NewIndexWith(name, SecondaryIndex, colums)
+func NewSecondaryIndexWith(name string, columns ColumnList) *Index {
+	return NewIndexWith(name, SecondaryIndex, columns)
 }
 
 // Name returns the index name.
