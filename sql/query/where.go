@@ -40,3 +40,8 @@ func (w *Condition) Expr() Expr {
 func (w *Condition) String() string {
 	return w.expr.String()
 }
+
+// IsEmpty returns true if the where condition is empty.
+func (w *Condition) IsEmpty() bool {
+	return w.expr == nil
+}
