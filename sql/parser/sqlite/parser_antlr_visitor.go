@@ -160,11 +160,11 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
-	colums := query.NewColumns()
+	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
 		colum := newColumnWith(columDef)
-		colums = append(colums, colum)
+		columns = append(columns, colum)
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
 				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(colum)))
@@ -181,18 +181,18 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 			indexes = append(indexes, query.NewPrimaryIndexWith(indexColums))
 		}
 	}
-	return query.NewSchemaWith(tblName, query.WithSchemaColumns(colums), query.WithSchemaIndexes(indexes))
+	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 	tblName := ctx.Table_name().GetText()
-	colums := query.NewColumns()
+	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllIndexed_column() {
 		colum := newIndexedColumnWith(columDef)
-		colums = append(colums, colum)
+		columns = append(columns, colum)
 	}
-	return query.NewSchemaWith(tblName, query.WithSchemaColumns(colums), query.WithSchemaIndexes(indexes))
+	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
@@ -229,15 +229,15 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 			}
 		}
 	}
-	colums := query.NewColumns()
+	columns := query.NewColumns()
 	for n, name := range names {
 		var v any
 		if n < len(values) {
 			v = values[n]
 		}
-		colums = append(colums, query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnLiteral(query.NewLiteralWith(v))))
+		columns = append(columns, query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnLiteral(query.NewLiteralWith(v))))
 	}
-	return query.NewInsertWith(tbl, colums)
+	return query.NewInsertWith(tbl, columns)
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
@@ -255,9 +255,9 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 		}
 		cols = append(cols, query.NewColumnWithOptions(opts...))
 	}
-	var where *query.Where
+	var where *query.Condition
 	if w := ctx.GetWhereExpr(); w != nil {
-		where = query.NewWhereWith(newExprWith(w))
+		where = query.NewConditionWith(newExprWith(w))
 	}
 	return query.NewUpdateWith(tbl, cols, where)
 }
@@ -279,18 +279,18 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 			topExpr = newExprWith(w)
 		}
 	}
-	var where *query.Where
+	var where *query.Condition
 	if topExpr != nil {
-		where = query.NewWhereWith(topExpr)
+		where = query.NewConditionWith(topExpr)
 	}
 	return query.NewSelectWith(cols, tbls, where)
 }
 
 func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
-	var where *query.Where
+	var where *query.Condition
 	if w := ctx.GetWhereExpr(); w != nil {
-		where = query.NewWhereWith(newExprWith(w))
+		where = query.NewConditionWith(newExprWith(w))
 	}
 	return query.NewDeleteWith(tbl, where)
 }

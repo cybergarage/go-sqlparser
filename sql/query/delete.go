@@ -21,14 +21,14 @@ import (
 // Delete is a "DELETE" statement.
 type Delete struct {
 	*Table
-	*Where
+	*Condition
 }
 
 // NewDeleteWith returns a new Delete statement instance with the specified parameters.
-func NewDeleteWith(tbl *Table, w *Where) *Delete {
+func NewDeleteWith(tbl *Table, w *Condition) *Delete {
 	return &Delete{
-		Table: tbl,
-		Where: w,
+		Table:     tbl,
+		Condition: w,
 	}
 }
 
@@ -44,8 +44,8 @@ func (stmt *Delete) String() string {
 		"FROM",
 		stmt.Table.String(),
 	}
-	if stmt.Where != nil {
-		strs = append(strs, "WHERE", stmt.Where.String())
+	if stmt.Condition != nil {
+		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	return strings.JoinWithSpace(strs)
 }
