@@ -38,11 +38,6 @@ func (lit *Literal) SetValue(v any) {
 	lit.v = v
 }
 
-// Literal returns the literal.
-func (lit *Literal) Literal() *Literal {
-	return lit
-}
-
 // Value returns the literal value.
 func (lit *Literal) Value() any {
 	return lit.v
