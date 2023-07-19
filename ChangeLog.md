@@ -8,6 +8,7 @@
 
 ## v0.9.1 (2023-xx-xx)
 - Support bind parameters
+- Update query interfaces
 
 ## v0.9.0 (2023-07-04)
 - Initial public release  
