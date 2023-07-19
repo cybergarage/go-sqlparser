@@ -25,10 +25,10 @@ type Insert struct {
 }
 
 // NewInsertWith returns a new Insert statement instance with the specified parameters.
-func NewInsertWith(tbl *Table, colums ColumnList) *Insert {
+func NewInsertWith(tbl *Table, columns ColumnList) *Insert {
 	return &Insert{
 		Table:      tbl,
-		ColumnList: colums,
+		ColumnList: columns,
 	}
 }
 
