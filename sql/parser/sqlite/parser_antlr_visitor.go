@@ -314,22 +314,22 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 		c := query.NewColumnWithName(cmpExpr.Column_name().GetText())
 		l := newLiteralValueWith(cmpExpr.Literal_value())
 		if cmpExpr.ASSIGN() != nil {
-			return query.NewCmpExpr(query.EqualOp, c, l)
+			return query.NewCmpExpr(query.EQ, c, l)
 		}
 		if cmpExpr.NOT_EQ1() != nil || cmpExpr.NOT_EQ2() != nil {
-			return query.NewCmpExpr(query.NotEqualOp, c, l)
+			return query.NewCmpExpr(query.NEQ, c, l)
 		}
 		if cmpExpr.LT() != nil {
-			return query.NewCmpExpr(query.LessThanOp, c, l)
+			return query.NewCmpExpr(query.LT, c, l)
 		}
 		if cmpExpr.GT() != nil {
-			return query.NewCmpExpr(query.GreaterThanOp, c, l)
+			return query.NewCmpExpr(query.GT, c, l)
 		}
 		if cmpExpr.LT_EQ() != nil {
-			return query.NewCmpExpr(query.LessEqualOp, c, l)
+			return query.NewCmpExpr(query.LE, c, l)
 		}
 		if cmpExpr.GT_EQ() != nil {
-			return query.NewCmpExpr(query.GreaterEqualOp, c, l)
+			return query.NewCmpExpr(query.GE, c, l)
 		}
 	}
 	return nil
