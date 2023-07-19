@@ -14,35 +14,35 @@
 
 package query
 
-// CompExprOperator is an enum for CompExpr.Operator
-type CompExprOperator uint8
+// CmpExprOperator is an enum for CompExpr.Operator
+type CmpExprOperator uint8
 
 // Constants for Enum Type - CompExprOperator
 const (
-	EqualOp CompExprOperator = iota
-	NotEqualOp
-	LessThanOp
-	GreaterThanOp
-	LessEqualOp
-	GreaterEqualOp
-	InOp
-	NotInOp
+	EQ CmpExprOperator = iota
+	NEQ
+	LT
+	GT
+	LE
+	GE
+	IN
+	NIN
 )
 
-var compExprOpsStrings = map[CompExprOperator]string{
-	EqualOp:        "=",
-	NotEqualOp:     "!=", // "<>",
-	LessThanOp:     "<",
-	GreaterThanOp:  ">",
-	LessEqualOp:    "<=",
-	GreaterEqualOp: ">=",
-	InOp:           "IN",
-	NotInOp:        "NOT IN",
+var cmpExprOpsStrings = map[CmpExprOperator]string{
+	EQ:  "=",
+	NEQ: "!=", // "<>",
+	LT:  "<",
+	GT:  ">",
+	LE:  "<=",
+	GE:  ">=",
+	IN:  "IN",
+	NIN: "NOT IN",
 }
 
 // String returns the string representation.
-func (t CompExprOperator) String() string {
-	s, ok := compExprOpsStrings[t]
+func (t CmpExprOperator) String() string {
+	s, ok := cmpExprOpsStrings[t]
 	if !ok {
 		return ""
 	}
@@ -51,13 +51,13 @@ func (t CompExprOperator) String() string {
 
 // CmpExpr represents an comparsion expression.
 type CmpExpr struct {
-	op    CompExprOperator
+	op    CmpExprOperator
 	left  *Column
 	right *Literal
 }
 
 // NewCmpExpr returns a new CompExpr instance with the specified parameters.
-func NewCmpExpr(op CompExprOperator, left *Column, right *Literal) *CmpExpr {
+func NewCmpExpr(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
 	return &CmpExpr{
 		op:    op,
 		left:  left,
@@ -66,7 +66,7 @@ func NewCmpExpr(op CompExprOperator, left *Column, right *Literal) *CmpExpr {
 }
 
 // Operator returns the operator.
-func (expr *CmpExpr) Operator() CompExprOperator {
+func (expr *CmpExpr) Operator() CmpExprOperator {
 	return expr.op
 }
 
