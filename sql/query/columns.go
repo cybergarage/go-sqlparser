@@ -36,13 +36,13 @@ func NewColumnsWith(columns ...*Column) ColumnList {
 }
 
 // Column returns a column array.
-func (colums ColumnList) Columns() ColumnList {
-	return colums
+func (columns ColumnList) Columns() ColumnList {
+	return columns
 }
 
 // ColumnByName returns a column by the specified name.
-func (colums ColumnList) ColumnByName(name string) (*Column, error) {
-	for _, colum := range colums {
+func (columns ColumnList) ColumnByName(name string) (*Column, error) {
+	for _, colum := range columns {
 		if colum.Name() == name {
 			return colum, nil
 		}
@@ -51,43 +51,43 @@ func (colums ColumnList) ColumnByName(name string) (*Column, error) {
 }
 
 // Names returns a column name array.
-func (colums ColumnList) Names() []string {
-	names := make([]string, len(colums))
-	for n, col := range colums {
+func (columns ColumnList) Names() []string {
+	names := make([]string, len(columns))
+	for n, col := range columns {
 		names[n] = col.Name()
 	}
 	return names
 }
 
 // NameString returns a string representation of the the colum names.
-func (colums ColumnList) NameString() string {
-	strs := make([]string, len(colums))
-	for n, col := range colums {
+func (columns ColumnList) NameString() string {
+	strs := make([]string, len(columns))
+	for n, col := range columns {
 		strs[n] = col.Name()
 	}
 	return strings.JoinWithComma(strs)
 }
 
 // ValueString returns a string representation of the the colum values.
-func (colums ColumnList) ValueString() string {
-	strs := make([]string, len(colums))
-	for n, col := range colums {
+func (columns ColumnList) ValueString() string {
+	strs := make([]string, len(columns))
+	for n, col := range columns {
 		strs[n] = fmt.Sprintf("%v", col.Value())
 	}
 	return strings.JoinWithComma(strs)
 }
 
 // DefString returns a string representation of the the colum definitions.
-func (colums ColumnList) DefString() string {
-	strs := make([]string, len(colums))
-	for n, col := range colums {
+func (columns ColumnList) DefString() string {
+	strs := make([]string, len(columns))
+	for n, col := range columns {
 		strs[n] = col.DefString()
 	}
 	return strings.JoinWithComma(strs)
 }
 
 // IsSelectAll returns true if the column list is "*".
-func IsSelectAll(columns ColumnList) bool {
+func (columns ColumnList) IsSelectAll() bool {
 	l := len(columns)
 	switch {
 	case l == 1:
