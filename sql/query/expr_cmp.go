@@ -49,23 +49,38 @@ func (t CompExprOperator) String() string {
 	return s
 }
 
-// CompExpr represents an comparsion expression.
-type CompExpr struct {
-	Operator CompExprOperator
-	Left     *Column
-	Right    *Literal
+// CmpExpr represents an comparsion expression.
+type CmpExpr struct {
+	op    CompExprOperator
+	left  *Column
+	right *Literal
 }
 
-// NewCompExpr returns a new CompExpr instance with the specified parameters.
-func NewCompExpr(op CompExprOperator, left *Column, right *Literal) *CompExpr {
-	return &CompExpr{
-		Operator: op,
-		Left:     left,
-		Right:    right,
+// NewCmpExpr returns a new CompExpr instance with the specified parameters.
+func NewCmpExpr(op CompExprOperator, left *Column, right *Literal) *CmpExpr {
+	return &CmpExpr{
+		op:    op,
+		left:  left,
+		right: right,
 	}
 }
 
+// Operator returns the operator.
+func (expr *CmpExpr) Operator() CompExprOperator {
+	return expr.op
+}
+
+// Left returns the left column.
+func (expr *CmpExpr) Left() *Column {
+	return expr.left
+}
+
+// Right returns the right literal.
+func (expr *CmpExpr) Right() *Literal {
+	return expr.right
+}
+
 // String returns the index string representation.
-func (expr *CompExpr) String() string {
-	return expr.Left.String() + " " + expr.Operator.String() + " " + expr.Right.String()
+func (expr *CmpExpr) String() string {
+	return expr.left.String() + " " + expr.op.String() + " " + expr.right.String()
 }
