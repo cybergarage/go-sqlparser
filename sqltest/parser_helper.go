@@ -103,13 +103,14 @@ func testQueryString(t *testing.T, queryStr string) {
 		if err == nil && len(reParsedQueries) == 1 {
 			reParsedQuery := reParsedQueries[0]
 			reParsedQueryStr := formalizeQuery(reParsedQuery.String())
-			if queryStr != reParsedQueryStr {
+			if parsedQueryStr != reParsedQueryStr {
 				t.Errorf("[P] %s\n", parsedQueryStr)
 				return
 			}
+		} else {
+			t.Errorf("[P] %s\n", parsedQueryStr)
+			return
 		}
-		t.Errorf("[P] %s\n", parsedQueryStr)
-		return
 	}
 	t.Logf("[P] %s\n", parsedQueryStr)
 }
