@@ -7,3 +7,4 @@
 The go-sqlparser is a simple SQL parser for SQL92 standard ....
 
 - [SQL Conformance](doc/conformance.md)
+  - [Data Types](doc/data_types.md)

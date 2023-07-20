@@ -1,0 +1,6 @@
+= Data Types
+
+[format="csv", options="header, autowidth"]
+|====
+include::csv/data_types.csv[]
+|====
