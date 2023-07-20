@@ -215,27 +215,34 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 
 func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 	tbl := query.NewTableWith(ctx.Table_name().GetText())
+	columns := query.NewColumns()
 	names := []string{}
 	for _, name := range ctx.AllColumn_name() {
 		names = append(names, name.GetText())
 	}
-	values := []any{}
+	valueIdx := 0
 	for _, row := range ctx.Values_clause().AllValue_row() {
 		for _, expr := range row.AllExpr() {
-			if v := expr.Literal_value(); v != nil {
-				values = append(values, newLiteralValueWith(v))
+			if v := expr.Comparison_expr(); v != nil {
+				columns = append(columns,
+					query.NewColumnWithOptions(query.WithColumnName(v.Column_name().GetText()),
+						query.WithColumnLiteral(newLiteralValueWith(v.Literal_value()))))
+			} else if v := expr.Literal_value(); v != nil {
+				if valueIdx < len(names) {
+					columns = append(columns,
+						query.NewColumnWithOptions(query.WithColumnName(names[valueIdx]),
+							query.WithColumnLiteral(newLiteralValueWith(v))))
+					valueIdx++
+				}
 			} else if v := expr.Bind_param(); v != nil {
-				values = append(values, newBindParamWith(v))
+				if valueIdx < len(names) {
+					columns = append(columns,
+						query.NewColumnWithOptions(query.WithColumnName(names[valueIdx]),
+							query.WithColumnLiteral(newBindParamWith(v))))
+					valueIdx++
+				}
 			}
 		}
-	}
-	columns := query.NewColumns()
-	for n, name := range names {
-		var v any
-		if n < len(values) {
-			v = values[n]
-		}
-		columns = append(columns, query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnLiteral(query.NewLiteralWith(v))))
 	}
 	return query.NewInsertWith(tbl, columns)
 }
