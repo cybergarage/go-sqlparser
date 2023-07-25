@@ -306,7 +306,13 @@ func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
 	if ctx == nil {
 		return nil
 	}
-	return query.NewLiteralWith(ctx.GetText())
+	var v string
+	if ctx := ctx.String_literal(); ctx != nil {
+		v = ctx.GetText()
+	} else {
+		v = ctx.GetText()
+	}
+	return query.NewLiteralWith(v)
 }
 
 func newBindParamWith(ctx antlr.IBind_paramContext) *query.Literal {
