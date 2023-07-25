@@ -17,6 +17,7 @@ package sqlite
 import (
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 type antlrVisitor struct {
@@ -306,13 +307,11 @@ func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
 	if ctx == nil {
 		return nil
 	}
-	var v string
 	if ctx := ctx.String_literal(); ctx != nil {
-		v = ctx.GetText()
-	} else {
-		v = ctx.GetText()
+		v := strings.UnEscapeString(ctx.GetText())
+		return query.NewLiteralWith(v, query.WithLiteralType(query.StringLiteral))
 	}
-	return query.NewLiteralWith(v)
+	return query.NewLiteralWith(ctx.GetText())
 }
 
 func newBindParamWith(ctx antlr.IBind_paramContext) *query.Literal {
