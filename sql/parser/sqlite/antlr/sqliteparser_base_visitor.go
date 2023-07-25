@@ -199,6 +199,10 @@ func (v *BaseSQLiteParserVisitor) VisitBind_param(ctx *Bind_paramContext) interf
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitString_literal(ctx *String_literalContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitValue_row(ctx *Value_rowContext) interface{} {
 	return v.VisitChildren(ctx)
 }
