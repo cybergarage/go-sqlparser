@@ -16,6 +16,7 @@ package strings
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -40,4 +41,26 @@ func UnEscapeString(s string) string {
 // EscapeString returns an escaped string.
 func EscapeString(s string) string {
 	return fmt.Sprintf("'%v'", s)
+}
+
+// SplitDataTypeString returns a data type and a size from the specified string.
+func SplitDataTypeString(s string) (string, int) {
+	sep := " "
+	reps := []string{"(", ")"}
+	for _, rep := range reps {
+		s = strings.ReplaceAll(s, rep, sep)
+	}
+	elems := strings.Split(s, sep)
+	if len(elems) == 0 {
+		return "", 0
+	}
+	dataType := elems[0]
+	dataSize := -1
+	if 2 <= len(elems) {
+		i, err := strconv.Atoi(elems[1])
+		if err == nil {
+			dataSize = i
+		}
+	}
+	return dataType, dataSize
 }
