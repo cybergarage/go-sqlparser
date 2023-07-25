@@ -15,7 +15,7 @@
 package query
 
 // OrderType represents an ordertype.
-type OrderType int
+type OrderType uint8
 
 const (
 	// OrderTypeNone represents none order.
