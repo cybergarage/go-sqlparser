@@ -18,9 +18,18 @@ import (
 	"fmt"
 )
 
+// LiteralType represents a literal type.
+type LiteralType uint8
+
+const (
+	UnknownLiteral = iota
+	StringLiteral
+)
+
 // Literal represents a constant value.
 type Literal struct {
 	v any
+	t LiteralType
 }
 
 // NullLiteral represents a null value.
@@ -30,17 +39,30 @@ var NullLiteral = NewLiteralWith(nil)
 func NewLiteralWith(v any) *Literal {
 	return &Literal{
 		v: v,
+		t: UnknownLiteral,
 	}
 }
 
 // SetValue sets a value.
-func (lit *Literal) SetValue(v any) {
+func (lit *Literal) SetValue(v any) *Literal {
 	lit.v = v
+	return lit
 }
 
 // Value returns the literal value.
 func (lit *Literal) Value() any {
 	return lit.v
+}
+
+// SetType sets a type.
+func (lit *Literal) SetType(t LiteralType) *Literal {
+	lit.t = t
+	return lit
+}
+
+// ValueType returns the literal type.
+func (lit *Literal) ValueType() LiteralType {
+	return lit.t
 }
 
 // String returns the string representation.
