@@ -20,7 +20,7 @@ import (
 )
 
 // DataType represents a data type.
-type DataType int
+type DataType uint8
 
 // Data represents a data type.
 type Data struct {
