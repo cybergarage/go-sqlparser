@@ -18,6 +18,42 @@ import (
 	"testing"
 )
 
+func TestJoinWithSpaceStrings(t *testing.T) {
+	testCases := []struct {
+		input    []string
+		expected string
+	}{
+		{[]string{}, ""},
+		{[]string{"abc"}, "abc"},
+		{[]string{"abc", "def"}, "abc def"},
+	}
+
+	for _, testCase := range testCases {
+		actual := JoinWithSpace(testCase.input)
+		if actual != testCase.expected {
+			t.Errorf("actual (%v) != expected (%v)", actual, testCase.expected)
+		}
+	}
+}
+
+func TestJoinWithCommaStrings(t *testing.T) {
+	testCases := []struct {
+		input    []string
+		expected string
+	}{
+		{[]string{}, ""},
+		{[]string{"abc"}, "abc"},
+		{[]string{"abc", "def"}, "abc, def"},
+	}
+
+	for _, testCase := range testCases {
+		actual := JoinWithComma(testCase.input)
+		if actual != testCase.expected {
+			t.Errorf("actual (%v) != expected (%v)", actual, testCase.expected)
+		}
+	}
+}
+
 func TestUnEscapeStrings(t *testing.T) {
 	testCases := []struct {
 		input    string
@@ -49,6 +85,28 @@ func TestEscapeStrings(t *testing.T) {
 		actual := EscapeString(testCase.input)
 		if actual != testCase.expected {
 			t.Errorf("actual (%v) != expected (%v)", actual, testCase.expected)
+		}
+	}
+}
+
+func TestSplitDataTypeString(t *testing.T) {
+	testCases := []struct {
+		inputDataTypeString string
+		expectedDataType    string
+		expectedSize        int
+	}{
+		{"", "", -1},
+		{"abc", "abc", -1},
+		{"abc(10)", "abc", 10},
+	}
+
+	for _, testCase := range testCases {
+		actualDataType, actualSize := SplitDataTypeString(testCase.inputDataTypeString)
+		if actualDataType != testCase.expectedDataType {
+			t.Errorf("actual (%v) != expected (%v)", actualDataType, testCase.expectedDataType)
+		}
+		if actualSize != testCase.expectedSize {
+			t.Errorf("actual (%v) != expected (%v)", actualSize, testCase.expectedSize)
 		}
 	}
 }
