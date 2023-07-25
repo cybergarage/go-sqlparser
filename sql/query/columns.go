@@ -15,8 +15,6 @@
 package query
 
 import (
-	"fmt"
-
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
@@ -72,7 +70,7 @@ func (columns ColumnList) NameString() string {
 func (columns ColumnList) ValueString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
-		strs[n] = fmt.Sprintf("%v", col.Value())
+		strs[n] = col.ValueString()
 	}
 	return strings.JoinWithComma(strs)
 }
