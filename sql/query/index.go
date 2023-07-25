@@ -17,7 +17,7 @@ package query
 import "strings"
 
 // IndexType represents a index type.
-type IndexType int
+type IndexType uint8
 
 const (
 	UnknownIndex   IndexType = 0
