@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jul 14 08:41:15 2023
---- SQLiteParser.g4	Fri Jul 14 08:42:00 2023
+*** SQLiteParser.g4.new	Tue Jul 25 11:56:51 2023
+--- SQLiteParser.g4	Tue Jul 25 11:57:17 2023
 ***************
 *** 47,53 ****
           | attach_stmt
@@ -315,7 +315,24 @@
           IGNORE_
 --- 307,312 ----
 ***************
-*** 389,398 ****
+*** 379,385 ****
+  
+  literal_value:
+      NUMERIC_LITERAL
+!     | string_literal
+      | BLOB_LITERAL
+      | NULL_
+      | TRUE_
+--- 316,322 ----
+  
+  literal_value:
+      NUMERIC_LITERAL
+!     | STRING_LITERAL
+      | BLOB_LITERAL
+      | NULL_
+      | TRUE_
+***************
+*** 389,402 ****
       | CURRENT_TIMESTAMP_
   ;
   
@@ -323,12 +340,16 @@
 -     BIND_PARAMETER
 - ;
 - 
+- string_literal:
+-     STRING_LITERAL
+- ;
+- 
   value_row:
       OPEN_PAR expr (COMMA expr)* CLOSE_PAR
   ;
 --- 326,331 ----
 ***************
-*** 457,463 ****
+*** 461,467 ****
   ;
   
   select_stmt:
@@ -345,7 +366,7 @@
   
   join_clause:
 ***************
-*** 467,473 ****
+*** 471,477 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -362,7 +383,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 494,527 ****
+*** 498,531 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -399,7 +420,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 560,576 ****
+*** 564,580 ****
   update_stmt:
       with_clause? UPDATE_ (
           OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
@@ -432,7 +453,7 @@
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
 ***************
-*** 915,924 ****
+*** 919,928 ****
   // TODO: check all names below
   
   name:

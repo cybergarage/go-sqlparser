@@ -379,7 +379,7 @@ raise_function:
 
 literal_value:
     NUMERIC_LITERAL
-    | STRING_LITERAL
+    | string_literal
     | BLOB_LITERAL
     | NULL_
     | TRUE_
@@ -391,6 +391,10 @@ literal_value:
 
 bind_param:
     BIND_PARAMETER
+;
+
+string_literal:
+    STRING_LITERAL
 ;
 
 value_row:
