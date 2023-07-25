@@ -15,7 +15,7 @@
 package query
 
 // StatementType is a statement type.
-type StatementType int
+type StatementType uint8
 
 const (
 	CreateDatabaseStatement = iota
