@@ -15,6 +15,7 @@
 package strings
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -26,4 +27,17 @@ func JoinWithSpace(elems []string) string {
 // JoinWithComma returns a string by joining the specified elements with a comma.
 func JoinWithComma(elems []string) string {
 	return strings.Join(elems, ", ")
+}
+
+// stringLiteralTrimSet represents a string literal trim set.
+const stringLiteralTrimSet = "'\""
+
+// UnEscapeString returns an unescaped string.
+func UnEscapeString(s string) string {
+	return strings.Trim(s, stringLiteralTrimSet)
+}
+
+// EscapeString returns an escaped string.
+func EscapeString(s string) string {
+	return fmt.Sprintf("'%v'", s)
 }
