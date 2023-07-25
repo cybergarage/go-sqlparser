@@ -50,8 +50,8 @@ func (stmt *Update) String() string {
 	}
 	for _, colum := range stmt.ColumnList {
 		name := colum.Name()
-		value := colum.Value()
-		str := fmt.Sprintf("%s = %v", name, value)
+		value := colum.ValueString()
+		str := fmt.Sprintf("%s = %s", name, value)
 		strs = append(strs, str)
 	}
 	if stmt.Condition != nil {
