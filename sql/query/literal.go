@@ -16,6 +16,8 @@ package query
 
 import (
 	"fmt"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 // LiteralType represents a literal type.
@@ -25,6 +27,9 @@ const (
 	UnknownLiteral = iota
 	StringLiteral
 )
+
+// LiteralOption represents a literal option function.
+type LiteralOption = func(*Literal)
 
 // Literal represents a constant value.
 type Literal struct {
@@ -36,10 +41,21 @@ type Literal struct {
 var NullLiteral = NewLiteralWith(nil)
 
 // NewLiteralWith returns a new Literal instance with the specified value.
-func NewLiteralWith(v any) *Literal {
-	return &Literal{
+func NewLiteralWith(v any, opts ...LiteralOption) *Literal {
+	l := &Literal{
 		v: v,
 		t: UnknownLiteral,
+	}
+	for _, opt := range opts {
+		opt(l)
+	}
+	return l
+}
+
+// WithSchemaColumns returns a schema option to set the columns.
+func WithLiteralType(t LiteralType) func(*Literal) {
+	return func(lit *Literal) {
+		lit.t = t
 	}
 }
 
@@ -65,11 +81,16 @@ func (lit *Literal) ValueType() LiteralType {
 	return lit.t
 }
 
-// String returns the string representation.
-func (lit *Literal) String() string {
+// ValueString returns the string representation.
+func (lit *Literal) ValueString() string {
 	switch lit.t {
 	case StringLiteral:
-		return fmt.Sprintf("'%v'", lit.v)
+		return strings.EscapeString(fmt.Sprintf("%v", lit.v))
 	}
 	return fmt.Sprintf("%v", lit.v)
+}
+
+// String returns the string representation.
+func (lit *Literal) String() string {
+	return lit.ValueString()
 }
