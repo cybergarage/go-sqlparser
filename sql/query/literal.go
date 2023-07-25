@@ -67,5 +67,9 @@ func (lit *Literal) ValueType() LiteralType {
 
 // String returns the string representation.
 func (lit *Literal) String() string {
+	switch lit.t {
+	case StringLiteral:
+		return fmt.Sprintf("'%v'", lit.v)
+	}
 	return fmt.Sprintf("%v", lit.v)
 }
