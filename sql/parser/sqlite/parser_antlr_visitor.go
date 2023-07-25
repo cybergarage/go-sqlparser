@@ -198,7 +198,8 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	name := ctx.Column_name().GetText()
-	t, err := query.NewDataFrom(ctx.Type_name().GetText(), -1)
+	typ := ctx.Type_name().GetText()
+	t, err := query.NewDataFrom(strings.SplitDataTypeString(typ))
 	if err != nil {
 		t = &query.Data{Type: query.UnknownData, Length: -1}
 	}
