@@ -37,6 +37,21 @@ func (stmt *Insert) StatementType() StatementType {
 	return InsertStatement
 }
 
+// SetSchema sets a schema to update column values.
+func (stmt *Insert) SetSchema(schema *Schema) error {
+	for _, col := range stmt.ColumnList {
+		schemaCol, err := schema.ColumnByName(col.Name())
+		if err != nil {
+			return err
+		}
+		err = col.SetSchema(schemaCol)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // String returns the statement string representation.
 func (stmt *Insert) String() string {
 	strs := []string{
