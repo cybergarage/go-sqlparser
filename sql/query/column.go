@@ -74,6 +74,11 @@ func (col *Column) IsName(name string) bool {
 	return col.name == name
 }
 
+// SetSchema sets the column definition to update the column value.
+func (col *Column) SetSchema(columnDef *Column) error {
+	return nil
+}
+
 // String returns the string representation.
 func (col *Column) String() string {
 	return col.name
