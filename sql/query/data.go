@@ -22,8 +22,8 @@ import (
 // DataType represents a data type.
 type DataType uint8
 
-// Data represents a data type.
-type Data struct {
+// DataDef represents a data definition.
+type DataDef struct {
 	Type   DataType
 	Length int
 }
@@ -182,15 +182,15 @@ const (
 )
 
 // NewDataWith returns a new DataType instance with the specified type and length.
-func NewDataWith(t DataType, l int) *Data {
-	return &Data{
+func NewDataWith(t DataType, l int) *DataDef {
+	return &DataDef{
 		Type:   t,
 		Length: l,
 	}
 }
 
 // NewDataFrom returns the data type of the specified string.
-func NewDataFrom(s string, l int) (*Data, error) {
+func NewDataFrom(s string, l int) (*DataDef, error) {
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == strings.ToUpper(s) {
 			return NewDataWith(dataType, l), nil
@@ -200,17 +200,17 @@ func NewDataFrom(s string, l int) (*Data, error) {
 }
 
 // DataType returns the column data type.
-func (da *Data) DataType() DataType {
+func (da *DataDef) DataType() DataType {
 	return da.Type
 }
 
 // DataLength returns the column data length.
-func (da *Data) DataLength() int {
+func (da *DataDef) DataLength() int {
 	return da.Length
 }
 
 // String returns the string representation.
-func (da *Data) String() string {
+func (da *DataDef) String() string {
 	s, ok := dataTypeStrings[da.Type]
 	if !ok {
 		return ""

@@ -201,7 +201,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	typ := ctx.Type_name().GetText()
 	t, err := query.NewDataFrom(strings.SplitDataTypeString(typ))
 	if err != nil {
-		t = &query.Data{Type: query.UnknownData, Length: -1}
+		t = &query.DataDef{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
 }
@@ -210,7 +210,7 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 	name := ctx.Column_name().GetText()
 	t, err := query.NewDataFrom("", -1) // FIXME
 	if err != nil {
-		t = &query.Data{Type: query.UnknownData, Length: -1}
+		t = &query.DataDef{Type: query.UnknownData, Length: -1}
 	}
 	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
 }

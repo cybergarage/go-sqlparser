@@ -44,7 +44,7 @@ func (stmt *Insert) SetSchema(schema *Schema) error {
 		if err != nil {
 			return err
 		}
-		err = col.SetDef(schemaCol.Data)
+		err = col.SetDef(schemaCol.DataDef)
 		if err != nil {
 			return err
 		}

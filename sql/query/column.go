@@ -21,7 +21,7 @@ import (
 // Column represents a column.
 type Column struct {
 	name string
-	*Data
+	*DataDef
 	*Literal
 	*BindParam
 }
@@ -33,7 +33,7 @@ type ColumnOption = func(*Column)
 func NewColumnWithOptions(opts ...ColumnOption) *Column {
 	col := &Column{
 		name:    "",
-		Data:    nil,
+		DataDef: nil,
 		Literal: nil,
 	}
 	for _, opt := range opts {
@@ -50,9 +50,9 @@ func WithColumnName(name string) func(*Column) {
 }
 
 // WithColumnData sets a column data.
-func WithColumnData(data *Data) func(*Column) {
+func WithColumnData(data *DataDef) func(*Column) {
 	return func(col *Column) {
-		col.Data = data
+		col.DataDef = data
 	}
 }
 
@@ -79,8 +79,8 @@ func (col *Column) IsName(name string) bool {
 }
 
 // SetDef sets the column definition to update the column value.
-func (col *Column) SetDef(data *Data) error {
-	if col.Data != nil {
+func (col *Column) SetDef(data *DataDef) error {
+	if col.DataDef != nil {
 		return nil
 	}
 	switch data.DataType() {
@@ -137,8 +137,8 @@ func (col *Column) String() string {
 
 // String returns the string representation.
 func (col *Column) DefString() string {
-	if col.Data == nil {
+	if col.DataDef == nil {
 		return col.name
 	}
-	return col.name + " " + col.Data.String()
+	return col.name + " " + col.DataDef.String()
 }
