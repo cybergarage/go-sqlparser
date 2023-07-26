@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"github.com/cybergarage/go-safecast/safecast"
+)
+
 // Column represents a column.
 type Column struct {
 	name string
@@ -74,8 +78,55 @@ func (col *Column) IsName(name string) bool {
 	return col.name == name
 }
 
-// SetSchema sets the column definition to update the column value.
-func (col *Column) SetSchema(columnDef *Column) error {
+// SetDef sets the column definition to update the column value.
+func (col *Column) SetDef(data *Data) error {
+	if col.Data != nil {
+		return nil
+	}
+	switch data.DataType() {
+	case TinyIntData:
+		var v int8
+		if err := safecast.ToInt8(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case SmallIntData:
+		var v int16
+		if err := safecast.ToInt16(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case IntData, IntegerData:
+		var v int32
+		if err := safecast.ToInt32(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case BigIntData:
+		var v int64
+		if err := safecast.ToInt64(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case FloatData:
+		var v float32
+		if err := safecast.ToFloat32(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case DoubleData:
+		var v float64
+		if err := safecast.ToFloat64(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	case BooleanData:
+		var v bool
+		if err := safecast.ToBool(col.Literal.v, &v); err != nil {
+			return err
+		}
+		col.SetValue(v)
+	}
 	return nil
 }
 
