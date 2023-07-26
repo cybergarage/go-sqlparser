@@ -6,6 +6,9 @@
   - SELECT
     - Support subqueries
 
+## v0.9.2 (2023-xx-xx)
+- Support Timestamp, Date and Year types
+
 ## v0.9.1 (2023-xx-xx)
 - Support bind parameters
 - Update query interfaces
