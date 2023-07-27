@@ -16,6 +16,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#sql_stmt.
 	VisitSql_stmt(ctx *Sql_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#alter_database_stmt.
+	VisitAlter_database_stmt(ctx *Alter_database_stmtContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#alter_table_stmt.
 	VisitAlter_table_stmt(ctx *Alter_table_stmtContext) interface{}
 

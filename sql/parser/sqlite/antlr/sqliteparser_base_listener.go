@@ -38,6 +38,12 @@ func (s *BaseSQLiteParserListener) EnterSql_stmt(ctx *Sql_stmtContext) {}
 // ExitSql_stmt is called when production sql_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitSql_stmt(ctx *Sql_stmtContext) {}
 
+// EnterAlter_database_stmt is called when production alter_database_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterAlter_database_stmt(ctx *Alter_database_stmtContext) {}
+
+// ExitAlter_database_stmt is called when production alter_database_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitAlter_database_stmt(ctx *Alter_database_stmtContext) {}
+
 // EnterAlter_table_stmt is called when production alter_table_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterAlter_table_stmt(ctx *Alter_table_stmtContext) {}
 

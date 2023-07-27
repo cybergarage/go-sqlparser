@@ -19,6 +19,10 @@ func (v *BaseSQLiteParserVisitor) VisitSql_stmt(ctx *Sql_stmtContext) interface{
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitAlter_database_stmt(ctx *Alter_database_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitAlter_table_stmt(ctx *Alter_table_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
