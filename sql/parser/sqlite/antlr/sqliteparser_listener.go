@@ -16,6 +16,9 @@ type SQLiteParserListener interface {
 	// EnterSql_stmt is called when entering the sql_stmt production.
 	EnterSql_stmt(c *Sql_stmtContext)
 
+	// EnterAlter_database_stmt is called when entering the alter_database_stmt production.
+	EnterAlter_database_stmt(c *Alter_database_stmtContext)
+
 	// EnterAlter_table_stmt is called when entering the alter_table_stmt production.
 	EnterAlter_table_stmt(c *Alter_table_stmtContext)
 
@@ -417,6 +420,9 @@ type SQLiteParserListener interface {
 
 	// ExitSql_stmt is called when exiting the sql_stmt production.
 	ExitSql_stmt(c *Sql_stmtContext)
+
+	// ExitAlter_database_stmt is called when exiting the alter_database_stmt production.
+	ExitAlter_database_stmt(c *Alter_database_stmtContext)
 
 	// ExitAlter_table_stmt is called when exiting the alter_table_stmt production.
 	ExitAlter_table_stmt(c *Alter_table_stmtContext)

@@ -42,7 +42,8 @@ sql_stmt_list:
 ;
 
 sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
-        alter_table_stmt
+        alter_database_stmt
+        | alter_table_stmt
         | analyze_stmt
         | attach_stmt
         | begin_stmt
@@ -71,6 +72,12 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
         | update_stmt
         | update_stmt_limited
         | vacuum_stmt
+    )
+;
+
+alter_database_stmt:
+    ALTER_ DATABASE_ (schema_name DOT)? database_name (
+        RENAME_ TO_ new_database_name = database_name
     )
 ;
 
