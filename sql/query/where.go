@@ -43,5 +43,8 @@ func (w *Condition) String() string {
 
 // IsEmpty returns true if the where condition is empty.
 func (w *Condition) IsEmpty() bool {
+	if w == nil {
+		return true
+	}
 	return w.expr == nil
 }
