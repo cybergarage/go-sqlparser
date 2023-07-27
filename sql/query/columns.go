@@ -75,6 +75,21 @@ func (columns ColumnList) ValueString() string {
 	return strings.JoinWithComma(strs)
 }
 
+// SetSchema sets a schema to update column values.
+func (columns ColumnList) SetSchema(schema *Schema) error {
+	for _, col := range columns {
+		schemaCol, err := schema.ColumnByName(col.Name())
+		if err != nil {
+			return err
+		}
+		err = col.SetDef(schemaCol.DataDef)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // DefString returns a string representation of the the colum definitions.
 func (columns ColumnList) DefString() string {
 	strs := make([]string, len(columns))
