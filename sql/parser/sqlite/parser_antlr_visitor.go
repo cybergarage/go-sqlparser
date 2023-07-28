@@ -71,6 +71,9 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 		return newDropIndexWith(stmt)
 	}
 	// DDL (Data Definition Language) - ALTER
+	if stmt := ctx.Alter_database_stmt(); stmt != nil {
+		return newAlterDatabaseWith(stmt)
+	}
 	if stmt := ctx.Alter_table_stmt(); stmt != nil {
 		return newAlterTableWith(stmt)
 	}
@@ -148,6 +151,15 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
 		ifExists = query.NewIfExistsWith(true)
 	}
 	return query.NewDropIndexWith(schemaName, idxName, ifExists)
+}
+
+func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
+	dbName := ctx.Database_name().GetText()
+	toDbName := ""
+	if ctx := ctx.Rename_database_to(); ctx != nil {
+		toDbName = ctx.GetNew_database_name().GetText()
+	}
+	return query.NewAlterDatabaseWith(dbName, toDbName)
 }
 
 func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
