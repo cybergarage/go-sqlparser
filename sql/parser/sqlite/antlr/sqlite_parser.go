@@ -94,7 +94,7 @@ func sqliteparserParserInit() {
 		"MULTILINE_COMMENT", "SPACES", "UNEXPECTED_CHAR",
 	}
 	staticData.RuleNames = []string{
-		"parse", "sql_stmt_list", "sql_stmt", "alter_database_stmt", "alter_rename_to",
+		"parse", "sql_stmt_list", "sql_stmt", "alter_database_stmt", "rename_database_to",
 		"alter_table_stmt", "analyze_stmt", "attach_stmt", "begin_stmt", "commit_stmt",
 		"rollback_stmt", "savepoint_stmt", "release_stmt", "create_index_stmt",
 		"indexed_column", "create_database_stmt", "if_not_exists", "create_table_stmt",
@@ -1507,7 +1507,7 @@ const (
 	SQLiteParserRULE_sql_stmt_list                 = 1
 	SQLiteParserRULE_sql_stmt                      = 2
 	SQLiteParserRULE_alter_database_stmt           = 3
-	SQLiteParserRULE_alter_rename_to               = 4
+	SQLiteParserRULE_rename_database_to            = 4
 	SQLiteParserRULE_alter_table_stmt              = 5
 	SQLiteParserRULE_analyze_stmt                  = 6
 	SQLiteParserRULE_attach_stmt                   = 7
@@ -2937,7 +2937,7 @@ type IAlter_database_stmtContext interface {
 	ALTER_() antlr.TerminalNode
 	DATABASE_() antlr.TerminalNode
 	Database_name() IDatabase_nameContext
-	Alter_rename_to() IAlter_rename_toContext
+	Rename_database_to() IRename_database_toContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
 
@@ -3001,10 +3001,10 @@ func (s *Alter_database_stmtContext) Database_name() IDatabase_nameContext {
 	return t.(IDatabase_nameContext)
 }
 
-func (s *Alter_database_stmtContext) Alter_rename_to() IAlter_rename_toContext {
+func (s *Alter_database_stmtContext) Rename_database_to() IRename_database_toContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAlter_rename_toContext); ok {
+		if _, ok := ctx.(IRename_database_toContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -3014,7 +3014,7 @@ func (s *Alter_database_stmtContext) Alter_rename_to() IAlter_rename_toContext {
 		return nil
 	}
 
-	return t.(IAlter_rename_toContext)
+	return t.(IRename_database_toContext)
 }
 
 func (s *Alter_database_stmtContext) Schema_name() ISchema_nameContext {
@@ -3114,7 +3114,7 @@ func (p *SQLiteParser) Alter_database_stmt() (localctx IAlter_database_stmtConte
 
 	{
 		p.SetState(351)
-		p.Alter_rename_to()
+		p.Rename_database_to()
 	}
 
 errorExit:
@@ -3130,8 +3130,8 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IAlter_rename_toContext is an interface to support dynamic dispatch.
-type IAlter_rename_toContext interface {
+// IRename_database_toContext is an interface to support dynamic dispatch.
+type IRename_database_toContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
@@ -3148,60 +3148,60 @@ type IAlter_rename_toContext interface {
 	TO_() antlr.TerminalNode
 	Database_name() IDatabase_nameContext
 
-	// IsAlter_rename_toContext differentiates from other interfaces.
-	IsAlter_rename_toContext()
+	// IsRename_database_toContext differentiates from other interfaces.
+	IsRename_database_toContext()
 }
 
-type Alter_rename_toContext struct {
+type Rename_database_toContext struct {
 	antlr.BaseParserRuleContext
 	parser            antlr.Parser
 	new_database_name IDatabase_nameContext
 }
 
-func NewEmptyAlter_rename_toContext() *Alter_rename_toContext {
-	var p = new(Alter_rename_toContext)
+func NewEmptyRename_database_toContext() *Rename_database_toContext {
+	var p = new(Rename_database_toContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = SQLiteParserRULE_alter_rename_to
+	p.RuleIndex = SQLiteParserRULE_rename_database_to
 	return p
 }
 
-func InitEmptyAlter_rename_toContext(p *Alter_rename_toContext) {
+func InitEmptyRename_database_toContext(p *Rename_database_toContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = SQLiteParserRULE_alter_rename_to
+	p.RuleIndex = SQLiteParserRULE_rename_database_to
 }
 
-func (*Alter_rename_toContext) IsAlter_rename_toContext() {}
+func (*Rename_database_toContext) IsRename_database_toContext() {}
 
-func NewAlter_rename_toContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Alter_rename_toContext {
-	var p = new(Alter_rename_toContext)
+func NewRename_database_toContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Rename_database_toContext {
+	var p = new(Rename_database_toContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SQLiteParserRULE_alter_rename_to
+	p.RuleIndex = SQLiteParserRULE_rename_database_to
 
 	return p
 }
 
-func (s *Alter_rename_toContext) GetParser() antlr.Parser { return s.parser }
+func (s *Rename_database_toContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Alter_rename_toContext) GetNew_database_name() IDatabase_nameContext {
+func (s *Rename_database_toContext) GetNew_database_name() IDatabase_nameContext {
 	return s.new_database_name
 }
 
-func (s *Alter_rename_toContext) SetNew_database_name(v IDatabase_nameContext) {
+func (s *Rename_database_toContext) SetNew_database_name(v IDatabase_nameContext) {
 	s.new_database_name = v
 }
 
-func (s *Alter_rename_toContext) RENAME_() antlr.TerminalNode {
+func (s *Rename_database_toContext) RENAME_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserRENAME_, 0)
 }
 
-func (s *Alter_rename_toContext) TO_() antlr.TerminalNode {
+func (s *Rename_database_toContext) TO_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserTO_, 0)
 }
 
-func (s *Alter_rename_toContext) Database_name() IDatabase_nameContext {
+func (s *Rename_database_toContext) Database_name() IDatabase_nameContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IDatabase_nameContext); ok {
@@ -3217,39 +3217,39 @@ func (s *Alter_rename_toContext) Database_name() IDatabase_nameContext {
 	return t.(IDatabase_nameContext)
 }
 
-func (s *Alter_rename_toContext) GetRuleContext() antlr.RuleContext {
+func (s *Rename_database_toContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *Alter_rename_toContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *Rename_database_toContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *Alter_rename_toContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *Rename_database_toContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLiteParserListener); ok {
-		listenerT.EnterAlter_rename_to(s)
+		listenerT.EnterRename_database_to(s)
 	}
 }
 
-func (s *Alter_rename_toContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *Rename_database_toContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SQLiteParserListener); ok {
-		listenerT.ExitAlter_rename_to(s)
+		listenerT.ExitRename_database_to(s)
 	}
 }
 
-func (s *Alter_rename_toContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *Rename_database_toContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case SQLiteParserVisitor:
-		return t.VisitAlter_rename_to(s)
+		return t.VisitRename_database_to(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-func (p *SQLiteParser) Alter_rename_to() (localctx IAlter_rename_toContext) {
-	localctx = NewAlter_rename_toContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, SQLiteParserRULE_alter_rename_to)
+func (p *SQLiteParser) Rename_database_to() (localctx IRename_database_toContext) {
+	localctx = NewRename_database_toContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 8, SQLiteParserRULE_rename_database_to)
 	p.EnterOuterAlt(localctx, 1)
 	{
 		p.SetState(353)
@@ -3272,7 +3272,7 @@ func (p *SQLiteParser) Alter_rename_to() (localctx IAlter_rename_toContext) {
 
 		var _x = p.Database_name()
 
-		localctx.(*Alter_rename_toContext).new_database_name = _x
+		localctx.(*Rename_database_toContext).new_database_name = _x
 	}
 
 errorExit:

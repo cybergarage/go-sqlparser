@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jul 28 12:49:30 2023
---- SQLiteParser.g4	Fri Jul 28 12:51:29 2023
+*** SQLiteParser.g4.new	Fri Jul 28 23:18:13 2023
+--- SQLiteParser.g4	Fri Jul 28 23:18:22 2023
 ***************
 *** 42,54 ****
   ;
@@ -55,11 +55,11 @@
   
 - alter_database_stmt:
 -     ALTER_ DATABASE_ (schema_name DOT)? database_name (
--         alter_rename_to
+-         rename_database_to
 -     )
 - ;
 - 
-- alter_rename_to:
+- rename_database_to:
 -         RENAME_ TO_ new_database_name = database_name
 - ;
 - 

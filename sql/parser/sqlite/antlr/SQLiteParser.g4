@@ -77,11 +77,11 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
 
 alter_database_stmt:
     ALTER_ DATABASE_ (schema_name DOT)? database_name (
-        alter_rename_to
+        rename_database_to
     )
 ;
 
-alter_rename_to:
+rename_database_to:
         RENAME_ TO_ new_database_name = database_name
 ;
 
