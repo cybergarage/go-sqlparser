@@ -17,12 +17,14 @@ package query
 // AlterDatabase is a "ALTER DATABASE" statement.
 type AlterDatabase struct {
 	*Database
+	to *Database
 }
 
 // NewAlterDatabaseWith returns a new AlterDatabase statement instance with the specified options.
-func NewAlterDatabaseWith(name string) *AlterDatabase {
+func NewAlterDatabaseWith(name string, to string) *AlterDatabase {
 	return &AlterDatabase{
 		Database: NewDatabaseWith(name),
+		to:       NewDatabaseWith(to),
 	}
 }
 
@@ -33,5 +35,5 @@ func (stmt *AlterDatabase) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *AlterDatabase) String() string {
-	return "ALTER DATABASE " + stmt.name
+	return "ALTER DATABASE " + stmt.DatabaseName() + " RENAME TO " + stmt.to.DatabaseName()
 }
