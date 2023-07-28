@@ -33,6 +33,11 @@ func (stmt *AlterDatabase) StatementType() StatementType {
 	return AlterDatabaseStatement
 }
 
+// RenameTo returns the "TO" database.
+func (stmt *AlterDatabase) RenameTo() *Database {
+	return stmt.to
+}
+
 // String returns the statement string representation.
 func (stmt *AlterDatabase) String() string {
 	return "ALTER DATABASE " + stmt.DatabaseName() + " RENAME TO " + stmt.to.DatabaseName()
