@@ -19,8 +19,8 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#alter_database_stmt.
 	VisitAlter_database_stmt(ctx *Alter_database_stmtContext) interface{}
 
-	// Visit a parse tree produced by SQLiteParser#alter_rename_to.
-	VisitAlter_rename_to(ctx *Alter_rename_toContext) interface{}
+	// Visit a parse tree produced by SQLiteParser#rename_database_to.
+	VisitRename_database_to(ctx *Rename_database_toContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#alter_table_stmt.
 	VisitAlter_table_stmt(ctx *Alter_table_stmtContext) interface{}

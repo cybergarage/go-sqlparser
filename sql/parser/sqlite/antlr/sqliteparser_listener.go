@@ -19,8 +19,8 @@ type SQLiteParserListener interface {
 	// EnterAlter_database_stmt is called when entering the alter_database_stmt production.
 	EnterAlter_database_stmt(c *Alter_database_stmtContext)
 
-	// EnterAlter_rename_to is called when entering the alter_rename_to production.
-	EnterAlter_rename_to(c *Alter_rename_toContext)
+	// EnterRename_database_to is called when entering the rename_database_to production.
+	EnterRename_database_to(c *Rename_database_toContext)
 
 	// EnterAlter_table_stmt is called when entering the alter_table_stmt production.
 	EnterAlter_table_stmt(c *Alter_table_stmtContext)
@@ -427,8 +427,8 @@ type SQLiteParserListener interface {
 	// ExitAlter_database_stmt is called when exiting the alter_database_stmt production.
 	ExitAlter_database_stmt(c *Alter_database_stmtContext)
 
-	// ExitAlter_rename_to is called when exiting the alter_rename_to production.
-	ExitAlter_rename_to(c *Alter_rename_toContext)
+	// ExitRename_database_to is called when exiting the rename_database_to production.
+	ExitRename_database_to(c *Rename_database_toContext)
 
 	// ExitAlter_table_stmt is called when exiting the alter_table_stmt production.
 	ExitAlter_table_stmt(c *Alter_table_stmtContext)
