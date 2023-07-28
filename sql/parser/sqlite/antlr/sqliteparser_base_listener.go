@@ -44,6 +44,12 @@ func (s *BaseSQLiteParserListener) EnterAlter_database_stmt(ctx *Alter_database_
 // ExitAlter_database_stmt is called when production alter_database_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitAlter_database_stmt(ctx *Alter_database_stmtContext) {}
 
+// EnterAlter_rename_to is called when production alter_rename_to is entered.
+func (s *BaseSQLiteParserListener) EnterAlter_rename_to(ctx *Alter_rename_toContext) {}
+
+// ExitAlter_rename_to is called when production alter_rename_to is exited.
+func (s *BaseSQLiteParserListener) ExitAlter_rename_to(ctx *Alter_rename_toContext) {}
+
 // EnterAlter_table_stmt is called when production alter_table_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterAlter_table_stmt(ctx *Alter_table_stmtContext) {}
 
