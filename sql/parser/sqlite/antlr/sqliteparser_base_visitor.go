@@ -23,6 +23,10 @@ func (v *BaseSQLiteParserVisitor) VisitAlter_database_stmt(ctx *Alter_database_s
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitAlter_rename_to(ctx *Alter_rename_toContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitAlter_table_stmt(ctx *Alter_table_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
