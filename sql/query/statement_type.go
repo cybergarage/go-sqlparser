@@ -31,4 +31,5 @@ const (
 	AlterDatabaseStatement
 	AlterTableStatement
 	AlterIndexStatement
+	CopyStatement
 )
