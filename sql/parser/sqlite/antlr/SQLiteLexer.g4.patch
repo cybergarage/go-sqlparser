@@ -1,0 +1,12 @@
+*** SQLiteLexer.g4.new	Sun Jul 30 09:59:23 2023
+--- SQLiteLexer.g4	Sun Jul 30 10:01:22 2023
+***************
+*** 80,86 ****
+  COMMIT_:            'COMMIT';
+  CONFLICT_:          'CONFLICT';
+  CONSTRAINT_:        'CONSTRAINT';
+- COPY_:              'COPY';
+  CREATE_:            'CREATE';
+  CROSS_:             'CROSS';
+  CURRENT_DATE_:      'CURRENT_DATE';
+--- 80,85 ----

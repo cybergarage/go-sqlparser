@@ -80,6 +80,7 @@ COLUMN_:            'COLUMN';
 COMMIT_:            'COMMIT';
 CONFLICT_:          'CONFLICT';
 CONSTRAINT_:        'CONSTRAINT';
+COPY_:              'COPY';
 CREATE_:            'CREATE';
 CROSS_:             'CROSS';
 CURRENT_DATE_:      'CURRENT_DATE';
