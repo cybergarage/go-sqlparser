@@ -90,6 +90,9 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Delete_stmt(); stmt != nil {
 		return newDeleteWith(stmt)
 	}
+	if stmt := ctx.Commit_stmt(); stmt != nil {
+		return query.NewCommit()
+	}
 	// Extra statements
 	if stmt := ctx.Pg_extra_stmt(); stmt != nil {
 		if stmt := stmt.Copy_stmt(); stmt != nil {
