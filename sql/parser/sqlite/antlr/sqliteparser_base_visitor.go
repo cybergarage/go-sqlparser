@@ -187,6 +187,18 @@ func (v *BaseSQLiteParserVisitor) VisitIf_exists(ctx *If_existsContext) interfac
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitPg_extra_stmt(ctx *Pg_extra_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitCopy_stmt(ctx *Copy_stmtContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitSource_name(ctx *Source_nameContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitExpr(ctx *ExprContext) interface{} {
 	return v.VisitChildren(ctx)
 }

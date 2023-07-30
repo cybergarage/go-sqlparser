@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Jul 28 23:18:13 2023
---- SQLiteParser.g4	Fri Jul 28 23:18:22 2023
+*** SQLiteParser.g4.new	Sun Jul 30 10:01:16 2023
+--- SQLiteParser.g4	Sun Jul 30 10:01:22 2023
 ***************
 *** 42,54 ****
   ;
@@ -49,7 +49,11 @@
           | pragma_stmt
           | reindex_stmt
 ***************
-*** 75,90 ****
+*** 72,91 ****
+          | update_stmt
+          | update_stmt_limited
+          | vacuum_stmt
+-         | pg_extra_stmt
       )
   ;
   
@@ -66,9 +70,9 @@
   alter_table_stmt:
       ALTER_ TABLE_ (schema_name DOT)? table_name (
           RENAME_ (
---- 69,74 ----
+--- 66,74 ----
 ***************
-*** 126,148 ****
+*** 127,149 ****
   ;
   
   create_index_stmt:
@@ -109,7 +113,7 @@
       )? table_name (
           OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
 ***************
-*** 164,170 ****
+*** 165,171 ****
   ;
   
   column_constraint: (CONSTRAINT_ name)? (
@@ -126,7 +130,7 @@
           | CHECK_ OPEN_PAR expr CLOSE_PAR
           | DEFAULT_ (signed_number | literal_value | OPEN_PAR expr CLOSE_PAR)
 ***************
-*** 177,209 ****
+*** 178,210 ****
       )
   ;
   
@@ -180,7 +184,7 @@
       REFERENCES_ foreign_table (
           OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
 ***************
-*** 229,235 ****
+*** 230,236 ****
   ;
   
   create_trigger_stmt:
@@ -197,7 +201,7 @@
       )? trigger_name (BEFORE_ | AFTER_ | INSTEAD_ OF_)? (
           DELETE_
 ***************
-*** 241,253 ****
+*** 242,254 ****
   ;
   
   create_view_stmt:
@@ -226,7 +230,7 @@
       )?
   ;
 ***************
-*** 271,277 ****
+*** 272,278 ****
   ;
   
   delete_stmt:
@@ -243,7 +247,7 @@
   
   delete_stmt_limited:
 ***************
-*** 286,329 ****
+*** 287,342 ****
   
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
@@ -285,6 +289,18 @@
 -     IF_ EXISTS_
 - ;
 - 
+- pg_extra_stmt:
+-     copy_stmt
+- ;
+- 
+- copy_stmt:
+-     COPY_ table=qualified_table_name FROM_ source_name
+- ;
+- 
+- source_name:
+-     any_name
+- ;
+- 
   /*
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
@@ -300,7 +316,7 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 337,352 ****
+*** 350,365 ****
    */
   expr:
       literal_value
@@ -338,7 +354,7 @@
           | IS_ NOT_
           | IN_
 ***************
-*** 377,386 ****
+*** 390,399 ****
       | raise_function
   ;
   
@@ -351,7 +367,7 @@
           IGNORE_
 --- 307,312 ----
 ***************
-*** 390,396 ****
+*** 403,409 ****
   
   literal_value:
       NUMERIC_LITERAL
@@ -368,7 +384,7 @@
       | NULL_
       | TRUE_
 ***************
-*** 400,413 ****
+*** 413,426 ****
       | CURRENT_TIMESTAMP_
   ;
   
@@ -385,7 +401,7 @@
   ;
 --- 326,331 ----
 ***************
-*** 472,478 ****
+*** 485,491 ****
   ;
   
   select_stmt:
@@ -402,7 +418,7 @@
   
   join_clause:
 ***************
-*** 482,488 ****
+*** 495,501 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -419,7 +435,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 509,542 ****
+*** 522,555 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -456,7 +472,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 575,591 ****
+*** 588,604 ****
   update_stmt:
       with_clause? UPDATE_ (
           OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
@@ -489,7 +505,7 @@
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
 ***************
-*** 930,939 ****
+*** 943,952 ****
   // TODO: check all names below
   
   name:
