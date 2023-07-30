@@ -1,0 +1,1 @@
+copy pgbench_accounts from stdin;
