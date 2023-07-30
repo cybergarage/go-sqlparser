@@ -32,4 +32,5 @@ const (
 	AlterTableStatement
 	AlterIndexStatement
 	CopyStatement
+	CommitStatement
 )
