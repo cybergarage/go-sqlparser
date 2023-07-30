@@ -90,6 +90,12 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Delete_stmt(); stmt != nil {
 		return newDeleteWith(stmt)
 	}
+	// Extra statements
+	if stmt := ctx.Pg_extra_stmt(); stmt != nil {
+		if stmt := stmt.Copy_stmt(); stmt != nil {
+			return newCopyWith(stmt)
+		}
+	}
 	return nil
 }
 
@@ -314,6 +320,13 @@ func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
 		where = query.NewConditionWith(newExprWith(w))
 	}
 	return query.NewDeleteWith(tbl, where)
+}
+
+func newCopyWith(ctx antlr.ICopy_stmtContext) *query.Copy {
+	return query.NewCopyWith(
+		ctx.GetTable().GetText(),
+		ctx.Source_name().GetText(),
+	)
 }
 
 func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
