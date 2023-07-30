@@ -13,6 +13,8 @@
 - Support
   - ALTER DATABASE
   - ALTER TABLE 
+  - COMMIT
+  - COPY
 
 ## v0.9.1 (2023-07-28)
 - Support bind parameters
