@@ -16,7 +16,7 @@ package query
 
 import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 
-// Copy is a "DROP TABLE" statement.
+// Copy is a "COPY" statement.
 type Copy struct {
 	*Table
 	source string
