@@ -52,3 +52,12 @@ func TestDropQueries(t *testing.T) {
 	re := ".*drop.*\\.sql"
 	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
+
+func TestExtraQueries(t *testing.T) {
+	res := []string{
+		".*copy.*\\.sql",
+	}
+	for _, re := range res {
+		testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	}
+}
