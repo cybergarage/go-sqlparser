@@ -118,3 +118,12 @@ func (columns ColumnList) IsSelectAll() bool {
 	}
 	return false
 }
+
+// Copy returns a copy of the column list.
+func (columns ColumnList) Copy() ColumnList {
+	cpColums := make(ColumnList, len(columns))
+	for n, col := range columns {
+		cpColums[n] = col.Copy()
+	}
+	return cpColums
+}
