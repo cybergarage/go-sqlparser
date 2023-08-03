@@ -130,6 +130,15 @@ func (col *Column) SetDef(data *DataDef) error {
 	return nil
 }
 
+// Copy returns a copy of the column.
+func (col *Column) Copy() *Column {
+	return NewColumnWithOptions(
+		WithColumnName(col.name),
+		WithColumnData(col.DataDef),
+		WithColumnLiteral(col.Literal),
+	)
+}
+
 // String returns the string representation.
 func (col *Column) String() string {
 	return col.name
