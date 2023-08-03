@@ -85,11 +85,13 @@ func (col *Column) SetValue(v any) error {
 }
 
 // SetDef sets the column definition to update the column value.
-func (col *Column) SetDef(data *DataDef) error {
-	if col.DataDef != nil {
+func (col *Column) SetDef(dataDef *DataDef) error {
+	col.DataDef = dataDef
+	if dataDef == nil {
 		return nil
 	}
-	switch data.DataType() {
+
+	switch dataDef.DataType() {
 	case TinyIntData:
 		var v int8
 		if err := safecast.ToInt8(col.Literal.v, &v); err != nil {
