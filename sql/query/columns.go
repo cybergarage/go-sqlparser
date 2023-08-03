@@ -38,6 +38,14 @@ func (columns ColumnList) Columns() ColumnList {
 	return columns
 }
 
+// ColumnAt returns a column by the specified index.
+func (columns ColumnList) ColumnAt(n int) (*Column, error) {
+	if len(columns) <= n {
+		return nil, newErrColumnIndexOutOfRange(n)
+	}
+	return columns[n], nil
+}
+
 // ColumnByName returns a column by the specified name.
 func (columns ColumnList) ColumnByName(name string) (*Column, error) {
 	for _, colum := range columns {
