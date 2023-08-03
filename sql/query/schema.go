@@ -51,6 +51,11 @@ func WithSchemaIndexes(idxes IndexList) func(*Schema) {
 	}
 }
 
+// SchemaTable returns the table.
+func (schema *Schema) SchemaTable() *Table {
+	return schema.Table
+}
+
 // SchemaName returns the table name.
 func (schema *Schema) SchemaName() string {
 	return schema.TableName()
