@@ -27,9 +27,9 @@ func NewTables() TableList {
 }
 
 // NewTablesWith returns a column array instance with the specified columns.
-func NewTablesWith(columns ...*Table) TableList {
-	c := make(TableList, len(columns))
-	copy(c, columns)
+func NewTablesWith(tables ...*Table) TableList {
+	c := make(TableList, len(tables))
+	copy(c, tables)
 	return c
 }
 
