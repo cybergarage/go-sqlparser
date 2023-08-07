@@ -170,6 +170,7 @@ THEN_:              'THEN';
 TO_:                'TO';
 TRANSACTION_:       'TRANSACTION';
 TRIGGER_:           'TRIGGER';
+TRUNCATE_:          'TRUNCATE';
 UNION_:             'UNION';
 UNIQUE_:            'UNIQUE';
 UPDATE_:            'UPDATE';
