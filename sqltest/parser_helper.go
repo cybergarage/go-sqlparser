@@ -128,7 +128,9 @@ func testQueryFile(t *testing.T, file *util.File) {
 		if len(query) <= 0 {
 			continue
 		}
-		testQueryString(t, query)
+		t.Run(formalizeQuery(query), func(t *testing.T) {
+			testQueryString(t, query)
+		})
 	}
 }
 
