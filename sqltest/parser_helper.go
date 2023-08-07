@@ -146,7 +146,7 @@ func testQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
 	}
 
 	for _, file := range files {
-		t.Run(file.Path(), func(t *testing.T) {
+		t.Run(file.Name(), func(t *testing.T) {
 			testQueryFile(t, file)
 		})
 	}
