@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Tue Aug  8 00:54:35 2023
---- SQLiteParser.g4	Tue Aug  8 00:54:45 2023
+*** SQLiteParser.g4.new	Tue Aug  8 01:27:36 2023
+--- SQLiteParser.g4	Tue Aug  8 01:27:47 2023
 ***************
 *** 42,54 ****
   ;
@@ -276,7 +276,7 @@
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
 !         if_exists
-      )? (schema_name DOT)? any_name
+!     )? (schema_name DOT)? table_name ( COMMA table_name)* 
   ;
   
 - drop_database_stmt:
@@ -334,7 +334,7 @@
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
 !         IF_ EXISTS_
-      )? (schema_name DOT)? any_name
+!     )? (schema_name DOT)? any_name
   ;
   
   /*

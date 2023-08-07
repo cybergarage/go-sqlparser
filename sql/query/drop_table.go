@@ -19,15 +19,15 @@ import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 // DropTable is a "DROP TABLE" statement.
 type DropTable struct {
 	*Schema
-	*Table
+	TableList
 	*IfExistsOpt
 }
 
 // NewDropTableWith returns a new DropTable statement instance with the specified parameters.
-func NewDropTableWith(schemaName string, tblName string, ife *IfExistsOpt) *DropTable {
+func NewDropTableWith(schemaName string, tbls TableList, ife *IfExistsOpt) *DropTable {
 	return &DropTable{
 		Schema:      NewSchemaWith(schemaName),
-		Table:       NewTableWith(tblName),
+		TableList:   tbls,
 		IfExistsOpt: ife,
 	}
 }
@@ -46,11 +46,6 @@ func (stmt *DropTable) String() string {
 	if stmt.IfExists() {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
-	var tbl string
-	if 0 < len(stmt.SchemaName()) {
-		tbl = stmt.SchemaName() + "."
-	}
-	tbl += stmt.TableName()
-	strs = append(strs, tbl)
+	strs = append(strs, stmt.TableList.String()
 	return strings.JoinWithSpace(strs)
 }
