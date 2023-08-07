@@ -23,6 +23,13 @@ type Vacuum struct {
 	*Table
 }
 
+// NewVacuum returns a new vacuum statement instance.
+func NewVacuum() *Vacuum {
+	return &Vacuum{
+		Table: nil,
+	}
+}
+
 // NewVacuumWith returns a new vacuum statement instance with the specified parameters.
 func NewVacuumWith(tbl *Table) *Vacuum {
 	return &Vacuum{
@@ -39,7 +46,9 @@ func (stmt *Vacuum) StatementType() StatementType {
 func (stmt *Vacuum) String() string {
 	strs := []string{
 		"VACUUM",
-		stmt.Table.String(),
+	}
+	if stmt.Table != nil {
+		strs = append(strs, stmt.Table.String())
 	}
 	return strings.JoinWithSpace(strs)
 }
