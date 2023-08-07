@@ -1,5 +1,5 @@
-*** SQLiteLexer.g4.new	Sun Jul 30 09:59:23 2023
---- SQLiteLexer.g4	Sun Jul 30 10:01:22 2023
+*** SQLiteLexer.g4.new	Mon Aug  7 15:28:25 2023
+--- SQLiteLexer.g4	Mon Aug  7 15:55:53 2023
 ***************
 *** 80,86 ****
   COMMIT_:            'COMMIT';
@@ -10,3 +10,13 @@
   CROSS_:             'CROSS';
   CURRENT_DATE_:      'CURRENT_DATE';
 --- 80,85 ----
+***************
+*** 170,176 ****
+  TO_:                'TO';
+  TRANSACTION_:       'TRANSACTION';
+  TRIGGER_:           'TRIGGER';
+- TRUNCATE_:          'TRUNCATE';
+  UNION_:             'UNION';
+  UNIQUE_:            'UNIQUE';
+  UPDATE_:            'UPDATE';
+--- 169,174 ----
