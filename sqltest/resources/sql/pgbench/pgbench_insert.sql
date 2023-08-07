@@ -1,0 +1,11 @@
+insert into pgbench_branches(bid,bbalance) values(1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (1,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (2,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (3,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (4,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (5,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (6,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (7,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (8,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (9,1,0);
+insert into pgbench_tellers(tid,bid,tbalance) values (10,1,0);
