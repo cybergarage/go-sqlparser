@@ -142,14 +142,14 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#if_exists.
 	VisitIf_exists(ctx *If_existsContext) interface{}
 
-	// Visit a parse tree produced by SQLiteParser#pg_extra_stmt.
-	VisitPg_extra_stmt(ctx *Pg_extra_stmtContext) interface{}
-
 	// Visit a parse tree produced by SQLiteParser#copy_stmt.
 	VisitCopy_stmt(ctx *Copy_stmtContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#source_name.
 	VisitSource_name(ctx *Source_nameContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#truncate_stmt.
+	VisitTruncate_stmt(ctx *Truncate_stmtContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#expr.
 	VisitExpr(ctx *ExprContext) interface{}

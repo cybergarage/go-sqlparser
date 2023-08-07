@@ -293,12 +293,6 @@ func (s *BaseSQLiteParserListener) EnterIf_exists(ctx *If_existsContext) {}
 // ExitIf_exists is called when production if_exists is exited.
 func (s *BaseSQLiteParserListener) ExitIf_exists(ctx *If_existsContext) {}
 
-// EnterPg_extra_stmt is called when production pg_extra_stmt is entered.
-func (s *BaseSQLiteParserListener) EnterPg_extra_stmt(ctx *Pg_extra_stmtContext) {}
-
-// ExitPg_extra_stmt is called when production pg_extra_stmt is exited.
-func (s *BaseSQLiteParserListener) ExitPg_extra_stmt(ctx *Pg_extra_stmtContext) {}
-
 // EnterCopy_stmt is called when production copy_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterCopy_stmt(ctx *Copy_stmtContext) {}
 
@@ -310,6 +304,12 @@ func (s *BaseSQLiteParserListener) EnterSource_name(ctx *Source_nameContext) {}
 
 // ExitSource_name is called when production source_name is exited.
 func (s *BaseSQLiteParserListener) ExitSource_name(ctx *Source_nameContext) {}
+
+// EnterTruncate_stmt is called when production truncate_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterTruncate_stmt(ctx *Truncate_stmtContext) {}
+
+// ExitTruncate_stmt is called when production truncate_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitTruncate_stmt(ctx *Truncate_stmtContext) {}
 
 // EnterExpr is called when production expr is entered.
 func (s *BaseSQLiteParserListener) EnterExpr(ctx *ExprContext) {}
