@@ -57,6 +57,7 @@ func TestExtraQueries(t *testing.T) {
 	res := []string{
 		".*copy.*\\.sql",
 		".*commit.*\\.sql",
+		".*vacuum.*\\.sql",
 	}
 	for _, re := range res {
 		testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
