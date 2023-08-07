@@ -44,6 +44,11 @@ func (file *File) Path() string {
 	return file.path
 }
 
+// Name returns only the name.
+func (file *File) Name() string {
+	return filepath.Base(file.path)
+}
+
 // Ext returns only the extention.
 func (file *File) Ext() string {
 	return filepath.Ext(file.path)
