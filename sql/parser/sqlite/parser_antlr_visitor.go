@@ -94,10 +94,14 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 		return query.NewCommit()
 	}
 	// Extra statements
-	if stmt := ctx.Pg_extra_stmt(); stmt != nil {
-		if stmt := stmt.Copy_stmt(); stmt != nil {
-			return newCopyWith(stmt)
-		}
+	if stmt := ctx.Copy_stmt(); stmt != nil {
+		return newCopyWith(stmt)
+	}
+	if stmt := ctx.Truncate_stmt(); stmt != nil {
+		return newTruncateWith(stmt)
+	}
+	if stmt := ctx.Vacuum_stmt(); stmt != nil {
+		return newVacuumWith(stmt)
 	}
 	return nil
 }
@@ -330,6 +334,21 @@ func newCopyWith(ctx antlr.ICopy_stmtContext) *query.Copy {
 		ctx.GetTable().GetText(),
 		ctx.Source_name().GetText(),
 	)
+}
+
+func newTruncateWith(ctx antlr.ITruncate_stmtContext) *query.Truncate {
+	tbls := query.NewTables()
+	for _, table := range ctx.AllTable_name() {
+		tbls = append(tbls, query.NewTableWith(table.GetText()))
+	}
+	return query.NewTruncateWith(tbls)
+}
+
+func newVacuumWith(ctx antlr.IVacuum_stmtContext) *query.Vacuum {
+	if schema, ok := ctx.Schema_name().(*antlr.Schema_nameContext); ok {
+		return query.NewVacuumWith(query.NewTableWith(schema.GetText()))
+	}
+	return query.NewVacuum()
 }
 
 func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
