@@ -24,7 +24,7 @@ import (
 
 // File represents a file or director.
 type File struct {
-	Path string
+	path string
 }
 
 const (
@@ -34,24 +34,24 @@ const (
 // NewFileWithPath return a file with the specified path.
 func NewFileWithPath(path string) *File {
 	file := &File{
-		Path: path,
+		path: path,
 	}
 	return file
 }
 
-// GetPath returns the path.
-func (file *File) GetPath() string {
-	return file.Path
+// Path returns the path.
+func (file *File) Path() string {
+	return file.path
 }
 
 // Ext returns only the extention.
 func (file *File) Ext() string {
-	return filepath.Ext(file.Path)
+	return filepath.Ext(file.path)
 }
 
 // IsDir returns true when the file represents a directory, otherwise false
 func (file *File) IsDir() bool {
-	fi, err := os.Stat(file.Path)
+	fi, err := os.Stat(file.path)
 	if err != nil {
 		return false
 	}
@@ -64,10 +64,10 @@ func (file *File) IsDir() bool {
 // ListFilesWithExtention returns files which has the specified extentions in the directory.
 func (file *File) ListFilesWithExtention(targetExt string) ([]*File, error) {
 	if !file.IsDir() {
-		return nil, fmt.Errorf(errorFileIsNotDirectory, file.Path)
+		return nil, fmt.Errorf(errorFileIsNotDirectory, file.path)
 	}
 
-	rootPath := file.Path
+	rootPath := file.path
 	files := []*File{}
 
 	err := filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
@@ -94,10 +94,10 @@ func (file *File) ListFilesWithExtention(targetExt string) ([]*File, error) {
 // ListFilesWithExtention returns files which has the specified extentions in the directory.
 func (file *File) ListFilesWithRegexp(re *regexp.Regexp) ([]*File, error) {
 	if !file.IsDir() {
-		return nil, fmt.Errorf(errorFileIsNotDirectory, file.Path)
+		return nil, fmt.Errorf(errorFileIsNotDirectory, file.path)
 	}
 
-	rootPath := file.Path
+	rootPath := file.path
 	files := []*File{}
 
 	err := filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
