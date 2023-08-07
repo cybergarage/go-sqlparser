@@ -33,4 +33,6 @@ const (
 	AlterIndexStatement
 	CopyStatement
 	CommitStatement
+	VacuumStatement
+	TruncateStatement
 )
