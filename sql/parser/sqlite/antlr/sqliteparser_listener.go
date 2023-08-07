@@ -64,6 +64,9 @@ type SQLiteParserListener interface {
 	// EnterColumn_def is called when entering the column_def production.
 	EnterColumn_def(c *Column_defContext)
 
+	// EnterWith_param is called when entering the with_param production.
+	EnterWith_param(c *With_paramContext)
+
 	// EnterType_name is called when entering the type_name production.
 	EnterType_name(c *Type_nameContext)
 
@@ -480,6 +483,9 @@ type SQLiteParserListener interface {
 
 	// ExitColumn_def is called when exiting the column_def production.
 	ExitColumn_def(c *Column_defContext)
+
+	// ExitWith_param is called when exiting the with_param production.
+	ExitWith_param(c *With_paramContext)
 
 	// ExitType_name is called when exiting the type_name production.
 	ExitType_name(c *Type_nameContext)

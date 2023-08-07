@@ -134,6 +134,12 @@ func (s *BaseSQLiteParserListener) EnterColumn_def(ctx *Column_defContext) {}
 // ExitColumn_def is called when production column_def is exited.
 func (s *BaseSQLiteParserListener) ExitColumn_def(ctx *Column_defContext) {}
 
+// EnterWith_param is called when production with_param is entered.
+func (s *BaseSQLiteParserListener) EnterWith_param(ctx *With_paramContext) {}
+
+// ExitWith_param is called when production with_param is exited.
+func (s *BaseSQLiteParserListener) ExitWith_param(ctx *With_paramContext) {}
+
 // EnterType_name is called when production type_name is entered.
 func (s *BaseSQLiteParserListener) EnterType_name(ctx *Type_nameContext) {}
 

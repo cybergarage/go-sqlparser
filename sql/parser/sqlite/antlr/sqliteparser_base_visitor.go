@@ -83,6 +83,10 @@ func (v *BaseSQLiteParserVisitor) VisitColumn_def(ctx *Column_defContext) interf
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitWith_param(ctx *With_paramContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitType_name(ctx *Type_nameContext) interface{} {
 	return v.VisitChildren(ctx)
 }
