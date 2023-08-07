@@ -141,16 +141,15 @@ func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) *query.DropDataba
 }
 
 func newDropTableWith(ctx antlr.IDrop_table_stmtContext) *query.DropTable {
-	schemaName := ""
-	if ctx.Schema_name() != nil {
-		schemaName = ctx.Schema_name().GetText()
-	}
-	tblName := ctx.Table_name().GetText()
 	ifExists := query.NewIfExistsWith(false)
 	if ctx.If_exists() != nil {
 		ifExists = query.NewIfExistsWith(true)
 	}
-	return query.NewDropTableWith(schemaName, tblName, ifExists)
+	tbls := query.NewTables()
+	for _, tbl := range ctx.AllTable_name() {
+		tbls = append(tbls, query.NewTableWith(tbl.GetText()))
+	}
+	return query.NewDropTableWith(tbls, ifExists)
 }
 
 func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
