@@ -233,24 +233,24 @@ func sqliteparserParserInit() {
 		1, 37, 1, 37, 1, 37, 1, 37, 1, 37, 3, 37, 954, 8, 37, 1, 37, 3, 37, 957,
 		8, 37, 1, 37, 3, 37, 960, 8, 37, 1, 37, 3, 37, 963, 8, 37, 1, 38, 1, 38,
 		3, 38, 967, 8, 38, 1, 38, 1, 38, 1, 39, 1, 39, 1, 39, 3, 39, 974, 8, 39,
-		1, 39, 1, 39, 1, 39, 3, 39, 979, 8, 39, 1, 39, 1, 39, 1, 39, 5, 39, 984,
-		8, 39, 10, 39, 12, 39, 987, 9, 39, 1, 40, 1, 40, 1, 40, 3, 40, 992, 8,
-		40, 1, 40, 1, 40, 1, 41, 1, 41, 1, 41, 3, 41, 999, 8, 41, 1, 41, 1, 41,
-		1, 41, 3, 41, 1004, 8, 41, 1, 41, 1, 41, 1, 42, 1, 42, 1, 42, 3, 42, 1011,
-		8, 42, 1, 42, 1, 42, 1, 42, 3, 42, 1016, 8, 42, 1, 42, 1, 42, 1, 43, 1,
-		43, 1, 43, 3, 43, 1023, 8, 43, 1, 43, 1, 43, 1, 43, 3, 43, 1028, 8, 43,
-		1, 43, 1, 43, 1, 44, 1, 44, 1, 44, 3, 44, 1035, 8, 44, 1, 44, 1, 44, 1,
-		44, 3, 44, 1040, 8, 44, 1, 44, 1, 44, 1, 45, 1, 45, 1, 45, 1, 46, 1, 46,
-		1, 46, 1, 46, 1, 46, 1, 47, 1, 47, 1, 48, 1, 48, 3, 48, 1056, 8, 48, 1,
-		48, 1, 48, 1, 48, 5, 48, 1061, 8, 48, 10, 48, 12, 48, 1064, 9, 48, 1, 49,
-		1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1072, 8, 49, 1, 49, 1, 49, 1,
-		49, 3, 49, 1077, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49,
-		1, 49, 3, 49, 1087, 8, 49, 1, 49, 1, 49, 1, 49, 5, 49, 1092, 8, 49, 10,
-		49, 12, 49, 1095, 9, 49, 1, 49, 3, 49, 1098, 8, 49, 1, 49, 1, 49, 3, 49,
-		1102, 8, 49, 1, 49, 3, 49, 1105, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 5,
-		49, 1111, 8, 49, 10, 49, 12, 49, 1114, 9, 49, 1, 49, 1, 49, 1, 49, 1, 49,
-		1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1126, 8, 49, 1, 49, 3,
-		49, 1129, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1137,
+		1, 39, 1, 39, 1, 39, 3, 39, 979, 8, 39, 1, 39, 1, 39, 1, 40, 1, 40, 1,
+		40, 3, 40, 986, 8, 40, 1, 40, 1, 40, 1, 41, 1, 41, 1, 41, 3, 41, 993, 8,
+		41, 1, 41, 1, 41, 1, 41, 3, 41, 998, 8, 41, 1, 41, 1, 41, 1, 42, 1, 42,
+		1, 42, 3, 42, 1005, 8, 42, 1, 42, 1, 42, 1, 42, 3, 42, 1010, 8, 42, 1,
+		42, 1, 42, 1, 42, 5, 42, 1015, 8, 42, 10, 42, 12, 42, 1018, 9, 42, 1, 43,
+		1, 43, 1, 43, 3, 43, 1023, 8, 43, 1, 43, 1, 43, 1, 43, 3, 43, 1028, 8,
+		43, 1, 43, 1, 43, 1, 44, 1, 44, 1, 44, 3, 44, 1035, 8, 44, 1, 44, 1, 44,
+		1, 44, 3, 44, 1040, 8, 44, 1, 44, 1, 44, 1, 45, 1, 45, 1, 45, 1, 46, 1,
+		46, 1, 46, 1, 46, 1, 46, 1, 47, 1, 47, 1, 48, 1, 48, 3, 48, 1056, 8, 48,
+		1, 48, 1, 48, 1, 48, 5, 48, 1061, 8, 48, 10, 48, 12, 48, 1064, 9, 48, 1,
+		49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1072, 8, 49, 1, 49, 1, 49,
+		1, 49, 3, 49, 1077, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1,
+		49, 1, 49, 3, 49, 1087, 8, 49, 1, 49, 1, 49, 1, 49, 5, 49, 1092, 8, 49,
+		10, 49, 12, 49, 1095, 9, 49, 1, 49, 3, 49, 1098, 8, 49, 1, 49, 1, 49, 3,
+		49, 1102, 8, 49, 1, 49, 3, 49, 1105, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49,
+		5, 49, 1111, 8, 49, 10, 49, 12, 49, 1114, 9, 49, 1, 49, 1, 49, 1, 49, 1,
+		49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1126, 8, 49, 1, 49,
+		3, 49, 1129, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 3, 49, 1137,
 		8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 4, 49, 1144, 8, 49, 11, 49, 12,
 		49, 1145, 1, 49, 1, 49, 3, 49, 1150, 8, 49, 1, 49, 1, 49, 1, 49, 3, 49,
 		1155, 8, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1, 49, 1,
@@ -418,8 +418,8 @@ func sqliteparserParserInit() {
 		1, 0, 0, 0, 54, 702, 1, 0, 0, 0, 56, 744, 1, 0, 0, 0, 58, 748, 1, 0, 0,
 		0, 60, 810, 1, 0, 0, 0, 62, 840, 1, 0, 0, 0, 64, 867, 1, 0, 0, 0, 66, 888,
 		1, 0, 0, 0, 68, 902, 1, 0, 0, 0, 70, 913, 1, 0, 0, 0, 72, 933, 1, 0, 0,
-		0, 74, 946, 1, 0, 0, 0, 76, 964, 1, 0, 0, 0, 78, 970, 1, 0, 0, 0, 80, 988,
-		1, 0, 0, 0, 82, 995, 1, 0, 0, 0, 84, 1007, 1, 0, 0, 0, 86, 1019, 1, 0,
+		0, 74, 946, 1, 0, 0, 0, 76, 964, 1, 0, 0, 0, 78, 970, 1, 0, 0, 0, 80, 982,
+		1, 0, 0, 0, 82, 989, 1, 0, 0, 0, 84, 1001, 1, 0, 0, 0, 86, 1019, 1, 0,
 		0, 0, 88, 1031, 1, 0, 0, 0, 90, 1043, 1, 0, 0, 0, 92, 1046, 1, 0, 0, 0,
 		94, 1051, 1, 0, 0, 0, 96, 1053, 1, 0, 0, 0, 98, 1154, 1, 0, 0, 0, 100,
 		1272, 1, 0, 0, 0, 102, 1276, 1, 0, 0, 0, 104, 1295, 1, 0, 0, 0, 106, 1297,
@@ -720,21 +720,21 @@ func sqliteparserParserInit() {
 		0, 972, 974, 3, 90, 45, 0, 973, 972, 1, 0, 0, 0, 973, 974, 1, 0, 0, 0,
 		974, 978, 1, 0, 0, 0, 975, 976, 3, 236, 118, 0, 976, 977, 5, 2, 0, 0, 977,
 		979, 1, 0, 0, 0, 978, 975, 1, 0, 0, 0, 978, 979, 1, 0, 0, 0, 979, 980,
-		1, 0, 0, 0, 980, 985, 3, 238, 119, 0, 981, 982, 5, 5, 0, 0, 982, 984, 3,
-		238, 119, 0, 983, 981, 1, 0, 0, 0, 984, 987, 1, 0, 0, 0, 985, 983, 1, 0,
-		0, 0, 985, 986, 1, 0, 0, 0, 986, 79, 1, 0, 0, 0, 987, 985, 1, 0, 0, 0,
-		988, 989, 5, 64, 0, 0, 989, 991, 5, 56, 0, 0, 990, 992, 3, 90, 45, 0, 991,
-		990, 1, 0, 0, 0, 991, 992, 1, 0, 0, 0, 992, 993, 1, 0, 0, 0, 993, 994,
-		3, 232, 116, 0, 994, 81, 1, 0, 0, 0, 995, 996, 5, 64, 0, 0, 996, 998, 5,
-		85, 0, 0, 997, 999, 3, 90, 45, 0, 998, 997, 1, 0, 0, 0, 998, 999, 1, 0,
-		0, 0, 999, 1003, 1, 0, 0, 0, 1000, 1001, 3, 236, 118, 0, 1001, 1002, 5,
-		2, 0, 0, 1002, 1004, 1, 0, 0, 0, 1003, 1000, 1, 0, 0, 0, 1003, 1004, 1,
-		0, 0, 0, 1004, 1005, 1, 0, 0, 0, 1005, 1006, 3, 248, 124, 0, 1006, 83,
-		1, 0, 0, 0, 1007, 1008, 5, 64, 0, 0, 1008, 1010, 5, 133, 0, 0, 1009, 1011,
-		3, 90, 45, 0, 1010, 1009, 1, 0, 0, 0, 1010, 1011, 1, 0, 0, 0, 1011, 1015,
-		1, 0, 0, 0, 1012, 1013, 3, 236, 118, 0, 1013, 1014, 5, 2, 0, 0, 1014, 1016,
-		1, 0, 0, 0, 1015, 1012, 1, 0, 0, 0, 1015, 1016, 1, 0, 0, 0, 1016, 1017,
-		1, 0, 0, 0, 1017, 1018, 3, 238, 119, 0, 1018, 85, 1, 0, 0, 0, 1019, 1020,
+		1, 0, 0, 0, 980, 981, 3, 278, 139, 0, 981, 79, 1, 0, 0, 0, 982, 983, 5,
+		64, 0, 0, 983, 985, 5, 56, 0, 0, 984, 986, 3, 90, 45, 0, 985, 984, 1, 0,
+		0, 0, 985, 986, 1, 0, 0, 0, 986, 987, 1, 0, 0, 0, 987, 988, 3, 232, 116,
+		0, 988, 81, 1, 0, 0, 0, 989, 990, 5, 64, 0, 0, 990, 992, 5, 85, 0, 0, 991,
+		993, 3, 90, 45, 0, 992, 991, 1, 0, 0, 0, 992, 993, 1, 0, 0, 0, 993, 997,
+		1, 0, 0, 0, 994, 995, 3, 236, 118, 0, 995, 996, 5, 2, 0, 0, 996, 998, 1,
+		0, 0, 0, 997, 994, 1, 0, 0, 0, 997, 998, 1, 0, 0, 0, 998, 999, 1, 0, 0,
+		0, 999, 1000, 3, 248, 124, 0, 1000, 83, 1, 0, 0, 0, 1001, 1002, 5, 64,
+		0, 0, 1002, 1004, 5, 133, 0, 0, 1003, 1005, 3, 90, 45, 0, 1004, 1003, 1,
+		0, 0, 0, 1004, 1005, 1, 0, 0, 0, 1005, 1009, 1, 0, 0, 0, 1006, 1007, 3,
+		236, 118, 0, 1007, 1008, 5, 2, 0, 0, 1008, 1010, 1, 0, 0, 0, 1009, 1006,
+		1, 0, 0, 0, 1009, 1010, 1, 0, 0, 0, 1010, 1011, 1, 0, 0, 0, 1011, 1016,
+		3, 238, 119, 0, 1012, 1013, 5, 5, 0, 0, 1013, 1015, 3, 238, 119, 0, 1014,
+		1012, 1, 0, 0, 0, 1015, 1018, 1, 0, 0, 0, 1016, 1014, 1, 0, 0, 0, 1016,
+		1017, 1, 0, 0, 0, 1017, 85, 1, 0, 0, 0, 1018, 1016, 1, 0, 0, 0, 1019, 1020,
 		5, 64, 0, 0, 1020, 1022, 5, 139, 0, 0, 1021, 1023, 3, 90, 45, 0, 1022,
 		1021, 1, 0, 0, 0, 1022, 1023, 1, 0, 0, 0, 1023, 1027, 1, 0, 0, 0, 1024,
 		1025, 3, 236, 118, 0, 1025, 1026, 5, 2, 0, 0, 1026, 1028, 1, 0, 0, 0, 1027,
@@ -1278,7 +1278,7 @@ func sqliteparserParserInit() {
 		695, 700, 710, 715, 725, 729, 731, 735, 740, 742, 750, 754, 759, 766, 777,
 		780, 782, 789, 793, 800, 806, 812, 816, 821, 830, 835, 844, 849, 860, 865,
 		869, 885, 895, 900, 908, 920, 925, 933, 940, 943, 946, 953, 956, 959, 962,
-		966, 973, 978, 985, 991, 998, 1003, 1010, 1015, 1022, 1027, 1034, 1039,
+		966, 973, 978, 985, 992, 997, 1004, 1009, 1016, 1022, 1027, 1034, 1039,
 		1055, 1062, 1071, 1076, 1086, 1093, 1097, 1101, 1104, 1112, 1125, 1128,
 		1136, 1145, 1149, 1154, 1178, 1190, 1195, 1207, 1213, 1220, 1224, 1234,
 		1237, 1243, 1249, 1258, 1261, 1265, 1267, 1269, 1282, 1295, 1307, 1318,
@@ -13372,8 +13372,7 @@ type IDrop_stmtContext interface {
 
 	// Getter signatures
 	DROP_() antlr.TerminalNode
-	AllTable_name() []ITable_nameContext
-	Table_name(i int) ITable_nameContext
+	Any_name() IAny_nameContext
 	INDEX_() antlr.TerminalNode
 	TABLE_() antlr.TerminalNode
 	TRIGGER_() antlr.TerminalNode
@@ -13381,8 +13380,6 @@ type IDrop_stmtContext interface {
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
-	AllCOMMA() []antlr.TerminalNode
-	COMMA(i int) antlr.TerminalNode
 
 	// IsDrop_stmtContext differentiates from other interfaces.
 	IsDrop_stmtContext()
@@ -13429,37 +13426,12 @@ func (s *Drop_stmtContext) DROP_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserDROP_, 0)
 }
 
-func (s *Drop_stmtContext) AllTable_name() []ITable_nameContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(ITable_nameContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]ITable_nameContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(ITable_nameContext); ok {
-			tst[i] = t.(ITable_nameContext)
-			i++
-		}
-	}
-
-	return tst
-}
-
-func (s *Drop_stmtContext) Table_name(i int) ITable_nameContext {
+func (s *Drop_stmtContext) Any_name() IAny_nameContext {
 	var t antlr.RuleContext
-	j := 0
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(ITable_nameContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
+		if _, ok := ctx.(IAny_nameContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
 		}
 	}
 
@@ -13467,7 +13439,7 @@ func (s *Drop_stmtContext) Table_name(i int) ITable_nameContext {
 		return nil
 	}
 
-	return t.(ITable_nameContext)
+	return t.(IAny_nameContext)
 }
 
 func (s *Drop_stmtContext) INDEX_() antlr.TerminalNode {
@@ -13520,14 +13492,6 @@ func (s *Drop_stmtContext) Schema_name() ISchema_nameContext {
 
 func (s *Drop_stmtContext) DOT() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserDOT, 0)
-}
-
-func (s *Drop_stmtContext) AllCOMMA() []antlr.TerminalNode {
-	return s.GetTokens(SQLiteParserCOMMA)
-}
-
-func (s *Drop_stmtContext) COMMA(i int) antlr.TerminalNode {
-	return s.GetToken(SQLiteParserCOMMA, i)
 }
 
 func (s *Drop_stmtContext) GetRuleContext() antlr.RuleContext {
@@ -13626,35 +13590,7 @@ func (p *SQLiteParser) Drop_stmt() (localctx IDrop_stmtContext) {
 	}
 	{
 		p.SetState(980)
-		p.Table_name()
-	}
-	p.SetState(985)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_la = p.GetTokenStream().LA(1)
-
-	for _la == SQLiteParserCOMMA {
-		{
-			p.SetState(981)
-			p.Match(SQLiteParserCOMMA)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(982)
-			p.Table_name()
-		}
-
-		p.SetState(987)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_la = p.GetTokenStream().LA(1)
+		p.Any_name()
 	}
 
 errorExit:
@@ -13794,7 +13730,7 @@ func (p *SQLiteParser) Drop_database_stmt() (localctx IDrop_database_stmtContext
 	p.EnterRule(localctx, 80, SQLiteParserRULE_drop_database_stmt)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(988)
+		p.SetState(982)
 		p.Match(SQLiteParserDROP_)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -13802,19 +13738,19 @@ func (p *SQLiteParser) Drop_database_stmt() (localctx IDrop_database_stmtContext
 		}
 	}
 	{
-		p.SetState(989)
+		p.SetState(983)
 		p.Match(SQLiteParserDATABASE_)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(991)
+	p.SetState(985)
 	p.GetErrorHandler().Sync(p)
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 113, p.GetParserRuleContext()) == 1 {
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 112, p.GetParserRuleContext()) == 1 {
 		{
-			p.SetState(990)
+			p.SetState(984)
 			p.If_exists()
 		}
 
@@ -13822,7 +13758,7 @@ func (p *SQLiteParser) Drop_database_stmt() (localctx IDrop_database_stmtContext
 		goto errorExit
 	}
 	{
-		p.SetState(993)
+		p.SetState(987)
 		p.Database_name()
 	}
 
@@ -13985,7 +13921,7 @@ func (p *SQLiteParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
 	p.EnterRule(localctx, 82, SQLiteParserRULE_drop_index_stmt)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(995)
+		p.SetState(989)
 		p.Match(SQLiteParserDROP_)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -13993,35 +13929,35 @@ func (p *SQLiteParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
 		}
 	}
 	{
-		p.SetState(996)
+		p.SetState(990)
 		p.Match(SQLiteParserINDEX_)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(998)
+	p.SetState(992)
 	p.GetErrorHandler().Sync(p)
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 114, p.GetParserRuleContext()) == 1 {
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 113, p.GetParserRuleContext()) == 1 {
 		{
-			p.SetState(997)
+			p.SetState(991)
 			p.If_exists()
 		}
 
 	} else if p.HasError() { // JIM
 		goto errorExit
 	}
-	p.SetState(1003)
+	p.SetState(997)
 	p.GetErrorHandler().Sync(p)
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 115, p.GetParserRuleContext()) == 1 {
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 114, p.GetParserRuleContext()) == 1 {
 		{
-			p.SetState(1000)
+			p.SetState(994)
 			p.Schema_name()
 		}
 		{
-			p.SetState(1001)
+			p.SetState(995)
 			p.Match(SQLiteParserDOT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -14033,7 +13969,7 @@ func (p *SQLiteParser) Drop_index_stmt() (localctx IDrop_index_stmtContext) {
 		goto errorExit
 	}
 	{
-		p.SetState(1005)
+		p.SetState(999)
 		p.Index_name()
 	}
 
@@ -14060,10 +13996,13 @@ type IDrop_table_stmtContext interface {
 	// Getter signatures
 	DROP_() antlr.TerminalNode
 	TABLE_() antlr.TerminalNode
-	Table_name() ITable_nameContext
+	AllTable_name() []ITable_nameContext
+	Table_name(i int) ITable_nameContext
 	If_exists() IIf_existsContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
+	AllCOMMA() []antlr.TerminalNode
+	COMMA(i int) antlr.TerminalNode
 
 	// IsDrop_table_stmtContext differentiates from other interfaces.
 	IsDrop_table_stmtContext()
@@ -14109,12 +14048,37 @@ func (s *Drop_table_stmtContext) TABLE_() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserTABLE_, 0)
 }
 
-func (s *Drop_table_stmtContext) Table_name() ITable_nameContext {
+func (s *Drop_table_stmtContext) AllTable_name() []ITable_nameContext {
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(ITable_nameContext); ok {
+			len++
+		}
+	}
+
+	tst := make([]ITable_nameContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(ITable_nameContext); ok {
+			tst[i] = t.(ITable_nameContext)
+			i++
+		}
+	}
+
+	return tst
+}
+
+func (s *Drop_table_stmtContext) Table_name(i int) ITable_nameContext {
 	var t antlr.RuleContext
+	j := 0
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(ITable_nameContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
 		}
 	}
 
@@ -14161,6 +14125,14 @@ func (s *Drop_table_stmtContext) DOT() antlr.TerminalNode {
 	return s.GetToken(SQLiteParserDOT, 0)
 }
 
+func (s *Drop_table_stmtContext) AllCOMMA() []antlr.TerminalNode {
+	return s.GetTokens(SQLiteParserCOMMA)
+}
+
+func (s *Drop_table_stmtContext) COMMA(i int) antlr.TerminalNode {
+	return s.GetToken(SQLiteParserCOMMA, i)
+}
+
 func (s *Drop_table_stmtContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -14194,9 +14166,11 @@ func (s *Drop_table_stmtContext) Accept(visitor antlr.ParseTreeVisitor) interfac
 func (p *SQLiteParser) Drop_table_stmt() (localctx IDrop_table_stmtContext) {
 	localctx = NewDrop_table_stmtContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 84, SQLiteParserRULE_drop_table_stmt)
+	var _la int
+
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(1007)
+		p.SetState(1001)
 		p.Match(SQLiteParserDROP_)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -14204,35 +14178,35 @@ func (p *SQLiteParser) Drop_table_stmt() (localctx IDrop_table_stmtContext) {
 		}
 	}
 	{
-		p.SetState(1008)
+		p.SetState(1002)
 		p.Match(SQLiteParserTABLE_)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(1010)
+	p.SetState(1004)
 	p.GetErrorHandler().Sync(p)
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 116, p.GetParserRuleContext()) == 1 {
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 115, p.GetParserRuleContext()) == 1 {
 		{
-			p.SetState(1009)
+			p.SetState(1003)
 			p.If_exists()
 		}
 
 	} else if p.HasError() { // JIM
 		goto errorExit
 	}
-	p.SetState(1015)
+	p.SetState(1009)
 	p.GetErrorHandler().Sync(p)
 
-	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 117, p.GetParserRuleContext()) == 1 {
+	if p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 116, p.GetParserRuleContext()) == 1 {
 		{
-			p.SetState(1012)
+			p.SetState(1006)
 			p.Schema_name()
 		}
 		{
-			p.SetState(1013)
+			p.SetState(1007)
 			p.Match(SQLiteParserDOT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -14243,9 +14217,38 @@ func (p *SQLiteParser) Drop_table_stmt() (localctx IDrop_table_stmtContext) {
 	} else if p.HasError() { // JIM
 		goto errorExit
 	}
+
 	{
-		p.SetState(1017)
+		p.SetState(1011)
 		p.Table_name()
+	}
+	p.SetState(1016)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	for _la == SQLiteParserCOMMA {
+		{
+			p.SetState(1012)
+			p.Match(SQLiteParserCOMMA)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+		{
+			p.SetState(1013)
+			p.Table_name()
+		}
+
+		p.SetState(1018)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_la = p.GetTokenStream().LA(1)
 	}
 
 errorExit:
