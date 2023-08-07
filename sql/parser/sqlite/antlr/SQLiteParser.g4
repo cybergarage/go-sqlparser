@@ -147,8 +147,10 @@ create_table_stmt:
     CREATE_ (TEMP_ | TEMPORARY_)? TABLE_ (if_not_exists)? (
         schema_name DOT
     )? table_name (
-        OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR (
+        OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR 
+        (
             WITHOUT_ row_ROW_ID = IDENTIFIER
+            | WITH_ OPEN_PAR with_param (COMMA column_def)*? CLOSE_PAR
         )?
         | AS_ select_stmt
     )
@@ -156,6 +158,10 @@ create_table_stmt:
 
 column_def:
     column_name type_name? column_constraint*
+;
+
+with_param:
+    IDENTIFIER ASSIGN expr
 ;
 
 type_name:

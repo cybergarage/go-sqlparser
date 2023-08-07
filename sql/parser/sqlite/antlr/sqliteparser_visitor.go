@@ -64,6 +64,9 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#column_def.
 	VisitColumn_def(ctx *Column_defContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#with_param.
+	VisitWith_param(ctx *With_paramContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#type_name.
 	VisitType_name(ctx *Type_nameContext) interface{}
 
