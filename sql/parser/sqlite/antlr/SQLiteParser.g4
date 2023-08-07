@@ -295,7 +295,7 @@ detach_stmt:
 drop_stmt:
     DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
         if_exists
-    )? (schema_name DOT)? any_name
+    )? (schema_name DOT)? table_name ( COMMA table_name)* 
 ;
 
 drop_database_stmt:
