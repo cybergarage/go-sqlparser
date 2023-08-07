@@ -72,7 +72,8 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
         | update_stmt
         | update_stmt_limited
         | vacuum_stmt
-        | pg_extra_stmt
+        | copy_stmt
+        | truncate_stmt
     )
 ;
 
@@ -325,16 +326,17 @@ if_exists:
     IF_ EXISTS_
 ;
 
-pg_extra_stmt:
-    copy_stmt
-;
-
 copy_stmt:
     COPY_ table=qualified_table_name FROM_ source_name
 ;
 
+
 source_name:
     any_name
+;
+
+truncate_stmt:
+    TRUNCATE_ (TABLE_)? (table_name (COMMA table_name)*)
 ;
 
 /*

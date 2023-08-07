@@ -142,14 +142,14 @@ type SQLiteParserListener interface {
 	// EnterIf_exists is called when entering the if_exists production.
 	EnterIf_exists(c *If_existsContext)
 
-	// EnterPg_extra_stmt is called when entering the pg_extra_stmt production.
-	EnterPg_extra_stmt(c *Pg_extra_stmtContext)
-
 	// EnterCopy_stmt is called when entering the copy_stmt production.
 	EnterCopy_stmt(c *Copy_stmtContext)
 
 	// EnterSource_name is called when entering the source_name production.
 	EnterSource_name(c *Source_nameContext)
+
+	// EnterTruncate_stmt is called when entering the truncate_stmt production.
+	EnterTruncate_stmt(c *Truncate_stmtContext)
 
 	// EnterExpr is called when entering the expr production.
 	EnterExpr(c *ExprContext)
@@ -559,14 +559,14 @@ type SQLiteParserListener interface {
 	// ExitIf_exists is called when exiting the if_exists production.
 	ExitIf_exists(c *If_existsContext)
 
-	// ExitPg_extra_stmt is called when exiting the pg_extra_stmt production.
-	ExitPg_extra_stmt(c *Pg_extra_stmtContext)
-
 	// ExitCopy_stmt is called when exiting the copy_stmt production.
 	ExitCopy_stmt(c *Copy_stmtContext)
 
 	// ExitSource_name is called when exiting the source_name production.
 	ExitSource_name(c *Source_nameContext)
+
+	// ExitTruncate_stmt is called when exiting the truncate_stmt production.
+	ExitTruncate_stmt(c *Truncate_stmtContext)
 
 	// ExitExpr is called when exiting the expr production.
 	ExitExpr(c *ExprContext)
