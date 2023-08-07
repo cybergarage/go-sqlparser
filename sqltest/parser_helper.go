@@ -122,7 +122,7 @@ func testQueryFile(t *testing.T, file *util.File) {
 		return
 	}
 
-	queries := strings.Split(string(queryBytes), "\n\n")
+	queries := strings.Split(string(queryBytes), ";")
 	for _, query := range queries {
 		query = strings.TrimSpace(query)
 		if len(query) <= 0 {
