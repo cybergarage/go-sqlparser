@@ -116,7 +116,7 @@ func testQueryString(t *testing.T, queryStr string) {
 }
 
 func testQueryFile(t *testing.T, file *util.File) {
-	queryBytes, err := readQueryFile(file.Path)
+	queryBytes, err := readQueryFile(file.Path())
 	if err != nil {
 		t.Error(err)
 		return
@@ -146,6 +146,8 @@ func testQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
 	}
 
 	for _, file := range files {
-		testQueryFile(t, file)
+		t.Run(file.Path(), func(t *testing.T) {
+			testQueryFile(t, file)
+		})
 	}
 }
