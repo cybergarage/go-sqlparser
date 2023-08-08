@@ -21,6 +21,7 @@ type AlterTableOption = func(*AlterTable)
 type AlterTable struct {
 	*Schema
 	*Table
+	renameTableTo    *Table
 	renameColumnFrom *Column
 	renameColumnTo   *Column
 }
@@ -28,8 +29,11 @@ type AlterTable struct {
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
 func NewAlterTableWith(tblName string, opts ...AlterTableOption) *AlterTable {
 	stmt := &AlterTable{
-		Schema: nil,
-		Table:  NewTableWith(tblName),
+		Schema:           nil,
+		Table:            NewTableWith(tblName),
+		renameTableTo:    nil,
+		renameColumnFrom: nil,
+		renameColumnTo:   nil,
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -41,6 +45,13 @@ func NewAlterTableWith(tblName string, opts ...AlterTableOption) *AlterTable {
 func WithAlterTableSchema(name string) func(*AlterTable) {
 	return func(stmt *AlterTable) {
 		stmt.Schema = NewSchemaWith(name)
+	}
+}
+
+// WithAlterTableRenameTo sets a rename table.
+func WithAlterTableRenameTo(tbl *Table) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.renameTableTo = tbl
 	}
 }
 
