@@ -31,6 +31,22 @@ func (v *BaseSQLiteParserVisitor) VisitAlter_table_stmt(ctx *Alter_table_stmtCon
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitRename_table_to(ctx *Rename_table_toContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitRename_table_colum(ctx *Rename_table_columContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitAdd_column(ctx *Add_columnContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitDrop_column(ctx *Drop_columnContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitAnalyze_stmt(ctx *Analyze_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }

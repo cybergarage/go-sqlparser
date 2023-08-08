@@ -89,13 +89,27 @@ rename_database_to:
 
 alter_table_stmt:
     ALTER_ TABLE_ (schema_name DOT)? target_table_name = table_name (
-        RENAME_ (
-            TO_ new_table_name = table_name
-            | COLUMN_? old_column_name = column_name TO_ new_column_name = column_name
-        )
-        | ADD_ COLUMN_? column_def
-        | DROP_ COLUMN_? column_name
+        rename_table_to
+        | rename_table_colum
+        | add_column
+        | drop_column
     )
+;
+
+rename_table_to:
+    RENAME_ TO_ table_name
+;
+
+rename_table_colum:
+    RENAME_ COLUMN_? old_column_name = column_name TO_ new_column_name = column_name
+;
+
+add_column:
+    ADD_ COLUMN_? column_def
+;
+
+drop_column:
+    DROP_ COLUMN_? column_name
 ;
 
 analyze_stmt:

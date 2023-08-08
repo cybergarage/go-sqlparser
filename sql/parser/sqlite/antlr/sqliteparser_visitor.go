@@ -25,6 +25,18 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#alter_table_stmt.
 	VisitAlter_table_stmt(ctx *Alter_table_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#rename_table_to.
+	VisitRename_table_to(ctx *Rename_table_toContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#rename_table_colum.
+	VisitRename_table_colum(ctx *Rename_table_columContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#add_column.
+	VisitAdd_column(ctx *Add_columnContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#drop_column.
+	VisitDrop_column(ctx *Drop_columnContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#analyze_stmt.
 	VisitAnalyze_stmt(ctx *Analyze_stmtContext) interface{}
 
