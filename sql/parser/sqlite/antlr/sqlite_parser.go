@@ -3375,6 +3375,9 @@ type IAlter_table_stmtContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetTarget_table_name returns the target_table_name rule contexts.
+	GetTarget_table_name() ITable_nameContext
+
 	// GetNew_table_name returns the new_table_name rule contexts.
 	GetNew_table_name() ITable_nameContext
 
@@ -3383,6 +3386,9 @@ type IAlter_table_stmtContext interface {
 
 	// GetNew_column_name returns the new_column_name rule contexts.
 	GetNew_column_name() IColumn_nameContext
+
+	// SetTarget_table_name sets the target_table_name rule contexts.
+	SetTarget_table_name(ITable_nameContext)
 
 	// SetNew_table_name sets the new_table_name rule contexts.
 	SetNew_table_name(ITable_nameContext)
@@ -3415,10 +3421,11 @@ type IAlter_table_stmtContext interface {
 
 type Alter_table_stmtContext struct {
 	antlr.BaseParserRuleContext
-	parser          antlr.Parser
-	new_table_name  ITable_nameContext
-	old_column_name IColumn_nameContext
-	new_column_name IColumn_nameContext
+	parser            antlr.Parser
+	target_table_name ITable_nameContext
+	new_table_name    ITable_nameContext
+	old_column_name   IColumn_nameContext
+	new_column_name   IColumn_nameContext
 }
 
 func NewEmptyAlter_table_stmtContext() *Alter_table_stmtContext {
@@ -3448,11 +3455,17 @@ func NewAlter_table_stmtContext(parser antlr.Parser, parent antlr.ParserRuleCont
 
 func (s *Alter_table_stmtContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *Alter_table_stmtContext) GetTarget_table_name() ITable_nameContext {
+	return s.target_table_name
+}
+
 func (s *Alter_table_stmtContext) GetNew_table_name() ITable_nameContext { return s.new_table_name }
 
 func (s *Alter_table_stmtContext) GetOld_column_name() IColumn_nameContext { return s.old_column_name }
 
 func (s *Alter_table_stmtContext) GetNew_column_name() IColumn_nameContext { return s.new_column_name }
+
+func (s *Alter_table_stmtContext) SetTarget_table_name(v ITable_nameContext) { s.target_table_name = v }
 
 func (s *Alter_table_stmtContext) SetNew_table_name(v ITable_nameContext) { s.new_table_name = v }
 
@@ -3678,7 +3691,10 @@ func (p *SQLiteParser) Alter_table_stmt() (localctx IAlter_table_stmtContext) {
 	}
 	{
 		p.SetState(374)
-		p.Table_name()
+
+		var _x = p.Table_name()
+
+		localctx.(*Alter_table_stmtContext).target_table_name = _x
 	}
 	p.SetState(397)
 	p.GetErrorHandler().Sync(p)

@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Tue Aug  8 01:33:45 2023
---- SQLiteParser.g4	Tue Aug  8 01:33:50 2023
+*** SQLiteParser.g4.new	Tue Aug  8 18:13:33 2023
+--- SQLiteParser.g4	Tue Aug  8 18:13:53 2023
 ***************
 *** 42,54 ****
   ;
@@ -49,7 +49,7 @@
           | pragma_stmt
           | reindex_stmt
 ***************
-*** 72,92 ****
+*** 72,94 ****
           | update_stmt
           | update_stmt_limited
           | vacuum_stmt
@@ -69,9 +69,22 @@
 - ;
 - 
   alter_table_stmt:
-      ALTER_ TABLE_ (schema_name DOT)? table_name (
+!     ALTER_ TABLE_ (schema_name DOT)? target_table_name = table_name (
           RENAME_ (
---- 66,74 ----
+              TO_ new_table_name = table_name
+              | COLUMN_? old_column_name = column_name TO_ new_column_name = column_name
+--- 66,76 ----
+          | update_stmt
+          | update_stmt_limited
+          | vacuum_stmt
+      )
+  ;
+  
+  alter_table_stmt:
+!     ALTER_ TABLE_ (schema_name DOT)? table_name (
+          RENAME_ (
+              TO_ new_table_name = table_name
+              | COLUMN_? old_column_name = column_name TO_ new_column_name = column_name
 ***************
 *** 128,156 ****
   ;
