@@ -14,17 +14,41 @@
 
 package query
 
+// AlterTableOption represents an alter table option function.
+type AlterTableOption = func(*AlterTable)
+
 // AlterTable is a "ALTER TABLE" statement.
 type AlterTable struct {
 	*Schema
 	*Table
+	renameColumnFrom *Column
+	renameColumnTo   *Column
 }
 
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
-func NewAlterTableWith(schemaName string, tblName string) *AlterTable {
-	return &AlterTable{
-		Schema: NewSchemaWith(schemaName),
+func NewAlterTableWith(tblName string, opts ...AlterTableOption) *AlterTable {
+	stmt := &AlterTable{
+		Schema: nil,
 		Table:  NewTableWith(tblName),
+	}
+	for _, opt := range opts {
+		opt(stmt)
+	}
+	return stmt
+}
+
+// WithAlterTableSchema sets a schema.
+func WithAlterTableSchema(name string) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.Schema = NewSchemaWith(name)
+	}
+}
+
+// WithAlterTableRename sets a rename column.
+func WithAlterTableRename(from *Column, to *Column) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.renameColumnFrom = from
+		stmt.renameColumnTo = to
 	}
 }
 
