@@ -175,12 +175,22 @@ func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDat
 }
 
 func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
-	schemaName := ""
-	if ctx.Schema_name() != nil {
-		schemaName = ctx.Schema_name().GetText()
+	opts := []query.AlterTableOption{}
+	if ctx := ctx.Schema_name(); ctx != nil {
+		schemaName := ctx.GetText()
+		opts = append(opts, query.WithAlterTableSchema(schemaName))
 	}
-	tblName := "" // ctx.Table_name().GetText()
-	return query.NewAlterTableWith(schemaName, tblName)
+	if ctx := ctx.Rename_table_to(); ctx != nil {
+		tblName := ctx.Table_name().GetText()
+		opts = append(opts, query.WithAlterTableRenameTo(query.NewTableWith(tblName)))
+	}
+	if ctx := ctx.Rename_table_colum(); ctx != nil {
+		fromColumn := query.NewColumnWithName(ctx.GetOld_column_name().GetText())
+		toColumn := query.NewColumnWithName(ctx.GetNew_column_name().GetText())
+		opts = append(opts, query.WithAlterTableRenameColumn(fromColumn, toColumn))
+	}
+	tblName := ctx.GetTarget_table_name().GetText()
+	return query.NewAlterTableWith(tblName, opts...)
 }
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
