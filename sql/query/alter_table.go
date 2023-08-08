@@ -44,8 +44,8 @@ func WithAlterTableSchema(name string) func(*AlterTable) {
 	}
 }
 
-// WithAlterTableRename sets a rename column.
-func WithAlterTableRename(from *Column, to *Column) func(*AlterTable) {
+// WithAlterTableRenameColumn sets a rename column.
+func WithAlterTableRenameColumn(from *Column, to *Column) func(*AlterTable) {
 	return func(stmt *AlterTable) {
 		stmt.renameColumnFrom = from
 		stmt.renameColumnTo = to
