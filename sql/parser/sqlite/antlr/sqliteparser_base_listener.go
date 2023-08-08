@@ -56,6 +56,30 @@ func (s *BaseSQLiteParserListener) EnterAlter_table_stmt(ctx *Alter_table_stmtCo
 // ExitAlter_table_stmt is called when production alter_table_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitAlter_table_stmt(ctx *Alter_table_stmtContext) {}
 
+// EnterRename_table_to is called when production rename_table_to is entered.
+func (s *BaseSQLiteParserListener) EnterRename_table_to(ctx *Rename_table_toContext) {}
+
+// ExitRename_table_to is called when production rename_table_to is exited.
+func (s *BaseSQLiteParserListener) ExitRename_table_to(ctx *Rename_table_toContext) {}
+
+// EnterRename_table_colum is called when production rename_table_colum is entered.
+func (s *BaseSQLiteParserListener) EnterRename_table_colum(ctx *Rename_table_columContext) {}
+
+// ExitRename_table_colum is called when production rename_table_colum is exited.
+func (s *BaseSQLiteParserListener) ExitRename_table_colum(ctx *Rename_table_columContext) {}
+
+// EnterAdd_column is called when production add_column is entered.
+func (s *BaseSQLiteParserListener) EnterAdd_column(ctx *Add_columnContext) {}
+
+// ExitAdd_column is called when production add_column is exited.
+func (s *BaseSQLiteParserListener) ExitAdd_column(ctx *Add_columnContext) {}
+
+// EnterDrop_column is called when production drop_column is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_column(ctx *Drop_columnContext) {}
+
+// ExitDrop_column is called when production drop_column is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_column(ctx *Drop_columnContext) {}
+
 // EnterAnalyze_stmt is called when production analyze_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterAnalyze_stmt(ctx *Analyze_stmtContext) {}
 

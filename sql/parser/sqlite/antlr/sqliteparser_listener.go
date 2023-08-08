@@ -25,6 +25,18 @@ type SQLiteParserListener interface {
 	// EnterAlter_table_stmt is called when entering the alter_table_stmt production.
 	EnterAlter_table_stmt(c *Alter_table_stmtContext)
 
+	// EnterRename_table_to is called when entering the rename_table_to production.
+	EnterRename_table_to(c *Rename_table_toContext)
+
+	// EnterRename_table_colum is called when entering the rename_table_colum production.
+	EnterRename_table_colum(c *Rename_table_columContext)
+
+	// EnterAdd_column is called when entering the add_column production.
+	EnterAdd_column(c *Add_columnContext)
+
+	// EnterDrop_column is called when entering the drop_column production.
+	EnterDrop_column(c *Drop_columnContext)
+
 	// EnterAnalyze_stmt is called when entering the analyze_stmt production.
 	EnterAnalyze_stmt(c *Analyze_stmtContext)
 
@@ -444,6 +456,18 @@ type SQLiteParserListener interface {
 
 	// ExitAlter_table_stmt is called when exiting the alter_table_stmt production.
 	ExitAlter_table_stmt(c *Alter_table_stmtContext)
+
+	// ExitRename_table_to is called when exiting the rename_table_to production.
+	ExitRename_table_to(c *Rename_table_toContext)
+
+	// ExitRename_table_colum is called when exiting the rename_table_colum production.
+	ExitRename_table_colum(c *Rename_table_columContext)
+
+	// ExitAdd_column is called when exiting the add_column production.
+	ExitAdd_column(c *Add_columnContext)
+
+	// ExitDrop_column is called when exiting the drop_column production.
+	ExitDrop_column(c *Drop_columnContext)
 
 	// ExitAnalyze_stmt is called when exiting the analyze_stmt production.
 	ExitAnalyze_stmt(c *Analyze_stmtContext)
