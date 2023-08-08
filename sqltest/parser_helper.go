@@ -27,6 +27,8 @@ import (
 
 const (
 	sqlTestResourceQueriesDirectory = "resources/sql/"
+	querySeparator                  = ";"
+	ignorePrefix                    = "#"
 )
 
 func readQueryFile(filename string) ([]byte, error) {
@@ -44,12 +46,19 @@ func readQueryFile(filename string) ([]byte, error) {
 	return data, nil
 }
 
-func formalizeQuery(query string) string {
-	query = strings.TrimSpace(query)
-	trimStrings := []string{";"}
+func trimQuery(query string) string {
+	trimStrings := []string{
+		querySeparator,
+		"\n",
+		" "}
 	for _, trimString := range trimStrings {
 		query = strings.Trim(query, trimString)
 	}
+	return query
+}
+
+func formalizeQuery(query string) string {
+	query = trimQuery(query)
 	regExps := []struct {
 		From string
 		To   string
@@ -122,10 +131,10 @@ func testQueryFile(t *testing.T, file *util.File) {
 		return
 	}
 
-	queries := strings.Split(string(queryBytes), ";")
+	queries := strings.Split(string(queryBytes), querySeparator)
 	for _, query := range queries {
-		query = strings.TrimSpace(query)
-		if len(query) <= 0 {
+		query = trimQuery(query)
+		if len(query) <= 0 || strings.HasPrefix(query, ignorePrefix) {
 			continue
 		}
 		t.Run(formalizeQuery(query), func(t *testing.T) {
