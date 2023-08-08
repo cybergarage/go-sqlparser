@@ -68,6 +68,22 @@ func (stmt *AlterTable) StatementType() StatementType {
 	return AlterTableStatement
 }
 
+// RenameTable returns the rename table.
+func (stmt *AlterTable) RenameTable() (*Table, bool) {
+	if stmt.renameTableTo == nil {
+		return nil, false
+	}
+	return stmt.renameTableTo, true
+}
+
+// RenameColums returns the rename columns.
+func (stmt *AlterTable) RenameColums() (*Column, *Column, bool) {
+	if stmt.renameColumnFrom == nil || stmt.renameColumnTo == nil {
+		return nil, nil, false
+	}
+	return stmt.renameColumnFrom, stmt.renameColumnTo, true
+}
+
 // String returns the statement string representation.
 func (stmt *AlterTable) String() string {
 	return stmt.Schema.String()
