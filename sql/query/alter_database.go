@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // AlterDatabase is a "ALTER DATABASE" statement.
 type AlterDatabase struct {
 	*Database
@@ -40,5 +42,13 @@ func (stmt *AlterDatabase) RenameTo() *Database {
 
 // String returns the statement string representation.
 func (stmt *AlterDatabase) String() string {
-	return "ALTER DATABASE " + stmt.DatabaseName() + " RENAME TO " + stmt.to.DatabaseName()
+	elems := []string{
+		"ALTER",
+		"DATABASE",
+		stmt.DatabaseName(),
+		"RENAME",
+		"TO",
+		stmt.to.DatabaseName(),
+	}
+	return strings.JoinWithSpace(elems)
 }
