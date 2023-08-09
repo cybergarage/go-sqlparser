@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // AlterTableOption represents an alter table option function.
 type AlterTableOption = func(*AlterTable)
 
@@ -24,6 +26,8 @@ type AlterTable struct {
 	renameTableTo    *Table
 	renameColumnFrom *Column
 	renameColumnTo   *Column
+	addColumn        *Column
+	dropColumn       *Column
 }
 
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
@@ -34,6 +38,8 @@ func NewAlterTableWith(tblName string, opts ...AlterTableOption) *AlterTable {
 		renameTableTo:    nil,
 		renameColumnFrom: nil,
 		renameColumnTo:   nil,
+		addColumn:        nil,
+		dropColumn:       nil,
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -63,6 +69,20 @@ func WithAlterTableRenameColumn(from *Column, to *Column) func(*AlterTable) {
 	}
 }
 
+// WithAlterTableAddColumn sets an add column.
+func WithAlterTableAddColumn(column *Column) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.addColumn = column
+	}
+}
+
+// WithAlterTableDropColumn sets a drop column.
+func WithAlterTableDropColumn(column *Column) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.dropColumn = column
+	}
+}
+
 // StatementType returns the statement type.
 func (stmt *AlterTable) StatementType() StatementType {
 	return AlterTableStatement
@@ -84,7 +104,59 @@ func (stmt *AlterTable) RenameColums() (*Column, *Column, bool) {
 	return stmt.renameColumnFrom, stmt.renameColumnTo, true
 }
 
+// AddColum returns the add column.
+func (stmt *AlterTable) AddColum() (*Column, bool) {
+	if stmt.addColumn == nil {
+		return nil, false
+	}
+	return stmt.addColumn, true
+}
+
+// DropColum returns the drop column.
+func (stmt *AlterTable) DropColum() (*Column, bool) {
+	if stmt.dropColumn == nil {
+		return nil, false
+	}
+	return stmt.dropColumn, true
+}
+
 // String returns the statement string representation.
 func (stmt *AlterTable) String() string {
-	return stmt.Schema.String()
+	elems := []string{
+		"ALTER",
+		"TABLE",
+	}
+	if tbl, ok := stmt.RenameTable(); ok {
+		elems = append(elems,
+			[]string{
+				"RENAME",
+				"TO",
+				tbl.String(),
+			}...)
+	}
+	if f, t, ok := stmt.RenameColums(); ok {
+		elems = append(elems,
+			[]string{
+				"RENAME",
+				"COLUMN",
+				f.Name(),
+				"TO",
+				t.Name(),
+			}...)
+	}
+	if c, ok := stmt.AddColum(); ok {
+		elems = append(elems,
+			[]string{
+				"ADD",
+				c.DefString(),
+			}...)
+	}
+	if c, ok := stmt.DropColum(); ok {
+		elems = append(elems,
+			[]string{
+				"DROP",
+				c.Name(),
+			}...)
+	}
+	return strings.JoinWithSpace(elems)
 }
