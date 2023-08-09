@@ -1,0 +1,7 @@
+"Query Type",Operation,"SQL99","PostgreSQL","MySQL","SQLite3"
+"ALTER DATABSE",TO,,,,
+"ALTER TABLE",RENAME TABLE,,"O",,
+,RENAME COLUMN,,"O",,
+,ADD  COLUMN,,"O",,
+,ADD CONSTRAINT,,"O",,
+,ADD CONSTRAINT INDEX,,"O",,
