@@ -1,0 +1,6 @@
+= Query Types
+
+[format="csv", options="header, autowidth"]
+|====
+include::csv/query_types.csv[]
+|====
