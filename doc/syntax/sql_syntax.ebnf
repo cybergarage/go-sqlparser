@@ -1,0 +1,43 @@
+<sql_query> ::= <select_query> | <insert_query> | <update_query> | <delete_query>
+
+<select_query> ::= SELECT <select_list> FROM <table_list> [WHERE <search_condition>]
+
+<select_list> ::= <asterisk> | <column_list>
+
+<column_list> ::= <column> [, <column>]*
+
+<table_list> ::= <table> [, <table>]*
+
+<search_condition> ::= <boolean_term> [OR <boolean_term>]*
+
+<boolean_term> ::= <boolean_factor> [AND <boolean_factor>]*
+
+<boolean_factor> ::= [NOT] <boolean_test>
+
+<boolean_test> ::= <search_condition> | <comparison>
+
+<comparison> ::= <column> <comp_op> <value>
+
+<comp_op> ::= = | <> | < | > | <= | >=
+
+<value> ::= <string> | <number>
+
+<insert_query> ::= INSERT INTO <table> [(<column_list>)] VALUES (<value_list>)
+
+<value_list> ::= <value> [, <value>]*
+
+<update_query> ::= UPDATE <table> SET <set_clause> [WHERE <search_condition>]
+
+<set_clause> ::= <column> = <value> [, <column> = <value>]*
+
+<delete_query> ::= DELETE FROM <table> [WHERE <search_condition>]
+
+<asterisk> ::= *
+<column> ::= <identifier>
+<table> ::= <identifier>
+<string> ::= '<character>+' | "<character>+" 
+<number> ::= <digit>+
+<identifier> ::= <letter> <letter_or_digit>*
+<letter> ::= A | B | C | ... | Z | a | b | c | ... | z
+<letter_or_digit> ::= <letter> | <digit>
+<digit> ::= 0 | 1 | 2 | ... | 9
