@@ -1,0 +1,81 @@
+lexer grammar SQL92Lexer;
+
+// Keywords
+SELECT: 'SELECT';
+FROM: 'FROM';
+WHERE: 'WHERE';
+AND: 'AND';
+OR: 'OR';
+NOT: 'NOT';
+IN: 'IN';
+BETWEEN: 'BETWEEN';
+LIKE: 'LIKE';
+IS: 'IS';
+NULL: 'NULL';
+AS: 'AS';
+DISTINCT: 'DISTINCT';
+GROUP: 'GROUP';
+BY: 'BY';
+HAVING: 'HAVING';
+ORDER: 'ORDER';
+ASC: 'ASC';
+DESC: 'DESC';
+INSERT: 'INSERT';
+INTO: 'INTO';
+VALUES: 'VALUES';
+UPDATE: 'UPDATE';
+SET: 'SET';
+DELETE: 'DELETE';
+CREATE: 'CREATE';
+TABLE: 'TABLE';
+PRIMARY: 'PRIMARY';
+KEY: 'KEY';
+FOREIGN: 'FOREIGN';
+REFERENCES: 'REFERENCES';
+INDEX: 'INDEX';
+UNIQUE: 'UNIQUE';
+DROP: 'DROP';
+ALTER: 'ALTER';
+ADD: 'ADD';
+COLUMN: 'COLUMN';
+MODIFY: 'MODIFY';
+RENAME: 'RENAME';
+TO: 'TO';
+
+// Operators
+PLUS: '+';
+MINUS: '-';
+ASTERISK: '*';
+SLASH: '/';
+PERCENT: '%';
+EQUALS: '=';
+NOT_EQUALS: '<>';
+LESS_THAN: '<';
+LESS_THAN_OR_EQUALS: '<=';
+GREATER_THAN: '>';
+GREATER_THAN_OR_EQUALS: '>=';
+LPAREN: '(';
+RPAREN: ')';
+COMMA: ',';
+DOT: '.';
+SEMICOLON: ';';
+COLON: ':';
+DOUBLE_COLON: '::';
+AT_SIGN: '@';
+HASH: '#';
+
+// Literals
+INTEGER_LITERAL: DIGIT+;
+DECIMAL_LITERAL: DIGIT+ '.' DIGIT+;
+STRING_LITERAL: '\'' ( ~'\'' | '\'''\'' )* '\'';
+IDENTIFIER: LETTER ( LETTER | DIGIT | '_' )*;
+
+// Whitespace
+WHITESPACE: [ \t\r\n]+ -> skip;
+
+// Comments
+LINE_COMMENT: '--' ~[\r\n]* -> skip;
+BLOCK_COMMENT: '/*' .*? '*/' -> skip;
+
+fragment LETTER: [a-zA-Z];
+fragment DIGIT: [0-9];
