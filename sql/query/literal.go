@@ -83,6 +83,9 @@ func (lit *Literal) ValueType() LiteralType {
 
 // ValueString returns the string representation.
 func (lit *Literal) ValueString() string {
+	if lit == nil {
+		return ""
+	}
 	switch lit.t {
 	case StringLiteral:
 		return strings.EscapeString(fmt.Sprintf("%v", lit.v))
