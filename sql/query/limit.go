@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"strconv"
+)
+
 // Limit represents a LIMIT clause.
 type Limit struct {
 	offset int
@@ -36,6 +40,18 @@ func NewLimitWith(offset int, limit int) *Limit {
 	}
 }
 
+// SetLimit sets the limit.
+func (limit *Limit) SetLimit(n int) *Limit {
+	limit.limit = n
+	return limit
+}
+
+// SetOffset sets the offset.
+func (limit *Limit) SetOffset(n int) *Limit {
+	limit.offset = n
+	return limit
+}
+
 // Offset returns the offset.
 func (limit *Limit) Offset() int {
 	return limit.offset
@@ -44,4 +60,15 @@ func (limit *Limit) Offset() int {
 // Limit returns the limit.
 func (limit *Limit) Limit() int {
 	return limit.limit
+}
+
+// String returns the string representation.
+func (limit *Limit) String() string {
+	if limit.offset <= 0 && limit.limit <= 0 {
+		return ""
+	}
+	if limit.offset <= 0 {
+		return "LIMIT " + strconv.Itoa(limit.limit)
+	}
+	return "LIMIT " + strconv.Itoa(limit.limit) + "OFFSET " + strconv.Itoa(limit.offset)
 }
