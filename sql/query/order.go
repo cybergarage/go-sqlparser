@@ -14,24 +14,24 @@
 
 package query
 
-// OrderType represents an ordertype.
-type OrderType uint8
+// Order represents an ordertype.
+type Order uint8
 
 const (
-	// OrderTypeNone represents none order.
-	OrderTypeNone OrderType = iota
-	// OrderTypeAsc represents asc order.
-	OrderTypeAsc
-	// OrderTypeDesc represents desc order.
-	OrderTypeDesc
+	// OrderNone represents none order.
+	OrderNone Order = iota
+	// OrderAsc represents asc order.
+	OrderAsc
+	// OrderDesc represents desc order.
+	OrderDesc
 )
 
 // String returns the string representation.
-func (t OrderType) String() string {
+func (t Order) String() string {
 	switch t {
-	case OrderTypeAsc:
+	case OrderAsc:
 		return "ASC"
-	case OrderTypeDesc:
+	case OrderDesc:
 		return "DESC"
 	default:
 		return "NONE"
