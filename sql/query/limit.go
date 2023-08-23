@@ -16,6 +16,8 @@ package query
 
 import (
 	"strconv"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 // Limit represents a LIMIT clause.
@@ -64,11 +66,12 @@ func (limit *Limit) Limit() int {
 
 // String returns the string representation.
 func (limit *Limit) String() string {
-	if limit.offset <= 0 && limit.limit <= 0 {
-		return ""
-	}
+	strs := []string{}
 	if limit.offset <= 0 {
-		return "LIMIT " + strconv.Itoa(limit.limit)
+		strs = append(strs, "LIMIT", strconv.Itoa(limit.limit))
 	}
-	return "LIMIT " + strconv.Itoa(limit.limit) + "OFFSET " + strconv.Itoa(limit.offset)
+	if 0 < limit.offset {
+		strs = append(strs, "OFFSET", strconv.Itoa(limit.offset))
+	}
+	return strings.JoinWithSpace(strs)
 }
