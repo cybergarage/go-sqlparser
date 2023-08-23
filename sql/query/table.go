@@ -26,7 +26,12 @@ func NewTableWith(name string) *Table {
 	}
 }
 
-// TableName returns the table name.
+// Name returns the table name.
+func (tbl *Table) Name() string {
+	return tbl.name
+}
+
+// TableName returns the table name for embedded use.
 func (tbl *Table) TableName() string {
 	return tbl.name
 }
