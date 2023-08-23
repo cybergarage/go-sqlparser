@@ -21,6 +21,8 @@ type Select struct {
 	TableList
 	ColumnList
 	*Condition
+	*OrderBy
+	*Limit
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
@@ -29,6 +31,8 @@ func NewSelectWith(columns ColumnList, tbls TableList, w *Condition) *Select {
 		ColumnList: columns,
 		TableList:  tbls,
 		Condition:  w,
+		OrderBy:    NewOrderBy(),
+		Limit:      NewLimit(),
 	}
 }
 
@@ -52,5 +56,7 @@ func (stmt *Select) String() string {
 	if stmt.Condition != nil {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
+	strs = append(strs, stmt.OrderBy.String())
+	strs = append(strs, stmt.Limit.String())
 	return strings.JoinWithSpace(strs)
 }
