@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // Order represents an ordertype.
 type Order uint8
 
@@ -40,28 +42,28 @@ func (t Order) String() string {
 
 // OrderBy represents an ORDER BY clause.
 type OrderBy struct {
-	name  string
-	order Order
+	column string
+	order  Order
 }
 
 // NewOrderBy returns a new OrderBy instance.
 func NewOrderBy() *OrderBy {
 	return &OrderBy{
-		name:  "",
-		order: OrderNone,
+		column: "",
+		order:  OrderNone,
 	}
 }
 
-func NewOrderByWith(name string, order Order) *OrderBy {
+func NewOrderByWith(column string, order Order) *OrderBy {
 	return &OrderBy{
-		name:  name,
-		order: order,
+		column: column,
+		order:  order,
 	}
 }
 
-// SetName sets the name.
-func (orderBy *OrderBy) SetName(name string) *OrderBy {
-	orderBy.name = name
+// SetColumn sets the column name.
+func (orderBy *OrderBy) SetColumn(name string) *OrderBy {
+	orderBy.column = name
 	return orderBy
 }
 
@@ -71,9 +73,9 @@ func (orderBy *OrderBy) SetOrder(order Order) *OrderBy {
 	return orderBy
 }
 
-// Name returns the name.
-func (orderBy *OrderBy) Name() string {
-	return orderBy.name
+// Column returns the column name.
+func (orderBy *OrderBy) Column() string {
+	return orderBy.column
 }
 
 // Order returns the order.
@@ -101,5 +103,10 @@ func (orderBy *OrderBy) String() string {
 	if orderBy.IsNone() {
 		return ""
 	}
-	return "ORDER BY" + orderBy.name + " " + orderBy.order.String()
+	return strings.JoinWithSpace(
+		[]string{
+			"ORDER BY",
+			orderBy.column,
+			orderBy.order.String(),
+		})
 }
