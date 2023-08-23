@@ -4,12 +4,16 @@
 - Update
   - SELECT
     - Support subqueries
+- Add new ANTLR parser
 
 ## v1.0.0 (2023-xx-xx)
 - Fix parser and query interfaces
 - Support new statements
   - ALTER DATABASE
   - ALTER TABLE 
+- Support
+  - SELECT
+    - LIMIT, ORDER BY
 
 ## v0.9.2 (2023-08-18)
 - Support new statements
