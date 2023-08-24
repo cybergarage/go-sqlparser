@@ -51,6 +51,11 @@ func (stmt *Update) TableName() string {
 	return stmt.table.TableName()
 }
 
+// To returns the table.
+func (stmt *Delete) To() *Table {
+	return stmt.table
+}
+
 // String returns the statement string representation.
 func (stmt *Update) String() string {
 	strs := []string{
