@@ -22,7 +22,7 @@ import (
 
 // Update is a "UPDATE" statement.
 type Update struct {
-	*Table
+	table *Table
 	ColumnList
 	*Condition
 }
@@ -30,7 +30,7 @@ type Update struct {
 // NewUpdateWith returns a new Update statement instance with the specified parameters.
 func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *Update {
 	return &Update{
-		Table:      tbl,
+		table:      tbl,
 		ColumnList: columns,
 		Condition:  w,
 	}
@@ -41,11 +41,21 @@ func (stmt *Update) StatementType() StatementType {
 	return UpdateStatement
 }
 
+// Table returns the table.
+func (stmt *Update) Table() *Table {
+	return stmt.table
+}
+
+// TableName returns the table name.
+func (stmt *Update) TableName() string {
+	return stmt.table.TableName()
+}
+
 // String returns the statement string representation.
 func (stmt *Update) String() string {
 	strs := []string{
 		"UPDATE",
-		stmt.Table.String(),
+		stmt.table.String(),
 		"SET",
 	}
 	for _, colum := range stmt.ColumnList {
