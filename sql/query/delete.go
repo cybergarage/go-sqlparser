@@ -37,6 +37,11 @@ func (stmt *Delete) StatementType() StatementType {
 	return DeleteStatement
 }
 
+// From returns the table.
+func (stmt *Delete) From() *Table {
+	return stmt.Table
+}
+
 // String returns the statement string representation.
 func (stmt *Delete) String() string {
 	strs := []string{
