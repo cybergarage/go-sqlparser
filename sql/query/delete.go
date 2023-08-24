@@ -20,14 +20,14 @@ import (
 
 // Delete is a "DELETE" statement.
 type Delete struct {
-	*Table
+	table *Table
 	*Condition
 }
 
 // NewDeleteWith returns a new Delete statement instance with the specified parameters.
 func NewDeleteWith(tbl *Table, w *Condition) *Delete {
 	return &Delete{
-		Table:     tbl,
+		table:     tbl,
 		Condition: w,
 	}
 }
@@ -37,9 +37,19 @@ func (stmt *Delete) StatementType() StatementType {
 	return DeleteStatement
 }
 
+// Table returns the table.
+func (stmt *Delete) Table() *Table {
+	return stmt.table
+}
+
+// TableName returns the table name.
+func (stmt *Delete) TableName() string {
+	return stmt.table.TableName()
+}
+
 // From returns the table.
 func (stmt *Delete) From() *Table {
-	return stmt.Table
+	return stmt.table
 }
 
 // String returns the statement string representation.
@@ -47,7 +57,7 @@ func (stmt *Delete) String() string {
 	strs := []string{
 		"DELETE",
 		"FROM",
-		stmt.Table.String(),
+		stmt.table.String(),
 	}
 	if stmt.Condition != nil {
 		strs = append(strs, "WHERE", stmt.Condition.String())
