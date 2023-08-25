@@ -25,6 +25,10 @@ const (
 	SecondaryIndex IndexType = 2
 )
 
+const (
+	primaryIndexName = "_pk"
+)
+
 // String returns the string representation.
 func (t IndexType) String() string {
 	switch t {
@@ -56,7 +60,7 @@ func NewIndexWith(name string, t IndexType, columns ColumnList) *Index {
 
 // NewPrimaryIndexWith returns a new primary index instance.
 func NewPrimaryIndexWith(columns ColumnList) *Index {
-	return NewIndexWith("", PrimaryIndex, columns)
+	return NewIndexWith(primaryIndexName, PrimaryIndex, columns)
 }
 
 // NewSecondaryIndexWith returns a new secondary index instance.
