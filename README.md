@@ -4,7 +4,9 @@
 [![test](https://github.com/cybergarage/go-sqlparser/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/go-sqlparser/actions/workflows/make.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/cybergarage/go-sqlparser.svg)](https://pkg.go.dev/github.com/cybergarage/go-sqlparser)
 
-The go-sqlparser is a simple SQL parser for SQL92 standard ....
+The go-sqlparser is a simple SQL parser for SQL92 standard to develop SQL based applications easily.
 
+<!--
 - [SQL Conformance](doc/conformance.md)
   - [Data Types](doc/data_types.md)
+-->
