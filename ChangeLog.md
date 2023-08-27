@@ -5,12 +5,12 @@
   - SELECT
     - Support subqueries
 - Add new ANTLR parser
-
-## v1.0.0 (2023-xx-xx)
-- Fix parser and query interfaces
 - Support new statements
   - ALTER DATABASE
   - ALTER TABLE 
+
+## v1.0.0 (2023-08-27)
+- Fix parser and query interfaces
 - Support
   - SELECT
     - LIMIT, ORDER BY
