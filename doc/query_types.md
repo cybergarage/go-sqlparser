@@ -32,7 +32,7 @@
 <td style="text-align: left;"><p>ALTER TABLE</p></td>
 <td style="text-align: left;"><p>RENAME TABLE</p></td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
@@ -40,7 +40,31 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>RENAME COLUMN</p></td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>ADD COLUMN</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>ADD CONSTRAINT</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>ADD CONSTRAINT INDEX</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
