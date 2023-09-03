@@ -1,0 +1,15 @@
+INSERT INTO test (ctext, cint) VALUES ('a', -1);
+INSERT INTO test (ctext, cint) VALUES ('a', -2147483648);
+INSERT INTO test (ctext, cint) VALUES ('ab', -2147483648);
+INSERT INTO test (ctext, cint) VALUES ('abc', 0);
+INSERT INTO test (ctext, cint) VALUES ('ab', -1);
+INSERT INTO test (ctext, cint) VALUES ('a', 0);
+INSERT INTO test (ctext, cint) VALUES ('ab', 0);
+INSERT INTO test (ctext, cint) VALUES ('a', 1);
+INSERT INTO test (ctext, cint) VALUES ('a', 2147483647);
+INSERT INTO test (ctext, cint) VALUES ('ab', 1);
+INSERT INTO test (ctext, cint) VALUES ('abc', -2147483648);
+INSERT INTO test (ctext, cint) VALUES ('abc', -1);
+INSERT INTO test (ctext, cint) VALUES ('abc', 2147483647);
+INSERT INTO test (ctext, cint) VALUES ('abc', 1);
+INSERT INTO test (ctext, cint) VALUES ('ab', 2147483647);
