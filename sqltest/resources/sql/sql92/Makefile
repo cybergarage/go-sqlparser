@@ -22,4 +22,4 @@ all: queries
 QUERY_FILES = \
 	insert.sql
 
-queries: ${PICT_TESTS}
+queries: ${QUERY_FILES}
