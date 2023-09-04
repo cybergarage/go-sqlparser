@@ -26,7 +26,7 @@ while(<IN>){
   for (my $pr_key_idx = 0; $pr_key_idx < scalar(@row); $pr_key_idx++) {
     my $type_name = lc($data_type_row[$pr_key_idx]);
     my $column_name = "c" . $type_name;
-    print "DELETE * FROM ${tbl_name} WHERE $column_name = $row[$pr_key_idx];\n";  
+    print "DELETE FROM ${tbl_name} WHERE $column_name = $row[$pr_key_idx];\n";  
   }
 }
 close(IN);
