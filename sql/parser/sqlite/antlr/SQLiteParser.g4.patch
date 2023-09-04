@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Tue Aug  8 22:03:54 2023
---- SQLiteParser.g4	Tue Aug  8 22:03:57 2023
+*** SQLiteParser.g4.new	Mon Sep  4 22:43:59 2023
+--- SQLiteParser.g4	Mon Sep  4 22:44:43 2023
 ***************
 *** 42,54 ****
   ;
@@ -437,18 +437,20 @@
           IGNORE_
 --- 307,312 ----
 ***************
-*** 425,431 ****
+*** 424,431 ****
+  ;
   
   literal_value:
-      NUMERIC_LITERAL
+!     signed_number
 !     | string_literal
       | BLOB_LITERAL
       | NULL_
       | TRUE_
---- 316,322 ----
+--- 315,322 ----
+  ;
   
   literal_value:
-      NUMERIC_LITERAL
+!     NUMERIC_LITERAL
 !     | STRING_LITERAL
       | BLOB_LITERAL
       | NULL_

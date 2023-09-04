@@ -424,7 +424,7 @@ raise_function:
 ;
 
 literal_value:
-    NUMERIC_LITERAL
+    signed_number
     | string_literal
     | BLOB_LITERAL
     | NULL_
