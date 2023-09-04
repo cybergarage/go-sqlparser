@@ -20,6 +20,10 @@ all: queries
 	perl $< > $@
 
 QUERY_FILES = \
-	insert.sql
+	create_table.sql \
+	insert.sql \
+	select.sql \
+	update.sql \
+	delete.sql
 
 queries: ${QUERY_FILES}
