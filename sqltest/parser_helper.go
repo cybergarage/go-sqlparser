@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	sqlTestResourceQueriesDirectory = "resources/sql/"
+	sqlTestResourceQueriesDirectory = "res/sql/"
 	querySeparator                  = ";"
 	ignorePrefix                    = "#"
 )
