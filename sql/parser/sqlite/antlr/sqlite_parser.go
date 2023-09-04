@@ -855,7 +855,7 @@ func sqliteparserParserInit() {
 		5, 116, 0, 0, 1291, 1296, 5, 3, 0, 0, 1292, 1297, 5, 82, 0, 0, 1293, 1294,
 		7, 14, 0, 0, 1294, 1295, 5, 5, 0, 0, 1295, 1297, 3, 230, 115, 0, 1296,
 		1292, 1, 0, 0, 0, 1296, 1293, 1, 0, 0, 0, 1297, 1298, 1, 0, 0, 0, 1298,
-		1299, 5, 4, 0, 0, 1299, 111, 1, 0, 0, 0, 1300, 1310, 5, 188, 0, 0, 1301,
+		1299, 5, 4, 0, 0, 1299, 111, 1, 0, 0, 0, 1300, 1310, 3, 54, 27, 0, 1301,
 		1310, 3, 116, 58, 0, 1302, 1310, 5, 191, 0, 0, 1303, 1310, 5, 105, 0, 0,
 		1304, 1310, 5, 174, 0, 0, 1305, 1310, 5, 175, 0, 0, 1306, 1310, 5, 54,
 		0, 0, 1307, 1310, 5, 53, 0, 0, 1308, 1310, 5, 55, 0, 0, 1309, 1300, 1,
@@ -18035,7 +18035,7 @@ type ILiteral_valueContext interface {
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	NUMERIC_LITERAL() antlr.TerminalNode
+	Signed_number() ISigned_numberContext
 	String_literal() IString_literalContext
 	BLOB_LITERAL() antlr.TerminalNode
 	NULL_() antlr.TerminalNode
@@ -18081,8 +18081,20 @@ func NewLiteral_valueContext(parser antlr.Parser, parent antlr.ParserRuleContext
 
 func (s *Literal_valueContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *Literal_valueContext) NUMERIC_LITERAL() antlr.TerminalNode {
-	return s.GetToken(SQLiteParserNUMERIC_LITERAL, 0)
+func (s *Literal_valueContext) Signed_number() ISigned_numberContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(ISigned_numberContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ISigned_numberContext)
 }
 
 func (s *Literal_valueContext) String_literal() IString_literalContext {
@@ -18169,15 +18181,11 @@ func (p *SQLiteParser) Literal_value() (localctx ILiteral_valueContext) {
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case SQLiteParserNUMERIC_LITERAL:
+	case SQLiteParserPLUS, SQLiteParserMINUS, SQLiteParserNUMERIC_LITERAL:
 		p.EnterOuterAlt(localctx, 1)
 		{
 			p.SetState(1300)
-			p.Match(SQLiteParserNUMERIC_LITERAL)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
+			p.Signed_number()
 		}
 
 	case SQLiteParserSTRING_LITERAL:
