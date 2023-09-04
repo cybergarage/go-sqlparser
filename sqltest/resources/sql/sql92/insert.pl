@@ -8,7 +8,7 @@ use warnings;
 
 my $data_type_file = "data/data_type.pict";
 if (1 <= @ARGV){
-  $data_type_file = lc($ARGV[0]);
+  $data_type_file = $ARGV[0];
 }
 
 open(IN, $data_type_file) or die "Failed to open $data_type_file: $!";
