@@ -9,6 +9,10 @@
   - ALTER DATABASE
   - ALTER TABLE 
 
+## v1.0.1 (2023-09-xx)
+- Fix parser to enable parsing of signed numbers
+- Add test queries using PICT
+
 ## v1.0.0 (2023-08-27)
 - Fix parser and query interfaces
 - Support
