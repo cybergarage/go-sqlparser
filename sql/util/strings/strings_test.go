@@ -98,6 +98,7 @@ func TestSplitDataTypeString(t *testing.T) {
 		{"", "", -1},
 		{"abc", "abc", -1},
 		{"abc(10)", "abc", 10},
+		{"abc abc", "abc abc", -1},
 	}
 
 	for _, testCase := range testCases {
