@@ -63,12 +63,14 @@ func (stmt *Update) String() string {
 		stmt.table.String(),
 		"SET",
 	}
+	colums := []string{}
 	for _, colum := range stmt.ColumnList {
 		name := colum.Name()
 		value := colum.ValueString()
-		str := fmt.Sprintf("%s = %s", name, value)
-		strs = append(strs, str)
+		colum_set := fmt.Sprintf("%s = %s", name, value)
+		colums = append(colums, colum_set)
 	}
+	strs = append(strs, strings.JoinWithComma(colums))
 	if stmt.Condition != nil {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
