@@ -57,9 +57,12 @@ func SplitDataTypeString(s string) (string, int) {
 	dataType := elems[0]
 	dataSize := -1
 	if 2 <= len(elems) {
-		i, err := strconv.Atoi(elems[1])
+		elem := elems[1]
+		i, err := strconv.Atoi(elem)
 		if err == nil {
 			dataSize = i
+		} else {
+			dataType += sep + elem
 		}
 	}
 	return dataType, dataSize

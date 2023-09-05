@@ -122,14 +122,15 @@ func NewDataWith(t DataType, l int) *DataDef {
 
 // NewDataFrom returns the data type of the specified string.
 func NewDataFrom(s string, l int) (*DataDef, error) {
+	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
-		if dataTypeString == strings.ToUpper(s) {
+		if dataTypeString == us {
 			return NewDataWith(dataType, l), nil
 		}
 	}
 	for dataType, dataTypeString := range dataTypeStrings {
 		dataTypeString = strings.ReplaceAll(dataTypeString, " ", "")
-		if dataTypeString == strings.ToUpper(s) {
+		if dataTypeString == us {
 			return NewDataWith(dataType, l), nil
 		}
 	}
