@@ -1,38 +1,46 @@
 # Changelog
 
-## v1.x.0 (2023-xx-xx)
-- Update
+## v2.0.0 (2023-xx-xx)
+- Improvements
   - SELECT
     - Support subqueries
-- Add new ANTLR parser
+  - Add new ANTLR parser instead of SQLite3 parser
+
+## v1.1.0 (2023-xx-xx)
 - Support new statements
   - ALTER DATABASE
   - ALTER TABLE 
 
-## v1.0.1 (2023-09-xx)
-- Fix parser to enable parsing of signed numbers
-- Add test queries using PICT
+## v1.0.1 (2023-09-05)
+- Improvement
+  -  Parser
+    -  Fixed parser to enable parsing of signed numbers
+    - Testing
+    - Added new test queries using PICT data types
 
 ## v1.0.0 (2023-08-27)
-- Fix parser and query interfaces
-- Support
+- Fixed parser and query interfaces
+- Supported
   - SELECT
     - LIMIT, ORDER BY
 
 ## v0.9.2 (2023-08-18)
-- Support new statements
-  - COMMIT
-  - COPY
-  - TRUNCATE
-  - VACCUM
+- Supported
+  - New statements
+    - COMMIT
+    - COPY
+    - TRUNCATE
+    - VACCUM
 
 ## v0.9.1 (2023-07-28)
-- Support bind parameters
-- Update query interfaces
+- Supported
+  - Bind parameters
+- Updated
+  - Qquery interfaces
 
 ## v0.9.0 (2023-07-04)
 - Initial public release  
-- Support statements (Limited)
+- Supported statements
   - CREATE DATABASE
   - CREATE TABLE
   - CREATE INDEX
