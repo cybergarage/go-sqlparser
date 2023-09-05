@@ -1,0 +1,1 @@
+create table test(key int, v0 real, v1 double precision);
