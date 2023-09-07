@@ -48,10 +48,10 @@ func (stmt *CreateTable) StatementType() StatementType {
 // String returns the statement string representation.
 func (stmt *CreateTable) String() string {
 	columnsStr := "("
-	columnsStr += stmt.schema.ColumnList.DefString()
+	columnsStr += stmt.schema.ColumnList.DefinitionString()
 	if 0 < len(stmt.schema.IndexList) {
 		columnsStr += ", "
-		columnsStr += stmt.schema.IndexList.DefString()
+		columnsStr += stmt.schema.IndexList.DefinitionString()
 	}
 	columnsStr += ")"
 

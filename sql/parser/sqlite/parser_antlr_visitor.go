@@ -198,11 +198,11 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
-		colum := newColumnWith(columDef)
-		columns = append(columns, colum)
+		column := newColumnWith(columDef)
+		columns = append(columns, column)
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
-				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(colum)))
+				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(column)))
 			}
 		}
 	}
@@ -210,8 +210,8 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 		if primaryDef := tblConst.Primary_key_def(); primaryDef != nil {
 			indexColums := query.NewColumns()
 			for _, columDef := range primaryDef.AllIndexed_column() {
-				colum := newIndexedColumnWith(columDef)
-				indexColums = append(indexColums, colum)
+				column := newIndexedColumnWith(columDef)
+				indexColums = append(indexColums, column)
 			}
 			indexes = append(indexes, query.NewPrimaryIndexWith(indexColums))
 		}
@@ -224,8 +224,8 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllIndexed_column() {
-		colum := newIndexedColumnWith(columDef)
-		columns = append(columns, colum)
+		column := newIndexedColumnWith(columDef)
+		columns = append(columns, column)
 	}
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }

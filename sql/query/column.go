@@ -152,10 +152,15 @@ func (col *Column) String() string {
 	return col.name
 }
 
-// String returns the string representation.
-func (col *Column) DefString() string {
+// DefinitionString returns the definition string representation.
+func (col *Column) DefinitionString() string {
 	if col.DataDef == nil {
 		return col.name
 	}
 	return col.name + " " + col.DataDef.String()
+}
+
+// SelectorString returns the selector string representation.
+func (col *Column) SelectorString() string {
+	return col.name
 }

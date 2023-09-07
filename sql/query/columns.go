@@ -48,9 +48,9 @@ func (columns ColumnList) ColumnAt(n int) (*Column, error) {
 
 // ColumnByName returns a column by the specified name.
 func (columns ColumnList) ColumnByName(name string) (*Column, error) {
-	for _, colum := range columns {
-		if colum.Name() == name {
-			return colum, nil
+	for _, column := range columns {
+		if column.Name() == name {
+			return column, nil
 		}
 	}
 	return nil, newErrColumnNotFound(name)
@@ -65,7 +65,7 @@ func (columns ColumnList) Names() []string {
 	return names
 }
 
-// NameString returns a string representation of the the colum names.
+// NameString returns a string representation of the the column names.
 func (columns ColumnList) NameString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
@@ -74,7 +74,7 @@ func (columns ColumnList) NameString() string {
 	return strings.JoinWithComma(strs)
 }
 
-// ValueString returns a string representation of the the colum values.
+// ValueString returns a string representation of the the column values.
 func (columns ColumnList) ValueString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
@@ -98,11 +98,11 @@ func (columns ColumnList) SetSchema(schema *Schema) error {
 	return nil
 }
 
-// DefString returns a string representation of the the colum definitions.
-func (columns ColumnList) DefString() string {
+// DefinitionString returns a string representation of the the column definitions.
+func (columns ColumnList) DefinitionString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
-		strs[n] = col.DefString()
+		strs[n] = col.DefinitionString()
 	}
 	return strings.JoinWithComma(strs)
 }
