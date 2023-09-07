@@ -311,7 +311,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
 		for _, col := range parentQuery.AllResult_column() {
-			sel, err := query.NewSelectorFrom(col)
+			sel, err := newSelectorFrom(col)
 			if err != nil {
 				continue
 			}
@@ -331,6 +331,20 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 		where = query.NewConditionWith(topExpr)
 	}
 	return query.NewSelectWith(sels, tbls, where)
+}
+
+func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
+	expr := ctx.Expr()
+	if expr != nil {
+		if fn := expr.Function(); fn != nil {
+			args := query.NewArguments()
+			for _, arg := range fn.AllExpr() {
+				args = append(args, query.NewArgumentWith(arg.GetText()))
+			}
+			return query.NewFunctionWith(fn.Function_name().GetText(), args...), nil
+		}
+	}
+	return query.NewColumnWithOptions(query.WithColumnName(ctx.GetText())), nil
 }
 
 func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
