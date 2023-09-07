@@ -16,3 +16,8 @@ package query
 
 // Argument represents am argument in a function.
 type Argument string
+
+// NewArgument returns a new argument instance from the specified string.
+func NewArgumentWith(arg string) Argument {
+	return Argument(arg)
+}
