@@ -306,12 +306,12 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 }
 
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
-	cols := query.NewColumns()
+	sels := query.NewSelectors()
 	tbls := query.NewTables()
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
 		for _, col := range parentQuery.AllResult_column() {
-			cols = append(cols, query.NewColumnWithOptions(query.WithColumnName(col.GetText())))
+			sels = append(sels, query.NewColumnWithOptions(query.WithColumnName(col.GetText())))
 		}
 		for _, from := range ctx.GetParentQuery().AllFrom() {
 			if tbl := from.From_table(); tbl != nil {
@@ -326,7 +326,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	if topExpr != nil {
 		where = query.NewConditionWith(topExpr)
 	}
-	return query.NewSelectWith(cols, tbls, where)
+	return query.NewSelectWith(sels, tbls, where)
 }
 
 func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
