@@ -1,5 +1,5 @@
 *** SQLiteLexer.g4.new	Mon Aug  7 21:18:34 2023
---- SQLiteLexer.g4	Mon Sep  4 22:44:43 2023
+--- SQLiteLexer.g4	Fri Sep  8 01:58:15 2023
 ***************
 *** 80,86 ****
   COMMIT_:            'COMMIT';

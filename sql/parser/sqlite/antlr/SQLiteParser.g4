@@ -392,7 +392,7 @@ expr:
     ) expr
     | expr AND_ expr
     | expr OR_ expr
-    | function_name OPEN_PAR ((DISTINCT_? expr ( COMMA expr)*) | STAR)? CLOSE_PAR filter_clause? over_clause?
+    | function
     | OPEN_PAR expr (COMMA expr)* CLOSE_PAR
     | CAST_ OPEN_PAR expr AS_ type_name CLOSE_PAR
     | expr COLLATE_ collation_name
@@ -410,6 +410,10 @@ expr:
     | ((NOT_)? EXISTS_)? OPEN_PAR select_stmt CLOSE_PAR
     | CASE_ expr? (WHEN_ expr THEN_ expr)+ (ELSE_ expr)? END_
     | raise_function
+;
+
+function:
+    function_name OPEN_PAR ((DISTINCT_? expr ( COMMA expr)*) | STAR)? CLOSE_PAR filter_clause? over_clause?
 ;
 
 comparison_expr:

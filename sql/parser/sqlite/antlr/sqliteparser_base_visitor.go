@@ -223,6 +223,10 @@ func (v *BaseSQLiteParserVisitor) VisitExpr(ctx *ExprContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitFunction(ctx *FunctionContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitComparison_expr(ctx *Comparison_exprContext) interface{} {
 	return v.VisitChildren(ctx)
 }
