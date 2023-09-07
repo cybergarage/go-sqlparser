@@ -21,3 +21,8 @@ type Selector interface {
 	// SelectorString returns a string representation of the selector.
 	SelectorString() string
 }
+
+// NewSelector returns a new selector instance from the specified name.
+func NewSelectorFromString(str string) (Selector, error) {
+	return NewColumnWithOptions(WithColumnName(str)), nil
+}
