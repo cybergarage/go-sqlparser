@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
+
 // Selector represents a selector in a select query.
 type Selector interface {
 	// Name returns the name of the selector.
@@ -22,7 +24,7 @@ type Selector interface {
 	SelectorString() string
 }
 
-// NewSelector returns a new selector instance from the specified name.
-func NewSelectorFromString(str string) (Selector, error) {
-	return NewColumnWithOptions(WithColumnName(str)), nil
+// NewSelectorFrom returns a new selector instance from the specified context.
+func NewSelectorFrom(ctx antlr.IResult_columnContext) (Selector, error) {
+	return NewColumnWithOptions(WithColumnName(ctx.GetText())), nil
 }
