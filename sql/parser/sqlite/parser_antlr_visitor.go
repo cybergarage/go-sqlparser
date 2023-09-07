@@ -311,7 +311,11 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
 		for _, col := range parentQuery.AllResult_column() {
-			sels = append(sels, query.NewColumnWithOptions(query.WithColumnName(col.GetText())))
+			sel, err := query.NewSelectorFromString(col.GetText())
+			if err != nil {
+				continue
+			}
+			sels = append(sels, sel)
 		}
 		for _, from := range ctx.GetParentQuery().AllFrom() {
 			if tbl := from.From_table(); tbl != nil {
