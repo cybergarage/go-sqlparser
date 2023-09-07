@@ -1,15 +1,18 @@
 # Changelog
 
 ## v2.0.0 (2023-xx-xx)
-- Improvements
+- Update
   - SELECT
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
 ## v1.1.0 (2023-xx-xx)
-- Support new statements
+- Support
   - ALTER DATABASE
   - ALTER TABLE 
+- Update
+  - SELECT
+    - Support functions
 
 ## v1.0.1 (2023-09-05)
 - Improvement
