@@ -22,20 +22,20 @@ type SelectOption = func(*Select)
 // Select is a "SELECT" statement.
 type Select struct {
 	TableList
-	ColumnList
+	SelectorList
 	*Condition
 	orderBy *OrderBy
 	limit   *Limit
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(columns ColumnList, tbls TableList, w *Condition, opts ...SelectOption) *Select {
+func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ...SelectOption) *Select {
 	stmt := &Select{
-		ColumnList: columns,
-		TableList:  tbls,
-		Condition:  w,
-		orderBy:    NewOrderBy(),
-		limit:      NewLimit(),
+		SelectorList: selectors,
+		TableList:    tbls,
+		Condition:    w,
+		orderBy:      NewOrderBy(),
+		limit:        NewLimit(),
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -84,13 +84,13 @@ func (stmt *Select) Limit() *Limit {
 
 // String returns the statement string representation.
 func (stmt *Select) String() string {
-	columnsStr := "*"
-	if 0 < len(stmt.ColumnList) {
-		columnsStr = stmt.ColumnList.NameString()
+	selectorStr := "*"
+	if 0 < len(stmt.SelectorList) {
+		selectorStr = stmt.SelectorList.SelectorString()
 	}
 	strs := []string{
 		"SELECT",
-		columnsStr,
+		selectorStr,
 		"FROM",
 		stmt.TableList.String(),
 	}
