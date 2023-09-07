@@ -21,7 +21,12 @@ import (
 // ArgumentList represens an argument array in a function.
 type ArgumentList []Argument
 
-// NewArgumentsWith returns a argument array instance with the specified arguments.
+// NewArguments returns an empty argument array instance.
+func NewArguments() ArgumentList {
+	return make(ArgumentList, 0)
+}
+
+// NewArgumentsWith returns an argument array instance with the specified arguments.
 func NewArgumentsWith(args ...Argument) ArgumentList {
 	list := make(ArgumentList, len(args))
 	copy(list, args)
