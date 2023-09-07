@@ -169,6 +169,9 @@ type SQLiteParserListener interface {
 	// EnterExpr is called when entering the expr production.
 	EnterExpr(c *ExprContext)
 
+	// EnterFunction is called when entering the function production.
+	EnterFunction(c *FunctionContext)
+
 	// EnterComparison_expr is called when entering the comparison_expr production.
 	EnterComparison_expr(c *Comparison_exprContext)
 
@@ -600,6 +603,9 @@ type SQLiteParserListener interface {
 
 	// ExitExpr is called when exiting the expr production.
 	ExitExpr(c *ExprContext)
+
+	// ExitFunction is called when exiting the function production.
+	ExitFunction(c *FunctionContext)
 
 	// ExitComparison_expr is called when exiting the comparison_expr production.
 	ExitComparison_expr(c *Comparison_exprContext)
