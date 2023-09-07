@@ -31,11 +31,11 @@ func (indexes IndexList) Indexes() IndexList {
 	return indexes
 }
 
-// DefString returns the index definition string representation.
-func (indexes IndexList) DefString() string {
+// DefinitionString returns the index definition string representation.
+func (indexes IndexList) DefinitionString() string {
 	elems := make([]string, len(indexes))
 	for n, index := range indexes {
-		elems[n] = index.DefString()
+		elems[n] = index.DefinitionString()
 	}
 	return strings.Join(elems, ",")
 }

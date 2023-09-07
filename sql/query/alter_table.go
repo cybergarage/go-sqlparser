@@ -148,7 +148,7 @@ func (stmt *AlterTable) String() string {
 		elems = append(elems,
 			[]string{
 				"ADD",
-				c.DefString(),
+				c.DefinitionString(),
 			}...)
 	}
 	if c, ok := stmt.DropColum(); ok {

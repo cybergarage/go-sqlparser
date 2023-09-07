@@ -64,9 +64,9 @@ func (stmt *Update) String() string {
 		"SET",
 	}
 	colums := []string{}
-	for _, colum := range stmt.ColumnList {
-		name := colum.Name()
-		value := colum.ValueString()
+	for _, column := range stmt.ColumnList {
+		name := column.Name()
+		value := column.ValueString()
 		colum_set := fmt.Sprintf("%s = %s", name, value)
 		colums = append(colums, colum_set)
 	}

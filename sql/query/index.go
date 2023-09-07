@@ -84,8 +84,8 @@ func (idx *Index) String() string {
 	return idx.name
 }
 
-// DefString returns the index definition string representation.
-func (idx *Index) DefString() string {
+// DefinitionString returns the index definition string representation.
+func (idx *Index) DefinitionString() string {
 	s := idx.typ.String()
 	s += " ("
 	s += strings.Join(idx.ColumnList.Names(), ", ")
