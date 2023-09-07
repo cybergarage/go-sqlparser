@@ -338,8 +338,12 @@ func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
 	if expr != nil {
 		if fn := expr.Function(); fn != nil {
 			args := query.NewArguments()
-			for _, arg := range fn.AllExpr() {
-				args = append(args, query.NewArgumentWith(arg.GetText()))
+			if star := fn.STAR(); star != nil {
+				args = append(args, query.NewArgumentWith(star.GetText()))
+			} else {
+				for _, arg := range fn.AllExpr() {
+					args = append(args, query.NewArgumentWith(arg.GetText()))
+				}
 			}
 			return query.NewFunctionWith(fn.Function_name().GetText(), args...), nil
 		}
