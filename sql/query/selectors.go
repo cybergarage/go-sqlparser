@@ -38,6 +38,18 @@ func (selectors SelectorList) Selectors() SelectorList {
 	return selectors
 }
 
+// IsSelectAll returns true if the column list is "*".
+func (columns SelectorList) IsSelectAll() bool {
+	l := len(columns)
+	switch {
+	case l == 1:
+		return columns[0].Name() == Asterisk
+	case l == 0:
+		return true
+	}
+	return false
+}
+
 // SelectorString returns a string representation of the selector array.
 func (selectors SelectorList) SelectorString() string {
 	strs := make([]string, len(selectors))
