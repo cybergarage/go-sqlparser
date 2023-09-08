@@ -193,6 +193,10 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 		column := newColumnWith(ctx.Column_def())
 		opts = append(opts, query.WithAlterTableAddColumn(column))
 	}
+	if ctx := ctx.Drop_column(); ctx != nil {
+		column := query.NewColumnWithOptions(query.WithColumnName(ctx.GetText()))
+		opts = append(opts, query.WithAlterTableDropColumn(column))
+	}
 	tblName := ctx.GetTarget_table_name().GetText()
 	return query.NewAlterTableWith(tblName, opts...)
 }
