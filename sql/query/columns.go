@@ -38,6 +38,11 @@ func (columns ColumnList) Columns() ColumnList {
 	return columns
 }
 
+// Selectors returns a selector array.
+func (columns ColumnList) Selectors() SelectorList {
+	return NewSelectorsWithColums(columns...)
+}
+
 // ColumnAt returns a column by the specified index.
 func (columns ColumnList) ColumnAt(n int) (*Column, error) {
 	if len(columns) <= n {
