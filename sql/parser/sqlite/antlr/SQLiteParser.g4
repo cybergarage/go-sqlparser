@@ -105,7 +105,7 @@ rename_table_colum:
 ;
 
 add_column:
-    ADD_ COLUMN_? column_def
+    ADD_ COLUMN_? column_constraint? column_def
 ;
 
 drop_column:

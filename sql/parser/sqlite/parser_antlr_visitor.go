@@ -191,6 +191,11 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 	}
 	if ctx := ctx.Add_column(); ctx != nil {
 		column := newColumnWith(ctx.Column_def())
+		if ctx := ctx.Column_constraint(); ctx != nil {
+			if ctx.Primary_key_constraint() != nil {
+				column.SetConstant(query.ColumnConstraintPrimaryKey)
+			}
+		}
 		opts = append(opts, query.WithAlterTableAddColumn(column))
 	}
 	if ctx := ctx.Drop_column(); ctx != nil {
