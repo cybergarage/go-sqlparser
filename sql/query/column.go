@@ -18,26 +18,6 @@ import (
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
-// ColumnConstraint represents a column constraint.
-type ColumnConstraint int
-
-const (
-	// ColumnConstraintNone represents no constraint.
-	ColumnConstraintNone       ColumnConstraint = 0x00
-	ColumnConstraintPrimaryKey ColumnConstraint = 0x01
-	ColumnConstraintNotNull    ColumnConstraint = 0x02
-	ColumnConstraintUnique     ColumnConstraint = 0x04
-)
-
-// Column represents a column.
-type Column struct {
-	name string
-	*DataDef
-	*Literal
-	*BindParam
-	consts ColumnConstraint
-}
-
 // ColumnOption represents a column option function.
 type ColumnOption = func(*Column)
 
