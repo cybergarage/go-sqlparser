@@ -18,12 +18,24 @@ import (
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
+// ColumnConstraint represents a column constraint.
+type ColumnConstraint int
+
+const (
+	// ColumnConstraintNone represents no constraint.
+	ColumnConstraintNone       ColumnConstraint = 0x00
+	ColumnConstraintPrimaryKey ColumnConstraint = 0x01
+	ColumnConstraintNotNull    ColumnConstraint = 0x02
+	ColumnConstraintUnique     ColumnConstraint = 0x04
+)
+
 // Column represents a column.
 type Column struct {
 	name string
 	*DataDef
 	*Literal
 	*BindParam
+	consts ColumnConstraint
 }
 
 // ColumnOption represents a column option function.
@@ -35,6 +47,7 @@ func NewColumnWithOptions(opts ...ColumnOption) *Column {
 		name:    "",
 		DataDef: nil,
 		Literal: nil,
+		consts:  ColumnConstraintNone,
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -63,6 +76,12 @@ func WithColumnLiteral(l *Literal) func(*Column) {
 	}
 }
 
+func WithColumnConstant(c ColumnConstraint) func(*Column) {
+	return func(col *Column) {
+		col.consts |= c
+	}
+}
+
 // NewColumn returns a column instance.
 func NewColumnWithName(name string) *Column {
 	return NewColumnWithOptions(WithColumnName(name))
@@ -82,6 +101,11 @@ func (col *Column) IsName(name string) bool {
 func (col *Column) SetValue(v any) error {
 	col.Literal.SetValue(v)
 	return col.SetDef(col.DataDef)
+}
+
+// SetConstant sets a constant.
+func (col *Column) SetConstant(c ColumnConstraint) {
+	col.consts |= c
 }
 
 // SetDef sets the column definition to update the column value.
