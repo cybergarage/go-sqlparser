@@ -125,6 +125,7 @@ func (stmt *AlterTable) String() string {
 	elems := []string{
 		"ALTER",
 		"TABLE",
+		stmt.Table.String(),
 	}
 	if tbl, ok := stmt.RenameTable(); ok {
 		elems = append(elems,
@@ -145,11 +146,12 @@ func (stmt *AlterTable) String() string {
 			}...)
 	}
 	if c, ok := stmt.AddColum(); ok {
-		elems = append(elems,
-			[]string{
-				"ADD",
-				c.DefinitionString(),
-			}...)
+		elems = append(elems, "ADD")
+		if c.Constrains() != ColumnConstraintNone {
+			elems = append(elems, c.Constrains().String())
+		}
+		elems = append(elems, c.DefinitionString())
+
 	}
 	if c, ok := stmt.DropColum(); ok {
 		elems = append(elems,
