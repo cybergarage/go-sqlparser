@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Sep  8 01:57:38 2023
---- SQLiteParser.g4	Fri Sep  8 01:58:15 2023
+*** SQLiteParser.g4.new	Fri Sep  8 13:35:45 2023
+--- SQLiteParser.g4	Fri Sep  8 13:37:13 2023
 ***************
 *** 42,54 ****
   ;
@@ -86,7 +86,7 @@
 - ;
 - 
 - add_column:
--     ADD_ COLUMN_? column_def
+-     ADD_ COLUMN_? column_constraint? column_def
 - ;
 - 
 - drop_column:
