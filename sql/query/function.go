@@ -14,6 +14,10 @@
 
 package query
 
+import (
+	"strings"
+)
+
 // Function represents a column.
 type Function struct {
 	name string
@@ -23,7 +27,7 @@ type Function struct {
 // NewFunctionWith returns a column instance.
 func NewFunctionWith(name string, args ...Argument) *Function {
 	fn := &Function{
-		name:         name,
+		name:         strings.ToUpper(name),
 		ArgumentList: NewArgumentsWith(args...),
 	}
 	return fn
