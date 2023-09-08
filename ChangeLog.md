@@ -10,6 +10,8 @@
 - Support
   - ALTER DATABASE
   - ALTER TABLE 
+    - ADD, RENAME and DROP COLUMN
+    - ADD PRIMARY KEY (PostgreSQL)
 - Update
   - SELECT
     - Support functions
