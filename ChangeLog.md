@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.1.0 (2023-xx-xx)
+## v1.1.0 (2023-09-10)
 - Support
   - ALTER DATABASE
   - ALTER TABLE 
