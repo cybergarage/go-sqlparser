@@ -72,6 +72,11 @@ func (col *Column) Name() string {
 	return col.name
 }
 
+// Constrains returns the column constrains.
+func (col *Column) Constrains() ColumnConstraint {
+	return col.consts
+}
+
 // IsName returns true whether the column name is the specified one.
 func (col *Column) IsName(name string) bool {
 	return col.name == name
