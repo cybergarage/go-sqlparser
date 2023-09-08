@@ -33,6 +33,15 @@ func NewSelectorsWith(selectors ...Selector) SelectorList {
 	return s
 }
 
+// NewSelectorsWithColums returns a selector array instance with the specified columns.
+func NewSelectorsWithColums(columns ...*Column) SelectorList {
+	s := make(SelectorList, len(columns))
+	for n, column := range columns {
+		s[n] = column
+	}
+	return s
+}
+
 // Selector returns a selector array.
 func (selectors SelectorList) Selectors() SelectorList {
 	return selectors
