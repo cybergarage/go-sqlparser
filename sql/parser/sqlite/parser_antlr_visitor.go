@@ -244,13 +244,17 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
 }
 
 func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
-	name := ctx.Column_name().GetText()
-	typ := ctx.Type_name().GetText()
-	t, err := query.NewDataFrom(strings.SplitDataTypeString(typ))
-	if err != nil {
-		t = &query.DataDef{Type: query.UnknownData, Length: -1}
+	opts := []query.ColumnOption{
+		query.WithColumnName(ctx.Column_name().GetText()),
 	}
-	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
+	if typ := ctx.Type_name(); typ != nil {
+		t, err := query.NewDataFrom(strings.SplitDataTypeString(typ.GetText()))
+		if err != nil {
+			t = &query.DataDef{Type: query.UnknownData, Length: -1}
+		}
+		opts = append(opts, query.WithColumnData(t))
+	}
+	return query.NewColumnWithOptions(opts...)
 }
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
