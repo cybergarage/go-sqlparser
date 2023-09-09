@@ -29,12 +29,12 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 		return NewMaxFunction()
 	case MinFunctionName:
 		return NewMinFunction()
-		// case SumFunctionName:
-		// 	return NewSumFunction()
-		// case AvgFunctionName:
-		// 	return NewAvgFunction()
-		// case CountFunctionName:
-		// 	return NewCountFunction()
+	case SumFunctionName:
+		return NewSumFunction()
+	// case AvgFunctionName:
+	// 	return NewAvgFunction()
+	case CountFunctionName:
+		return NewCountFunction()
 	}
 	return nil
 }

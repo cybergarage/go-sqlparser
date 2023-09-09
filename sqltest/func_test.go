@@ -21,17 +21,17 @@ import (
 )
 
 func TestAggregatorFunctions(t *testing.T) {
-	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5}
 
 	tests := []struct {
 		function query.FunctionExecutor
 		result   int
 	}{
-		// {query.NewAvgFunction(), 5},
-		{query.NewCountFunction(), 10},
+		// {query.NewAvgFunction(), 6},
+		{query.NewCountFunction(), 11},
 		{query.NewMaxFunction(), 10},
 		{query.NewMinFunction(), 1},
-		// {query.NewSumFunction(), 55},
+		{query.NewSumFunction(), 60},
 	}
 
 	for _, test := range tests {

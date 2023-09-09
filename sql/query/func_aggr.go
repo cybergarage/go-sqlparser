@@ -117,3 +117,8 @@ func NewMaxFunction() FunctionExecutor {
 func NewMinFunction() FunctionExecutor {
 	return NewAggregatorFunctionWith(MinFunctionName)
 }
+
+// NewSumFunction returns a new sum function.
+func NewSumFunction() FunctionExecutor {
+	return NewAggregatorFunctionWith(SumFunctionName)
+}
