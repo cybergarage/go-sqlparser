@@ -16,7 +16,37 @@ package sqltest
 
 import (
 	"testing"
+
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 func TestAggregatorFunctions(t *testing.T) {
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+	tests := []struct {
+		function query.FunctionExecutor
+		result   int
+	}{
+		// {query.NewAvgFunction(), 5},
+		// {query.NewCountFunction(), 10},
+		{query.NewMaxFunction(), 10},
+		// {query.NewMinFunction(), 1},
+		// {query.NewSumFunction(), 55},
+	}
+
+	for _, test := range tests {
+		var lastValue float64
+
+		for _, value := range values {
+			lv, err := test.function.Execute("", value)
+			if err != nil {
+				t.Error(err)
+				return
+			}
+			lastValue = lv.(float64)
+		}
+		if int(lastValue) != test.result {
+			t.Errorf("The %s value (%d) is not (%d)", test.function.Name(), int(lastValue), test.result)
+		}
+	}
 }
