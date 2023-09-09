@@ -18,6 +18,26 @@ import (
 	"strings"
 )
 
+// FunctionType represents a function type.
+type FunctionType int
+
+const (
+	// FunctionTypeCast represents a cast function type.
+	FunctionTypeCast FunctionType = iota
+	// FunctionTypeAggregator represents an aggregator function type.
+	FunctionTypeAggregator
+)
+
+// FunctionExecutor represents a function executor interface.
+type FunctionExecutor interface {
+	// Name returns the name of the function.
+	Name() string
+	// Type returns the type of the function.
+	Type() FunctionType
+	// Execute returns the executed value with the specified arguments.
+	Execute(...any) (any, error)
+}
+
 // Function represents a column.
 type Function struct {
 	name string
