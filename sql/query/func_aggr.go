@@ -20,19 +20,24 @@ import (
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
+// AggregatorFunc represents an aggregator function.
+type AggregatorFunc func(int, float64, float64) float64
+
 // AggregatorFunction represents a base aggregator function.
 type AggregatorFunction struct {
-	name   string
-	count  int
-	values map[string]float64
+	name       string
+	aggregator AggregatorFunc
+	count      int
+	values     map[string]float64
 }
 
 // NewAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
-func NewAggregatorFunctionWith(name string) *AggregatorFunction {
+func NewAggregatorFunctionWith(name string, fn AggregatorFunc) *AggregatorFunction {
 	return &AggregatorFunction{
-		name:   strings.ToUpper(name),
-		count:  0,
-		values: map[string]float64{},
+		name:       strings.ToUpper(name),
+		aggregator: fn,
+		count:      0,
+		values:     map[string]float64{},
 	}
 }
 
@@ -56,49 +61,19 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
 
-	argValue := args[1]
-	lastValue, ok := fn.values[groupKey]
-	if ok {
-		switch fn.name {
-		case CountFunctionName:
-			lastValue = lastValue + 1
-		default:
-			var v float64
-			err := safecast.ToFloat64(argValue, &v)
-			if err != nil {
-				return nil, err
-			}
-			switch fn.name {
-			case MinFunctionName:
-				if v < lastValue {
-					lastValue = v
-				}
-			case MaxFunctionName:
-				if lastValue < v {
-					lastValue = v
-				}
-			case AvgFunctionName:
-				lastValue = lastValue + v
-			case SumFunctionName:
-				lastValue = lastValue + v
-			default:
-				return nil, newErrInvalidArguments(fn.name, argValue)
-			}
-		}
-	} else {
-		switch fn.name {
-		case CountFunctionName:
-			lastValue = 1
-		default:
-			var v float64
-			err := safecast.ToFloat64(argValue, &v)
-			if err != nil {
-				return nil, err
-			}
-			lastValue = v
-		}
+	var argValue float64
+	err := safecast.ToFloat64(args[1], &argValue)
+	if err != nil {
+		return nil, err
 	}
 
+	var lastValue float64
+	currValue, ok := fn.values[groupKey]
+	if ok {
+		lastValue = fn.aggregator(fn.count, currValue, argValue)
+	} else {
+		lastValue = fn.aggregator(fn.count, 0.0, argValue)
+	}
 	fn.values[groupKey] = lastValue
 	fn.count++
 
@@ -118,25 +93,62 @@ func (fn *AggregatorFunction) ResultSet() map[string]float64 {
 
 // NewCountFunction returns a new count function.
 func NewCountFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(CountFunctionName)
+	return NewAggregatorFunctionWith(
+		CountFunctionName,
+		func(count int, currValue float64, argValue float64) float64 {
+			return float64(count + 1)
+		},
+	)
 }
 
 // NewMaxFunction returns a new max function.
 func NewMaxFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(MaxFunctionName)
+	return NewAggregatorFunctionWith(
+		MaxFunctionName,
+		func(count int, currValue float64, argValue float64) float64 {
+			if count == 0 {
+				return argValue
+			}
+			if currValue < argValue {
+				return argValue
+			}
+			return currValue
+		},
+	)
 }
 
 // NewMinFunction returns a new min function.
 func NewMinFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(MinFunctionName)
+	return NewAggregatorFunctionWith(
+		MinFunctionName,
+		func(count int, currValue float64, argValue float64) float64 {
+			if count == 0 {
+				return argValue
+			}
+			if argValue < currValue {
+				return argValue
+			}
+			return currValue
+		},
+	)
 }
 
 // NewSumFunction returns a new sum function.
 func NewSumFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(SumFunctionName)
+	return NewAggregatorFunctionWith(
+		SumFunctionName,
+		func(count int, currValue float64, argValue float64) float64 {
+			return currValue + argValue
+		},
+	)
 }
 
 // NewAvgFunction returns a new avg function.
 func NewAvgFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(AvgFunctionName)
+	return NewAggregatorFunctionWith(
+		AvgFunctionName,
+		func(count int, currValue float64, argValue float64) float64 {
+			return currValue + argValue
+		},
+	)
 }
