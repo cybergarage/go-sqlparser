@@ -28,7 +28,7 @@ func TestAggregatorFunctions(t *testing.T) {
 		result   int
 	}{
 		// {query.NewAvgFunction(), 5},
-		// {query.NewCountFunction(), 10},
+		{query.NewCountFunction(), 10},
 		{query.NewMaxFunction(), 10},
 		{query.NewMinFunction(), 1},
 		// {query.NewSumFunction(), 55},
