@@ -14,24 +14,10 @@
 
 package query
 
-// FunctionExecutor represents a function executor interface.
-type FunctionExecutor interface {
-	// Name returns the name of the function.
-	Name() string
-	// Execute returns the executed value with the specified arguments.
-	Execute(...any) (any, error)
-}
-
-// CastFunction represents a cast function interface.
-type CastFunction interface {
-	FunctionExecutor
-	// Cast returns the casted value.
-	Cast(any) (any, error)
-}
-
-// Function represents an aggregator function interface.
-type AggregatorFunction interface {
-	FunctionExecutor
-	// Aggregate returns the latest aggregated value.
-	Aggregate(string, any) (any, error)
-}
+const (
+	MaxFunctionName   = "MAX"
+	MinFunctionName   = "MIN"
+	SumFunctionName   = "SUM"
+	AvgFunctionName   = "AVG"
+	CountFunctionName = "COUNT"
+)
