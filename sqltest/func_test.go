@@ -30,13 +30,12 @@ func TestAggregatorFunctions(t *testing.T) {
 		// {query.NewAvgFunction(), 5},
 		// {query.NewCountFunction(), 10},
 		{query.NewMaxFunction(), 10},
-		// {query.NewMinFunction(), 1},
+		{query.NewMinFunction(), 1},
 		// {query.NewSumFunction(), 55},
 	}
 
 	for _, test := range tests {
 		var lastValue float64
-
 		for _, value := range values {
 			lv, err := test.function.Execute("", value)
 			if err != nil {
