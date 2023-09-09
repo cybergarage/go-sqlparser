@@ -16,22 +16,21 @@ package query
 
 import (
 	"strings"
-)
 
-// AggregatorFunc returns the latest aggregated value.
-type AggregatorFunc = func(string, any) (any, error)
+	"github.com/cybergarage/go-safecast/safecast"
+)
 
 // BaseAggregatorFunction represents a base aggregator function.
 type BaseAggregatorFunction struct {
-	name      string
-	aggregate AggregatorFunc
+	name   string
+	values map[string]any
 }
 
-// NewBaseAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
-func NewBaseAggregatorFunctionWith(name string, aggregator AggregatorFunc) *BaseAggregatorFunction {
+// NewAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
+func NewAggregatorFunctionWith(name string) FunctionExecutor {
 	fn := &BaseAggregatorFunction{
-		name:      strings.ToUpper(name),
-		aggregate: aggregator,
+		name:   strings.ToUpper(name),
+		values: make(map[string]any),
 	}
 	return fn
 }
@@ -55,5 +54,82 @@ func (fn *BaseAggregatorFunction) Execute(args ...any) (any, error) {
 	if !ok {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
-	return fn.aggregate(groupKey, args[1])
+
+	argValue := args[1]
+	lastValue, ok := fn.values[groupKey]
+	if ok {
+		switch fn.name {
+		case CountFunctionName:
+			lastValue = 1
+		default:
+			switch argValue.(type) {
+			case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
+				var v int64
+				err := safecast.ToInt64(argValue, &v)
+				if err != nil {
+					return nil, err
+				}
+				lastValue = v
+			case float32, float64:
+				var v float64
+				err := safecast.ToFloat64(argValue, &v)
+				if err != nil {
+					return nil, err
+				}
+				lastValue = v
+			default:
+				return nil, newErrInvalidArguments(fn.name, argValue)
+			}
+		}
+	} else {
+		switch fn.name {
+		case CountFunctionName:
+			lv, ok := lastValue.(int64)
+			if ok {
+				lastValue = lv + 1
+			}
+		default:
+			switch lv := lastValue.(type) {
+			case int64:
+				var v int64
+				err := safecast.ToInt64(argValue, &v)
+				if err != nil {
+					return nil, err
+				}
+				switch fn.name {
+				case MinFunctionName:
+					if v < lv {
+						lastValue = v
+					}
+				case MaxFunctionName:
+					if lv < v {
+						lastValue = v
+					}
+				case AvgFunctionName:
+					lastValue = (lv + v) / 2
+				case SumFunctionName:
+					lastValue = lv + v
+				default:
+					return nil, newErrInvalidArguments(fn.name, argValue)
+				}
+			case float64:
+				var v float64
+				err := safecast.ToFloat64(argValue, &v)
+				if err != nil {
+					return nil, err
+				}
+				lastValue = lv + v
+			default:
+				return nil, newErrInvalidArguments(fn.name, argValue)
+			}
+		}
+	}
+
+	fn.values[groupKey] = lastValue
+
+	return lastValue, nil
 }
+
+// func NewMaxFunction() FunctionExecutor {
+// 	return NewBaseAggregatorFunctionWith(MaxFunctionName)
+// }
