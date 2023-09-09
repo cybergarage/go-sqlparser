@@ -31,8 +31,8 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 		return NewMinFunction()
 	case SumFunctionName:
 		return NewSumFunction()
-	// case AvgFunctionName:
-	// 	return NewAvgFunction()
+	case AvgFunctionName:
+		return NewAvgFunction()
 	case CountFunctionName:
 		return NewCountFunction()
 	}

@@ -122,3 +122,8 @@ func NewMinFunction() FunctionExecutor {
 func NewSumFunction() FunctionExecutor {
 	return NewAggregatorFunctionWith(SumFunctionName)
 }
+
+// NewAvgFunction returns a new avg function.
+func NewAvgFunction() FunctionExecutor {
+	return NewAggregatorFunctionWith(AvgFunctionName)
+}
