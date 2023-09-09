@@ -23,8 +23,9 @@ import (
 func TestAggregatorFunctions(t *testing.T) {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 15}
 
+	groupKey := ""
 	tests := []struct {
-		function query.FunctionExecutor
+		function *query.AggregatorFunction
 		result   int
 	}{
 		{query.NewAvgFunction(), 6},
@@ -35,17 +36,21 @@ func TestAggregatorFunctions(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		var lastValue float64
 		for _, value := range values {
-			lv, err := test.function.Execute("", value)
+			_, err := test.function.Execute(groupKey, value)
 			if err != nil {
 				t.Error(err)
 				return
 			}
-			lastValue = lv.(float64)
 		}
-		if int(lastValue) != test.result {
-			t.Errorf("The %s value (%d) is not (%d)", test.function.Name(), int(lastValue), test.result)
+		rs := test.function.ResultSet()
+		r, ok := rs[groupKey]
+		if !ok {
+			t.Errorf("The %s result is not found", test.function.Name())
+			return
+		}
+		if int(r) != test.result {
+			t.Errorf("The %s value (%d) is not (%d)", test.function.Name(), int(r), test.result)
 		}
 	}
 }
