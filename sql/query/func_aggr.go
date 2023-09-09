@@ -18,14 +18,17 @@ import (
 	"strings"
 )
 
+// AggregatorFunc returns the latest aggregated value.
+type AggregatorFunc = func(string, any) (any, error)
+
 // BaseAggregatorFunction represents a base aggregator function.
 type BaseAggregatorFunction struct {
 	name      string
-	aggregate AggregatorFunction
+	aggregate AggregatorFunc
 }
 
 // NewBaseAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
-func NewBaseAggregatorFunctionWith(name string, aggregator AggregatorFunction) *BaseAggregatorFunction {
+func NewBaseAggregatorFunctionWith(name string, aggregator AggregatorFunc) *BaseAggregatorFunction {
 	fn := &BaseAggregatorFunction{
 		name:      strings.ToUpper(name),
 		aggregate: aggregator,
@@ -36,6 +39,11 @@ func NewBaseAggregatorFunctionWith(name string, aggregator AggregatorFunction) *
 // Name returns the name of the function.
 func (fn *BaseAggregatorFunction) Name() string {
 	return fn.name
+}
+
+// Type returns the type of the function.
+func (fn *BaseAggregatorFunction) Type() FunctionType {
+	return FunctionTypeAggregator
 }
 
 // Execute returns the executed value with the specified arguments.
