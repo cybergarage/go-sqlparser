@@ -60,18 +60,6 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 	if ok {
 		switch fn.name {
 		case CountFunctionName:
-			lastValue = 1
-		default:
-			var v float64
-			err := safecast.ToFloat64(argValue, &v)
-			if err != nil {
-				return nil, err
-			}
-			lastValue = v
-		}
-	} else {
-		switch fn.name {
-		case CountFunctionName:
 			lastValue = lastValue + 1
 		default:
 			var v float64
@@ -96,6 +84,18 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 				return nil, newErrInvalidArguments(fn.name, argValue)
 			}
 		}
+	} else {
+		switch fn.name {
+		case CountFunctionName:
+			lastValue = 1
+		default:
+			var v float64
+			err := safecast.ToFloat64(argValue, &v)
+			if err != nil {
+				return nil, err
+			}
+			lastValue = v
+		}
 	}
 
 	fn.values[groupKey] = lastValue
@@ -106,4 +106,9 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 // NewMaxFunction returns a new max function.
 func NewMaxFunction() FunctionExecutor {
 	return NewAggregatorFunctionWith(MaxFunctionName)
+}
+
+// NewMinFunction returns a new min function.
+func NewMinFunction() FunctionExecutor {
+	return NewAggregatorFunctionWith(MinFunctionName)
 }

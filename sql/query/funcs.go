@@ -27,8 +27,8 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 	switch name {
 	case MaxFunctionName:
 		return NewMaxFunction()
-		// case MinFunctionName:
-		// 	return NewMinFunction()
+	case MinFunctionName:
+		return NewMinFunction()
 		// case SumFunctionName:
 		// 	return NewSumFunction()
 		// case AvgFunctionName:
