@@ -103,6 +103,11 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 	return lastValue, nil
 }
 
+// NewCountFunction returns a new count function.
+func NewCountFunction() FunctionExecutor {
+	return NewAggregatorFunctionWith(CountFunctionName)
+}
+
 // NewMaxFunction returns a new max function.
 func NewMaxFunction() FunctionExecutor {
 	return NewAggregatorFunctionWith(MaxFunctionName)
