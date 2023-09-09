@@ -21,3 +21,20 @@ const (
 	AvgFunctionName   = "AVG"
 	CountFunctionName = "COUNT"
 )
+
+// FunctionExecutor represents a function executor interface.
+func GetFunctionExecutor(name string) FunctionExecutor {
+	switch name {
+	case MaxFunctionName:
+		return NewMaxFunction()
+		// case MinFunctionName:
+		// 	return NewMinFunction()
+		// case SumFunctionName:
+		// 	return NewSumFunction()
+		// case AvgFunctionName:
+		// 	return NewAvgFunction()
+		// case CountFunctionName:
+		// 	return NewCountFunction()
+	}
+	return nil
+}
