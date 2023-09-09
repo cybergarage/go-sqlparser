@@ -23,16 +23,17 @@ import (
 // AggregatorFunction represents a base aggregator function.
 type AggregatorFunction struct {
 	name   string
+	count  int
 	values map[string]float64
 }
 
 // NewAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
-func NewAggregatorFunctionWith(name string) FunctionExecutor {
-	fn := &AggregatorFunction{
+func NewAggregatorFunctionWith(name string) *AggregatorFunction {
+	return &AggregatorFunction{
 		name:   strings.ToUpper(name),
+		count:  0,
 		values: map[string]float64{},
 	}
-	return fn
 }
 
 // Name returns the name of the function.
@@ -77,7 +78,7 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 					lastValue = v
 				}
 			case AvgFunctionName:
-				lastValue = (lastValue + v) / 2
+				lastValue = lastValue + v
 			case SumFunctionName:
 				lastValue = lastValue + v
 			default:
@@ -99,31 +100,43 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 	}
 
 	fn.values[groupKey] = lastValue
+	fn.count++
 
 	return lastValue, nil
 }
 
+// Aggregate returns the latest aggregated value.
+func (fn *AggregatorFunction) ResultSet() map[string]float64 {
+	switch fn.name {
+	case AvgFunctionName:
+		for groupKey, value := range fn.values {
+			fn.values[groupKey] = value / float64(fn.count)
+		}
+	}
+	return fn.values
+}
+
 // NewCountFunction returns a new count function.
-func NewCountFunction() FunctionExecutor {
+func NewCountFunction() *AggregatorFunction {
 	return NewAggregatorFunctionWith(CountFunctionName)
 }
 
 // NewMaxFunction returns a new max function.
-func NewMaxFunction() FunctionExecutor {
+func NewMaxFunction() *AggregatorFunction {
 	return NewAggregatorFunctionWith(MaxFunctionName)
 }
 
 // NewMinFunction returns a new min function.
-func NewMinFunction() FunctionExecutor {
+func NewMinFunction() *AggregatorFunction {
 	return NewAggregatorFunctionWith(MinFunctionName)
 }
 
 // NewSumFunction returns a new sum function.
-func NewSumFunction() FunctionExecutor {
+func NewSumFunction() *AggregatorFunction {
 	return NewAggregatorFunctionWith(SumFunctionName)
 }
 
 // NewAvgFunction returns a new avg function.
-func NewAvgFunction() FunctionExecutor {
+func NewAvgFunction() *AggregatorFunction {
 	return NewAggregatorFunctionWith(AvgFunctionName)
 }
