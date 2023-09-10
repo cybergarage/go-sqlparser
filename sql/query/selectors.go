@@ -48,13 +48,24 @@ func (selectors SelectorList) Selectors() SelectorList {
 }
 
 // IsSelectAll returns true if the column list is "*".
-func (columns SelectorList) IsSelectAll() bool {
-	l := len(columns)
+func (selectors SelectorList) IsSelectAll() bool {
+	l := len(selectors)
 	switch {
 	case l == 1:
-		return columns[0].Name() == Asterisk
+		return selectors[0].Name() == Asterisk
 	case l == 0:
 		return true
+	}
+	return false
+}
+
+// HasFunction returns true if the column list has a function.
+func (selectors SelectorList) HasFunction() bool {
+	for _, selector := range selectors {
+		_, ok := selector.(*Function)
+		if ok {
+			return true
+		}
 	}
 	return false
 }
