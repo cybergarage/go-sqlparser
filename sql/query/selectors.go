@@ -47,6 +47,19 @@ func (selectors SelectorList) Selectors() SelectorList {
 	return selectors
 }
 
+// Functions returns a function array.
+func (selectors SelectorList) Functions() []*Function {
+	fns := make([]*Function, 0)
+	for _, selector := range selectors {
+		fn, ok := selector.(*Function)
+		if !ok {
+			continue
+		}
+		fns = append(fns, fn)
+	}
+	return fns
+}
+
 // IsSelectAll returns true if the selector list is "*".
 func (selectors SelectorList) IsSelectAll() bool {
 	l := len(selectors)
