@@ -74,7 +74,7 @@ func (selectors SelectorList) Functions() []*Function {
 }
 
 // FunctionExecutors returns a function executor array.
-func (selectors SelectorList) FunctionExecutors() []FunctionExecutor {
+func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(*Function)
@@ -83,11 +83,31 @@ func (selectors SelectorList) FunctionExecutors() []FunctionExecutor {
 		}
 		executor, err := fn.Executor()
 		if err != nil {
+			return nil, err
+		}
+		executors = append(executors, executor)
+	}
+	return executors, nil
+}
+
+// FunctionExecutorsWithType returns a function executor array with the specified type.
+func (selectors SelectorList) FunctionExecutorsWithType(t FunctionType) ([]FunctionExecutor, error) {
+	executors := make([]FunctionExecutor, 0)
+	for _, selector := range selectors {
+		fn, ok := selector.(*Function)
+		if !ok {
+			continue
+		}
+		executor, err := fn.Executor()
+		if err != nil {
+			return nil, err
+		}
+		if executor.Type() != t {
 			continue
 		}
 		executors = append(executors, executor)
 	}
-	return executors
+	return executors, nil
 }
 
 // IsSelectAll returns true if the selector list is "*".
