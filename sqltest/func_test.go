@@ -54,3 +54,24 @@ func TestAggregatorFunctions(t *testing.T) {
 		}
 	}
 }
+
+func TestMathFunctions(t *testing.T) {
+	tests := []struct {
+		function *query.MathFunction
+		arg      any
+		result   any
+	}{
+		{query.NewAbsFunction(), float64(-1), float64(2)},
+	}
+
+	for _, test := range tests {
+		r, err := test.function.Execute(test.arg)
+		if err != nil {
+			t.Error(err)
+			return
+		}
+		if r != test.result {
+			t.Errorf("The %s value (%v) is not (%v)", test.function.Name(), r, test.result)
+		}
+	}
+}
