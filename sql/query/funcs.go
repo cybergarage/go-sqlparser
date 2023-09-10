@@ -27,34 +27,34 @@ const (
 	CountFunctionName = "COUNT"
 )
 
-// FunctionExecutor represents a function executor interface.
-func GetFunctionExecutor(name string) FunctionExecutor {
+// GetFunctionExecutor returns a function executor with the specified name.
+func GetFunctionExecutor(name string) (FunctionExecutor, error) {
 	switch name {
 	case MaxFunctionName:
-		return NewMaxFunction()
+		return NewMaxFunction(), nil
 	case MinFunctionName:
-		return NewMinFunction()
+		return NewMinFunction(), nil
 	case SumFunctionName:
-		return NewSumFunction()
+		return NewSumFunction(), nil
 	case AvgFunctionName:
-		return NewAvgFunction()
+		return NewAvgFunction(), nil
 	case CountFunctionName:
-		return NewCountFunction()
+		return NewCountFunction(), nil
 	case AbsFunctionName:
-		return NewAbsFunction()
+		return NewAbsFunction(), nil
 	case FloorFunctionName:
-		return NewFloorFunction()
+		return NewFloorFunction(), nil
 	case CeilFunctionName:
-		return NewCeilFunction()
+		return NewCeilFunction(), nil
 	}
-	return nil
+	return nil, newErrInvalidFunction(name)
 }
 
 // ExecuteFunction returns the executed value with the specified arguments.
 func ExecuteFunction(name string, args ...any) (any, error) {
-	fn := GetFunctionExecutor(name)
-	if fn == nil {
-		return nil, newErrInvalidFunction(name)
+	fn, err := GetFunctionExecutor(name)
+	if err != nil {
+		return nil, err
 	}
 	return fn.Execute(args...)
 }

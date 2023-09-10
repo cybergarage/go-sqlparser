@@ -77,8 +77,8 @@ func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 		if !ok {
 			continue
 		}
-		executor := GetFunctionExecutor(fn.Name())
-		if executor == nil {
+		executor, err := GetFunctionExecutor(fn.Name())
+		if err != nil {
 			continue
 		}
 		if executor.Type() == t {
