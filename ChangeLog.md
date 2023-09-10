@@ -10,11 +10,14 @@
 - Supported
   - SELECT
     - GROUP BY
-  - Add function executors
+  - Added function executors
     - Math functions 
       - ABS, FLOOR and CEIL
     - Aggregate functions
       - COUNT, MAX, MIN, AVG and SUM
+- Updated
+  - Selector
+    - Added utility functions 
 
 ## v1.1.0 (2023-09-09)
 - Support
