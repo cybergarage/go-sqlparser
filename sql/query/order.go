@@ -14,7 +14,11 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	std_strings "strings"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
 // Order represents an ordertype.
 type Order uint8
@@ -28,15 +32,47 @@ const (
 	OrderDesc
 )
 
+const (
+	orderNoneString = "NONE"
+	orderAscString  = "ASC"
+	orderDescString = "DESC"
+)
+
+// NewOrderWith returns a new Order instance.
+func NewOrderWith(order string) Order {
+	switch std_strings.ToUpper(order) {
+	case orderAscString:
+		return OrderAsc
+	case orderDescString:
+		return OrderDesc
+	}
+	return OrderNone
+}
+
+// IsNone returns true whether the order is none.
+func (t Order) IsNone() bool {
+	return t == OrderNone
+}
+
+// IsAsc returns true whether the order is asc.
+func (t Order) IsAsc() bool {
+	return t == OrderAsc
+}
+
+// IsDesc returns true whether the order is desc.
+func (t Order) IsDesc() bool {
+	return t == OrderDesc
+}
+
 // String returns the string representation.
 func (t Order) String() string {
 	switch t {
 	case OrderAsc:
-		return "ASC"
+		return orderAscString
 	case OrderDesc:
-		return "DESC"
+		return orderDescString
 	default:
-		return "NONE"
+		return orderNoneString
 	}
 }
 
@@ -85,17 +121,17 @@ func (orderBy *OrderBy) Order() Order {
 
 // IsNone returns true whether the order is none.
 func (orderBy *OrderBy) IsNone() bool {
-	return orderBy.order == OrderNone
+	return orderBy.order.IsNone()
 }
 
 // IsAsc returns true whether the order is asc.
 func (orderBy *OrderBy) IsAsc() bool {
-	return orderBy.order == OrderAsc
+	return orderBy.order.IsAsc()
 }
 
 // IsDesc returns true whether the order is desc.
 func (orderBy *OrderBy) IsDesc() bool {
-	return orderBy.order == OrderDesc
+	return orderBy.order.IsDesc()
 }
 
 // String returns the string representation.
