@@ -20,42 +20,42 @@ import (
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
-// AggregatorFunc represents an aggregator function.
-type AggregatorFunc func(int, float64, float64) float64
+// AggregateFunc represents an aggregator function.
+type AggregateFunc func(int, float64, float64) float64
 
-// AggregatorResultSet represents a result set of an aggregator function.
-type AggregatorResultSet map[any]float64
+// AggregateResultSet represents a result set of an aggregator function.
+type AggregateResultSet map[any]float64
 
-// AggregatorFunction represents a base aggregator function.
-type AggregatorFunction struct {
+// AggregateFunction represents a base aggregator function.
+type AggregateFunction struct {
 	name       string
-	aggregator AggregatorFunc
+	aggregator AggregateFunc
 	count      int
-	values     AggregatorResultSet
+	values     AggregateResultSet
 }
 
-// NewAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
-func NewAggregatorFunctionWith(name string, fn AggregatorFunc) *AggregatorFunction {
-	return &AggregatorFunction{
+// NewAggregateFunctionWith returns a new base aggregator function with the specified name and aggregator.
+func NewAggregateFunctionWith(name string, fn AggregateFunc) *AggregateFunction {
+	return &AggregateFunction{
 		name:       strings.ToUpper(name),
 		aggregator: fn,
 		count:      0,
-		values:     AggregatorResultSet{},
+		values:     AggregateResultSet{},
 	}
 }
 
 // Name returns the name of the function.
-func (fn *AggregatorFunction) Name() string {
+func (fn *AggregateFunction) Name() string {
 	return fn.name
 }
 
 // Type returns the type of the function.
-func (fn *AggregatorFunction) Type() FunctionType {
+func (fn *AggregateFunction) Type() FunctionType {
 	return AggregateFunctionType
 }
 
 // Execute returns the executed value with the specified arguments.
-func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
+func (fn *AggregateFunction) Execute(args ...any) (any, error) {
 	if len(args) != 2 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
@@ -81,7 +81,7 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 }
 
 // Aggregate returns the latest aggregated value.
-func (fn *AggregatorFunction) ResultSet() AggregatorResultSet {
+func (fn *AggregateFunction) ResultSet() AggregateResultSet {
 	switch fn.name {
 	case AvgFunctionName:
 		for groupKey, value := range fn.values {
@@ -92,8 +92,8 @@ func (fn *AggregatorFunction) ResultSet() AggregatorResultSet {
 }
 
 // NewCountFunction returns a new count function.
-func NewCountFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(
+func NewCountFunction() *AggregateFunction {
+	return NewAggregateFunctionWith(
 		CountFunctionName,
 		func(count int, currValue float64, argValue float64) float64 {
 			return float64(count + 1)
@@ -102,8 +102,8 @@ func NewCountFunction() *AggregatorFunction {
 }
 
 // NewMaxFunction returns a new max function.
-func NewMaxFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(
+func NewMaxFunction() *AggregateFunction {
+	return NewAggregateFunctionWith(
 		MaxFunctionName,
 		func(count int, currValue float64, argValue float64) float64 {
 			if count == 0 {
@@ -118,8 +118,8 @@ func NewMaxFunction() *AggregatorFunction {
 }
 
 // NewMinFunction returns a new min function.
-func NewMinFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(
+func NewMinFunction() *AggregateFunction {
+	return NewAggregateFunctionWith(
 		MinFunctionName,
 		func(count int, currValue float64, argValue float64) float64 {
 			if count == 0 {
@@ -134,8 +134,8 @@ func NewMinFunction() *AggregatorFunction {
 }
 
 // NewSumFunction returns a new sum function.
-func NewSumFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(
+func NewSumFunction() *AggregateFunction {
+	return NewAggregateFunctionWith(
 		SumFunctionName,
 		func(count int, currValue float64, argValue float64) float64 {
 			return currValue + argValue
@@ -144,8 +144,8 @@ func NewSumFunction() *AggregatorFunction {
 }
 
 // NewAvgFunction returns a new avg function.
-func NewAvgFunction() *AggregatorFunction {
-	return NewAggregatorFunctionWith(
+func NewAvgFunction() *AggregateFunction {
+	return NewAggregateFunctionWith(
 		AvgFunctionName,
 		func(count int, currValue float64, argValue float64) float64 {
 			return currValue + argValue
