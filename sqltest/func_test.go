@@ -63,6 +63,7 @@ func TestMathFunctions(t *testing.T) {
 	}{
 		{query.NewAbsFunction(), float64(-1), float64(1)},
 		{query.NewFloorFunction(), float64(5.95), int64(5)},
+		{query.NewCeilFunction(), float64(5.95), int64(6)},
 	}
 
 	for _, test := range tests {

@@ -89,3 +89,18 @@ func NewFloorFunction() *MathFunction {
 		},
 	)
 }
+
+// NewCeilFunction returns a new ceil function.
+func NewCeilFunction() *MathFunction {
+	return NewMathFunctionWith(
+		CeilFunctionName,
+		func(v any) (any, error) {
+			var value float64
+			err := safecast.ToFloat64(v, &value)
+			if err != nil {
+				return nil, err
+			}
+			return int64(math.Ceil(value)), nil
+		},
+	)
+}

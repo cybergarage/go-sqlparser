@@ -44,6 +44,8 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 		return NewAbsFunction()
 	case FloorFunctionName:
 		return NewFloorFunction()
+	case CeilFunctionName:
+		return NewCeilFunction()
 	}
 	return nil
 }
