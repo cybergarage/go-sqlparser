@@ -47,6 +47,19 @@ func (selectors SelectorList) Selectors() SelectorList {
 	return selectors
 }
 
+// Column returns a column array.
+func (selectors SelectorList) Columns() []*Column {
+	cols := make([]*Column, 0)
+	for _, selector := range selectors {
+		col, ok := selector.(*Column)
+		if !ok {
+			continue
+		}
+		cols = append(cols, col)
+	}
+	return cols
+}
+
 // Functions returns a function array.
 func (selectors SelectorList) Functions() []*Function {
 	fns := make([]*Function, 0)
