@@ -62,6 +62,11 @@ func (fn *Function) IsName(name string) bool {
 	return fn.name == name
 }
 
+// Executor returns the executor of the function.
+func (fn *Function) Executor() (FunctionExecutor, error) {
+	return GetFunctionExecutor(fn.name)
+}
+
 // SelectorString returns the selector string representation.
 func (fn *Function) SelectorString() string {
 	return fn.name + "(" + fn.ArgumentList.String() + ")"
