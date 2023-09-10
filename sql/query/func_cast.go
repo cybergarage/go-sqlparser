@@ -43,7 +43,7 @@ func (fn *CastFunction) Name() string {
 
 // Type returns the type of the function.
 func (fn *CastFunction) Type() FunctionType {
-	return FunctionTypeCast
+	return CastFunctionType
 }
 
 // Execute returns the executed value with the specified arguments.

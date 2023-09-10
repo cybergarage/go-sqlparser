@@ -48,7 +48,7 @@ func (fn *MathFunction) Name() string {
 
 // Type returns the type of the function.
 func (fn *MathFunction) Type() FunctionType {
-	return FunctionTypeMath
+	return MathFunctionType
 }
 
 // Execute returns the executed value with the specified arguments.
