@@ -20,12 +20,12 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-func TestAggregatorFunctions(t *testing.T) {
+func TestAggregateFunctions(t *testing.T) {
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 15}
 
 	groupKey := ""
 	tests := []struct {
-		fn     *query.AggregatorFunction
+		fn     *query.AggregateFunction
 		result int
 	}{
 		{query.NewAvgFunction(), 6},
