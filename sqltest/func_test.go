@@ -25,8 +25,8 @@ func TestAggregatorFunctions(t *testing.T) {
 
 	groupKey := ""
 	tests := []struct {
-		function *query.AggregatorFunction
-		result   int
+		fn     *query.AggregatorFunction
+		result int
 	}{
 		{query.NewAvgFunction(), 6},
 		{query.NewCountFunction(), len(values)},
@@ -37,41 +37,42 @@ func TestAggregatorFunctions(t *testing.T) {
 
 	for _, test := range tests {
 		for _, value := range values {
-			_, err := test.function.Execute(groupKey, value)
+			_, err := test.fn.Execute(groupKey, value)
 			if err != nil {
 				t.Error(err)
 				return
 			}
 		}
-		rs := test.function.ResultSet()
+		rs := test.fn.ResultSet()
 		r, ok := rs[groupKey]
 		if !ok {
-			t.Errorf("The %s result is not found", test.function.Name())
+			t.Errorf("The %s result is not found", test.fn.Name())
 			return
 		}
 		if int(r) != test.result {
-			t.Errorf("The %s value (%d) is not (%d)", test.function.Name(), int(r), test.result)
+			t.Errorf("The %s value (%d) is not (%d)", test.fn.Name(), int(r), test.result)
 		}
 	}
 }
 
 func TestMathFunctions(t *testing.T) {
 	tests := []struct {
-		function *query.MathFunction
-		arg      any
-		result   any
+		fn     *query.MathFunction
+		arg    any
+		result any
 	}{
-		{query.NewAbsFunction(), float64(-1), float64(2)},
+		{query.NewAbsFunction(), float64(-1), float64(1)},
+		{query.NewFloorFunction(), float64(5.95), int64(5)},
 	}
 
 	for _, test := range tests {
-		r, err := test.function.Execute(test.arg)
+		r, err := test.fn.Execute(test.arg)
 		if err != nil {
 			t.Error(err)
 			return
 		}
 		if r != test.result {
-			t.Errorf("The %s value (%v) is not (%v)", test.function.Name(), r, test.result)
+			t.Errorf("The %s value (%v) is not (%v)", test.fn.Name(), r, test.result)
 		}
 	}
 }
