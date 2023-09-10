@@ -49,3 +49,12 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 	}
 	return nil
 }
+
+// ExecuteFunction returns the executed value with the specified arguments.
+func ExecuteFunction(name string, args ...any) (any, error) {
+	fn := GetFunctionExecutor(name)
+	if fn == nil {
+		return nil, newErrInvalidFunction(name)
+	}
+	return fn.Execute(args...)
+}
