@@ -6,6 +6,14 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.2.0 (2023-09-xx)
+- Support
+  - Add function executor
+    - Math functions 
+      - ABS, FLOOR and CEIL
+    - Aggregate functions
+      - COUNT, MAX, MIN, AVG and SUM
+
 ## v1.1.0 (2023-09-10)
 - Support
   - ALTER DATABASE
