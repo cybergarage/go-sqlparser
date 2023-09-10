@@ -22,9 +22,9 @@ import (
 type FunctionType int
 
 const (
-	FunctionTypeMath FunctionType = iota
-	FunctionTypeAggregator
-	FunctionTypeCast
+	MathFunctionType FunctionType = iota
+	AggregatorFunctionType
+	CastFunctionType
 )
 
 // FunctionExecutor represents a function executor interface.
