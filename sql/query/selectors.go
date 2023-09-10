@@ -70,6 +70,24 @@ func (selectors SelectorList) HasFunction() bool {
 	return false
 }
 
+// HasFunctionType returns true if the column list has a function with the specified type.
+func (selectors SelectorList) HasFunctionType(t FunctionType) bool {
+	for _, selector := range selectors {
+		fn, ok := selector.(*Function)
+		if !ok {
+			continue
+		}
+		executor := GetFunctionExecutor(fn.Name())
+		if executor == nil {
+			continue
+		}
+		if executor.Type() == t {
+			return true
+		}
+	}
+	return false
+}
+
 // SelectorString returns a string representation of the selector array.
 func (selectors SelectorList) SelectorString() string {
 	strs := make([]string, len(selectors))
