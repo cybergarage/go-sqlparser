@@ -73,6 +73,20 @@ func (selectors SelectorList) Functions() []*Function {
 	return fns
 }
 
+// FunctionByName returns a function with the specified name.
+func (selectors SelectorList) FunctionByName(name string) (*Function, error) {
+	for _, selector := range selectors {
+		fn, ok := selector.(*Function)
+		if !ok {
+			continue
+		}
+		if fn.IsName(name) {
+			return fn, nil
+		}
+	}
+	return nil, newErrNotFoundFunction(name)
+}
+
 // FunctionExecutors returns a function executor array.
 func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
@@ -88,6 +102,15 @@ func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 		executors = append(executors, executor)
 	}
 	return executors, nil
+}
+
+// FunctionExecutorByName returns a function executor with the specified name.
+func (selectors SelectorList) FunctionExecutorByName(name string) (FunctionExecutor, error) {
+	fn, err := selectors.FunctionByName(name)
+	if err != nil {
+		return nil, err
+	}
+	return fn.Executor()
 }
 
 // FunctionExecutorsWithType returns a function executor array with the specified type.
