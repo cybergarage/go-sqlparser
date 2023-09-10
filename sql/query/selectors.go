@@ -33,11 +33,11 @@ func NewSelectorsWith(selectors ...Selector) SelectorList {
 	return s
 }
 
-// NewSelectorsWithColums returns a selector array instance with the specified columns.
-func NewSelectorsWithColums(columns ...*Column) SelectorList {
-	s := make(SelectorList, len(columns))
-	for n, column := range columns {
-		s[n] = column
+// NewSelectorsWithColums returns a selector array instance with the specified selectors.
+func NewSelectorsWithColums(selectors ...*Column) SelectorList {
+	s := make(SelectorList, len(selectors))
+	for n, selector := range selectors {
+		s[n] = selector
 	}
 	return s
 }
@@ -47,7 +47,7 @@ func (selectors SelectorList) Selectors() SelectorList {
 	return selectors
 }
 
-// IsSelectAll returns true if the column list is "*".
+// IsSelectAll returns true if the selector list is "*".
 func (selectors SelectorList) IsSelectAll() bool {
 	l := len(selectors)
 	switch {
@@ -59,7 +59,7 @@ func (selectors SelectorList) IsSelectAll() bool {
 	return false
 }
 
-// HasFunction returns true if the column list has a function.
+// HasFunction returns true if the selector list has a function.
 func (selectors SelectorList) HasFunction() bool {
 	for _, selector := range selectors {
 		_, ok := selector.(*Function)
@@ -70,7 +70,7 @@ func (selectors SelectorList) HasFunction() bool {
 	return false
 }
 
-// HasFunctionWithType returns true if the column list has a function with the specified type.
+// HasFunctionWithType returns true if the selector list has a function with the specified type.
 func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
 		fn, ok := selector.(*Function)
@@ -86,6 +86,11 @@ func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 		}
 	}
 	return false
+}
+
+// HasAggregateFunction returns true if the selector list has an aggregate function.
+func (selectors SelectorList) HasAggregateFunction() bool {
+	return selectors.HasFunctionWithType(AggregateFunctionType)
 }
 
 // SelectorString returns a string representation of the selector array.
