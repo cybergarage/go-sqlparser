@@ -15,6 +15,11 @@
 package query
 
 const (
+	// Math
+	AbsFunctionName   = "ABS"
+	CeilFunctionName  = "CEIL"
+	FloorFunctionName = "FLOOR"
+	// Aggregator
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
 	SumFunctionName   = "SUM"
@@ -35,6 +40,8 @@ func GetFunctionExecutor(name string) FunctionExecutor {
 		return NewAvgFunction()
 	case CountFunctionName:
 		return NewCountFunction()
+	case AbsFunctionName:
+		return NewAbsFunction()
 	}
 	return nil
 }
