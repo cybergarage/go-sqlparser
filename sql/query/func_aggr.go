@@ -23,12 +23,15 @@ import (
 // AggregatorFunc represents an aggregator function.
 type AggregatorFunc func(int, float64, float64) float64
 
+// AggregatorResultSet represents a result set of an aggregator function.
+type AggregatorResultSet map[any]float64
+
 // AggregatorFunction represents a base aggregator function.
 type AggregatorFunction struct {
 	name       string
 	aggregator AggregatorFunc
 	count      int
-	values     map[string]float64
+	values     AggregatorResultSet
 }
 
 // NewAggregatorFunctionWith returns a new base aggregator function with the specified name and aggregator.
@@ -37,7 +40,7 @@ func NewAggregatorFunctionWith(name string, fn AggregatorFunc) *AggregatorFuncti
 		name:       strings.ToUpper(name),
 		aggregator: fn,
 		count:      0,
-		values:     map[string]float64{},
+		values:     AggregatorResultSet{},
 	}
 }
 
@@ -56,10 +59,7 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 	if len(args) != 2 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
-	groupKey, ok := args[0].(string)
-	if !ok {
-		return nil, newErrInvalidArguments(fn.name, args)
-	}
+	groupKey := args[0]
 
 	var argValue float64
 	err := safecast.ToFloat64(args[1], &argValue)
@@ -81,7 +81,7 @@ func (fn *AggregatorFunction) Execute(args ...any) (any, error) {
 }
 
 // Aggregate returns the latest aggregated value.
-func (fn *AggregatorFunction) ResultSet() map[string]float64 {
+func (fn *AggregatorFunction) ResultSet() AggregatorResultSet {
 	switch fn.name {
 	case AvgFunctionName:
 		for groupKey, value := range fn.values {
