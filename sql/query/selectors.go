@@ -73,6 +73,23 @@ func (selectors SelectorList) Functions() []*Function {
 	return fns
 }
 
+// FunctionExecutors returns a function executor array.
+func (selectors SelectorList) FunctionExecutors() []FunctionExecutor {
+	executors := make([]FunctionExecutor, 0)
+	for _, selector := range selectors {
+		fn, ok := selector.(*Function)
+		if !ok {
+			continue
+		}
+		executor, err := fn.Executor()
+		if err != nil {
+			continue
+		}
+		executors = append(executors, executor)
+	}
+	return executors
+}
+
 // IsSelectAll returns true if the selector list is "*".
 func (selectors SelectorList) IsSelectAll() bool {
 	l := len(selectors)
