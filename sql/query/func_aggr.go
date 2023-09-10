@@ -51,7 +51,7 @@ func (fn *AggregatorFunction) Name() string {
 
 // Type returns the type of the function.
 func (fn *AggregatorFunction) Type() FunctionType {
-	return AggregatorFunctionType
+	return AggregateFunctionType
 }
 
 // Execute returns the executed value with the specified arguments.

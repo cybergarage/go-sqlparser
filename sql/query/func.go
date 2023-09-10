@@ -23,7 +23,7 @@ type FunctionType int
 
 const (
 	MathFunctionType FunctionType = iota
-	AggregatorFunctionType
+	AggregateFunctionType
 	CastFunctionType
 )
 
