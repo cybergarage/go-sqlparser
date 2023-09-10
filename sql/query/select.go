@@ -91,6 +91,11 @@ func (stmt *Select) Limit() *Limit {
 	return stmt.limit
 }
 
+// GroupBy returns the group by clause.
+func (stmt *Select) GroupBy() *GroupBy {
+	return stmt.groupBy
+}
+
 // String returns the statement string representation.
 func (stmt *Select) String() string {
 	selectorStr := "*"
