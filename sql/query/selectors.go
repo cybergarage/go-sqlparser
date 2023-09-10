@@ -70,8 +70,8 @@ func (selectors SelectorList) HasFunction() bool {
 	return false
 }
 
-// HasFunctionType returns true if the column list has a function with the specified type.
-func (selectors SelectorList) HasFunctionType(t FunctionType) bool {
+// HasFunctionWithType returns true if the column list has a function with the specified type.
+func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
 		fn, ok := selector.(*Function)
 		if !ok {
