@@ -15,6 +15,8 @@
 package sqlite
 
 import (
+	"strconv"
+
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
@@ -325,6 +327,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	sels := query.NewSelectors()
 	tbls := query.NewTables()
+	opts := []query.SelectOption{}
 	var topExpr query.Expr
 	if parentQuery := ctx.GetParentQuery(); parentQuery != nil {
 		for _, col := range parentQuery.AllResult_column() {
@@ -342,12 +345,49 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 		if w := parentQuery.GetWhereExpr(); w != nil {
 			topExpr = newExprWith(w)
 		}
+		groupBy := parentQuery.GetGroupByExpr()
+		if 0 < len(groupBy) {
+			opts = append(opts, query.WithSelectGroupBy(groupBy[0].GetText()))
+		}
 	}
 	var where *query.Condition
 	if topExpr != nil {
 		where = query.NewConditionWith(topExpr)
 	}
-	return query.NewSelectWith(sels, tbls, where)
+
+	if ctx := ctx.Order_by_stmt(); ctx != nil {
+		orderBy := ctx.AllOrdering_term()
+		if 0 < len(orderBy) {
+			column := orderBy[0].Expr().GetText()
+			order := query.OrderNone
+			if orderSpec := orderBy[0].Asc_desc(); orderSpec != nil {
+				order = query.NewOrderWith(orderSpec.GetText())
+			}
+			if !order.IsNone() {
+				opts = append(opts, query.WithSelectOrderBy(column, order))
+			}
+		}
+	}
+
+	if ctx := ctx.Limit_stmt(); ctx != nil {
+		limits := ctx.AllExpr()
+		if 0 < len(limits) {
+			limit, err := strconv.Atoi(limits[0].GetText())
+			if err != nil {
+				limit = 0
+			}
+			offset := 0
+			if 1 < len(limits) {
+				offset, err = strconv.Atoi(limits[1].GetText())
+				if err != nil {
+					offset = 0
+				}
+			}
+			opts = append(opts, query.WithSelectLimit(offset, limit))
+		}
+	}
+
+	return query.NewSelectWith(sels, tbls, where, opts...)
 }
 
 func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
