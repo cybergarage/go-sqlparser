@@ -21,3 +21,13 @@ type Argument string
 func NewArgumentWith(arg string) Argument {
 	return Argument(arg)
 }
+
+// Name returns the name of the argument.
+func (arg Argument) Name() string {
+	return string(arg)
+}
+
+// String returns the string representation of the argument.
+func (arg Argument) String() string {
+	return string(arg)
+}
