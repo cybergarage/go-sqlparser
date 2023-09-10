@@ -60,7 +60,7 @@ func (fn *MathFunction) Execute(args ...any) (any, error) {
 	return fn.math(args[0])
 }
 
-// NewCountFunction returns a new count function.
+// NewAbsFunction returns a new abs function.
 func NewAbsFunction() *MathFunction {
 	return NewMathFunctionWith(
 		AbsFunctionName,
@@ -71,6 +71,21 @@ func NewAbsFunction() *MathFunction {
 				return nil, err
 			}
 			return float64(math.Abs(value)), nil
+		},
+	)
+}
+
+// NewFloorFunction returns a new floor function.
+func NewFloorFunction() *MathFunction {
+	return NewMathFunctionWith(
+		FloorFunctionName,
+		func(v any) (any, error) {
+			var value float64
+			err := safecast.ToFloat64(v, &value)
+			if err != nil {
+				return nil, err
+			}
+			return int64(math.Floor(value)), nil
 		},
 	)
 }
