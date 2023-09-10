@@ -43,6 +43,10 @@ func newErrInvalidArguments(name string, args ...any) error {
 	return fmt.Errorf("%w %s(%v)", ErrInvalidArguments, name, args)
 }
 
+func newErrNotFoundFunction(name string) error {
+	return fmt.Errorf("function (%s) %w", name, ErrNotFound)
+}
+
 func newErrInvalidFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
