@@ -28,6 +28,9 @@ var ErrNotFound = errors.New("not found")
 // ErrInvalidArguments is returned when the function arguments are invalid.
 var ErrInvalidArguments = errors.New("invalid arguments")
 
+// ErrNotSupported is returned when the function is not supported.
+var ErrNotSupported = errors.New("not supported")
+
 func newErrColumnNotFound(name string) error {
 	return fmt.Errorf("column (%s) %w", name, ErrNotFound)
 }
@@ -38,4 +41,8 @@ func newErrColumnIndexOutOfRange(n int) error {
 
 func newErrInvalidArguments(name string, args ...any) error {
 	return fmt.Errorf("%w %s(%v)", ErrInvalidArguments, name, args)
+}
+
+func newErrInvalidFunction(name string) error {
+	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
