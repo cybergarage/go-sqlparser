@@ -7,8 +7,10 @@
   - Add new ANTLR parser instead of SQLite3 parser
 
 ## v1.1.1 (2023-09-xx)
-- Support
-  - Add function executor
+- Supported
+  - SELECT
+    - GROUP BY
+  - Add function executors
     - Math functions 
       - ABS, FLOOR and CEIL
     - Aggregate functions
