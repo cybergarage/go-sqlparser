@@ -110,6 +110,11 @@ func (selectors SelectorList) FunctionExecutorsWithType(t FunctionType) ([]Funct
 	return executors, nil
 }
 
+// AggregateFunctions returns an aggregate function array.
+func (selectors SelectorList) AggregateFunctions() ([]FunctionExecutor, error) {
+	return selectors.FunctionExecutorsWithType(AggregateFunctionType)
+}
+
 // IsSelectAll returns true if the selector list is "*".
 func (selectors SelectorList) IsSelectAll() bool {
 	l := len(selectors)
