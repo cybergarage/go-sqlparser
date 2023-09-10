@@ -26,6 +26,7 @@ type Select struct {
 	*Condition
 	orderBy *OrderBy
 	limit   *Limit
+	groupBy *GroupBy
 }
 
 // NewSelectWith returns a new Select statement instance with the specified parameters.
@@ -36,6 +37,7 @@ func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ..
 		Condition:    w,
 		orderBy:      NewOrderBy(),
 		limit:        NewLimit(),
+		groupBy:      NewGroupBy(),
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -54,6 +56,13 @@ func WithSelectOrderBy(name string, order Order) func(*Select) {
 func WithSelectLimit(offset int, limit int) func(*Select) {
 	return func(stmt *Select) {
 		stmt.limit = NewLimitWith(offset, limit)
+	}
+}
+
+// WithSelectOrderBy sets order by options.
+func WithSelectGroupBy(name string) func(*Select) {
+	return func(stmt *Select) {
+		stmt.groupBy = NewGroupByWith(name)
 	}
 }
 
@@ -99,5 +108,6 @@ func (stmt *Select) String() string {
 	}
 	strs = append(strs, stmt.orderBy.String())
 	strs = append(strs, stmt.limit.String())
+	strs = append(strs, stmt.groupBy.String())
 	return strings.JoinWithSpace(strs)
 }
