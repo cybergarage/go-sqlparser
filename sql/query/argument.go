@@ -27,6 +27,16 @@ func (arg Argument) Name() string {
 	return string(arg)
 }
 
+// IsName returns true whether the argument name is the specified one.
+func (arg Argument) IsName(name string) bool {
+	return arg.Name() == name
+}
+
+// IsAsterisk returns true whether the argument name is the asterisk.
+func (arg Argument) IsAsterisk() bool {
+	return arg.IsName("*")
+}
+
 // String returns the string representation of the argument.
 func (arg Argument) String() string {
 	return string(arg)

@@ -67,7 +67,7 @@ func (fn *Function) IsSelectAll() bool {
 	l := len(fn.ArgumentList)
 	switch {
 	case l == 1:
-		return fn.ArgumentList[0].Name() == Asterisk
+		return fn.ArgumentList[0].IsAsterisk()
 	case l == 0:
 		return true
 	}
