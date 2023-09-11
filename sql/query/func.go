@@ -62,6 +62,18 @@ func (fn *Function) IsName(name string) bool {
 	return fn.name == name
 }
 
+// IsSelectAll returns true if the argument list is "*".
+func (fn *Function) IsSelectAll() bool {
+	l := len(fn.ArgumentList)
+	switch {
+	case l == 1:
+		return fn.ArgumentList[0].Name() == Asterisk
+	case l == 0:
+		return true
+	}
+	return false
+}
+
 // Executor returns the executor of the function.
 func (fn *Function) Executor() (FunctionExecutor, error) {
 	return GetFunctionExecutor(fn.name)
