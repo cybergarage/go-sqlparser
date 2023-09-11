@@ -15,6 +15,7 @@
 package query
 
 import (
+	"math"
 	"strings"
 
 	"github.com/cybergarage/go-safecast/safecast"
@@ -60,11 +61,16 @@ func (fn *AggregateFunction) Execute(args ...any) (any, error) {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
 	groupKey := args[0]
+	arg := args[1]
 
 	var argValue float64
-	err := safecast.ToFloat64(args[1], &argValue)
-	if err != nil {
-		return nil, err
+	if arg != Asterisk {
+		err := safecast.ToFloat64(arg, &argValue)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		argValue = math.NaN()
 	}
 
 	var lastValue float64
