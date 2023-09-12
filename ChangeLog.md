@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.1.1 (2023-09-xx)
+## v1.1.1 (2023-09-12)
 - Supported
   - SELECT
     - GROUP BY
