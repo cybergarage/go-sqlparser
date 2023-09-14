@@ -94,16 +94,6 @@ func (fn *AggregateFunction) ResultSet() AggregateResultSet {
 			fn.values[groupKey] = value / float64(fn.count)
 		}
 	}
-	switch fn.name {
-	case CountFunctionName:
-		if len(fn.values) == 0 {
-			fn.values[Asterisk] = float64(0)
-		}
-	default:
-		if len(fn.values) == 0 {
-			fn.values[GroupByNone] = float64(math.NaN())
-		}
-	}
 	return fn.values
 }
 
