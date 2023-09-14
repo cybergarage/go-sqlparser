@@ -14,7 +14,12 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
+
+// GroupByNone represents an empty ORDER BY clause.
+const GroupByNone = ""
 
 // GroupBy represents an ORDER BY clause.
 type GroupBy struct {
