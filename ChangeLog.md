@@ -6,6 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.1.2 (2023-09-xx)
+- Fixed
+  - Updated aggregate functions to to return empty values when there are no rows
+
 ## v1.1.1 (2023-09-12)
 - Supported
   - SELECT
