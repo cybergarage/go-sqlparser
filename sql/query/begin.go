@@ -14,27 +14,28 @@
 
 package query
 
-// StatementType is a statement type.
-type StatementType uint8
-
-const (
-	CreateDatabaseStatement = iota
-	CreateTableStatement
-	CreateIndexStatement
-	InsertStatement
-	SelectStatement
-	UpdateStatement
-	DeleteStatement
-	DropDatabaseStatement
-	DropTableStatement
-	DropIndexStatement
-	AlterDatabaseStatement
-	AlterTableStatement
-	AlterIndexStatement
-	CopyStatement
-	CommitStatement
-	VacuumStatement
-	TruncateStatement
-	BeginStatement
-	RollbackStatement
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
+
+// Begin represents a begin statement.
+type Begin struct {
+}
+
+// NewBeginWith returns a new begin statement.
+func NewBeginWith() *Begin {
+	return &Begin{}
+}
+
+// StatementType returns the statement type.
+func (stmt *Begin) StatementType() StatementType {
+	return BeginStatement
+}
+
+// String returns the statement string representation.
+func (stmt *Begin) String() string {
+	strs := []string{
+		"BEGIN",
+	}
+	return strings.JoinWithSpace(strs)
+}
