@@ -22,8 +22,8 @@ import (
 type Begin struct {
 }
 
-// NewBeginWith returns a new begin statement.
-func NewBeginWith() *Begin {
+// NewBegin returns a new begin statement.
+func NewBegin() *Begin {
 	return &Begin{}
 }
 
