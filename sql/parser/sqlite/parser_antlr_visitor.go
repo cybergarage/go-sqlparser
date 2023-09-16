@@ -95,6 +95,16 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	if stmt := ctx.Commit_stmt(); stmt != nil {
 		return query.NewCommit()
 	}
+	// Transaction statements
+	if stmt := ctx.Begin_stmt(); stmt != nil {
+		return newBeginWith(stmt)
+	}
+	if stmt := ctx.Rollback_stmt(); stmt != nil {
+		return newRollbackWith(stmt)
+	}
+	if stmt := ctx.Commit_stmt(); stmt != nil {
+		return newCommitWith(stmt)
+	}
 	// Extra statements
 	if stmt := ctx.Copy_stmt(); stmt != nil {
 		return newCopyWith(stmt)
@@ -437,6 +447,18 @@ func newVacuumWith(ctx antlr.IVacuum_stmtContext) *query.Vacuum {
 		return query.NewVacuumWith(query.NewTableWith(schema.GetText()))
 	}
 	return query.NewVacuum()
+}
+
+func newBeginWith(ctx antlr.IBegin_stmtContext) *query.Begin {
+	return query.NewBegin()
+}
+
+func newRollbackWith(ctx antlr.IRollback_stmtContext) *query.Rollback {
+	return query.NewRollback()
+}
+
+func newCommitWith(ctx antlr.ICommit_stmtContext) *query.Commit {
+	return query.NewCommit()
 }
 
 func newLiteralValueWith(ctx antlr.ILiteral_valueContext) *query.Literal {
