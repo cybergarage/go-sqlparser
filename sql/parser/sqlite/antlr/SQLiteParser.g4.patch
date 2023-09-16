@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Sep  8 13:35:45 2023
---- SQLiteParser.g4	Fri Sep  8 13:37:13 2023
+*** SQLiteParser.g4.new	Sat Sep 16 12:42:22 2023
+--- SQLiteParser.g4	Sat Sep 16 13:01:23 2023
 ***************
 *** 42,54 ****
   ;
@@ -117,6 +117,23 @@
   analyze_stmt:
       ANALYZE_ (schema_name | (schema_name DOT)? table_or_index_name)?
   ;
+***************
+*** 122,128 ****
+  
+  begin_stmt:
+      BEGIN_ (DEFERRED_ | IMMEDIATE_ | EXCLUSIVE_)? (
+!         TRANSACTION_? transaction_name?
+      )?
+  ;
+  
+--- 90,96 ----
+  
+  begin_stmt:
+      BEGIN_ (DEFERRED_ | IMMEDIATE_ | EXCLUSIVE_)? (
+!         TRANSACTION_ transaction_name?
+      )?
+  ;
+  
 ***************
 *** 142,170 ****
   ;
