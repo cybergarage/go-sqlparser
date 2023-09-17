@@ -368,13 +368,20 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 	if ctx := ctx.Order_by_stmt(); ctx != nil {
 		orderBy := ctx.AllOrdering_term()
 		if 0 < len(orderBy) {
-			column := orderBy[0].Expr().GetText()
-			order := query.OrderNone
-			if orderSpec := orderBy[0].Asc_desc(); orderSpec != nil {
-				order = query.NewOrderWith(orderSpec.GetText())
+			orders := []*query.Order{}
+			for _, order := range orderBy {
+				orderColumn := order.Expr().GetText()
+				orderType := query.OrderNone
+				if orderSpec := order.Asc_desc(); orderSpec != nil {
+					orderType = query.NewOrderTypeWith(orderSpec.GetText())
+				}
+				if orderType.IsNone() {
+					continue
+				}
+				orders = append(orders, query.NewOrderWith(orderColumn, orderType))
 			}
-			if !order.IsNone() {
-				opts = append(opts, query.WithSelectOrderBy(column, order))
+			if 0 < len(orders) {
+				opts = append(opts, query.WithSelectOrderBy(query.NewOrderByWith(orders)))
 			}
 		}
 	}
