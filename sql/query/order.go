@@ -20,12 +20,12 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Order represents an ordertype.
-type Order uint8
+// OrderType represents an ordertype.
+type OrderType uint8
 
 const (
 	// OrderNone represents none order.
-	OrderNone Order = iota
+	OrderNone OrderType = iota
 	// OrderAsc represents asc order.
 	OrderAsc
 	// OrderDesc represents desc order.
@@ -38,8 +38,8 @@ const (
 	orderDescString = "DESC"
 )
 
-// NewOrderWith returns a new Order instance.
-func NewOrderWith(order string) Order {
+// NewOrderTypeWith returns a new OrderType instance.
+func NewOrderTypeWith(order string) OrderType {
 	switch std_strings.ToUpper(order) {
 	case orderAscString:
 		return OrderAsc
@@ -50,22 +50,22 @@ func NewOrderWith(order string) Order {
 }
 
 // IsNone returns true whether the order is none.
-func (t Order) IsNone() bool {
+func (t OrderType) IsNone() bool {
 	return t == OrderNone
 }
 
 // IsAsc returns true whether the order is asc.
-func (t Order) IsAsc() bool {
+func (t OrderType) IsAsc() bool {
 	return t == OrderAsc
 }
 
 // IsDesc returns true whether the order is desc.
-func (t Order) IsDesc() bool {
+func (t OrderType) IsDesc() bool {
 	return t == OrderDesc
 }
 
 // String returns the string representation.
-func (t Order) String() string {
+func (t OrderType) String() string {
 	switch t {
 	case OrderAsc:
 		return orderAscString
@@ -76,10 +76,68 @@ func (t Order) String() string {
 	}
 }
 
+// Order represents an ORDER BY clause.
+type Order struct {
+	column string
+	order  OrderType
+}
+
+// NewOrder returns a new order instance.
+func NewOrder() *Order {
+	return &Order{
+		column: "",
+		order:  OrderNone,
+	}
+}
+
+func NewOrderWith(column string, order OrderType) *Order {
+	return &Order{
+		column: column,
+		order:  order,
+	}
+}
+
+// Column returns the column name.
+func (order *Order) Column() string {
+	return order.column
+}
+
+// Order returns the order.
+func (order *Order) Order() OrderType {
+	return order.order
+}
+
+// IsNone returns true whether the order is none.
+func (order *Order) IsNone() bool {
+	return order.order.IsNone()
+}
+
+// IsAsc returns true whether the order is asc.
+func (order *Order) IsAsc() bool {
+	return order.order.IsAsc()
+}
+
+// IsDesc returns true whether the order is desc.
+func (order *Order) IsDesc() bool {
+	return order.order.IsDesc()
+}
+
+// String returns the string representation.
+func (order *Order) String() string {
+	if order.IsNone() {
+		return ""
+	}
+	return strings.JoinWithSpace(
+		[]string{
+			order.column,
+			order.order.String(),
+		})
+}
+
 // OrderBy represents an ORDER BY clause.
 type OrderBy struct {
 	column string
-	order  Order
+	order  OrderType
 }
 
 // NewOrderBy returns a new OrderBy instance.
@@ -90,7 +148,7 @@ func NewOrderBy() *OrderBy {
 	}
 }
 
-func NewOrderByWith(column string, order Order) *OrderBy {
+func NewOrderByWith(column string, order OrderType) *OrderBy {
 	return &OrderBy{
 		column: column,
 		order:  order,
@@ -104,7 +162,7 @@ func (orderBy *OrderBy) SetColumn(name string) *OrderBy {
 }
 
 // SetOrder sets the order.
-func (orderBy *OrderBy) SetOrder(order Order) *OrderBy {
+func (orderBy *OrderBy) SetOrder(order OrderType) *OrderBy {
 	orderBy.order = order
 	return orderBy
 }
@@ -115,7 +173,7 @@ func (orderBy *OrderBy) Column() string {
 }
 
 // Order returns the order.
-func (orderBy *OrderBy) Order() Order {
+func (orderBy *OrderBy) Order() OrderType {
 	return orderBy.order
 }
 
