@@ -644,7 +644,7 @@ qualified_table_name: (schema_name DOT)? table_name (AS_ alias)? (
 ;
 
 vacuum_stmt:
-    VACUUM_ schema_name? (INTO_ filename)?
+    VACUUM_ (ANALYZE_)? schema_name? (INTO_ filename)?
 ;
 
 filter_clause:
