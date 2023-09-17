@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.2.2 (2023-09-17)
+# v1.2.2 (2023-09-xx)
 - Updated
   - VACUUM
     - Supported ANALYZE clause
