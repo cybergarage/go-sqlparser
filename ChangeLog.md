@@ -6,11 +6,16 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.2.1 (2023-09-17)
+# v1.2.2 (2023-09-17)
+- Updated
+  - VACUUM
+    - Supported ANALYZE clause
+ 
+ # v1.2.1 (2023-09-17)
 - Updated
   - SELECT
     - Supported multiple order by
- 
+    - 
 ## v1.2.0 (2023-09-16)
 - Supported
   - Transaction statements
