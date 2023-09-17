@@ -17,7 +17,7 @@
 - Updated
   - SELECT
     - Supported multiple order by
-    - 
+
 ## v1.2.0 (2023-09-16)
 - Supported
   - Transaction statements
