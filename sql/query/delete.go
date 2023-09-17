@@ -18,6 +18,9 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
+// DeleteOption represents a delete option function.
+type DeleteOption = func(*Delete)
+
 // Delete is a "DELETE" statement.
 type Delete struct {
 	table *Table
@@ -25,10 +28,20 @@ type Delete struct {
 }
 
 // NewDeleteWith returns a new Delete statement instance with the specified parameters.
-func NewDeleteWith(tbl *Table, w *Condition) *Delete {
-	return &Delete{
+func NewDeleteWith(tbl *Table, opts ...DeleteOption) *Delete {
+	stmt := &Delete{
 		table:     tbl,
-		Condition: w,
+		Condition: nil,
+	}
+	for _, opt := range opts {
+		opt(stmt)
+	}
+	return stmt
+}
+
+func WithDeleteCondition(cond *Condition) func(*Delete) {
+	return func(stmt *Delete) {
+		stmt.Condition = cond
 	}
 }
 
