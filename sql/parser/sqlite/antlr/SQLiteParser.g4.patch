@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Sat Sep 16 12:42:22 2023
---- SQLiteParser.g4	Sat Sep 16 13:01:23 2023
+*** SQLiteParser.g4.new	Sun Sep 17 20:27:37 2023
+--- SQLiteParser.g4	Sun Sep 17 20:27:46 2023
 ***************
 *** 42,54 ****
   ;
@@ -614,6 +614,23 @@
   column_name_list:
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
+***************
+*** 644,650 ****
+  ;
+  
+  vacuum_stmt:
+!     VACUUM_ (ANALYZE_)? schema_name? (INTO_ filename)?
+  ;
+  
+  filter_clause:
+--- 491,497 ----
+  ;
+  
+  vacuum_stmt:
+!     VACUUM_ schema_name? (INTO_ filename)?
+  ;
+  
+  filter_clause:
 ***************
 *** 969,978 ****
   // TODO: check all names below
