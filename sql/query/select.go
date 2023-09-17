@@ -46,9 +46,9 @@ func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ..
 }
 
 // WithSelectOrderBy sets order by options.
-func WithSelectOrderBy(name string, order Order) func(*Select) {
+func WithSelectOrderBy(orderBy *OrderBy) func(*Select) {
 	return func(stmt *Select) {
-		stmt.orderBy = NewOrderByWith(name, order)
+		stmt.orderBy = orderBy
 	}
 }
 

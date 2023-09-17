@@ -90,6 +90,7 @@ func NewOrder() *Order {
 	}
 }
 
+// NewOrderWith returns a new order instance with the specified column and order.
 func NewOrderWith(column string, order OrderType) *Order {
 	return &Order{
 		column: column,
@@ -136,71 +137,36 @@ func (order *Order) String() string {
 
 // OrderBy represents an ORDER BY clause.
 type OrderBy struct {
-	column string
-	order  OrderType
+	orders []*Order
 }
 
 // NewOrderBy returns a new OrderBy instance.
 func NewOrderBy() *OrderBy {
 	return &OrderBy{
-		column: "",
-		order:  OrderNone,
+		orders: []*Order{},
 	}
 }
 
-func NewOrderByWith(column string, order OrderType) *OrderBy {
+// NewOrderByWith returns a new OrderBy instance with the specified orders.
+func NewOrderByWith(orders []*Order) *OrderBy {
 	return &OrderBy{
-		column: column,
-		order:  order,
+		orders: orders,
 	}
-}
-
-// SetColumn sets the column name.
-func (orderBy *OrderBy) SetColumn(name string) *OrderBy {
-	orderBy.column = name
-	return orderBy
-}
-
-// SetOrder sets the order.
-func (orderBy *OrderBy) SetOrder(order OrderType) *OrderBy {
-	orderBy.order = order
-	return orderBy
-}
-
-// Column returns the column name.
-func (orderBy *OrderBy) Column() string {
-	return orderBy.column
-}
-
-// Order returns the order.
-func (orderBy *OrderBy) Order() OrderType {
-	return orderBy.order
-}
-
-// IsNone returns true whether the order is none.
-func (orderBy *OrderBy) IsNone() bool {
-	return orderBy.order.IsNone()
-}
-
-// IsAsc returns true whether the order is asc.
-func (orderBy *OrderBy) IsAsc() bool {
-	return orderBy.order.IsAsc()
-}
-
-// IsDesc returns true whether the order is desc.
-func (orderBy *OrderBy) IsDesc() bool {
-	return orderBy.order.IsDesc()
 }
 
 // String returns the string representation.
 func (orderBy *OrderBy) String() string {
-	if orderBy.IsNone() {
+	if len(orderBy.orders) == 0 {
 		return ""
 	}
+	orderStrs := []string{}
+	for _, order := range orderBy.orders {
+		orderStrs = append(orderStrs, order.String())
+	}
+	orderStr := strings.JoinWithComma(orderStrs)
 	return strings.JoinWithSpace(
 		[]string{
 			"ORDER BY",
-			orderBy.column,
-			orderBy.order.String(),
+			orderStr,
 		})
 }
