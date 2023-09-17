@@ -6,13 +6,15 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.2.1 (2023-09-17)
+- Updated
+  - SELECT
+    - Supported multiple order by
+ 
 ## v1.2.0 (2023-09-16)
 - Supported
   - Transaction statements
     - BEGIN, COMMIT and ROLLBACK
-
-## v1.1.1 (2023-09-12)
-- Supported
   - SELECT
     - GROUP BY
   - Added function executors
