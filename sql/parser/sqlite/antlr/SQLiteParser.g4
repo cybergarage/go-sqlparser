@@ -375,9 +375,8 @@ expr:
     | bind_param
     | ((schema_name DOT)? table_name DOT)? column_name
     | unary_operator expr
+    | arithmetic_expr
     | expr PIPE2 expr
-    | expr ( STAR | DIV | MOD) expr
-    | expr ( PLUS | MINUS) expr
     | expr ( LT2 | GT2 | AMP | PIPE) expr
     | comparison_expr 
     | expr (
@@ -418,6 +417,10 @@ function:
 
 comparison_expr:
     column_name (ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
+;
+
+arithmetic_expr:
+    expr (PLUS | MINUS | STAR | DIV | MOD) expr
 ;
 
 raise_function:

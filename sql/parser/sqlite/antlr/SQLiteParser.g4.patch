@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Sun Sep 17 20:27:37 2023
---- SQLiteParser.g4	Sun Sep 17 20:27:46 2023
+*** SQLiteParser.g4.new	Mon Sep 18 10:59:43 2023
+--- SQLiteParser.g4	Mon Sep 18 11:01:19 2023
 ***************
 *** 42,54 ****
   ;
@@ -403,16 +403,15 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 372,387 ****
+*** 372,386 ****
    */
   expr:
       literal_value
 !     | bind_param
       | ((schema_name DOT)? table_name DOT)? column_name
       | unary_operator expr
+-     | arithmetic_expr
       | expr PIPE2 expr
-      | expr ( STAR | DIV | MOD) expr
-      | expr ( PLUS | MINUS) expr
       | expr ( LT2 | GT2 | AMP | PIPE) expr
 !     | comparison_expr 
       | expr (
@@ -428,8 +427,8 @@
       | ((schema_name DOT)? table_name DOT)? column_name
       | unary_operator expr
       | expr PIPE2 expr
-      | expr ( STAR | DIV | MOD) expr
-      | expr ( PLUS | MINUS) expr
++     | expr ( STAR | DIV | MOD) expr
++     | expr ( PLUS | MINUS) expr
       | expr ( LT2 | GT2 | AMP | PIPE) expr
 !     | expr ( LT | LT_EQ | GT | GT_EQ) expr
       | expr (
@@ -441,7 +440,7 @@
           | IS_ NOT_
           | IN_
 ***************
-*** 392,398 ****
+*** 391,397 ****
       ) expr
       | expr AND_ expr
       | expr OR_ expr
@@ -458,7 +457,7 @@
       | CAST_ OPEN_PAR expr AS_ type_name CLOSE_PAR
       | expr COLLATE_ collation_name
 ***************
-*** 412,425 ****
+*** 411,428 ****
       | raise_function
   ;
   
@@ -470,12 +469,16 @@
 -     column_name (ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 - ;
 - 
+- arithmetic_expr:
+-     expr (PLUS | MINUS | STAR | DIV | MOD) expr
+- ;
+- 
   raise_function:
       RAISE_ OPEN_PAR (
           IGNORE_
 --- 307,312 ----
 ***************
-*** 428,435 ****
+*** 431,438 ****
   ;
   
   literal_value:
@@ -494,7 +497,7 @@
       | NULL_
       | TRUE_
 ***************
-*** 439,452 ****
+*** 442,455 ****
       | CURRENT_TIMESTAMP_
   ;
   
@@ -511,7 +514,7 @@
   ;
 --- 326,331 ----
 ***************
-*** 511,517 ****
+*** 514,520 ****
   ;
   
   select_stmt:
@@ -528,7 +531,7 @@
   
   join_clause:
 ***************
-*** 521,527 ****
+*** 524,530 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -545,7 +548,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 548,581 ****
+*** 551,584 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -582,7 +585,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 614,630 ****
+*** 617,633 ****
   update_stmt:
       with_clause? UPDATE_ (
           OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
@@ -615,7 +618,7 @@
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
 ***************
-*** 644,650 ****
+*** 647,653 ****
   ;
   
   vacuum_stmt:
@@ -632,7 +635,7 @@
   
   filter_clause:
 ***************
-*** 969,978 ****
+*** 972,981 ****
   // TODO: check all names below
   
   name:
