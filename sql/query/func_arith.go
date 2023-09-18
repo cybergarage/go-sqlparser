@@ -55,8 +55,8 @@ func (fn *ArithFunction) Execute(args ...any) (any, error) {
 	return fn.operator(args[0], args[1])
 }
 
-// NewAbsFunction returns a new abs function.
-func NewAddFunction(name string, args []any) *ArithFunction {
+// NewAddFunction returns a new add function.
+func NewAddFunction(name string) *ArithFunction {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
@@ -65,6 +65,48 @@ func NewAddFunction(name string, args []any) *ArithFunction {
 				return nil, err
 			}
 			return (fv1 + fv2), nil
+		},
+	)
+}
+
+// NewSubFunction returns a new sub function.
+func NewSubFunction(name string) *ArithFunction {
+	return NewArithFunctionWith(
+		name,
+		func(v1, v2 any) (any, error) {
+			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
+			if err != nil {
+				return nil, err
+			}
+			return (fv1 - fv2), nil
+		},
+	)
+}
+
+// NewMulFunction returns a new multiple function.
+func NewMulFunction(name string) *ArithFunction {
+	return NewArithFunctionWith(
+		name,
+		func(v1, v2 any) (any, error) {
+			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
+			if err != nil {
+				return nil, err
+			}
+			return (fv1 * fv2), nil
+		},
+	)
+}
+
+// NewDivFunction returns a new division function.
+func NewDivFunction(name string) *ArithFunction {
+	return NewArithFunctionWith(
+		name,
+		func(v1, v2 any) (any, error) {
+			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
+			if err != nil {
+				return nil, err
+			}
+			return (fv1 / fv2), nil
 		},
 	)
 }
