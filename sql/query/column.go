@@ -221,8 +221,11 @@ func (col *Column) UpdatorString() string {
 	}
 	if col.Executor() != nil {
 		strs := []string{}
-		for _, arg := range col.args {
+		for n, arg := range col.args {
 			strs = append(strs, fmt.Sprintf("%v", arg))
+			if n == 0 {
+				strs = append(strs, col.Executor().Name())
+			}
 		}
 		return strings.Join(strs, " ")
 	}
