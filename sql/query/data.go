@@ -134,7 +134,7 @@ func NewDataFrom(s string, l int) (*DataDef, error) {
 			return NewDataWith(dataType, l), nil
 		}
 	}
-	return nil, fmt.Errorf("%w: %s", ErrInvalidDataType, s)
+	return nil, fmt.Errorf("%w data type : %s", ErrInvalid, s)
 }
 
 // DataType returns the column data type.

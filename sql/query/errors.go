@@ -19,14 +19,11 @@ import (
 	"fmt"
 )
 
-// ErrInvalidDataType is returned when the data type is invalid.
-var ErrInvalidDataType = errors.New("invalid data type")
+// ErrInvalid is returned when the value is invalid.
+var ErrInvalid = errors.New("invalid")
 
 // ErrNotFound is returned when the data type is invalid.
 var ErrNotFound = errors.New("not found")
-
-// ErrInvalidArguments is returned when the function arguments are invalid.
-var ErrInvalidArguments = errors.New("invalid arguments")
 
 // ErrNotSupported is returned when the function is not supported.
 var ErrNotSupported = errors.New("not supported")
@@ -40,7 +37,7 @@ func newErrColumnIndexOutOfRange(n int) error {
 }
 
 func newErrInvalidArguments(name string, args ...any) error {
-	return fmt.Errorf("%w %s(%v)", ErrInvalidArguments, name, args)
+	return fmt.Errorf("%w arguments %s(%v)", ErrInvalid, name, args)
 }
 
 func newErrNotFoundFunction(name string) error {
