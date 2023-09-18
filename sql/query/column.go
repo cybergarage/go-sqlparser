@@ -136,7 +136,8 @@ func (col *Column) SetConstant(c ColumnConstraint) {
 // SetDef sets the column definition to update the column value.
 func (col *Column) SetDef(dataDef *DataDef) error {
 	col.DataDef = dataDef
-	if dataDef == nil {
+
+	if dataDef == nil || col.Literal == nil {
 		return nil
 	}
 
