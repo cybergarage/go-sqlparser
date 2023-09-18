@@ -359,6 +359,12 @@ func (s *BaseSQLiteParserListener) EnterComparison_expr(ctx *Comparison_exprCont
 // ExitComparison_expr is called when production comparison_expr is exited.
 func (s *BaseSQLiteParserListener) ExitComparison_expr(ctx *Comparison_exprContext) {}
 
+// EnterArithmetic_expr is called when production arithmetic_expr is entered.
+func (s *BaseSQLiteParserListener) EnterArithmetic_expr(ctx *Arithmetic_exprContext) {}
+
+// ExitArithmetic_expr is called when production arithmetic_expr is exited.
+func (s *BaseSQLiteParserListener) ExitArithmetic_expr(ctx *Arithmetic_exprContext) {}
+
 // EnterRaise_function is called when production raise_function is entered.
 func (s *BaseSQLiteParserListener) EnterRaise_function(ctx *Raise_functionContext) {}
 

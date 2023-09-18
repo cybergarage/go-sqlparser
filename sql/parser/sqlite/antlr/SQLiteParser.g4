@@ -372,10 +372,10 @@ truncate_stmt:
  */
 expr:
     literal_value
+    | arithmetic_expr
     | bind_param
     | ((schema_name DOT)? table_name DOT)? column_name
     | unary_operator expr
-    | arithmetic_expr
     | expr PIPE2 expr
     | expr ( LT2 | GT2 | AMP | PIPE) expr
     | comparison_expr 
@@ -420,7 +420,7 @@ comparison_expr:
 ;
 
 arithmetic_expr:
-    expr (PLUS | MINUS | STAR | DIV | MOD) expr
+    column_name (PLUS | MINUS | STAR | DIV | MOD) expr
 ;
 
 raise_function:
