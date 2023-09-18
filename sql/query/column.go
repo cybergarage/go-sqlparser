@@ -99,6 +99,16 @@ func (col *Column) Name() string {
 	return col.name
 }
 
+// Executor returns the executor.
+func (col *Column) Executor() FunctionExecutor {
+	return col.FunctionExecutor
+}
+
+// Arguments returns the executor arguments.
+func (col *Column) Arguments() []any {
+	return col.args
+}
+
 // Constrains returns the column constrains.
 func (col *Column) Constrains() ColumnConstraint {
 	return col.consts
