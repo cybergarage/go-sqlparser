@@ -314,7 +314,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
-	sels := query.NewSelectors()
+	columns := query.NewColumns()
 	for _, set := range ctx.AllUpdate_column_set() {
 		name := set.Column_name().GetText()
 		opts := []query.ColumnOption{
@@ -324,14 +324,15 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 			opts = append(opts, query.WithColumnLiteral(newLiteralValueWith(v)))
 		} else if v := set.Expr().Bind_param(); v != nil {
 			opts = append(opts, query.WithColumnLiteral(newBindParamWith(v)))
+			// } else if v := set.Expr().Arithmetic_expr(); v != nil {
 		}
-		sels = append(sels, query.NewColumnWithOptions(opts...))
+		columns = append(columns, query.NewColumnWithOptions(opts...))
 	}
 	var where *query.Condition
 	if w := ctx.GetWhereExpr(); w != nil {
 		where = query.NewConditionWith(newExprWith(w))
 	}
-	return query.NewUpdateWith(tbl, sels, where)
+	return query.NewUpdateWith(tbl, columns, where)
 }
 
 func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
