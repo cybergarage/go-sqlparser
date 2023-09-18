@@ -216,7 +216,7 @@ func (col *Column) SelectorString() string {
 
 // UpdatorString returns the updator string representation.
 func (col *Column) UpdatorString() string {
-	if col.Literal == nil {
+	if col.Literal != nil {
 		return col.Literal.String()
 	}
 	if col.Executor() != nil {
