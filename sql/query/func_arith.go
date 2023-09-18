@@ -68,17 +68,25 @@ func NewAddFunction(column string, args []any) *ArithFunction {
 		column,
 		args,
 		func(v1, v2 any) (any, error) {
-			var fv1 float64
-			err := safecast.ToFloat64(v1, &fv1)
-			if err != nil {
-				return nil, err
-			}
-			var fv2 float64
-			err = safecast.ToFloat64(v2, &fv2)
+			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
 			if err != nil {
 				return nil, err
 			}
 			return (fv1 + fv2), nil
 		},
 	)
+}
+
+func newArithNumericArgsFrom(v1, v2 any) (float64, float64, error) {
+	var fv1 float64
+	err := safecast.ToFloat64(v1, &fv1)
+	if err != nil {
+		return 0.0, 0.0, err
+	}
+	var fv2 float64
+	err = safecast.ToFloat64(v2, &fv2)
+	if err != nil {
+		return 0.0, 0.0, err
+	}
+	return fv1, fv2, err
 }
