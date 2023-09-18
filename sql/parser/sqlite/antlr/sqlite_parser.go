@@ -17796,6 +17796,12 @@ type IComparison_exprContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetOpe returns the ope token.
+	GetOpe() antlr.Token
+
+	// SetOpe sets the ope token.
+	SetOpe(antlr.Token)
+
 	// Getter signatures
 	Column_name() IColumn_nameContext
 	Literal_value() ILiteral_valueContext
@@ -17814,6 +17820,7 @@ type IComparison_exprContext interface {
 type Comparison_exprContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
+	ope    antlr.Token
 }
 
 func NewEmptyComparison_exprContext() *Comparison_exprContext {
@@ -17842,6 +17849,10 @@ func NewComparison_exprContext(parser antlr.Parser, parent antlr.ParserRuleConte
 }
 
 func (s *Comparison_exprContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Comparison_exprContext) GetOpe() antlr.Token { return s.ope }
+
+func (s *Comparison_exprContext) SetOpe(v antlr.Token) { s.ope = v }
 
 func (s *Comparison_exprContext) Column_name() IColumn_nameContext {
 	var t antlr.RuleContext
@@ -17945,10 +17956,17 @@ func (p *SQLiteParser) Comparison_expr() (localctx IComparison_exprContext) {
 	}
 	{
 		p.SetState(1292)
+
+		var _lt = p.GetTokenStream().LT(1)
+
+		localctx.(*Comparison_exprContext).ope = _lt
+
 		_la = p.GetTokenStream().LA(1)
 
 		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&29098048) != 0) {
-			p.GetErrorHandler().RecoverInline(p)
+			var _ri = p.GetErrorHandler().RecoverInline(p)
+
+			localctx.(*Comparison_exprContext).ope = _ri
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
 			p.Consume()
