@@ -23,19 +23,18 @@ import (
 // ArithFunc represents an arithmetic function.
 type ArithFunc func(any, any) (any, error)
 
-// ArithResultSet represents a result set of an arithmetic function.
-type ArithResultSet map[any]float64
-
 // ArithFunction represents a base arithmetic function.
 type ArithFunction struct {
 	column   string
+	args     []any
 	operator ArithFunc
 }
 
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
-func NewArithFunctionWith(name string, fn ArithFunc) *ArithFunction {
+func NewArithFunctionWith(name string, args []any, fn ArithFunc) *ArithFunction {
 	return &ArithFunction{
 		column:   strings.ToUpper(name),
+		args:     args,
 		operator: fn,
 	}
 }
@@ -64,9 +63,10 @@ func (fn *ArithFunction) Execute(args ...any) (any, error) {
 }
 
 // NewAbsFunction returns a new abs function.
-func NewAddFunction() *ArithFunction {
+func NewAddFunction(column string, args []any) *ArithFunction {
 	return NewArithFunctionWith(
-		AbsFunctionName,
+		column,
+		args,
 		func(v1, v2 any) (any, error) {
 			var fv1 float64
 			err := safecast.ToFloat64(v1, &fv1)
