@@ -23,16 +23,16 @@ import (
 // Update is a "UPDATE" statement.
 type Update struct {
 	table *Table
-	SelectorList
+	ColumnList
 	*Condition
 }
 
 // NewUpdateWith returns a new Update statement instance with the specified parameters.
-func NewUpdateWith(tbl *Table, selectors SelectorList, w *Condition) *Update {
+func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *Update {
 	return &Update{
-		table:        tbl,
-		SelectorList: selectors,
-		Condition:    w,
+		table:      tbl,
+		ColumnList: columns,
+		Condition:  w,
 	}
 }
 
@@ -63,14 +63,14 @@ func (stmt *Update) String() string {
 		stmt.table.String(),
 		"SET",
 	}
-	selectors := []string{}
-	for _, selector := range stmt.SelectorList {
-		name := selector.Name()
-		value := selector.SelectorString()
+	columns := []string{}
+	for _, column := range stmt.ColumnList {
+		name := column.Name()
+		value := column.SelectorString()
 		colum_set := fmt.Sprintf("%s = %s", name, value)
-		selectors = append(selectors, colum_set)
+		columns = append(columns, colum_set)
 	}
-	strs = append(strs, strings.JoinWithComma(selectors))
+	strs = append(strs, strings.JoinWithComma(columns))
 	if stmt.Condition != nil {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
