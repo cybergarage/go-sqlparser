@@ -416,7 +416,7 @@ function:
 ;
 
 comparison_expr:
-    column_name (ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
+    column_name ope=(ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 ;
 
 arithmetic_expr:

@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Sep 18 14:41:32 2023
---- SQLiteParser.g4	Mon Sep 18 14:41:38 2023
+*** SQLiteParser.g4.new	Mon Sep 18 15:58:41 2023
+--- SQLiteParser.g4	Mon Sep 18 15:59:08 2023
 ***************
 *** 42,54 ****
   ;
@@ -466,7 +466,7 @@
 - ;
 - 
 - comparison_expr:
--     column_name (ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
+-     column_name ope=(ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 - ;
 - 
 - arithmetic_expr:
