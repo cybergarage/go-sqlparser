@@ -215,6 +215,37 @@ func (col *Column) SelectorString() string {
 	return col.name
 }
 
+// ExecuteUpdator executes the executor with the specified row.
+func (col *Column) ExecuteUpdator(row map[string]any) (any, error) {
+	newErrInvalidUpdateExecutor := func(col *Column) error {
+		return fmt.Errorf("%v is %w", col.UpdatorString(), ErrInvalid)
+	}
+
+	if col.FunctionExecutor == nil {
+		return nil, newErrInvalidUpdateExecutor(col)
+	}
+
+	args := col.Arguments()
+	if len(args) < 2 {
+		return nil, newErrInvalidUpdateExecutor(col)
+	}
+	leftExprName, ok := args[0].(string)
+	if !ok {
+		return nil, newErrInvalidUpdateExecutor(col)
+	}
+	v, ok := row[leftExprName]
+	if !ok {
+		return nil, newErrInvalidUpdateExecutor(col)
+	}
+	args[0] = v
+	rv, err := col.FunctionExecutor.Execute(args...)
+	if err != nil {
+		return nil, err
+	}
+
+	return rv, nil
+}
+
 // UpdatorString returns the updator string representation.
 func (col *Column) UpdatorString() string {
 	if col.Executor() != nil {
