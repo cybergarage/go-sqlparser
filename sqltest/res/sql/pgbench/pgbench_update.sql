@@ -13,3 +13,4 @@ UPDATE pgbench_branches SET bbalance = bbalance + 178 WHERE bid = 1;
 UPDATE pgbench_accounts SET abalance = abalance + 350 WHERE aid = 89359;
 UPDATE pgbench_tellers SET tbalance = tbalance + 350 WHERE tid = 8;
 UPDATE pgbench_branches SET bbalance = bbalance + 350 WHERE bid = 1;
+
