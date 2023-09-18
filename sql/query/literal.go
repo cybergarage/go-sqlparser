@@ -40,6 +40,14 @@ type Literal struct {
 // NullLiteral represents a null value.
 var NullLiteral = NewLiteralWith(nil)
 
+// NewLiteral returns a new Literal instance.
+func NewLiteral() *Literal {
+	return &Literal{
+		v: nil,
+		t: UnknownLiteral,
+	}
+}
+
 // NewLiteralWith returns a new Literal instance with the specified value.
 func NewLiteralWith(v any, opts ...LiteralOption) *Literal {
 	l := &Literal{
