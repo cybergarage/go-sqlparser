@@ -111,6 +111,20 @@ func NewDivFunction(name string) *ArithFunction {
 	)
 }
 
+// NewModFunction returns a new mod function.
+func NewModFunction(name string) *ArithFunction {
+	return NewArithFunctionWith(
+		name,
+		func(v1, v2 any) (any, error) {
+			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
+			if err != nil {
+				return nil, err
+			}
+			return (float64(int(fv1) % int(fv2))), nil
+		},
+	)
+}
+
 func newArithNumericArgsFrom(v1, v2 any) (float64, float64, error) {
 	var fv1 float64
 	err := safecast.ToFloat64(v1, &fv1)
