@@ -15,6 +15,7 @@
 package query
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/cybergarage/go-safecast/safecast"
@@ -60,6 +61,18 @@ func (fn *ArithFunction) Execute(args ...any) (any, error) {
 		return nil, newErrInvalidArguments(fn.column, args)
 	}
 	return fn.operator(args[0], args[1])
+}
+
+// SelectorString returns the selector string representation.
+func (fn *ArithFunction) SelectorString() string {
+	strs := []string{
+		fn.column,
+		"=",
+	}
+	for _, arg := range fn.args {
+		strs = append(strs, fmt.Sprintf("%v", arg))
+	}
+	return strings.Join(strs, " ")
 }
 
 // NewAbsFunction returns a new abs function.
