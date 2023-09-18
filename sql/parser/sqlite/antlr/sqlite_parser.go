@@ -17997,6 +17997,12 @@ type IArithmetic_exprContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetOpe returns the ope token.
+	GetOpe() antlr.Token
+
+	// SetOpe sets the ope token.
+	SetOpe(antlr.Token)
+
 	// Getter signatures
 	Column_name() IColumn_nameContext
 	Expr() IExprContext
@@ -18013,6 +18019,7 @@ type IArithmetic_exprContext interface {
 type Arithmetic_exprContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
+	ope    antlr.Token
 }
 
 func NewEmptyArithmetic_exprContext() *Arithmetic_exprContext {
@@ -18041,6 +18048,10 @@ func NewArithmetic_exprContext(parser antlr.Parser, parent antlr.ParserRuleConte
 }
 
 func (s *Arithmetic_exprContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Arithmetic_exprContext) GetOpe() antlr.Token { return s.ope }
+
+func (s *Arithmetic_exprContext) SetOpe(v antlr.Token) { s.ope = v }
 
 func (s *Arithmetic_exprContext) Column_name() IColumn_nameContext {
 	var t antlr.RuleContext
@@ -18136,10 +18147,17 @@ func (p *SQLiteParser) Arithmetic_expr() (localctx IArithmetic_exprContext) {
 	}
 	{
 		p.SetState(1296)
+
+		var _lt = p.GetTokenStream().LT(1)
+
+		localctx.(*Arithmetic_exprContext).ope = _lt
+
 		_la = p.GetTokenStream().LA(1)
 
 		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&13184) != 0) {
-			p.GetErrorHandler().RecoverInline(p)
+			var _ri = p.GetErrorHandler().RecoverInline(p)
+
+			localctx.(*Arithmetic_exprContext).ope = _ri
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
 			p.Consume()

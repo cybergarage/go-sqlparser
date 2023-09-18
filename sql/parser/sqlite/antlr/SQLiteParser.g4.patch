@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Sep 18 15:58:41 2023
---- SQLiteParser.g4	Mon Sep 18 15:59:08 2023
+*** SQLiteParser.g4.new	Mon Sep 18 16:01:09 2023
+--- SQLiteParser.g4	Mon Sep 18 16:01:13 2023
 ***************
 *** 42,54 ****
   ;
@@ -470,7 +470,7 @@
 - ;
 - 
 - arithmetic_expr:
--     column_name (PLUS | MINUS | STAR | DIV | MOD) expr
+-     column_name ope=(PLUS | MINUS | STAR | DIV | MOD) expr
 - ;
 - 
   raise_function:

@@ -420,7 +420,7 @@ comparison_expr:
 ;
 
 arithmetic_expr:
-    column_name (PLUS | MINUS | STAR | DIV | MOD) expr
+    column_name ope=(PLUS | MINUS | STAR | DIV | MOD) expr
 ;
 
 raise_function:
