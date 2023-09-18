@@ -25,6 +25,7 @@ const (
 	MathFunctionType FunctionType = iota
 	AggregateFunctionType
 	CastFunctionType
+	ArithFunctionType
 )
 
 // FunctionExecutor represents a function executor interface.
