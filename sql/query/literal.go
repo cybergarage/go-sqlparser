@@ -67,6 +67,11 @@ func WithLiteralType(t LiteralType) func(*Literal) {
 	}
 }
 
+// HasLiteral returns true whether the literal has a value.
+func (lit *Literal) HasLiteral() bool {
+	return lit != nil
+}
+
 // SetValue sets a value.
 func (lit *Literal) SetValue(v any) *Literal {
 	lit.v = v
