@@ -15,6 +15,9 @@
 package query
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
@@ -209,4 +212,19 @@ func (col *Column) DefinitionString() string {
 // SelectorString returns the selector string representation.
 func (col *Column) SelectorString() string {
 	return col.name
+}
+
+// UpdatorString returns the updator string representation.
+func (col *Column) UpdatorString() string {
+	if col.Literal == nil {
+		return col.Literal.String()
+	}
+	if col.Executor() != nil {
+		strs := []string{}
+		for _, arg := range col.args {
+			strs = append(strs, fmt.Sprintf("%v", arg))
+		}
+		return strings.Join(strs, " ")
+	}
+	return ""
 }
