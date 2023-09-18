@@ -21,13 +21,26 @@ import (
 // ColumnOption represents a column option function.
 type ColumnOption = func(*Column)
 
+// Column represents a column.
+type Column struct {
+	name string
+	*DataDef
+	*Literal
+	*BindParam
+	FunctionExecutor
+	consts ColumnConstraint
+	args   []any
+}
+
 // NewColumn returns a column instance.
 func NewColumnWithOptions(opts ...ColumnOption) *Column {
 	col := &Column{
-		name:    "",
-		DataDef: nil,
-		Literal: nil,
-		consts:  ColumnConstraintNone,
+		name:             "",
+		DataDef:          nil,
+		Literal:          nil,
+		FunctionExecutor: nil,
+		args:             []any{},
+		consts:           ColumnConstraintNone,
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -53,6 +66,20 @@ func WithColumnData(data *DataDef) func(*Column) {
 func WithColumnLiteral(l *Literal) func(*Column) {
 	return func(col *Column) {
 		col.Literal = l
+	}
+}
+
+// WithColumnFunction sets a column function.
+func WithColumnFunction(fn FunctionExecutor) func(*Column) {
+	return func(col *Column) {
+		col.FunctionExecutor = fn
+	}
+}
+
+// WithColumnArguments sets column arguments.
+func WithColumnArguments(args []any) func(*Column) {
+	return func(col *Column) {
+		col.args = args
 	}
 }
 

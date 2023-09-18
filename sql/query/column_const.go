@@ -25,15 +25,6 @@ const (
 	ColumnConstraintUnique     ColumnConstraint = 0x04
 )
 
-// Column represents a column.
-type Column struct {
-	name string
-	*DataDef
-	*Literal
-	*BindParam
-	consts ColumnConstraint
-}
-
 // IsPrimaryKey returns true whether the column is a primary key.
 func (c ColumnConstraint) IsPrimaryKey() bool {
 	return (c & ColumnConstraintPrimaryKey) != 0
