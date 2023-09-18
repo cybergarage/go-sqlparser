@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.2.3 (2023-09-xx)
+# v1.2.3 (2023-09-19)
 - Updated
   - UPDATE
     - Supported arithmetic operations
