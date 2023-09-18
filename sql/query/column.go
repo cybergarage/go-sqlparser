@@ -216,9 +216,6 @@ func (col *Column) SelectorString() string {
 
 // UpdatorString returns the updator string representation.
 func (col *Column) UpdatorString() string {
-	if col.Literal != nil {
-		return col.Literal.String()
-	}
 	if col.Executor() != nil {
 		strs := []string{}
 		for n, arg := range col.args {
@@ -228,6 +225,9 @@ func (col *Column) UpdatorString() string {
 			}
 		}
 		return strings.Join(strs, " ")
+	}
+	if col.Literal != nil {
+		return col.Literal.String()
 	}
 	return ""
 }
