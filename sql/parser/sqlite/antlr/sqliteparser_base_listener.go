@@ -329,6 +329,18 @@ func (s *BaseSQLiteParserListener) EnterCopy_stmt(ctx *Copy_stmtContext) {}
 // ExitCopy_stmt is called when production copy_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitCopy_stmt(ctx *Copy_stmtContext) {}
 
+// EnterCopy_column_list is called when production copy_column_list is entered.
+func (s *BaseSQLiteParserListener) EnterCopy_column_list(ctx *Copy_column_listContext) {}
+
+// ExitCopy_column_list is called when production copy_column_list is exited.
+func (s *BaseSQLiteParserListener) ExitCopy_column_list(ctx *Copy_column_listContext) {}
+
+// EnterCopy_format is called when production copy_format is entered.
+func (s *BaseSQLiteParserListener) EnterCopy_format(ctx *Copy_formatContext) {}
+
+// ExitCopy_format is called when production copy_format is exited.
+func (s *BaseSQLiteParserListener) ExitCopy_format(ctx *Copy_formatContext) {}
+
 // EnterSource_name is called when production source_name is entered.
 func (s *BaseSQLiteParserListener) EnterSource_name(ctx *Source_nameContext) {}
 

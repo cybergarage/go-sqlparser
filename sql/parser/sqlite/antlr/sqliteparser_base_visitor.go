@@ -211,6 +211,14 @@ func (v *BaseSQLiteParserVisitor) VisitCopy_stmt(ctx *Copy_stmtContext) interfac
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitCopy_column_list(ctx *Copy_column_listContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitCopy_format(ctx *Copy_formatContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitSource_name(ctx *Source_nameContext) interface{} {
 	return v.VisitChildren(ctx)
 }

@@ -160,6 +160,12 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#copy_stmt.
 	VisitCopy_stmt(ctx *Copy_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#copy_column_list.
+	VisitCopy_column_list(ctx *Copy_column_listContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#copy_format.
+	VisitCopy_format(ctx *Copy_formatContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#source_name.
 	VisitSource_name(ctx *Source_nameContext) interface{}
 

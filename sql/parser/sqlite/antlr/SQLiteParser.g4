@@ -347,9 +347,16 @@ if_exists:
 ;
 
 copy_stmt:
-    COPY_ table=qualified_table_name FROM_ source_name
+    COPY_ table=qualified_table_name copy_column_list? FROM_ source_name WITH_? copy_format?
 ;
 
+copy_column_list:
+    OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+;
+
+copy_format:
+    FORMAT_? format_type=any_name
+;
 
 source_name:
     any_name

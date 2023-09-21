@@ -1,5 +1,5 @@
-*** SQLiteLexer.g4.new	Mon Aug  7 21:18:34 2023
---- SQLiteLexer.g4	Mon Sep 18 16:01:13 2023
+*** SQLiteLexer.g4.new	Fri Sep 22 02:49:23 2023
+--- SQLiteLexer.g4	Fri Sep 22 02:51:35 2023
 ***************
 *** 80,86 ****
   COMMIT_:            'COMMIT';
@@ -11,7 +11,17 @@
   CURRENT_DATE_:      'CURRENT_DATE';
 --- 80,85 ----
 ***************
-*** 170,176 ****
+*** 106,112 ****
+  FAIL_:              'FAIL';
+  FOR_:               'FOR';
+  FOREIGN_:           'FOREIGN';
+- FORMAT_:            'FORMAT';
+  FROM_:              'FROM';
+  FULL_:              'FULL';
+  GLOB_:              'GLOB';
+--- 105,110 ----
+***************
+*** 171,177 ****
   TO_:                'TO';
   TRANSACTION_:       'TRANSACTION';
   TRIGGER_:           'TRIGGER';
