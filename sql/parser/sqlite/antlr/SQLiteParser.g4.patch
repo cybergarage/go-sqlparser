@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Fri Sep 22 02:49:43 2023
---- SQLiteParser.g4	Fri Sep 22 02:51:35 2023
+*** SQLiteParser.g4.new	Fri Sep 22 04:05:53 2023
+--- SQLiteParser.g4	Fri Sep 22 04:06:07 2023
 ***************
 *** 42,54 ****
   ;
@@ -384,7 +384,7 @@
 - ;
 - 
 - copy_format:
--     FORMAT_? format_type=any_name
+-     FORMAT_? format_type=(TEXT_ | CSV_ | BINARY_)
 - ;
 - 
 - source_name:

@@ -355,7 +355,7 @@ copy_column_list:
 ;
 
 copy_format:
-    FORMAT_? format_type=any_name
+    FORMAT_? format_type=(TEXT_ | CSV_ | BINARY_)
 ;
 
 source_name:
