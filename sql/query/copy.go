@@ -112,7 +112,7 @@ func (stmt *Copy) String() string {
 		stmt.TableName(),
 	}
 	if 0 < len(stmt.ColumnList) {
-		strs = append(strs, "("+strings.JoinWithSpace(stmt.ColumnList.Names())+")")
+		strs = append(strs, "("+strings.JoinWithComma(stmt.ColumnList.Names())+")")
 	}
 	strs = append(strs,
 		"FROM",
