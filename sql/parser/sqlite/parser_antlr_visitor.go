@@ -462,7 +462,7 @@ func newCopyWith(ctx antlr.ICopy_stmtContext) *query.Copy {
 	if ctx := ctx.Copy_column_list(); ctx != nil {
 		columns := query.NewColumns()
 		for _, column := range ctx.AllColumn_name() {
-			columns = append(columns, query.NewColumnWithName(column.GetText()))
+			columns = append(columns, query.NewColumnWithName(strings.UnEscapeString(column.GetText())))
 		}
 		opts = append(opts, query.WithCopyColumns(columns...))
 	}
@@ -471,8 +471,8 @@ func newCopyWith(ctx antlr.ICopy_stmtContext) *query.Copy {
 		opts = append(opts, query.WithCopyFormat(fmt))
 	}
 	return query.NewCopyWith(
-		ctx.GetTable().GetText(),
-		ctx.Source_name().GetText(),
+		strings.UnEscapeString(ctx.GetTable().GetText()),
+		strings.UnEscapeString(ctx.Source_name().GetText()),
 		opts...,
 	)
 }
