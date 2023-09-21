@@ -1,17 +1,30 @@
-*** SQLiteLexer.g4.new	Fri Sep 22 02:49:23 2023
---- SQLiteLexer.g4	Fri Sep 22 02:51:35 2023
+*** SQLiteLexer.g4.new	Fri Sep 22 04:05:08 2023
+--- SQLiteLexer.g4	Fri Sep 22 04:06:06 2023
 ***************
-*** 80,86 ****
+*** 67,73 ****
+  ASC_:               'ASC';
+  ATTACH_:            'ATTACH';
+  AUTOINCREMENT_:     'AUTOINCREMENT';
+- BINARY_:            'BINARY';
+  BEFORE_:            'BEFORE';
+  BEGIN_:             'BEGIN';
+  BETWEEN_:           'BETWEEN';
+--- 67,72 ----
+***************
+*** 81,90 ****
   COMMIT_:            'COMMIT';
   CONFLICT_:          'CONFLICT';
   CONSTRAINT_:        'CONSTRAINT';
 - COPY_:              'COPY';
   CREATE_:            'CREATE';
   CROSS_:             'CROSS';
+- CSV_:               'CSV';
   CURRENT_DATE_:      'CURRENT_DATE';
---- 80,85 ----
+  CURRENT_TIME_:      'CURRENT_TIME';
+  CURRENT_TIMESTAMP_: 'CURRENT_TIMESTAMP';
+--- 80,87 ----
 ***************
-*** 106,112 ****
+*** 108,114 ****
   FAIL_:              'FAIL';
   FOR_:               'FOR';
   FOREIGN_:           'FOREIGN';
@@ -21,7 +34,12 @@
   GLOB_:              'GLOB';
 --- 105,110 ----
 ***************
-*** 171,177 ****
+*** 169,180 ****
+  TABLE_:             'TABLE';
+  TEMP_:              'TEMP';
+  TEMPORARY_:         'TEMPORARY';
+- TEXT_:              'TEXT';
+  THEN_:              'THEN';
   TO_:                'TO';
   TRANSACTION_:       'TRANSACTION';
   TRIGGER_:           'TRIGGER';
@@ -29,4 +47,4 @@
   UNION_:             'UNION';
   UNIQUE_:            'UNIQUE';
   UPDATE_:            'UPDATE';
---- 169,174 ----
+--- 165,174 ----
