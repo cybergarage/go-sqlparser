@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Mon Sep 18 16:01:09 2023
---- SQLiteParser.g4	Mon Sep 18 16:01:13 2023
+*** SQLiteParser.g4.new	Fri Sep 22 02:49:43 2023
+--- SQLiteParser.g4	Fri Sep 22 02:51:35 2023
 ***************
 *** 42,54 ****
   ;
@@ -333,7 +333,7 @@
   
   delete_stmt_limited:
 ***************
-*** 308,364 ****
+*** 308,371 ****
   
   drop_stmt:
       DROP_ object = (INDEX_ | TABLE_ | TRIGGER_ | VIEW_) (
@@ -376,9 +376,16 @@
 - ;
 - 
 - copy_stmt:
--     COPY_ table=qualified_table_name FROM_ source_name
+-     COPY_ table=qualified_table_name copy_column_list? FROM_ source_name WITH_? copy_format?
 - ;
 - 
+- copy_column_list:
+-     OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+- ;
+- 
+- copy_format:
+-     FORMAT_? format_type=any_name
+- ;
 - 
 - source_name:
 -     any_name
@@ -403,7 +410,7 @@
    SQLite understands the following binary operators, in order from highest to lowest precedence:
       ||
 ***************
-*** 372,386 ****
+*** 379,393 ****
    */
   expr:
       literal_value
@@ -440,7 +447,7 @@
           | IS_ NOT_
           | IN_
 ***************
-*** 391,397 ****
+*** 398,404 ****
       ) expr
       | expr AND_ expr
       | expr OR_ expr
@@ -457,7 +464,7 @@
       | CAST_ OPEN_PAR expr AS_ type_name CLOSE_PAR
       | expr COLLATE_ collation_name
 ***************
-*** 411,428 ****
+*** 418,435 ****
       | raise_function
   ;
   
@@ -478,7 +485,7 @@
           IGNORE_
 --- 307,312 ----
 ***************
-*** 431,438 ****
+*** 438,445 ****
   ;
   
   literal_value:
@@ -497,7 +504,7 @@
       | NULL_
       | TRUE_
 ***************
-*** 442,455 ****
+*** 449,462 ****
       | CURRENT_TIMESTAMP_
   ;
   
@@ -514,7 +521,7 @@
   ;
 --- 326,331 ----
 ***************
-*** 514,520 ****
+*** 521,527 ****
   ;
   
   select_stmt:
@@ -531,7 +538,7 @@
   
   join_clause:
 ***************
-*** 524,530 ****
+*** 531,537 ****
   select_core:
       (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
@@ -548,7 +555,7 @@
             GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
                 HAVING_ havingExpr=expr
 ***************
-*** 551,584 ****
+*** 558,591 ****
       )+ order_by_stmt? limit_stmt?
   ;
   
@@ -585,7 +592,7 @@
               INDEXED_ BY_ index_name
 --- 427,432 ----
 ***************
-*** 617,633 ****
+*** 624,640 ****
   update_stmt:
       with_clause? UPDATE_ (
           OR_ (ROLLBACK_ | ABORT_ | REPLACE_ | FAIL_ | IGNORE_)
@@ -618,7 +625,7 @@
       OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
   ;
 ***************
-*** 647,653 ****
+*** 654,660 ****
   ;
   
   vacuum_stmt:
@@ -635,7 +642,7 @@
   
   filter_clause:
 ***************
-*** 972,981 ****
+*** 979,988 ****
   // TODO: check all names below
   
   name:

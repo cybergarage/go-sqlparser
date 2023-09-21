@@ -106,6 +106,7 @@ EXPLAIN_:           'EXPLAIN';
 FAIL_:              'FAIL';
 FOR_:               'FOR';
 FOREIGN_:           'FOREIGN';
+FORMAT_:            'FORMAT';
 FROM_:              'FROM';
 FULL_:              'FULL';
 GLOB_:              'GLOB';

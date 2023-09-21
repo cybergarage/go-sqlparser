@@ -160,6 +160,12 @@ type SQLiteParserListener interface {
 	// EnterCopy_stmt is called when entering the copy_stmt production.
 	EnterCopy_stmt(c *Copy_stmtContext)
 
+	// EnterCopy_column_list is called when entering the copy_column_list production.
+	EnterCopy_column_list(c *Copy_column_listContext)
+
+	// EnterCopy_format is called when entering the copy_format production.
+	EnterCopy_format(c *Copy_formatContext)
+
 	// EnterSource_name is called when entering the source_name production.
 	EnterSource_name(c *Source_nameContext)
 
@@ -597,6 +603,12 @@ type SQLiteParserListener interface {
 
 	// ExitCopy_stmt is called when exiting the copy_stmt production.
 	ExitCopy_stmt(c *Copy_stmtContext)
+
+	// ExitCopy_column_list is called when exiting the copy_column_list production.
+	ExitCopy_column_list(c *Copy_column_listContext)
+
+	// ExitCopy_format is called when exiting the copy_format production.
+	ExitCopy_format(c *Copy_formatContext)
 
 	// ExitSource_name is called when exiting the source_name production.
 	ExitSource_name(c *Source_nameContext)
