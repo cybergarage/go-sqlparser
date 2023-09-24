@@ -372,7 +372,11 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
 		}
 		for _, from := range ctx.GetParentQuery().AllFrom() {
 			if tbl := from.From_table(); tbl != nil {
-				tbls = append(tbls, query.NewTableWith(tbl.GetText()))
+				ops := []query.TableOption{}
+				if schema := tbl.Schema_name(); schema != nil {
+					ops = append(ops, query.WithTableSchema(schema.GetText()))
+				}
+				tbls = append(tbls, query.NewTableWith(tbl.GetText(), ops...))
 			}
 		}
 		if w := parentQuery.GetWhereExpr(); w != nil {
