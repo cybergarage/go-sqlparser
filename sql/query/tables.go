@@ -41,7 +41,7 @@ func (tbls TableList) Tables() TableList {
 // HasTable returns true whether the table array has the specified table name.
 func (tbls TableList) HasTable(name string) bool {
 	for _, tbl := range tbls {
-		if tbl.IsTableNamed(name) {
+		if tbl.IsName(name) {
 			return true
 		}
 	}
