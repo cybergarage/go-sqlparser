@@ -8,6 +8,8 @@
 
 # v1.2.4 (2023-09-24)
 - Updated
+  - SELECT
+    - Supported schema name
   - COPY
     - Supported column and format options
 
