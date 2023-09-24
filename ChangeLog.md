@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.2.4 (2023-09-22)
+# v1.2.4 (2023-09-24)
 - Updated
   - COPY
     - Supported column and format options
