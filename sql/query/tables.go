@@ -50,8 +50,8 @@ func (tbls TableList) HasTable(names ...string) bool {
 	return false
 }
 
-// HasTableSchema returns true whether the table array has the specified table schema.
-func (tbls TableList) HasTableSchema(names ...string) bool {
+// HasSchemaTable returns true whether the table array has the specified table schema.
+func (tbls TableList) HasSchemaTable(names ...string) bool {
 	for _, name := range names {
 		for _, tbl := range tbls {
 			if tbl.IsSchemaName(name) {
