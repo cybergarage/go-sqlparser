@@ -48,6 +48,26 @@ func (tbls TableList) HasTable(name string) bool {
 	return false
 }
 
+// HasTableSchema returns true whether the table array has the specified table schema.
+func (tbls TableList) HasTableSchema(name string) bool {
+	for _, tbl := range tbls {
+		if tbl.IsSchemaName(name) {
+			return true
+		}
+	}
+	return false
+}
+
+// HasTableName returns true whether the table array has the specified table name.
+func (tbls TableList) HasTableName(name string) bool {
+	for _, tbl := range tbls {
+		if tbl.IsTableName(name) {
+			return true
+		}
+	}
+	return false
+}
+
 // String returns a string representation.
 func (tbls TableList) String() string {
 	strs := make([]string, len(tbls))
