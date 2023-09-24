@@ -14,21 +14,52 @@
 
 package query
 
+import (
+	"strings"
+)
+
 // Table represents a table.
 type Table struct {
-	name string
+	schema string
+	name   string
 }
 
+// TableOption represents a table option function.
+type TableOption = func(*Table)
+
 // NewTableWith returns a new Table instance with the specified name.
-func NewTableWith(name string) *Table {
-	return &Table{
+func NewTableWith(name string, opts ...TableOption) *Table {
+	tbl := &Table{
 		name: name,
+	}
+	for _, opt := range opts {
+		opt(tbl)
+	}
+	return tbl
+}
+
+// WithTableSchema sets a table schema.
+func WithTableSchema(schema string) func(*Table) {
+	return func(tbl *Table) {
+		tbl.schema = schema
 	}
 }
 
-// Name returns the table name.
+// Name returns the schema and table name.
 func (tbl *Table) Name() string {
-	return tbl.name
+	names := []string{}
+	if 0 < len(tbl.schema) {
+		names = append(names, tbl.schema)
+	}
+	if 0 < len(tbl.name) {
+		names = append(names, tbl.name)
+	}
+	return strings.Join(names, ".")
+}
+
+// SchemaName returns the table schema name.
+func (tbl *Table) SchemaName() string {
+	return tbl.schema
 }
 
 // TableName returns the table name for embedded use.
@@ -43,5 +74,5 @@ func (tbl *Table) IsTableNamed(name string) bool {
 
 // String returns the string representation.
 func (tbl *Table) String() string {
-	return tbl.name
+	return tbl.Name()
 }
