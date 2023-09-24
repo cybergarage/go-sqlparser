@@ -65,6 +65,36 @@ func NewCmpExprWith(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
 	}
 }
 
+// NewEQ returns a new CompExpr instance with the specified parameters.
+func NewEQWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(EQ, left, right)
+}
+
+// NewNEQ returns a new CompExpr instance with the specified parameters.
+func NewNEQWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(NEQ, left, right)
+}
+
+// NewLT returns a new CompExpr instance with the specified parameters.
+func NewLTWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(LT, left, right)
+}
+
+// NewGT returns a new CompExpr instance with the specified parameters.
+func NewGTWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(GT, left, right)
+}
+
+// NewLE returns a new CompExpr instance with the specified parameters.
+func NewLEWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(LE, left, right)
+}
+
+// NewGE returns a new CompExpr instance with the specified parameters.
+func NewGEWith(left *Column, right *Literal) *CmpExpr {
+	return NewCmpExprWith(GE, left, right)
+}
+
 // Operator returns the operator.
 func (expr *CmpExpr) Operator() CmpExprOperator {
 	return expr.op
