@@ -56,8 +56,8 @@ type CmpExpr struct {
 	right *Literal
 }
 
-// NewCmpExpr returns a new CompExpr instance with the specified parameters.
-func NewCmpExpr(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
+// NewCmpExprWith returns a new CompExpr instance with the specified parameters.
+func NewCmpExprWith(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
 	return &CmpExpr{
 		op:    op,
 		left:  left,
