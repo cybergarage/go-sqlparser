@@ -18,6 +18,9 @@ import (
 	"strings"
 )
 
+// TableNameSep represents a table name separator.
+const TableNameSep = "."
+
 // Table represents a table.
 type Table struct {
 	schema string
@@ -54,7 +57,7 @@ func (tbl *Table) Name() string {
 	if 0 < len(tbl.name) {
 		names = append(names, tbl.name)
 	}
-	return strings.Join(names, ".")
+	return strings.Join(names, TableNameSep)
 }
 
 // IsName returns true whether the table is named.
