@@ -36,6 +36,11 @@ func (tbl *Table) TableName() string {
 	return tbl.name
 }
 
+// IsTableNamed returns true whether the table is named.
+func (tbl *Table) IsTableNamed(name string) bool {
+	return tbl.name == name
+}
+
 // String returns the string representation.
 func (tbl *Table) String() string {
 	return tbl.name
