@@ -57,9 +57,19 @@ func (tbl *Table) Name() string {
 	return strings.Join(names, ".")
 }
 
+// IsName returns true whether the table is named.
+func (tbl *Table) IsName(name string) bool {
+	return tbl.Name() == name
+}
+
 // SchemaName returns the table schema name.
 func (tbl *Table) SchemaName() string {
 	return tbl.schema
+}
+
+// IsSchemaName returns true whether the table is named.
+func (tbl *Table) IsSchemaName(name string) bool {
+	return tbl.schema == name
 }
 
 // TableName returns the table name for embedded use.
@@ -67,8 +77,8 @@ func (tbl *Table) TableName() string {
 	return tbl.name
 }
 
-// IsTableNamed returns true whether the table is named.
-func (tbl *Table) IsTableNamed(name string) bool {
+// IsTableName returns true whether the table is named.
+func (tbl *Table) IsTableName(name string) bool {
 	return tbl.name == name
 }
 
