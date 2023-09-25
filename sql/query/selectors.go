@@ -60,6 +60,11 @@ func (selectors SelectorList) Columns() []*Column {
 	return cols
 }
 
+// Len returns the length of the selector array.
+func (selectors SelectorList) Len() int {
+	return len(selectors)
+}
+
 // Functions returns a function array.
 func (selectors SelectorList) Functions() []*Function {
 	fns := make([]*Function, 0)
