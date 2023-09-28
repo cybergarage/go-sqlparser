@@ -205,12 +205,31 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 		column := newColumnWith(ctx.Column_def())
 		opts = append(opts, query.WithAlterTableAddColumn(column))
 	}
+	if ctx := ctx.Add_table_index(); ctx != nil {
+		index := newAddIndexSchemaWith(ctx)
+		opts = append(opts, query.WithAlterTableAddIndex(index))
+	}
 	if ctx := ctx.Drop_table_column(); ctx != nil {
 		column := query.NewColumnWithOptions(query.WithColumnName(ctx.GetText()))
 		opts = append(opts, query.WithAlterTableDropColumn(column))
 	}
 	tblName := ctx.GetTarget_table_name().GetText()
 	return query.NewAlterTableWith(tblName, opts...)
+}
+
+func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) *query.Index {
+	indexType := query.SecondaryIndex
+	if ctx := ctx.Column_constraint(); ctx != nil {
+		if ctx.Primary_key_constraint() != nil {
+			indexType = query.PrimaryIndex
+		}
+	}
+	columns := query.NewColumns()
+	for _, columName := range ctx.AllColumn_name() {
+		column := query.NewColumnWithName(columName.GetText())
+		columns = append(columns, column)
+	}
+	return query.NewIndexWith("", indexType, columns)
 }
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
