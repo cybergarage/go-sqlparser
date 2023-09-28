@@ -66,6 +66,16 @@ func (columns ColumnList) ColumnByName(name string) (*Column, error) {
 	return nil, newErrColumnNotFound(name)
 }
 
+// ColumnIndexByName returns a column index by the specified name.
+func (columns ColumnList) ColumnIndexByName(name string) (int, error) {
+	for n, column := range columns {
+		if column.Name() == name {
+			return n, nil
+		}
+	}
+	return -1, newErrColumnNotFound(name)
+}
+
 // Names returns a column name array.
 func (columns ColumnList) Names() []string {
 	names := make([]string, len(columns))
