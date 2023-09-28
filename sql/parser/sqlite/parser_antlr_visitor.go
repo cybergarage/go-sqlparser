@@ -201,19 +201,11 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
 		toColumn := query.NewColumnWithName(ctx.GetNew_column_name().GetText())
 		opts = append(opts, query.WithAlterTableRenameColumn(fromColumn, toColumn))
 	}
-	if ctx := ctx.Add_column(); ctx != nil {
+	if ctx := ctx.Add_table_column(); ctx != nil {
 		column := newColumnWith(ctx.Column_def())
-		if cons := ctx.Column_constraint(); cons != nil {
-			if cons.Primary_key_constraint() != nil {
-				column.SetConstant(query.ColumnConstraintPrimaryKey)
-				index := query.NewIndexWith(column.Name(), query.PrimaryIndex, query.NewColumnsWith(column))
-				opts = append(opts, query.WithAlterTableAddIndex(index))
-			}
-		} else {
-			opts = append(opts, query.WithAlterTableAddColumn(column))
-		}
+		opts = append(opts, query.WithAlterTableAddColumn(column))
 	}
-	if ctx := ctx.Drop_column(); ctx != nil {
+	if ctx := ctx.Drop_table_column(); ctx != nil {
 		column := query.NewColumnWithOptions(query.WithColumnName(ctx.GetText()))
 		opts = append(opts, query.WithAlterTableDropColumn(column))
 	}
