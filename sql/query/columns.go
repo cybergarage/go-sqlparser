@@ -15,6 +15,8 @@
 package query
 
 import (
+	std_strings "strings"
+
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
@@ -59,7 +61,7 @@ func (columns ColumnList) ColumnAt(n int) (*Column, error) {
 // ColumnByName returns a column by the specified name.
 func (columns ColumnList) ColumnByName(name string) (*Column, error) {
 	for _, column := range columns {
-		if column.Name() == name {
+		if std_strings.EqualFold(column.Name(), name) {
 			return column, nil
 		}
 	}
