@@ -32,6 +32,10 @@ func newErrColumnNotFound(name string) error {
 	return fmt.Errorf("column (%s) %w", name, ErrNotFound)
 }
 
+func newErrIndexNotFound(name string) error {
+	return fmt.Errorf("index (%s) %w", name, ErrNotFound)
+}
+
 func newErrColumnIndexOutOfRange(n int) error {
 	return fmt.Errorf("column index (%d) %w", n, ErrNotFound)
 }
