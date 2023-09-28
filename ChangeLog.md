@@ -6,6 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.2.6 (2023-09-xx)
+- Improved
+  - Add utility functions for StetementType
+
 # v1.2.5 (2023-09-28)
 - Improved
   - Add utility functions for Schema 
