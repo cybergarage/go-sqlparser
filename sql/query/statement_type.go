@@ -38,3 +38,49 @@ const (
 	BeginStatement
 	RollbackStatement
 )
+
+// StatementType returns the statement type.
+func (stmtType StatementType) String() string {
+	switch stmtType {
+	case CreateDatabaseStatement:
+		return "CREATE DATABASE"
+	case CreateTableStatement:
+		return "CREATE TABLE"
+	case CreateIndexStatement:
+		return "CREATE INDEX"
+	case InsertStatement:
+		return "INSERT"
+	case SelectStatement:
+		return "SELECT"
+	case UpdateStatement:
+		return "UPDATE"
+	case DeleteStatement:
+		return "DELETE"
+	case DropDatabaseStatement:
+		return "DROP DATABASE"
+	case DropIndexStatement:
+		return "DROP INDEX"
+	case DropTableStatement:
+		return "DROP TABLE"
+	case AlterDatabaseStatement:
+		return "ALTER DATABASE"
+	case AlterTableStatement:
+		return "ALTER TABLE"
+	case AlterIndexStatement:
+		return "ALTER INDEX"
+	case CopyStatement:
+		return "COPY"
+	case CommitStatement:
+		return "COMMIT"
+	case VacuumStatement:
+		return "VACUUM"
+	case TruncateStatement:
+		return "TRUNCATE"
+	case BeginStatement:
+		return "BEGIN"
+	case RollbackStatement:
+		return "ROLLBACK"
+	default:
+		return ""
+	}
+}
