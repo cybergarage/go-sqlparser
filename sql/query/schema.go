@@ -60,3 +60,13 @@ func (schema *Schema) SchemaTable() *Table {
 func (schema *Schema) SchemaName() string {
 	return schema.TableName()
 }
+
+// AddColumn adds a column.
+func (schema *Schema) AddColumn(column *Column) {
+	schema.ColumnList = append(schema.ColumnList, column)
+}
+
+// AddIndex adds an index.
+func (schema *Schema) AddIndex(index *Index) {
+	schema.IndexList = append(schema.IndexList, index)
+}
