@@ -7,6 +7,9 @@
   - Add new ANTLR parser instead of SQLite3 parser
 
 # v1.2.6 (2023-09-xx)
+- Updated
+  - ALTER TABLE
+    - Supported ALTER ADD INDEX
 - Improved
   - Add utility functions for StetementType
 
