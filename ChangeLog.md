@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.2.6 (2023-09-xx)
+# v1.2.6 (2023-09-29)
 - Updated
   - ALTER TABLE
     - Supported ALTER ADD INDEX
