@@ -91,8 +91,9 @@ alter_table_stmt:
     ALTER_ TABLE_ (schema_name DOT)? target_table_name = table_name (
         rename_table_to
         | rename_table_colum
-        | add_column
-        | drop_column
+        | add_table_column
+        | add_table_index
+        | drop_table_column
     )
 ;
 
@@ -104,11 +105,15 @@ rename_table_colum:
     RENAME_ COLUMN_? old_column_name = column_name TO_ new_column_name = column_name
 ;
 
-add_column:
-    ADD_ COLUMN_? column_constraint? column_def
+add_table_column:
+    ADD_ COLUMN_? column_def
 ;
 
-drop_column:
+add_table_index:
+    ADD_ column_constraint OPEN_PAR column_name (COMMA column_name)* CLOSE_PAR
+;
+
+drop_table_column:
     DROP_ COLUMN_? column_name
 ;
 
