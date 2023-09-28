@@ -1,5 +1,5 @@
 *** SQLiteLexer.g4.new	Thu Sep 28 16:25:05 2023
---- SQLiteLexer.g4	Thu Sep 28 17:19:51 2023
+--- SQLiteLexer.g4	Thu Sep 28 19:30:13 2023
 ***************
 *** 67,73 ****
   ASC_:               'ASC';

@@ -510,7 +510,7 @@ func sqliteparserParserInit() {
 		0, 0, 387, 388, 3, 254, 127, 0, 388, 389, 5, 2, 0, 0, 389, 391, 1, 0, 0,
 		0, 390, 387, 1, 0, 0, 0, 390, 391, 1, 0, 0, 0, 391, 392, 1, 0, 0, 0, 392,
 		398, 3, 256, 128, 0, 393, 399, 3, 12, 6, 0, 394, 399, 3, 14, 7, 0, 395,
-		399, 3, 16, 8, 0, 396, 399, 3, 18, 9, 0, 397, 399, 3, 20, 10, 0, 398, 393,
+		399, 3, 18, 9, 0, 396, 399, 3, 16, 8, 0, 397, 399, 3, 20, 10, 0, 398, 393,
 		1, 0, 0, 0, 398, 394, 1, 0, 0, 0, 398, 395, 1, 0, 0, 0, 398, 396, 1, 0,
 		0, 0, 398, 397, 1, 0, 0, 0, 399, 11, 1, 0, 0, 0, 400, 401, 5, 125, 0, 0,
 		401, 402, 5, 141, 0, 0, 402, 403, 3, 256, 128, 0, 403, 13, 1, 0, 0, 0,
@@ -3438,8 +3438,8 @@ type IAlter_table_stmtContext interface {
 	Table_name() ITable_nameContext
 	Rename_table_to() IRename_table_toContext
 	Rename_table_colum() IRename_table_columContext
-	Add_table_column() IAdd_table_columnContext
 	Add_table_index() IAdd_table_indexContext
+	Add_table_column() IAdd_table_columnContext
 	Drop_table_column() IDrop_table_columnContext
 	Schema_name() ISchema_nameContext
 	DOT() antlr.TerminalNode
@@ -3543,22 +3543,6 @@ func (s *Alter_table_stmtContext) Rename_table_colum() IRename_table_columContex
 	return t.(IRename_table_columContext)
 }
 
-func (s *Alter_table_stmtContext) Add_table_column() IAdd_table_columnContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAdd_table_columnContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IAdd_table_columnContext)
-}
-
 func (s *Alter_table_stmtContext) Add_table_index() IAdd_table_indexContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -3573,6 +3557,22 @@ func (s *Alter_table_stmtContext) Add_table_index() IAdd_table_indexContext {
 	}
 
 	return t.(IAdd_table_indexContext)
+}
+
+func (s *Alter_table_stmtContext) Add_table_column() IAdd_table_columnContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IAdd_table_columnContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IAdd_table_columnContext)
 }
 
 func (s *Alter_table_stmtContext) Drop_table_column() IDrop_table_columnContext {
@@ -3710,13 +3710,13 @@ func (p *SQLiteParser) Alter_table_stmt() (localctx IAlter_table_stmtContext) {
 	case 3:
 		{
 			p.SetState(395)
-			p.Add_table_column()
+			p.Add_table_index()
 		}
 
 	case 4:
 		{
 			p.SetState(396)
-			p.Add_table_index()
+			p.Add_table_column()
 		}
 
 	case 5:
