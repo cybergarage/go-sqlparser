@@ -931,6 +931,7 @@ keyword:
     | SELECT_
     | SET_
     | TABLE_
+    | TEXT_
     | TEMP_
     | TEMPORARY_
     | THEN_
