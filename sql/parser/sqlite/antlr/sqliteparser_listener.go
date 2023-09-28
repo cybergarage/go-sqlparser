@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -31,11 +31,14 @@ type SQLiteParserListener interface {
 	// EnterRename_table_colum is called when entering the rename_table_colum production.
 	EnterRename_table_colum(c *Rename_table_columContext)
 
-	// EnterAdd_column is called when entering the add_column production.
-	EnterAdd_column(c *Add_columnContext)
+	// EnterAdd_table_column is called when entering the add_table_column production.
+	EnterAdd_table_column(c *Add_table_columnContext)
 
-	// EnterDrop_column is called when entering the drop_column production.
-	EnterDrop_column(c *Drop_columnContext)
+	// EnterAdd_table_index is called when entering the add_table_index production.
+	EnterAdd_table_index(c *Add_table_indexContext)
+
+	// EnterDrop_table_column is called when entering the drop_table_column production.
+	EnterDrop_table_column(c *Drop_table_columnContext)
 
 	// EnterAnalyze_stmt is called when entering the analyze_stmt production.
 	EnterAnalyze_stmt(c *Analyze_stmtContext)
@@ -475,11 +478,14 @@ type SQLiteParserListener interface {
 	// ExitRename_table_colum is called when exiting the rename_table_colum production.
 	ExitRename_table_colum(c *Rename_table_columContext)
 
-	// ExitAdd_column is called when exiting the add_column production.
-	ExitAdd_column(c *Add_columnContext)
+	// ExitAdd_table_column is called when exiting the add_table_column production.
+	ExitAdd_table_column(c *Add_table_columnContext)
 
-	// ExitDrop_column is called when exiting the drop_column production.
-	ExitDrop_column(c *Drop_columnContext)
+	// ExitAdd_table_index is called when exiting the add_table_index production.
+	ExitAdd_table_index(c *Add_table_indexContext)
+
+	// ExitDrop_table_column is called when exiting the drop_table_column production.
+	ExitDrop_table_column(c *Drop_table_columnContext)
 
 	// ExitAnalyze_stmt is called when exiting the analyze_stmt production.
 	ExitAnalyze_stmt(c *Analyze_stmtContext)

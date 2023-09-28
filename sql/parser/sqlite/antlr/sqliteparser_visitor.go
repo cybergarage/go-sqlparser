@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -31,11 +31,14 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#rename_table_colum.
 	VisitRename_table_colum(ctx *Rename_table_columContext) interface{}
 
-	// Visit a parse tree produced by SQLiteParser#add_column.
-	VisitAdd_column(ctx *Add_columnContext) interface{}
+	// Visit a parse tree produced by SQLiteParser#add_table_column.
+	VisitAdd_table_column(ctx *Add_table_columnContext) interface{}
 
-	// Visit a parse tree produced by SQLiteParser#drop_column.
-	VisitDrop_column(ctx *Drop_columnContext) interface{}
+	// Visit a parse tree produced by SQLiteParser#add_table_index.
+	VisitAdd_table_index(ctx *Add_table_indexContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#drop_table_column.
+	VisitDrop_table_column(ctx *Drop_table_columnContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#analyze_stmt.
 	VisitAnalyze_stmt(ctx *Analyze_stmtContext) interface{}

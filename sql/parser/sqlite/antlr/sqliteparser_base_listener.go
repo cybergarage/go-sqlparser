@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.0. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -68,17 +68,23 @@ func (s *BaseSQLiteParserListener) EnterRename_table_colum(ctx *Rename_table_col
 // ExitRename_table_colum is called when production rename_table_colum is exited.
 func (s *BaseSQLiteParserListener) ExitRename_table_colum(ctx *Rename_table_columContext) {}
 
-// EnterAdd_column is called when production add_column is entered.
-func (s *BaseSQLiteParserListener) EnterAdd_column(ctx *Add_columnContext) {}
+// EnterAdd_table_column is called when production add_table_column is entered.
+func (s *BaseSQLiteParserListener) EnterAdd_table_column(ctx *Add_table_columnContext) {}
 
-// ExitAdd_column is called when production add_column is exited.
-func (s *BaseSQLiteParserListener) ExitAdd_column(ctx *Add_columnContext) {}
+// ExitAdd_table_column is called when production add_table_column is exited.
+func (s *BaseSQLiteParserListener) ExitAdd_table_column(ctx *Add_table_columnContext) {}
 
-// EnterDrop_column is called when production drop_column is entered.
-func (s *BaseSQLiteParserListener) EnterDrop_column(ctx *Drop_columnContext) {}
+// EnterAdd_table_index is called when production add_table_index is entered.
+func (s *BaseSQLiteParserListener) EnterAdd_table_index(ctx *Add_table_indexContext) {}
 
-// ExitDrop_column is called when production drop_column is exited.
-func (s *BaseSQLiteParserListener) ExitDrop_column(ctx *Drop_columnContext) {}
+// ExitAdd_table_index is called when production add_table_index is exited.
+func (s *BaseSQLiteParserListener) ExitAdd_table_index(ctx *Add_table_indexContext) {}
+
+// EnterDrop_table_column is called when production drop_table_column is entered.
+func (s *BaseSQLiteParserListener) EnterDrop_table_column(ctx *Drop_table_columnContext) {}
+
+// ExitDrop_table_column is called when production drop_table_column is exited.
+func (s *BaseSQLiteParserListener) ExitDrop_table_column(ctx *Drop_table_columnContext) {}
 
 // EnterAnalyze_stmt is called when production analyze_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterAnalyze_stmt(ctx *Analyze_stmtContext) {}
