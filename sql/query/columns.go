@@ -68,10 +68,10 @@ func (columns ColumnList) ColumnByName(name string) (*Column, error) {
 	return nil, newErrColumnNotFound(name)
 }
 
-// ColumnIndexByName returns a column index by the specified name.
-func (columns ColumnList) ColumnIndexByName(name string) (int, error) {
+// IndexOfColumnByName returns a column index by the specified name.
+func (columns ColumnList) IndexOfColumnByName(name string) (int, error) {
 	for n, column := range columns {
-		if column.Name() == name {
+		if std_strings.EqualFold(column.Name(), name) {
 			return n, nil
 		}
 	}
