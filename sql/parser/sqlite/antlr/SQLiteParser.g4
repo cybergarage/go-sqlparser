@@ -91,8 +91,8 @@ alter_table_stmt:
     ALTER_ TABLE_ (schema_name DOT)? target_table_name = table_name (
         rename_table_to
         | rename_table_colum
-        | add_table_column
         | add_table_index
+        | add_table_column
         | drop_table_column
     )
 ;

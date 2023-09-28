@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Thu Sep 28 17:18:01 2023
---- SQLiteParser.g4	Thu Sep 28 17:19:51 2023
+*** SQLiteParser.g4.new	Thu Sep 28 19:30:04 2023
+--- SQLiteParser.g4	Thu Sep 28 19:30:13 2023
 ***************
 *** 42,54 ****
   ;
@@ -72,8 +72,8 @@
 !     ALTER_ TABLE_ (schema_name DOT)? target_table_name = table_name (
 !         rename_table_to
 !         | rename_table_colum
-!         | add_table_column
 !         | add_table_index
+!         | add_table_column
 !         | drop_table_column
       )
   ;
