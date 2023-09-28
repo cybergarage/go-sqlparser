@@ -96,24 +96,24 @@ func (stmt *AlterTable) RenameTable() (*Table, bool) {
 	return stmt.renameTableTo, true
 }
 
-// RenameColums returns the rename columns.
-func (stmt *AlterTable) RenameColums() (*Column, *Column, bool) {
+// RenameColumns returns the rename columns.
+func (stmt *AlterTable) RenameColumns() (*Column, *Column, bool) {
 	if stmt.renameColumnFrom == nil || stmt.renameColumnTo == nil {
 		return nil, nil, false
 	}
 	return stmt.renameColumnFrom, stmt.renameColumnTo, true
 }
 
-// AddColum returns the add column.
-func (stmt *AlterTable) AddColum() (*Column, bool) {
+// AddColumn returns the add column.
+func (stmt *AlterTable) AddColumn() (*Column, bool) {
 	if stmt.addColumn == nil {
 		return nil, false
 	}
 	return stmt.addColumn, true
 }
 
-// DropColum returns the drop column.
-func (stmt *AlterTable) DropColum() (*Column, bool) {
+// DropColumn returns the drop column.
+func (stmt *AlterTable) DropColumn() (*Column, bool) {
 	if stmt.dropColumn == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (stmt *AlterTable) String() string {
 				tbl.String(),
 			}...)
 	}
-	if f, t, ok := stmt.RenameColums(); ok {
+	if f, t, ok := stmt.RenameColumns(); ok {
 		elems = append(elems,
 			[]string{
 				"RENAME",
@@ -145,7 +145,7 @@ func (stmt *AlterTable) String() string {
 				t.Name(),
 			}...)
 	}
-	if c, ok := stmt.AddColum(); ok {
+	if c, ok := stmt.AddColumn(); ok {
 		elems = append(elems, "ADD")
 		if c.Constrains() != ColumnConstraintNone {
 			elems = append(elems, c.Constrains().String())
@@ -153,7 +153,7 @@ func (stmt *AlterTable) String() string {
 		elems = append(elems, c.DefinitionString())
 
 	}
-	if c, ok := stmt.DropColum(); ok {
+	if c, ok := stmt.DropColumn(); ok {
 		elems = append(elems,
 			[]string{
 				"DROP",
