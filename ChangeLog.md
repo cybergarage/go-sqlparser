@@ -6,6 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.2.5 (2023-09-28)
+- Improved
+  - Add utility functions for Schema 
+
 # v1.2.4 (2023-09-24)
 - Updated
   - SELECT
