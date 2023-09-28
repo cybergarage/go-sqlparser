@@ -86,3 +86,15 @@ func (schema *Schema) DropColumn(name string) error {
 	}
 	return newErrColumnNotFound(name)
 }
+
+// DropIndex drops an index by the specified name.
+func (schema *Schema) DropIndex(name string) error {
+	for n, index := range schema.IndexList {
+		if strings.EqualFold(index.Name(), name) {
+			continue
+		}
+		schema.IndexList = append(schema.IndexList[:n], schema.IndexList[n+1:]...)
+		return nil
+	}
+	return newErrIndexNotFound(name)
+}
