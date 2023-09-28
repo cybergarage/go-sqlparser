@@ -14,6 +14,8 @@
 
 package query
 
+import "strings"
+
 // Schema represents a table schema.
 type Schema struct {
 	*Table
@@ -62,11 +64,25 @@ func (schema *Schema) SchemaName() string {
 }
 
 // AddColumn adds a column.
-func (schema *Schema) AddColumn(column *Column) {
+func (schema *Schema) AddColumn(column *Column) error {
 	schema.ColumnList = append(schema.ColumnList, column)
+	return nil
 }
 
 // AddIndex adds an index.
-func (schema *Schema) AddIndex(index *Index) {
+func (schema *Schema) AddIndex(index *Index) error {
 	schema.IndexList = append(schema.IndexList, index)
+	return nil
+}
+
+// DropColumn drops a column by the specified name.
+func (schema *Schema) DropColumn(name string) error {
+	for n, column := range schema.ColumnList {
+		if strings.EqualFold(column.Name(), name) {
+			continue
+		}
+		schema.ColumnList = append(schema.ColumnList[:n], schema.ColumnList[n+1:]...)
+		return nil
+	}
+	return newErrColumnNotFound(name)
 }
