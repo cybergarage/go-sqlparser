@@ -23,12 +23,12 @@ PKG_NAME=sql
 PKG_COVER=${PKG_NAME}-cover
 PKG_SRC_ROOT=${PKG_NAME}
 PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${PKG_NAME}
-PKGS=${PKG_ROOT}/...
+PKG=${PKG_ROOT}
                
 TEST_PKG_NAME=${PKG_NAME}test
 TEST_PKG_SRC_ROOT=${TEST_PKG_NAME}
 TEST_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${TEST_PKG_NAME}
-TEST_PKGS=${TEST_PKG_ROOT}/...
+TEST_PKG=${TEST_PKG_ROOT}
 
 .PHONY: version antlr clean
 
@@ -48,16 +48,16 @@ format:
 	gofmt -w ${PKG_SRC_ROOT} ${TEST_PKG_SRC_ROOT}
 
 vet: format
-	go vet ${PKGS} ${TEST_PKGS}
+	go vet ${PKG} ${TEST_PKG}
 
 lint:
 	golangci-lint run ${PKG_SRC_ROOT}/... ${TEST_PKG_SRC_ROOT}/...
 
 build: lint
-	go build -v ${PKGS}
+	go build -v ${PKG}
 
 test: lint
-	go test -v -p 1 -timeout 10m -cover -coverpkg=${PKG} -coverprofile=${PKG_COVER}.out ${PKGS} ${TEST_PKGS}
+	go test -v -p 1 -timeout 10m -cover -coverpkg=${PKG} -coverprofile=${PKG_COVER}.out ${PKG}/... ${TEST_PKG}/...
 
 watchvet:
 	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make vet
@@ -69,7 +69,7 @@ watchlint:
 	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make lint
 
 clean:
-	go clean -i ${PKGS} ${TEST_PKGS}
+	go clean -i ${PKG} ${TEST_PKG}
 
 #
 # Document
