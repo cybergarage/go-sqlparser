@@ -20,6 +20,7 @@ GIT_ROOT=github.com/cybergarage
 PRODUCT_NAME=go-sqlparser
 
 PKG_NAME=sql
+PKG_COVER=${PKG_NAME}-cover
 PKG_SRC_ROOT=${PKG_NAME}
 PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${PKG_NAME}
 PKGS=${PKG_ROOT}/...
@@ -56,7 +57,7 @@ build: lint
 	go build -v ${PKGS}
 
 test: lint
-	go test -v -cover ${PKGS} ${TEST_PKGS}
+	go test -v -p 1 -timeout 10m -cover -coverpkg=${PKG} -coverprofile=${PKG_COVER}.out ${PKGS} ${TEST_PKGS}
 
 watchvet:
 	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make vet
