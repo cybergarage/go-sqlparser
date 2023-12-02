@@ -35,6 +35,16 @@ func NewParser() *Parser {
 
 // ParseString parses a specified FQL string.
 func (parser *Parser) ParseString(queryString string) ([]query.Statement, error) {
+	queryStringLen := len(queryString)
+	switch queryStringLen {
+	case 0:
+		return nil, errors.ErrEmptyQuery
+	case 1:
+		if queryString[0] == ';' {
+			return nil, errors.ErrEmptyQuery
+		}
+	}
+
 	if len(queryString) <= 0 {
 		return nil, errors.ErrEmptyQuery
 	}
