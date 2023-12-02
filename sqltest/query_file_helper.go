@@ -143,7 +143,7 @@ func testQueryFile(t *testing.T, file *util.File) {
 	}
 }
 
-func testQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
+func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
 	re, err := regexp.Compile(fileRegex)
 	if err != nil {
 		t.Error(err)
