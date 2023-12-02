@@ -20,42 +20,42 @@ import (
 
 func TestCreateQueries(t *testing.T) {
 	re := ".*create.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestInsertQueries(t *testing.T) {
 	re := ".*insert.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestUpdateQueries(t *testing.T) {
 	re := ".*update.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestSelectQueries(t *testing.T) {
 	re := ".*select.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestDeleteQueries(t *testing.T) {
 	re := ".*delete.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestAlterQueries(t *testing.T) {
 	re := ".*alter.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestDropQueries(t *testing.T) {
 	re := ".*drop.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestTransactionQueries(t *testing.T) {
 	re := ".*transaction.*\\.sql"
-	testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 }
 
 func TestExtraQueries(t *testing.T) {
@@ -67,6 +67,6 @@ func TestExtraQueries(t *testing.T) {
 		".*ping.*\\.sql",
 	}
 	for _, re := range res {
-		testQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 	}
 }
