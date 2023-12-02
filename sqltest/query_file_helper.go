@@ -21,7 +21,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cybergarage/go-sqlparser/sql"
 	"github.com/cybergarage/go-sqlparser/sqltest/util"
 )
 
@@ -84,47 +83,7 @@ func formalizeQuery(query string) string {
 	return query
 }
 
-func testQueryString(t *testing.T, queryStr string) {
-	parser := sql.NewParser()
-
-	parsedQueries, err := parser.ParseString(queryStr)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	if err != nil || len(parsedQueries) != 1 {
-		t.Errorf("%s\n", queryStr)
-		for _, query := range parsedQueries {
-			t.Errorf("%s\n", query.String())
-		}
-		return
-	}
-
-	parsedQuery := parsedQueries[0]
-	queryStr = formalizeQuery(queryStr)
-	t.Logf("[S] %s\n", queryStr)
-	parsedQueryStr := formalizeQuery(parsedQuery.String())
-	// STEP1: Compare the parsed query with the original query for an exact match.
-	if queryStr != parsedQueryStr {
-		// STEP2: Compare the parsed query with the original query for semantic match.
-		reParsedQueries, err := parser.ParseString(parsedQueryStr)
-		if err == nil && len(reParsedQueries) == 1 {
-			reParsedQuery := reParsedQueries[0]
-			reParsedQueryStr := formalizeQuery(reParsedQuery.String())
-			if parsedQueryStr != reParsedQueryStr {
-				t.Errorf("[P] %s\n", parsedQueryStr)
-				return
-			}
-		} else {
-			t.Errorf("[P] %s\n", parsedQueryStr)
-			return
-		}
-	}
-	t.Logf("[P] %s\n", parsedQueryStr)
-}
-
-func testQueryFile(t *testing.T, file *util.File) {
+func TestQueryFile(t *testing.T, file *util.File) {
 	queryBytes, err := readQueryFile(file.Path())
 	if err != nil {
 		t.Error(err)
@@ -138,7 +97,7 @@ func testQueryFile(t *testing.T, file *util.File) {
 			continue
 		}
 		t.Run(formalizeQuery(query), func(t *testing.T) {
-			testQueryString(t, query)
+			TestQueryString(t, query)
 		})
 	}
 }
@@ -158,7 +117,7 @@ func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
 
 	for _, file := range files {
 		t.Run(file.Name(), func(t *testing.T) {
-			testQueryFile(t, file)
+			TestQueryFile(t, file)
 		})
 	}
 }
