@@ -24,7 +24,7 @@ func TestNewFile(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	if len(files) <= 0 {
+	if len(files) == 0 {
 		t.Errorf("%d", len(files))
 	}
 }

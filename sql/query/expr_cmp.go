@@ -14,10 +14,10 @@
 
 package query
 
-// CmpExprOperator is an enum for CompExpr.Operator
+// CmpExprOperator is an enum for CompExpr.Operator.
 type CmpExprOperator uint8
 
-// Constants for Enum Type - CompExprOperator
+// Constants for Enum Type - CompExprOperator.
 const (
 	EQ CmpExprOperator = iota
 	NEQ
@@ -49,7 +49,7 @@ func (t CmpExprOperator) String() string {
 	return s
 }
 
-// CmpExpr represents an comparsion expression.
+// CmpExpr represents an comparison expression.
 type CmpExpr struct {
 	op    CmpExprOperator
 	left  *Column

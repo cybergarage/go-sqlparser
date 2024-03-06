@@ -32,7 +32,7 @@ func (s *Stack) PushObject(obj interface{}) {
 	s.objects = append(s.objects, obj)
 }
 
-// PeekObject returns a top parser object
+// PeekObject returns a top parser object.
 func (s *Stack) PeekObject() interface{} {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
@@ -41,7 +41,7 @@ func (s *Stack) PeekObject() interface{} {
 	return s.objects[objectCount-1]
 }
 
-// PopObject removes and returns a top parser object
+// PopObject removes and returns a top parser object.
 func (s *Stack) PopObject() interface{} {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
@@ -52,7 +52,7 @@ func (s *Stack) PopObject() interface{} {
 	return obj
 }
 
-// Size return a count of the stack objects
+// Size return a count of the stack objects.
 func (s *Stack) Size() int {
 	return len(s.objects)
 }
