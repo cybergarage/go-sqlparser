@@ -15,11 +15,11 @@
 package query
 
 const (
-	// Math
+	// Math.
 	AbsFunctionName   = "ABS"
 	CeilFunctionName  = "CEIL"
 	FloorFunctionName = "FLOOR"
-	// Aggregator
+	// Aggregator.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
 	SumFunctionName   = "SUM"

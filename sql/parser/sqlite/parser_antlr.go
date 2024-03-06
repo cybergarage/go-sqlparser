@@ -45,7 +45,7 @@ func (parser *Parser) ParseString(queryString string) ([]query.Statement, error)
 		}
 	}
 
-	if len(queryString) <= 0 {
+	if len(queryString) == 0 {
 		return nil, errors.ErrEmptyQuery
 	}
 

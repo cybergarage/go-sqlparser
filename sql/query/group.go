@@ -53,7 +53,7 @@ func (groupBy *GroupBy) Column() string {
 
 // String returns the string representation.
 func (groupBy *GroupBy) String() string {
-	if len(groupBy.column) <= 0 {
+	if len(groupBy.column) == 0 {
 		return ""
 	}
 	return strings.JoinWithSpace(

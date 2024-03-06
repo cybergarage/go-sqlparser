@@ -168,12 +168,10 @@ func (stmt *AlterTable) String() string {
 			elems = append(elems, c.Constrains().String())
 		}
 		elems = append(elems, c.DefinitionString())
-
 	}
 	if i, ok := stmt.AddIndex(); ok {
 		elems = append(elems, "ADD")
 		elems = append(elems, i.DefinitionString())
-
 	}
 	if c, ok := stmt.DropColumn(); ok {
 		elems = append(elems,

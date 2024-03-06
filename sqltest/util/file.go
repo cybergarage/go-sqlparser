@@ -49,12 +49,12 @@ func (file *File) Name() string {
 	return filepath.Base(file.path)
 }
 
-// Ext returns only the extention.
+// Ext returns only the extension.
 func (file *File) Ext() string {
 	return filepath.Ext(file.path)
 }
 
-// IsDir returns true when the file represents a directory, otherwise false
+// IsDir returns true when the file represents a directory, otherwise false.
 func (file *File) IsDir() bool {
 	fi, err := os.Stat(file.path)
 	if err != nil {
@@ -66,7 +66,7 @@ func (file *File) IsDir() bool {
 	return true
 }
 
-// ListFilesWithExtention returns files which has the specified extentions in the directory.
+// ListFilesWithExtention returns files which has the specified extensions in the directory.
 func (file *File) ListFilesWithExtention(targetExt string) ([]*File, error) {
 	if !file.IsDir() {
 		return nil, fmt.Errorf(errorFileIsNotDirectory, file.path)
@@ -96,7 +96,7 @@ func (file *File) ListFilesWithExtention(targetExt string) ([]*File, error) {
 	return files, nil
 }
 
-// ListFilesWithExtention returns files which has the specified extentions in the directory.
+// ListFilesWithExtention returns files which has the specified extensions in the directory.
 func (file *File) ListFilesWithRegexp(re *regexp.Regexp) ([]*File, error) {
 	if !file.IsDir() {
 		return nil, fmt.Errorf(errorFileIsNotDirectory, file.path)
