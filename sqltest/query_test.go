@@ -15,6 +15,7 @@
 package sqltest
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/cybergarage/go-sqlparser/sql"
@@ -34,7 +35,7 @@ func TestEmptyQueries(t *testing.T) {
 				t.Errorf("Failed to parse the empty query (%s)", query)
 				return
 			}
-			if err != sql.ErrEmptyQuery {
+			if !errors.Is(err, sql.ErrEmptyQuery) {
 				t.Errorf("Failed to parse the empty query (%s)", query)
 				return
 			}
