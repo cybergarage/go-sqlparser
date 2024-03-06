@@ -79,16 +79,16 @@ type Copy struct {
 
 // NewCopyWith returns a new Copy statement instance with the specified parameters.
 func NewCopyWith(tblName string, src string, opts ...CopyOption) *Copy {
-	copy := &Copy{
+	stmt := &Copy{
 		Table:      NewTableWith(tblName),
 		ColumnList: NewColumns(),
 		source:     src,
 		format:     CopyFormatText,
 	}
 	for _, opt := range opts {
-		opt(copy)
+		opt(stmt)
 	}
-	return copy
+	return stmt
 }
 
 // StatementType returns the statement type.

@@ -41,6 +41,7 @@ func NewColumnWithOptions(opts ...ColumnOption) *Column {
 		name:             "",
 		DataDef:          nil,
 		Literal:          nil,
+		BindParam:        nil,
 		FunctionExecutor: nil,
 		args:             []any{},
 		consts:           ColumnConstraintNone,

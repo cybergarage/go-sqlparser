@@ -67,8 +67,8 @@ func (stmt *Update) String() string {
 	for _, column := range stmt.ColumnList {
 		name := column.Name()
 		value := column.UpdatorString()
-		colum_set := fmt.Sprintf("%s = %s", name, value)
-		columns = append(columns, colum_set)
+		columSet := fmt.Sprintf("%s = %s", name, value)
+		columns = append(columns, columSet)
 	}
 	strs = append(strs, strings.JoinWithComma(columns))
 	if stmt.Condition != nil {
