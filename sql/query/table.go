@@ -33,7 +33,8 @@ type TableOption = func(*Table)
 // NewTableWith returns a new Table instance with the specified name.
 func NewTableWith(name string, opts ...TableOption) *Table {
 	tbl := &Table{
-		name: name,
+		name:   name,
+		schema: "",
 	}
 	for _, opt := range opts {
 		opt(tbl)

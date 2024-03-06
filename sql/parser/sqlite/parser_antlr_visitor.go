@@ -179,11 +179,11 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
 
 func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
 	dbName := ctx.Database_name().GetText()
-	toDbName := ""
+	toDBName := ""
 	if ctx := ctx.Rename_database_to(); ctx != nil {
-		toDbName = ctx.GetNew_database_name().GetText()
+		toDBName = ctx.GetNew_database_name().GetText()
 	}
-	return query.NewAlterDatabaseWith(dbName, toDbName)
+	return query.NewAlterDatabaseWith(dbName, toDBName)
 }
 
 func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
