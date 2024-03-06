@@ -26,6 +26,7 @@ type antlrVisitor struct {
 	*antlr.BaseSQLiteParserVisitor
 }
 
+// nolint: exhaustruct
 func newANTLRVisitor() *antlrVisitor {
 	v := &antlrVisitor{
 		BaseSQLiteParserVisitor: &antlr.BaseSQLiteParserVisitor{},
