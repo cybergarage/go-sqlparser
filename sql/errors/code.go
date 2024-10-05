@@ -284,6 +284,529 @@ const (
 )
 
 // String returns the string representation of the code.
-func (c Code) String() string {
-	return string(c)
+func (c Code) String() string { // nolint: maintidx
+	switch c {
+	case SuccessfulCompletion:
+		return "Successful Completion"
+	case Warning:
+		return "Warning"
+	case DynamicResultSetsReturned:
+		return "Dynamic Result Sets Returned"
+	case ImplicitZeroBitPadding:
+		return "Implicit Zero Bit Padding"
+	case NullValueEliminatedInSetFunction:
+		return "Null Value Eliminated In Set Function"
+	case PrivilegeNotGranted:
+		return "Privilege Not Granted"
+	case PrivilegeNotRevoked:
+		return "Privilege Not Revoked"
+	case StringDataRightTruncationWarning:
+		return "String Data Right Truncation Warning"
+	case DeprecatedFeature:
+		return "Deprecated Feature"
+	case NoData:
+		return "No Data"
+	case NoAdditionalDynamicResultSetsReturned:
+		return "No Additional Dynamic Result Sets Returned"
+	case SQLStatementNotYetComplete:
+		return "SQL Statement Not Yet Complete"
+	case ConnectionException:
+		return "Connection Exception"
+	case ConnectionDoesNotExist:
+		return "Connection Does Not Exist"
+	case ConnectionFailure:
+		return "Connection Failure"
+	case SQLClientUnableToEstablishSQLConnection:
+		return "SQL Client Unable To Establish SQL Connection"
+	case SQLServerRejectedEstablishmentOfSQLConnection:
+		return "SQL Server Rejected Establishment Of SQL Connection"
+	case TransactionResolutionUnknown:
+		return "Transaction Resolution Unknown"
+	case ProtocolViolation:
+		return "Protocol Violation"
+	case TriggeredActionException:
+		return "Triggered Action Exception"
+	case FeatureNotSupported:
+		return "Feature Not Supported"
+	case InvalidTransactionInitiation:
+		return "Invalid Transaction Initiation"
+	case LocatorException:
+		return "Locator Exception"
+	case InvalidLocatorSpecification:
+		return "Invalid Locator Specification"
+	case InvalidGrantor:
+		return "Invalid Grantor"
+	case InvalidGrantOperation:
+		return "Invalid Grant Operation"
+	case InvalidRoleSpecification:
+		return "Invalid Role Specification"
+	case DiagnosticsException:
+		return "Diagnostics Exception"
+	case StackedDiagnosticsAccessedWithoutActiveHandler:
+		return "Stacked Diagnostics Accessed Without Active Handler"
+	case CaseNotFound:
+		return "Case Not Found"
+	case CardinalityViolation:
+		return "Cardinality Violation"
+	case DataException:
+		return "Data Exception"
+	case ArraySubscriptError:
+		return "Array Subscript Error"
+	case CharacterNotInRepertoire:
+		return "Character Not In Repertoire"
+	case DatetimeFieldOverflow:
+		return "Datetime Field Overflow"
+	case DivisionByZero:
+		return "Division By Zero"
+	case ErrorInAssignment:
+		return "Error In Assignment"
+	case EscapeCharacterConflict:
+		return "Escape Character Conflict"
+	case IndicatorOverflow:
+		return "Indicator Overflow"
+	case IntervalFieldOverflow:
+		return "Interval Field Overflow"
+	case InvalidArgumentForLogarithm:
+		return "Invalid Argument For Logarithm"
+	case InvalidArgumentForNtileFunction:
+		return "Invalid Argument For Ntile Function"
+	case InvalidArgumentForNthValueFunction:
+		return "Invalid Argument For Nth Value Function"
+	case InvalidArgumentForPowerFunction:
+		return "Invalid Argument For Power Function"
+	case InvalidArgumentForWidthBucketFunction:
+		return "Invalid Argument For Width Bucket Function"
+	case InvalidCharacterValueForCast:
+		return "Invalid Character Value For Cast"
+	case InvalidDatetimeFormat:
+		return "Invalid Datetime Format"
+	case InvalidEscapeCharacter:
+		return "Invalid Escape Character"
+	case InvalidEscapeOctet:
+		return "Invalid Escape Octet"
+	case InvalidEscapeSequence:
+		return "Invalid Escape Sequence"
+	case NonstandardUseOfEscapeCharacter:
+		return "Nonstandard Use Of Escape Character"
+	case InvalidIndicatorParameterValue:
+		return "Invalid Indicator Parameter Value"
+	case InvalidParameterValue:
+		return "Invalid Parameter Value"
+	case InvalidPrecedingOrFollowingSize:
+		return "Invalid Preceding Or Following Size"
+	case InvalidRegularExpression:
+		return "Invalid Regular Expression"
+	case InvalidRowCountInLimitClause:
+		return "Invalid Row Count In Limit Clause"
+	case InvalidRowCountInResultOffsetClause:
+		return "Invalid Row Count In Result Offset Clause"
+	case InvalidTablesampleArgument:
+		return "Invalid Tablesample Argument"
+	case InvalidTablesampleRepeat:
+		return "Invalid Tablesample Repeat"
+	case InvalidTimeZoneDisplacementValue:
+		return "Invalid Time Zone Displacement Value"
+	case InvalidUseOfEscapeCharacter:
+		return "Invalid Use Of Escape Character"
+	case MostSpecificTypeMismatch:
+		return "Most Specific Type Mismatch"
+	case NullDataValueNotAllowed:
+		return "Null Data Value Not Allowed"
+	case NullDataValueNoIndicatorParameter:
+		return "Null Data Value No Indicator Parameter"
+	case NumericValueOutOfRange:
+		return "Numeric Value Out Of Range"
+	case SequenceGeneratorLimitExceeded:
+		return "Sequence Generator Limit Exceeded"
+	case StringDataLengthMismatch:
+		return "String Data Length Mismatch"
+	case StringDataRightTruncation:
+		return "String Data Right Truncation"
+	case SubstringError:
+		return "Substring Error"
+	case TrimError:
+		return "Trim Error"
+	case UnterminatedCString:
+		return "Unterminated C String"
+	case ZeroLengthCharacterString:
+		return "Zero Length Character String"
+	case FloatingPointException:
+		return "Floating Point Exception"
+	case InvalidTextRepresentation:
+		return "Invalid Text Representation"
+	case InvalidBinaryRepresentation:
+		return "Invalid Binary Representation"
+	case BadCopyFileFormat:
+		return "Bad Copy File Format"
+	case UntranslatableCharacter:
+		return "Untranslatable Character"
+	case NotAnXMLDocument:
+		return "Not An XML Document"
+	case InvalidXMLDocument:
+		return "Invalid XML Document"
+	case InvalidXMLContent:
+		return "Invalid XML Content"
+	case InvalidXMLComment:
+		return "Invalid XML Comment"
+	case InvalidXMLProcessingInstruction:
+		return "Invalid XML Processing Instruction"
+	case DuplicateJSONObjectKeyValue:
+		return "Duplicate JSON Object Key Value"
+	case InvalidArgumentForSQLJSONDatetimeFunction:
+		return "Invalid Argument For SQL/JSON Datetime Function"
+	case InvalidJSONText:
+		return "Invalid JSON Text"
+	case InvalidSQLJSONSubscript:
+		return "Invalid SQL/JSON Subscript"
+	case MoreThanOneSQLJSONItem:
+		return "More Than One SQL/JSON Item"
+	case NoSQLJSONItem:
+		return "No SQL/JSON Item"
+	case NonNumericSQLJSONItem:
+		return "Non Numeric SQL/JSON Item"
+	case NonUniqueKeysInAJSONObject:
+		return "Non Unique Keys In A JSON Object"
+	case SingletonSQLJSONItemRequired:
+		return "Singleton SQL/JSON Item Required"
+	case SQLJSONArrayNotFound:
+		return "SQL/JSON Array Not Found"
+	case SQLJSONMemberNotFound:
+		return "SQL/JSON Member Not Found"
+	case SQLJSONNumberNotFound:
+		return "SQL/JSON Number Not Found"
+	case SQLJSONObjectNotFound:
+		return "SQL/JSON Object Not Found"
+	case TooManyJSONArrayElements:
+		return "Too Many JSON Array Elements"
+	case TooManyJSONObjectMembers:
+		return "Too Many JSON Object Members"
+	case SQLJSONScalarRequired:
+		return "SQL/JSON Scalar Required"
+	case SQLJSONItemCannotBeCastToTargetType:
+		return "SQL/JSON Item Cannot Be Cast To Target Type"
+	case IntegrityConstraintViolation:
+		return "Integrity Constraint Violation"
+	case RestrictViolation:
+		return "Restrict Violation"
+	case NotNullViolation:
+		return "Not Null Violation"
+	case ForeignKeyViolation:
+		return "Foreign Key Violation"
+	case UniqueViolation:
+		return "Unique Violation"
+	case CheckViolation:
+		return "Check Violation"
+	case ExclusionViolation:
+		return "Exclusion Violation"
+	case InvalidCursorState:
+		return "Invalid Cursor State"
+	case InvalidTransactionState:
+		return "Invalid Transaction State"
+	case ActiveSQLTransaction:
+		return "Active SQL Transaction"
+	case BranchTransactionAlreadyActive:
+		return "Branch Transaction Already Active"
+	case HeldCursorRequiresSameIsolationLevel:
+		return "Held Cursor Requires Same Isolation Level"
+	case InappropriateAccessModeForBranchTransaction:
+		return "Inappropriate Access Mode For Branch Transaction"
+	case InappropriateIsolationLevelForBranchTransaction:
+		return "Inappropriate Isolation Level For Branch Transaction"
+	case NoActiveSQLTransactionForBranchTransaction:
+		return "No Active SQL Transaction For Branch Transaction"
+	case ReadOnlySQLTransaction:
+		return "Read Only SQL Transaction"
+	case SchemaAndDataStatementMixingNotSupported:
+		return "Schema And Data Statement Mixing Not Supported"
+	case NoActiveSQLTransaction:
+		return "No Active SQL Transaction"
+	case InFailedSQLTransaction:
+		return "In Failed SQL Transaction"
+	case IdleInTransactionSessionTimeout:
+		return "Idle In Transaction Session Timeout"
+	case TransactionTimeout:
+		return "Transaction Timeout"
+	case InvalidSQLStatementName:
+		return "Invalid SQL Statement Name"
+	case TriggeredDataChangeViolation:
+		return "Triggered Data Change Violation"
+	case InvalidAuthorizationSpecification:
+		return "Invalid Authorization Specification"
+	case InvalidPassword:
+		return "Invalid Password"
+	case DependentPrivilegeDescriptorsStillExist:
+		return "Dependent Privilege Descriptors Still Exist"
+	case DependentObjectsStillExist:
+		return "Dependent Objects Still Exist"
+	case InvalidTransactionTermination:
+		return "Invalid Transaction Termination"
+	case SQLRoutineException:
+		return "SQL Routine Exception"
+	case FunctionExecutedNoReturnStatement:
+		return "Function Executed No Return Statement"
+	case SQLRoutineModifyingSQLDataNotPermitted:
+		return "SQL Routine Modifying SQL Data Not Permitted"
+	case SQLRoutineProhibitedSQLStatementAttempted:
+		return "SQL Routine Prohibited SQL Statement Attempted"
+	case SQLRoutineReadingSQLDataNotPermitted:
+		return "SQL Routine Reading SQL Data Not Permitted"
+	case InvalidCursorName:
+		return "Invalid Cursor Name"
+	case ExternalRoutineException:
+		return "External Routine Exception"
+	case ContainingSQLNotPermitted:
+		return "Containing SQL Not Permitted"
+	case ExternalRoutineModifyingSQLDataNotPermitted:
+		return "External Routine Modifying SQL Data Not Permitted"
+	case ExternalRoutineProhibitedSQLStatementAttempted:
+		return "External Routine Prohibited SQL Statement Attempted"
+	case ExternalRoutineReadingSQLDataNotPermitted:
+		return "External Routine Reading SQL Data Not Permitted"
+	case ExternalRoutineInvocationException:
+		return "External Routine Invocation Exception"
+	case InvalidSQLStateReturned:
+		return "Invalid SQL State Returned"
+	case NullValueNotAllowed:
+		return "Null Value Not Allowed"
+	case TriggerProtocolViolated:
+		return "Trigger Protocol Violated"
+	case SRFProtocolViolated:
+		return "SRF Protocol Violated"
+	case EventTriggerProtocolViolated:
+		return "Event Trigger Protocol Violated"
+	case SavepointException:
+		return "Savepoint Exception"
+	case InvalidSavepointSpecification:
+		return "Invalid Savepoint Specification"
+	case InvalidCatalogName:
+		return "Invalid Catalog Name"
+	case InvalidSchemaName:
+		return "Invalid Schema Name"
+	case TransactionRollback:
+		return "Transaction Rollback"
+	case TransactionIntegrityConstraintViolation:
+		return "Transaction Integrity Constraint Violation"
+	case SerializationFailure:
+		return "Serialization Failure"
+	case StatementCompletionUnknown:
+		return "Statement Completion Unknown"
+	case DeadlockDetected:
+		return "Deadlock Detected"
+	case SyntaxErrorOrAccessRuleViolation:
+		return "Syntax Error Or Access Rule Violation"
+	case SyntaxError:
+		return "Syntax Error"
+	case InsufficientPrivilege:
+		return "Insufficient Privilege"
+	case CannotCoerce:
+		return "Cannot Coerce"
+	case GroupingError:
+		return "Grouping Error"
+	case WindowingError:
+		return "Windowing Error"
+	case InvalidRecursion:
+		return "Invalid Recursion"
+	case InvalidForeignKey:
+		return "Invalid Foreign Key"
+	case InvalidName:
+		return "Invalid Name"
+	case NameTooLong:
+		return "Name Too Long"
+	case ReservedName:
+		return "Reserved Name"
+	case DatatypeMismatch:
+		return "Datatype Mismatch"
+	case IndeterminateDatatype:
+		return "Indeterminate Datatype"
+	case CollationMismatch:
+		return "Collation Mismatch"
+	case IndeterminateCollation:
+		return "Indeterminate Collation"
+	case WrongObjectType:
+		return "Wrong Object Type"
+	case GeneratedAlways:
+		return "Generated Always"
+	case UndefinedColumn:
+		return "Undefined Column"
+	case UndefinedFunction:
+		return "Undefined Function"
+	case UndefinedTable:
+		return "Undefined Table"
+	case UndefinedParameter:
+		return "Undefined Parameter"
+	case UndefinedObject:
+		return "Undefined Object"
+	case DuplicateColumn:
+		return "Duplicate Column"
+	case DuplicateCursor:
+		return "Duplicate Cursor"
+	case DuplicateDatabase:
+		return "Duplicate Database"
+	case DuplicateFunction:
+		return "Duplicate Function"
+	case DuplicatePreparedStatement:
+		return "Duplicate Prepared Statement"
+	case DuplicateSchema:
+		return "Duplicate Schema"
+	case DuplicateTable:
+		return "Duplicate Table"
+	case DuplicateAlias:
+		return "Duplicate Alias"
+	case DuplicateObject:
+		return "Duplicate Object"
+	case AmbiguousColumn:
+		return "Ambiguous Column"
+	case AmbiguousFunction:
+		return "Ambiguous Function"
+	case AmbiguousParameter:
+		return "Ambiguous Parameter"
+	case AmbiguousAlias:
+		return "Ambiguous Alias"
+	case InvalidColumnReference:
+		return "Invalid Column Reference"
+	case InvalidColumnDefinition:
+		return "Invalid Column Definition"
+	case InvalidCursorDefinition:
+		return "Invalid Cursor Definition"
+	case InvalidDatabaseDefinition:
+		return "Invalid Database Definition"
+	case InvalidFunctionDefinition:
+		return "Invalid Function Definition"
+	case InvalidPreparedStatementDefinition:
+		return "Invalid Prepared Statement Definition"
+	case InvalidSchemaDefinition:
+		return "Invalid Schema Definition"
+	case InvalidTableDefinition:
+		return "Invalid Table Definition"
+	case InvalidObjectDefinition:
+		return "Invalid Object Definition"
+	case WithCheckOptionViolation:
+		return "With Check Option Violation"
+	case InsufficientResources:
+		return "Insufficient Resources"
+	case DiskFull:
+		return "Disk Full"
+	case OutOfMemory:
+		return "Out Of Memory"
+	case TooManyConnections:
+		return "Too Many Connections"
+	case ConfigurationLimitExceeded:
+		return "Configuration Limit Exceeded"
+	case ProgramLimitExceeded:
+		return "Program Limit Exceeded"
+	case StatementTooComplex:
+		return "Statement Too Complex"
+	case TooManyColumns:
+		return "Too Many Columns"
+	case TooManyArguments:
+		return "Too Many Arguments"
+	case ObjectNotInPrerequisiteState:
+		return "Object Not In Prerequisite State"
+	case ObjectInUse:
+		return "Object In Use"
+	case CantChangeRuntimeParam:
+		return "Can't Change Runtime Param"
+	case LockNotAvailable:
+		return "Lock Not Available"
+	case UnsafeNewEnumValueUsage:
+		return "Unsafe New Enum Value Usage"
+	case OperatorIntervention:
+		return "Operator Intervention"
+	case QueryCanceled:
+		return "Query Canceled"
+	case AdminShutdown:
+		return "Admin Shutdown"
+	case CrashShutdown:
+		return "Crash Shutdown"
+	case CannotConnectNow:
+		return "Cannot Connect Now"
+	case DatabaseDropped:
+		return "Database Dropped"
+	case IdleSessionTimeout:
+		return "Idle Session Timeout"
+	case SystemError:
+		return "System Error"
+	case IOError:
+		return "IO Error"
+	case UndefinedFile:
+		return "Undefined File"
+	case DuplicateFile:
+		return "Duplicate File"
+	case ConfigFileError:
+		return "Config File Error"
+	case LockFileExists:
+		return "Lock File Exists"
+	case FDWError:
+		return "FDW Error"
+	case FDWColumnNameNotFound:
+		return "FDW Column Name Not Found"
+	case FDWDynamicParameterValueNeeded:
+		return "FDW Dynamic Parameter Value Needed"
+	case FDWFunctionSequenceError:
+		return "FDW Function Sequence Error"
+	case FDWInconsistentDescriptorInformation:
+		return "FDW Inconsistent Descriptor Information"
+	case FDWInvalidAttributeValue:
+		return "FDW Invalid Attribute Value"
+	case FDWInvalidColumnName:
+		return "FDW Invalid Column Name"
+	case FDWInvalidColumnNumber:
+		return "FDW Invalid Column Number"
+	case FDWInvalidDataType:
+		return "FDW Invalid Data Type"
+	case FDWInvalidDataTypeDescriptors:
+		return "FDW Invalid Data Type Descriptors"
+	case FDWInvalidDescriptorFieldIdentifier:
+		return "FDW Invalid Descriptor Field Identifier"
+	case FDWInvalidHandle:
+		return "FDW Invalid Handle"
+	case FDWInvalidOptionIndex:
+		return "FDW Invalid Option Index"
+	case FDWInvalidOptionName:
+		return "FDW Invalid Option Name"
+	case FDWInvalidStringLength:
+		return "FDW Invalid String Length"
+	case FDWInvalidStringFormat:
+		return "FDW Invalid String Format"
+	case FDWInvalidUseOfNullPointer:
+		return "FDW Invalid Use Of Null Pointer"
+	case FDWTooManyHandles:
+		return "FDW Too Many Handles"
+	case FDWOutOfMemory:
+		return "FDW Out Of Memory"
+	case FDWNoSchemas:
+		return "FDW No Schemas"
+	case FDWOptionNameNotFound:
+		return "FDW Option Name Not Found"
+	case FDWReplyHandle:
+		return "FDW Reply Handle"
+	case FDWSchemaNotFound:
+		return "FDW Schema Not Found"
+	case FDWTableNotFound:
+		return "FDW Table Not Found"
+	case FDWUnableToCreateExecution:
+		return "FDW Unable To Create Execution"
+	case FDWUnableToCreateReply:
+		return "FDW Unable To Create Reply"
+	case FDWUnableToEstablishConnection:
+		return "FDW Unable To Establish Connection"
+	case PLPGSQLError:
+		return "PL/PGSQL Error"
+	case RaiseException:
+		return "Raise Exception"
+	case NoDataFound:
+		return "No Data Found"
+	case TooManyRows:
+		return "Too Many Rows"
+	case AssertFailure:
+		return "Assert Failure"
+	case InternalError:
+		return "Internal Error"
+	case DataCorrupted:
+		return "Data Corrupted"
+	case IndexCorrupted:
+		return "Index Corrupted"
+	default:
+		return "Unknown Code"
+	}
 }
