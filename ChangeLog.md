@@ -6,6 +6,9 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.3.0 (2024-10-06)
+- Add standard SQL error classes and codes
+
 # v1.2.7 (2023-12-03)
 - Updated Parser::Parse() to return empty query errors
 
