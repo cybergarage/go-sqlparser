@@ -99,9 +99,15 @@ const (
 	Class58 Class = "58"
 	// Class F0 — Configuration File Error.
 	ClassF0 Class = "F0"
+	// Class HV — Foreign Data Wrapper Error (SQL/MED).
+	ClassHV Class = "HV"
+	// Class P0 — PL/pgSQL Error.
+	ClassP0 Class = "P0"
+	// Class XX — Internal Error.
+	ClassXX Class = "XX"
 )
 
-// String returns the class as a string
+// String returns the class as a string.
 func (c Class) String() string {
 	switch c {
 	case Class00:
@@ -182,6 +188,12 @@ func (c Class) String() string {
 		return "System Error"
 	case ClassF0:
 		return "Configuration File Error"
+	case ClassHV:
+		return "Foreign Data Wrapper Error (SQL/MED)"
+	case ClassP0:
+		return "PL/pgSQL Error"
+	case ClassXX:
+		return "Internal Error"
 	}
-	return ""
+	return "Unknown Class"
 }
