@@ -40,17 +40,18 @@ ${VERSION_GO}: ${PKG_SRC_ROOT}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
+	-git commit v${PKG_SRC_DIR}/version.go -m "Update version"
 
 antlr:
-	- pushd ${PKG_SRC_ROOT}/antlr && make && popd
+	-pushd ${PKG_SRC_ROOT}/antlr && make && popd
 
-format:
+format: version
 	gofmt -w ${PKG_SRC_ROOT} ${TEST_PKG_SRC_ROOT}
 
 vet: format
 	go vet ${PKG} ${TEST_PKG}
 
-lint:
+lint: vet
 	golangci-lint run ${PKG_SRC_ROOT}/... ${TEST_PKG_SRC_ROOT}/...
 
 build: lint
