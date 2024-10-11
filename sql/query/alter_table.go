@@ -97,8 +97,8 @@ func (stmt *AlterTable) StatementType() StatementType {
 	return AlterTableStatement
 }
 
-// RenameTable returns the rename table.
-func (stmt *AlterTable) RenameTable() (*Table, bool) {
+// RenameTo returns the rename table.
+func (stmt *AlterTable) RenameTo() (*Table, bool) {
 	if stmt.renameTableTo == nil {
 		return nil, false
 	}
@@ -144,7 +144,7 @@ func (stmt *AlterTable) String() string {
 		"TABLE",
 		stmt.Table.String(),
 	}
-	if tbl, ok := stmt.RenameTable(); ok {
+	if tbl, ok := stmt.RenameTo(); ok {
 		elems = append(elems,
 			[]string{
 				"RENAME",
