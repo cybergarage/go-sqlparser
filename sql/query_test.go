@@ -50,6 +50,10 @@ func TestQueryInterface(t *testing.T) {
 			reflect.TypeOf(query.NewDropTableWith(nil, nil)),
 			reflect.TypeOf((*DropTable)(nil)).Elem(),
 		},
+		{
+			reflect.TypeOf(query.NewInsertWith(nil, nil)),
+			reflect.TypeOf((*Insert)(nil)).Elem(),
+		},
 	}
 
 	for _, test := range tests {
