@@ -50,9 +50,9 @@ type DMOExecutor interface {
 	// Select handles a SELECT query.
 	Select(Conn, Select) (Responses, error)
 	// Update handles a UPDATE query.
-	Update(Conn, *query.Update) (Responses, error)
+	Update(Conn, Update) (Responses, error)
 	// Delete handles a DELETE query.
-	Delete(Conn, *query.Delete) (Responses, error)
+	Delete(Conn, Delete) (Responses, error)
 }
 
 // TCLExecutor defines a executor interface for TCL (Transaction Control Language).

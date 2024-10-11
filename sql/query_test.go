@@ -58,6 +58,14 @@ func TestQueryInterface(t *testing.T) {
 			reflect.TypeOf(query.NewSelectWith(nil, nil, nil)),
 			reflect.TypeOf((*Select)(nil)).Elem(),
 		},
+		{
+			reflect.TypeOf(query.NewUpdateWith(nil, nil, nil)),
+			reflect.TypeOf((*Update)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewDeleteWith(nil)),
+			reflect.TypeOf((*Delete)(nil)).Elem(),
+		},
 	}
 
 	for _, test := range tests {
