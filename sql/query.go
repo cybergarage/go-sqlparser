@@ -47,14 +47,14 @@ type Query interface {
 	String() string
 }
 
-// CreateDatabase is a "CREATE DATABASE" statement.
+// CreateDatabase represents a "CREATE DATABASE" statement interface.
 type CreateDatabase interface {
 	Query
 	DatabaseName() string
 	IfNotExists() bool
 }
 
-// CreateTable is a "CREATE TABLE" statement.
+// CreateTable represents a "CREATE TABLE" statement interface.
 type CreateTable interface {
 	Query
 	TableName() string
@@ -62,13 +62,13 @@ type CreateTable interface {
 	IfNotExists() bool
 }
 
-// AlterDatabase is a "ALTER DATABASE" statement.
+// AlterDatabase represents a "ALTER DATABASE" statement interface.
 type AlterDatabase interface {
 	DatabaseName() string
 	RenameTo() *query.Database
 }
 
-// AlterTable is a "ALTER TABLE" statement.
+// AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {
 	TableName() string
 	AddColumn() (*query.Column, bool)
@@ -78,27 +78,27 @@ type AlterTable interface {
 	RenameTo() (*query.Table, bool)
 }
 
-// DropTable is a "DROP TABLE" statement.
+// DropTable represents a "DROP TABLE" statement interface.
 type DropDatabase interface {
 	Query
 	DatabaseName() string
 	IfExists() bool
 }
 
-// DropTable is a "DROP TABLE" statement.
+// DropTable represents a "DROP TABLE" statement interface.
 type DropTable interface {
 	Tables() query.TableList
 	IfExists() bool
 }
 
-// Insert is a "INSERT" statement.
+// Insert represents a "INSERT" statement interface.
 type Insert interface {
 	TableName() string
 	Columns() query.ColumnList
 	IsSelectAll() bool
 }
 
-// Select is a "SELECT" statement.
+// Select represents a "SELECT" statement interface.
 type Select interface {
 	IsSelectAll() bool
 	Selectors() query.SelectorList
@@ -106,5 +106,18 @@ type Select interface {
 	Limit() *query.Limit
 	GroupBy() *query.GroupBy
 	OrderBy() *query.OrderBy
+	Where() *query.Condition
+}
+
+// Update represents a "UPDATE" statement interface.
+type Update interface {
+	Columns() query.ColumnList
+	TableName() string
+	Where() *query.Condition
+}
+
+// Delete represents a "DELETE" statement interface.
+type Delete interface {
+	TableName() string
 	Where() *query.Condition
 }
