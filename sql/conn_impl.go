@@ -25,9 +25,6 @@ import (
 // ConnOption represents a connection option.
 type ConnOption = func(*conn)
 
-// ConnID represents a connection ID.
-type ConnID uint64
-
 // conn represents a connection.
 type conn struct {
 	net.Conn
