@@ -90,3 +90,10 @@ type DropTable interface {
 	Tables() query.TableList
 	IfExists() bool
 }
+
+// Insert is a "INSERT" statement.
+type Insert interface {
+	TableName() string
+	Columns() query.ColumnList
+	IsSelectAll() bool
+}

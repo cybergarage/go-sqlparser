@@ -40,13 +40,13 @@ type DDOExecutor interface {
 	// DropDatabase handles a DROP DATABASE query.
 	DropDatabase(Conn, DropDatabase) (Responses, error)
 	// DropIndex handles a DROP INDEX query.
-	DropTable(Conn, *query.DropTable) (Responses, error)
+	DropTable(Conn, DropTable) (Responses, error)
 }
 
 // DMOExecutor defines a executor interface for DMO (Data Manipulation Operations).
 type DMOExecutor interface {
 	// Insert handles a INSERT query.
-	Insert(Conn, *query.Insert) (Responses, error)
+	Insert(Conn, Insert) (Responses, error)
 	// Select handles a SELECT query.
 	Select(Conn, *query.Select) (Responses, error)
 	// Update handles a UPDATE query.
