@@ -38,6 +38,18 @@ func TestQueryInterface(t *testing.T) {
 			reflect.TypeOf(query.NewAlterDatabaseWith("from", "to")),
 			reflect.TypeOf((*AlterDatabase)(nil)).Elem(),
 		},
+		{
+			reflect.TypeOf(query.NewAlterTableWith("test")),
+			reflect.TypeOf((*AlterTable)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewDropDatabaseWith("test", nil)),
+			reflect.TypeOf((*DropDatabase)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewDropTableWith(nil, nil)),
+			reflect.TypeOf((*DropTable)(nil)).Elem(),
+		},
 	}
 
 	for _, test := range tests {
