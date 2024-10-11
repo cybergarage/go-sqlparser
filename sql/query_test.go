@@ -15,21 +15,34 @@
 package sql
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 func TestQueryInterface(t *testing.T) {
-	var q any
-
-	q = query.NewCreateDatabaseWith("test", nil)
-	if _, ok := q.(CreateDatabase); !ok {
-		t.Error("CreateDatabase interface is not implemented")
+	tests := []struct {
+		q reflect.Type
+		t reflect.Type
+	}{
+		{
+			reflect.TypeOf(query.NewCreateDatabaseWith("test", nil)),
+			reflect.TypeOf((*CreateDatabase)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewCreateTableWith(nil, nil)),
+			reflect.TypeOf((*CreateTable)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewAlterDatabaseWith("from", "to")),
+			reflect.TypeOf((*AlterDatabase)(nil)).Elem(),
+		},
 	}
 
-	q = query.NewCreateTableWith(nil, nil)
-	if _, ok := q.(CreateTable); !ok {
-		t.Error("CreateTable interface is not implemented")
+	for _, test := range tests {
+		if ok := test.q.Implements(test.t); !ok {
+			t.Errorf("%s is not implemented (%s)", test.q, test.t.Name())
+		}
 	}
 }
