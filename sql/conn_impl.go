@@ -25,6 +25,9 @@ import (
 // ConnOption represents a connection option.
 type ConnOption = func(*conn)
 
+// ConnID represents a connection ID.
+type ConnID uint64
+
 // conn represents a connection.
 type conn struct {
 	net.Conn
@@ -32,6 +35,7 @@ type conn struct {
 	db       string
 	ts       time.Time
 	uuid     uuid.UUID
+	id       ConnID
 	tracer.Context
 }
 
@@ -43,6 +47,7 @@ func NewConnWith(netConn net.Conn, opts ...ConnOption) Conn {
 		db:       "",
 		ts:       time.Now(),
 		uuid:     uuid.New(),
+		id:       0,
 		Context:  nil,
 	}
 	for _, opt := range opts {
@@ -62,6 +67,13 @@ func WithConnDatabase(name string) func(*conn) {
 func WithConnTracer(t tracer.Context) func(*conn) {
 	return func(conn *conn) {
 		conn.Context = t
+	}
+}
+
+// WithConnID sets a connection ID.
+func WithConnID(v ConnID) func(*conn) {
+	return func(conn *conn) {
+		conn.id = v
 	}
 }
 
@@ -95,6 +107,11 @@ func (conn *conn) Timestamp() time.Time {
 // UUID returns the UUID of the connection.
 func (conn *conn) UUID() uuid.UUID {
 	return conn.uuid
+}
+
+// ID returns the ID of the connection.
+func (conn *conn) ID() ConnID {
+	return ConnID(conn.id)
 }
 
 // SetSpanContext sets the tracer span context of the connection.

@@ -29,12 +29,14 @@ type Conn interface {
 	Close() error
 	// SetDatabase sets a database name.
 	SetDatabase(db string)
-	// Database returns a database name.
+	// Database returns the database name.
 	Database() string
-	// SetTimestamp sets a timestamp.
+	// Timestamp returns the timestamp.
 	Timestamp() time.Time
-	// UUID returns a UUID.
+	// UUID returns the UUID.
 	UUID() uuid.UUID
+	// ID returns the ID.
+	ID() ConnID
 	// SetSpanContext sets a span context.
 	SetSpanContext(ctx tracer.Context)
 	// SpanContext returns a span context.
