@@ -77,3 +77,10 @@ type AlterTable interface {
 	RenameColumns() (*query.Column, *query.Column, bool)
 	RenameTo() (*query.Table, bool)
 }
+
+// DropTable is a "DROP TABLE" statement.
+type DropDatabase interface {
+	Query
+	DatabaseName() string
+	IfExists() bool
+}
