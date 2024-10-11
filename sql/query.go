@@ -84,3 +84,9 @@ type DropDatabase interface {
 	DatabaseName() string
 	IfExists() bool
 }
+
+// DropTable is a "DROP TABLE" statement.
+type DropTable interface {
+	Tables() query.TableList
+	IfExists() bool
+}
