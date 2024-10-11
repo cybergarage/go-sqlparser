@@ -75,5 +75,5 @@ type AlterTable interface {
 	AddIndex() (*query.Index, bool)
 	DropColumn() (*query.Column, bool)
 	RenameColumns() (*query.Column, *query.Column, bool)
-	RenameTable() (*query.Table, bool)
+	RenameTo() (*query.Table, bool)
 }
