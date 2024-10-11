@@ -22,6 +22,9 @@ import (
 	"github.com/google/uuid"
 )
 
+// ConnID represents a connection ID.
+type ConnID uint64
+
 // Conn represents a connection.
 type Conn interface {
 	net.Conn
