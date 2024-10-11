@@ -29,6 +29,7 @@ type AlterTable struct {
 	addColumn        *Column
 	addIndex         *Index
 	dropColumn       *Column
+	dropIndex        *Index
 }
 
 // NewAlterTableWith returns a new AlterTable statement instance with the specified options.
@@ -42,6 +43,7 @@ func NewAlterTableWith(tblName string, opts ...AlterTableOption) *AlterTable {
 		addColumn:        nil,
 		addIndex:         nil,
 		dropColumn:       nil,
+		dropIndex:        nil,
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -92,6 +94,13 @@ func WithAlterTableDropColumn(column *Column) func(*AlterTable) {
 	}
 }
 
+// WithAlterTableDropColumn sets a drop index.
+func WithAlterTableDropIndex(index *Index) func(*AlterTable) {
+	return func(stmt *AlterTable) {
+		stmt.dropIndex = index
+	}
+}
+
 // StatementType returns the statement type.
 func (stmt *AlterTable) StatementType() StatementType {
 	return AlterTableStatement
@@ -135,6 +144,14 @@ func (stmt *AlterTable) DropColumn() (*Column, bool) {
 		return nil, false
 	}
 	return stmt.dropColumn, true
+}
+
+// DropIndex returns the drop index.
+func (stmt *AlterTable) DropIndex() (*Index, bool) {
+	if stmt.dropIndex == nil {
+		return nil, false
+	}
+	return stmt.dropIndex, true
 }
 
 // String returns the statement string representation.
