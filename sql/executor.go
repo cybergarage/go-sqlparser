@@ -14,10 +14,6 @@
 
 package sql
 
-import (
-	"github.com/cybergarage/go-sqlparser/sql/query"
-)
-
 // Response represents a response message interface.
 type Response interface {
 	// Bytes returns the message bytes.
@@ -58,11 +54,11 @@ type DMOExecutor interface {
 // TCLExecutor defines a executor interface for TCL (Transaction Control Language).
 type TCLExecutor interface {
 	// Begin handles a BEGIN query.
-	Begin(*Conn, *query.Begin) (Responses, error)
+	Begin(Conn, Begin) (Responses, error)
 	// Commit handles a COMMIT query.
-	Commit(*Conn, *query.Commit) (Responses, error)
+	Commit(Conn, Commit) (Responses, error)
 	// Rollback handles a ROLLBACK query.
-	Rollback(*Conn, *query.Rollback) (Responses, error)
+	Rollback(Conn, Rollback) (Responses, error)
 }
 
 // QueryExecutor represents a user query message executor.
@@ -74,7 +70,7 @@ type QueryExecutor interface {
 // SystemQueryExecutor represents a system query message executor.
 type SystemQueryExecutor interface {
 	// SystemSelect handles a SELECT query for system tables.
-	SystemSelect(Conn, *query.Select) (Responses, error)
+	SystemSelect(Conn, Select) (Responses, error)
 }
 
 // ErrorHandler represents a user error handler.
@@ -86,6 +82,5 @@ type ErrorHandler interface {
 type Executor interface { // nolint: interfacebloat
 	TCLExecutor
 	QueryExecutor
-	SystemQueryExecutor
 	ErrorHandler
 }

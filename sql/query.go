@@ -64,12 +64,14 @@ type CreateTable interface {
 
 // AlterDatabase represents a "ALTER DATABASE" statement interface.
 type AlterDatabase interface {
+	Query
 	DatabaseName() string
 	RenameTo() *query.Database
 }
 
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {
+	Query
 	TableName() string
 	AddColumn() (*query.Column, bool)
 	AddIndex() (*query.Index, bool)
@@ -87,12 +89,14 @@ type DropDatabase interface {
 
 // DropTable represents a "DROP TABLE" statement interface.
 type DropTable interface {
+	Query
 	Tables() query.TableList
 	IfExists() bool
 }
 
 // Insert represents a "INSERT" statement interface.
 type Insert interface {
+	Query
 	TableName() string
 	Columns() query.ColumnList
 	IsSelectAll() bool
@@ -100,6 +104,7 @@ type Insert interface {
 
 // Select represents a "SELECT" statement interface.
 type Select interface {
+	Query
 	IsSelectAll() bool
 	Selectors() query.SelectorList
 	Tables() query.TableList
@@ -111,6 +116,7 @@ type Select interface {
 
 // Update represents a "UPDATE" statement interface.
 type Update interface {
+	Query
 	Columns() query.ColumnList
 	TableName() string
 	Where() *query.Condition
@@ -118,6 +124,22 @@ type Update interface {
 
 // Delete represents a "DELETE" statement interface.
 type Delete interface {
+	Query
 	TableName() string
 	Where() *query.Condition
+}
+
+// Begin represents a "BEGIN" statement interface.
+type Begin interface {
+	Query
+}
+
+// Commit represents a "COMMIT" statement interface.
+type Commit interface {
+	Query
+}
+
+// Rollback represents a "ROLLBACK" statement interface.
+type Rollback interface {
+	Query
 }
