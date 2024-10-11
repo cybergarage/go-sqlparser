@@ -30,13 +30,13 @@ type Responses []Response
 // DDOExecutor defines a executor interface for DDO (Data Definition Operations).
 type DDOExecutor interface {
 	// CreateDatabase handles a CREATE DATABASE query.
-	CreateDatabase(Conn, *query.CreateDatabase) (Responses, error)
+	CreateDatabase(Conn, CreateDatabase) (Responses, error)
 	// CreateTable handles a CREATE TABLE query.
-	CreateTable(Conn, *query.CreateTable) (Responses, error)
+	CreateTable(Conn, CreateTable) (Responses, error)
 	// AlterDatabase handles a ALTER DATABASE query.
-	AlterDatabase(Conn, *query.AlterDatabase) (Responses, error)
+	AlterDatabase(Conn, AlterDatabase) (Responses, error)
 	// AlterTable handles a ALTER TABLE query.
-	AlterTable(Conn, *query.AlterTable) (Responses, error)
+	AlterTable(Conn, AlterTable) (Responses, error)
 	// DropDatabase handles a DROP DATABASE query.
 	DropDatabase(Conn, *query.DropDatabase) (Responses, error)
 	// DropIndex handles a DROP INDEX query.
