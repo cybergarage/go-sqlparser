@@ -38,7 +38,7 @@ type DDOExecutor interface {
 	// AlterTable handles a ALTER TABLE query.
 	AlterTable(Conn, AlterTable) (Responses, error)
 	// DropDatabase handles a DROP DATABASE query.
-	DropDatabase(Conn, *query.DropDatabase) (Responses, error)
+	DropDatabase(Conn, DropDatabase) (Responses, error)
 	// DropIndex handles a DROP INDEX query.
 	DropTable(Conn, *query.DropTable) (Responses, error)
 }
