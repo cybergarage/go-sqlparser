@@ -48,7 +48,7 @@ type DMOExecutor interface {
 	// Insert handles a INSERT query.
 	Insert(Conn, Insert) (Responses, error)
 	// Select handles a SELECT query.
-	Select(Conn, *query.Select) (Responses, error)
+	Select(Conn, Select) (Responses, error)
 	// Update handles a UPDATE query.
 	Update(Conn, *query.Update) (Responses, error)
 	// Delete handles a DELETE query.
