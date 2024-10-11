@@ -97,3 +97,14 @@ type Insert interface {
 	Columns() query.ColumnList
 	IsSelectAll() bool
 }
+
+// Select is a "SELECT" statement.
+type Select interface {
+	IsSelectAll() bool
+	Selectors() query.SelectorList
+	Tables() query.TableList
+	Limit() *query.Limit
+	GroupBy() *query.GroupBy
+	OrderBy() *query.OrderBy
+	Where() *query.Condition
+}

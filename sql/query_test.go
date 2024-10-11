@@ -54,6 +54,10 @@ func TestQueryInterface(t *testing.T) {
 			reflect.TypeOf(query.NewInsertWith(nil, nil)),
 			reflect.TypeOf((*Insert)(nil)).Elem(),
 		},
+		{
+			reflect.TypeOf(query.NewSelectWith(nil, nil, nil)),
+			reflect.TypeOf((*Select)(nil)).Elem(),
+		},
 	}
 
 	for _, test := range tests {
