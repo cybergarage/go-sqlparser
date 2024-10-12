@@ -27,7 +27,7 @@ func TestQueryInterface(t *testing.T) {
 		t reflect.Type
 	}{
 		{
-			reflect.TypeOf(query.NewCreateDatabaseWith("test", nil)),
+			reflect.TypeOf(query.NewCreateDatabaseWith("", nil)),
 			reflect.TypeOf((*CreateDatabase)(nil)).Elem(),
 		},
 		{
@@ -35,15 +35,15 @@ func TestQueryInterface(t *testing.T) {
 			reflect.TypeOf((*CreateTable)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewAlterDatabaseWith("from", "to")),
+			reflect.TypeOf(query.NewAlterDatabaseWith("", "")),
 			reflect.TypeOf((*AlterDatabase)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewAlterTableWith("test")),
+			reflect.TypeOf(query.NewAlterTableWith("")),
 			reflect.TypeOf((*AlterTable)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewDropDatabaseWith("test", nil)),
+			reflect.TypeOf(query.NewDropDatabaseWith("", nil)),
 			reflect.TypeOf((*DropDatabase)(nil)).Elem(),
 		},
 		{
@@ -77,6 +77,18 @@ func TestQueryInterface(t *testing.T) {
 		{
 			reflect.TypeOf(query.NewRollback()),
 			reflect.TypeOf((*Rollback)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewCopyWith("", "")),
+			reflect.TypeOf((*Copy)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewVacuumWith(nil)),
+			reflect.TypeOf((*Vacuum)(nil)).Elem(),
+		},
+		{
+			reflect.TypeOf(query.NewTruncateWith(nil)),
+			reflect.TypeOf((*Truncate)(nil)).Elem(),
 		},
 	}
 
