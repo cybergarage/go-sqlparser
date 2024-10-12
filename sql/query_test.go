@@ -23,78 +23,103 @@ import (
 
 func TestQueryInterface(t *testing.T) {
 	tests := []struct {
-		q reflect.Type
-		t reflect.Type
+		q   any
+		qst query.StatementType
+		qt  reflect.Type
 	}{
 		{
-			reflect.TypeOf(query.NewCreateDatabaseWith("", nil)),
+			query.NewCreateDatabaseWith("", nil),
+			query.CreateDatabaseStatement,
 			reflect.TypeOf((*CreateDatabase)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewCreateTableWith(nil, nil)),
+			query.NewCreateTableWith(nil, nil),
+			query.CreateTableStatement,
 			reflect.TypeOf((*CreateTable)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewAlterDatabaseWith("", "")),
+			query.NewAlterDatabaseWith("", ""),
+			query.AlterDatabaseStatement,
 			reflect.TypeOf((*AlterDatabase)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewAlterTableWith("")),
+			query.NewAlterTableWith(""),
+			query.AlterTableStatement,
 			reflect.TypeOf((*AlterTable)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewDropDatabaseWith("", nil)),
+			query.NewDropDatabaseWith("", nil),
+			query.DropDatabaseStatement,
 			reflect.TypeOf((*DropDatabase)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewDropTableWith(nil, nil)),
+			query.NewDropTableWith(nil, nil),
+			query.DropTableStatement,
 			reflect.TypeOf((*DropTable)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewInsertWith(nil, nil)),
+			query.NewInsertWith(nil, nil),
+			query.InsertStatement,
 			reflect.TypeOf((*Insert)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewSelectWith(nil, nil, nil)),
+			query.NewSelectWith(nil, nil, nil),
+			query.SelectStatement,
 			reflect.TypeOf((*Select)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewUpdateWith(nil, nil, nil)),
+			query.NewUpdateWith(nil, nil, nil),
+			query.UpdateStatement,
 			reflect.TypeOf((*Update)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewDeleteWith(nil)),
+			query.NewDeleteWith(nil),
+			query.DeleteStatement,
 			reflect.TypeOf((*Delete)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewBegin()),
+			query.NewBegin(),
+			query.BeginStatement,
 			reflect.TypeOf((*Begin)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewCommit()),
+			query.NewCommit(),
+			query.CommitStatement,
 			reflect.TypeOf((*Commit)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewRollback()),
+			query.NewRollback(),
+			query.RollbackStatement,
 			reflect.TypeOf((*Rollback)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewCopyWith("", "")),
+			query.NewCopyWith("", ""),
+			query.CopyStatement,
 			reflect.TypeOf((*Copy)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewVacuumWith(nil)),
+			query.NewVacuumWith(nil),
+			query.VacuumStatement,
 			reflect.TypeOf((*Vacuum)(nil)).Elem(),
 		},
 		{
-			reflect.TypeOf(query.NewTruncateWith(nil)),
+			query.NewTruncateWith(nil),
+			query.TruncateStatement,
 			reflect.TypeOf((*Truncate)(nil)).Elem(),
 		},
 	}
 
 	for _, test := range tests {
-		if ok := test.q.Implements(test.t); !ok {
-			t.Errorf("%s is not implemented (%s)", test.q, test.t.Name())
+		q, ok := test.q.(Query)
+		if !ok {
+			t.Errorf("The query type is invalid (%s)", test.q)
+		}
+		if q.StatementType() != test.qst {
+			t.Errorf("The statement type is invalid (%d != %d)", q.StatementType(), test.qst)
+		}
+		qt := reflect.TypeOf(q)
+		if ok := qt.Implements(test.qt); !ok {
+			t.Errorf("%s is not implemented (%s)", qt, test.qt.Name())
 		}
 	}
 }
