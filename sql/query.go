@@ -144,9 +144,13 @@ type Rollback interface {
 	Query
 }
 
-// Copy represents a "COPY" statement interface.
-type Copy interface {
+// Vacuum represents a "VACUUM" statement interface.
+type Vacuum interface {
 	Query
 	TableName() string
-	Columns() query.ColumnList
+}
+
+// Truncate represents a "TRUNCATE" statement interface.
+type Truncate interface {
+	Tables() query.TableList
 }
