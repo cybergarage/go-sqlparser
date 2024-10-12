@@ -42,7 +42,7 @@ type AggregateFunction = query.AggregateFunction
 type AggregateResultSet = query.AggregateResultSet
 
 // Schema represents a schema.
-type Schema = *query.Schema
+type Schema = query.Schema
 
 // Query represents a common query interface.
 type Query interface {
@@ -61,7 +61,7 @@ type CreateDatabase interface {
 type CreateTable interface {
 	Query
 	TableName() string
-	Schema() Schema
+	Schema() *Schema
 	IfNotExists() bool
 }
 
