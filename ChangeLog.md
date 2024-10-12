@@ -6,7 +6,7 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.3.2 (2024-10-11)
+# v1.3.1 (2024-10-11)
 - Add defalut Conn and Handler interface
 
 # v1.3.0 (2024-10-06)
