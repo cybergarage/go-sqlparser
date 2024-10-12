@@ -107,7 +107,7 @@ type Select interface {
 	Query
 	IsSelectAll() bool
 	Selectors() query.SelectorList
-	Tables() query.TableList
+	From() query.TableList
 	Limit() *query.Limit
 	GroupBy() *query.GroupBy
 	OrderBy() *query.OrderBy
