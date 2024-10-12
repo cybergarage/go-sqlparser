@@ -41,6 +41,8 @@ type AggregateFunction = query.AggregateFunction
 // AggregateResultSet represents an aggregate result set.
 type AggregateResultSet = query.AggregateResultSet
 
+type Schema = *query.Schema
+
 // Query represents a common query interface.
 type Query interface {
 	StatementType() query.StatementType
@@ -58,7 +60,7 @@ type CreateDatabase interface {
 type CreateTable interface {
 	Query
 	TableName() string
-	Schema() *query.Schema
+	Schema() Schema
 	IfNotExists() bool
 }
 
@@ -97,6 +99,7 @@ type DropTable interface {
 // Insert represents a "INSERT" statement interface.
 type Insert interface {
 	Query
+	SetSchema(Schema) error
 	TableName() string
 	Columns() query.ColumnList
 	IsSelectAll() bool
@@ -117,8 +120,9 @@ type Select interface {
 // Update represents a "UPDATE" statement interface.
 type Update interface {
 	Query
-	Columns() query.ColumnList
+	SetSchema(Schema) error
 	TableName() string
+	Columns() query.ColumnList
 	Where() *query.Condition
 }
 
