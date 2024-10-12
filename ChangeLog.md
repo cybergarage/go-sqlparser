@@ -6,6 +6,9 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.3.3 (2024-10-13)
+- Add Executor interface
+
 # v1.3.2 (2024-10-12)
 - Add Query interface
 
