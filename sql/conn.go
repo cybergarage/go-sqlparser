@@ -28,6 +28,7 @@ type ConnID uint64
 // Conn represents a connection.
 type Conn interface {
 	net.Conn
+	tracer.Context
 	// Close closes the connection.
 	Close() error
 	// SetDatabase sets a database name.
