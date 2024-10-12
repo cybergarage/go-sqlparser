@@ -15,7 +15,6 @@
 package sql
 
 import (
-	"net"
 	"time"
 
 	"github.com/cybergarage/go-tracing/tracer"
@@ -27,10 +26,7 @@ type ConnID uint64
 
 // Conn represents a connection.
 type Conn interface {
-	net.Conn
 	tracer.Context
-	// Close closes the connection.
-	Close() error
 	// SetDatabase sets a database name.
 	SetDatabase(db string)
 	// Database returns the database name.
