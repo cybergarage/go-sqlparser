@@ -14,51 +14,42 @@
 
 package sql
 
-// Response represents a response message interface.
-type Response interface {
-	// Bytes returns the message bytes.
-	Bytes() ([]byte, error)
-}
-
-// Responses represents a list of response.
-type Responses []Response
-
 // DDOExecutor defines a executor interface for DDO (Data Definition Operations).
 type DDOExecutor interface {
 	// CreateDatabase handles a CREATE DATABASE query.
-	CreateDatabase(Conn, CreateDatabase) (Responses, error)
+	CreateDatabase(Conn, CreateDatabase) error
 	// CreateTable handles a CREATE TABLE query.
-	CreateTable(Conn, CreateTable) (Responses, error)
+	CreateTable(Conn, CreateTable) error
 	// AlterDatabase handles a ALTER DATABASE query.
-	AlterDatabase(Conn, AlterDatabase) (Responses, error)
+	AlterDatabase(Conn, AlterDatabase) error
 	// AlterTable handles a ALTER TABLE query.
-	AlterTable(Conn, AlterTable) (Responses, error)
+	AlterTable(Conn, AlterTable) error
 	// DropDatabase handles a DROP DATABASE query.
-	DropDatabase(Conn, DropDatabase) (Responses, error)
+	DropDatabase(Conn, DropDatabase) error
 	// DropIndex handles a DROP INDEX query.
-	DropTable(Conn, DropTable) (Responses, error)
+	DropTable(Conn, DropTable) error
 }
 
 // DMOExecutor defines a executor interface for DMO (Data Manipulation Operations).
 type DMOExecutor interface {
 	// Insert handles a INSERT query.
-	Insert(Conn, Insert) (Responses, error)
+	Insert(Conn, Insert) error
 	// Select handles a SELECT query.
-	Select(Conn, Select) (Responses, error)
+	Select(Conn, Select) (ResultSet, error)
 	// Update handles a UPDATE query.
-	Update(Conn, Update) (Responses, error)
+	Update(Conn, Update) (ResultSet, error)
 	// Delete handles a DELETE query.
-	Delete(Conn, Delete) (Responses, error)
+	Delete(Conn, Delete) (ResultSet, error)
 }
 
 // TCLExecutor defines a executor interface for TCL (Transaction Control Language).
 type TCLExecutor interface {
 	// Begin handles a BEGIN query.
-	Begin(Conn, Begin) (Responses, error)
+	Begin(Conn, Begin) error
 	// Commit handles a COMMIT query.
-	Commit(Conn, Commit) (Responses, error)
+	Commit(Conn, Commit) error
 	// Rollback handles a ROLLBACK query.
-	Rollback(Conn, Rollback) (Responses, error)
+	Rollback(Conn, Rollback) error
 }
 
 // QueryExecutor represents a user query message executor.
@@ -67,15 +58,9 @@ type QueryExecutor interface {
 	DMOExecutor
 }
 
-// SystemQueryExecutor represents a system query message executor.
-type SystemQueryExecutor interface {
-	// SystemSelect handles a SELECT query for system tables.
-	SystemSelect(Conn, Select) (Responses, error)
-}
-
 // ErrorHandler represents a user error handler.
 type ErrorHandler interface {
-	ParserError(Conn, string, error) (Responses, error)
+	ParserError(Conn, string, error) error
 }
 
 // Executor represents a frontend message executor.
