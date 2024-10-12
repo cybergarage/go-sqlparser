@@ -40,7 +40,7 @@ ${VERSION_GO}: ${PKG_SRC_ROOT}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
-	-git commit ${PKG_SRC_DIR}/version.go -m "Update version"
+	-git commit ${PKG_SRC_ROOT}/version.go -m "Update version"
 
 antlr:
 	-pushd ${PKG_SRC_ROOT}/antlr && make && popd
