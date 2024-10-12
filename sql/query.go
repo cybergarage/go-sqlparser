@@ -143,3 +143,10 @@ type Commit interface {
 type Rollback interface {
 	Query
 }
+
+// Copy represents a "COPY" statement interface.
+type Copy interface {
+	Query
+	TableName() string
+	Columns() query.ColumnList
+}
