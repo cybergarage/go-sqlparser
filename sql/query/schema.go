@@ -63,6 +63,11 @@ func (schema *Schema) SchemaName() string {
 	return schema.TableName()
 }
 
+// SchemaName returns the table name.
+func (schema *Schema) Name() string {
+	return schema.TableName()
+}
+
 // AddColumn adds a column.
 func (schema *Schema) AddColumn(column *Column) error {
 	schema.ColumnList = append(schema.ColumnList, column)
