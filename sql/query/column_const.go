@@ -18,26 +18,26 @@ package query
 type ColumnConstraint int
 
 const (
-	// ColumnConstraintNone represents no constraint.
-	ColumnConstraintNone       ColumnConstraint = 0x00
-	ColumnConstraintPrimaryKey ColumnConstraint = 0x01
-	ColumnConstraintNotNull    ColumnConstraint = 0x02
-	ColumnConstraintUnique     ColumnConstraint = 0x04
+	// ConstraintNone represents no constraint.
+	ConstraintNone       ColumnConstraint = 0x00
+	PrimaryKeyConstraint ColumnConstraint = 0x01
+	NotNullConstraint    ColumnConstraint = 0x02
+	UniqueConstraint     ColumnConstraint = 0x04
 )
 
 // IsPrimaryKey returns true whether the column is a primary key.
 func (c ColumnConstraint) IsPrimaryKey() bool {
-	return (c & ColumnConstraintPrimaryKey) != 0
+	return (c & PrimaryKeyConstraint) != 0
 }
 
 // String returns the string representation.
 func (c ColumnConstraint) String() string {
 	switch c {
-	case ColumnConstraintPrimaryKey:
+	case PrimaryKeyConstraint:
 		return "PRIMARY KEY"
-	case ColumnConstraintNotNull:
+	case NotNullConstraint:
 		return "NOT NULL"
-	case ColumnConstraintUnique:
+	case UniqueConstraint:
 		return "UNIQUE"
 	}
 	return ""

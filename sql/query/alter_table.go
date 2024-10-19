@@ -181,7 +181,7 @@ func (stmt *AlterTable) String() string {
 	}
 	if c, ok := stmt.AddColumn(); ok {
 		elems = append(elems, "ADD")
-		if c.Constrains() != ColumnConstraintNone {
+		if c.Constrains() != ConstraintNone {
 			elems = append(elems, c.Constrains().String())
 		}
 		elems = append(elems, c.DefinitionString())

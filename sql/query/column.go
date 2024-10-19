@@ -44,7 +44,7 @@ func NewColumnWithOptions(opts ...ColumnOption) *Column {
 		BindParam:        nil,
 		FunctionExecutor: nil,
 		args:             []any{},
-		consts:           ColumnConstraintNone,
+		consts:           ConstraintNone,
 	}
 	for _, opt := range opts {
 		opt(col)
