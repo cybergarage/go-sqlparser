@@ -31,8 +31,8 @@ func (indexes IndexList) Indexes() IndexList {
 	return indexes
 }
 
-// IndexByName returns an index by the specified name.
-func (indexes IndexList) IndexByName(name string) (*Index, error) {
+// LookupIndex returns an index by the specified name.
+func (indexes IndexList) LookupIndex(name string) (*Index, error) {
 	for _, index := range indexes {
 		if strings.EqualFold(index.Name(), name) {
 			return index, nil
@@ -41,8 +41,8 @@ func (indexes IndexList) IndexByName(name string) (*Index, error) {
 	return nil, newErrIndexNotFound(name)
 }
 
-// IndexOfIndexByName returns an index index by the specified name.
-func (indexes IndexList) IndexOfIndexByName(name string) (int, error) {
+// LookupIndexOfIndex returns an index index by the specified name.
+func (indexes IndexList) LookupIndexOfIndex(name string) (int, error) {
 	for n, index := range indexes {
 		if strings.EqualFold(index.Name(), name) {
 			return n, nil
