@@ -58,8 +58,8 @@ func (columns ColumnList) ColumnAt(n int) (*Column, error) {
 	return columns[n], nil
 }
 
-// ColumnByName returns a column by the specified name.
-func (columns ColumnList) ColumnByName(name string) (*Column, error) {
+// LookupColumn returns a column by the specified name.
+func (columns ColumnList) LookupColumn(name string) (*Column, error) {
 	for _, column := range columns {
 		if std_strings.EqualFold(column.Name(), name) {
 			return column, nil
@@ -68,8 +68,8 @@ func (columns ColumnList) ColumnByName(name string) (*Column, error) {
 	return nil, newErrColumnNotFound(name)
 }
 
-// IndexOfColumnByName returns a column index by the specified name.
-func (columns ColumnList) IndexOfColumnByName(name string) (int, error) {
+// LookupIndexOfColumn returns the index of the column by the specified name.
+func (columns ColumnList) LookupIndexOfColumn(name string) (int, error) {
 	for n, column := range columns {
 		if std_strings.EqualFold(column.Name(), name) {
 			return n, nil
@@ -108,7 +108,7 @@ func (columns ColumnList) ValueString() string {
 // SetSchema sets a schema to update column values.
 func (columns ColumnList) SetSchema(schema *Schema) error {
 	for _, col := range columns {
-		schemaCol, err := schema.ColumnByName(col.Name())
+		schemaCol, err := schema.LookupColumn(col.Name())
 		if err != nil {
 			return err
 		}
