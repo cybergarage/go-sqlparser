@@ -78,8 +78,8 @@ func (selectors SelectorList) Functions() []*Function {
 	return fns
 }
 
-// FunctionByName returns a function with the specified name.
-func (selectors SelectorList) FunctionByName(name string) (*Function, error) {
+// LookupFunction returns a function with the specified name.
+func (selectors SelectorList) LookupFunction(name string) (*Function, error) {
 	for _, selector := range selectors {
 		fn, ok := selector.(*Function)
 		if !ok {
@@ -109,17 +109,17 @@ func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 	return executors, nil
 }
 
-// FunctionExecutorByName returns a function executor with the specified name.
-func (selectors SelectorList) FunctionExecutorByName(name string) (FunctionExecutor, error) {
-	fn, err := selectors.FunctionByName(name)
+// LookupFunctionExecutor returns a function executor with the specified name.
+func (selectors SelectorList) LookupFunctionExecutor(name string) (FunctionExecutor, error) {
+	fn, err := selectors.LookupFunction(name)
 	if err != nil {
 		return nil, err
 	}
 	return fn.Executor()
 }
 
-// FunctionExecutorsWithType returns a function executor array with the specified type.
-func (selectors SelectorList) FunctionExecutorsWithType(t FunctionType) ([]FunctionExecutor, error) {
+// FunctionExecutorsForType returns a function executor array with the specified type.
+func (selectors SelectorList) FunctionExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(*Function)
@@ -140,7 +140,7 @@ func (selectors SelectorList) FunctionExecutorsWithType(t FunctionType) ([]Funct
 
 // AggregateFunctions returns an aggregate function array.
 func (selectors SelectorList) AggregateFunctions() ([]FunctionExecutor, error) {
-	return selectors.FunctionExecutorsWithType(AggregateFunctionType)
+	return selectors.FunctionExecutorsForType(AggregateFunctionType)
 }
 
 // IsSelectAll returns true if the selector list is "*".
