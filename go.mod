@@ -5,6 +5,8 @@ go 1.22
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.0
 	github.com/cybergarage/go-safecast v1.2.2
+	github.com/cybergarage/go-tracing v1.1.3
+	github.com/google/uuid v1.6.0
 )
 
 require golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc // indirect

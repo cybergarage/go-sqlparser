@@ -2,5 +2,9 @@ github.com/antlr4-go/antlr/v4 v4.13.0 h1:lxCg3LAv+EUK6t1i0y1V6/SLeUi0eKEKdhQAlS8
 github.com/antlr4-go/antlr/v4 v4.13.0/go.mod h1:pfChB/xh/Unjila75QW7+VU4TSnWnnk9UTnmpPaOR2g=
 github.com/cybergarage/go-safecast v1.2.2 h1:aUHIRf7RSx8w0u/2VMXaZcroRhLFe3Jw0Bif96S6eD8=
 github.com/cybergarage/go-safecast v1.2.2/go.mod h1:bv+1ykIikB3xYPJFqu3ZsY3xfyEVQesq8+biHX3ZMWQ=
+github.com/cybergarage/go-tracing v1.1.3 h1:UU7C7LRT6gaPmezl15PwNLrvIrdZCqFcZL1Iw/YzMlk=
+github.com/cybergarage/go-tracing v1.1.3/go.mod h1:SEt30gfwWVQB4gMpaydAos7XqNMcIbIvtlFILP/99/Q=
+github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc h1:mCRnTeVUjcrhlRmO0VK8a6k6Rrf6TF9htwo2pJVSjIU=
 golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc/go.mod h1:V1LtkGg67GoY2N1AnLN78QLrzxkLyJw7RJb1gzOOz9w=
