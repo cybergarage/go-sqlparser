@@ -40,6 +40,7 @@ ${VERSION_GO}: ${PKG_SRC_ROOT}/version.gen
 	$< > $@
 
 version: ${VERSION_GO}
+	@pushd ${PKG_SRC_ROOT} && ./version.gen > version.go && popd
 	-git commit ${PKG_SRC_ROOT}/version.go -m "Update version"
 
 antlr:
