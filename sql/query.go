@@ -165,3 +165,9 @@ type Truncate interface {
 	Query
 	Tables() query.TableList
 }
+
+// Use represents a "USE" statement interface.
+type Use interface {
+	Query
+	DatabaseName() string
+}

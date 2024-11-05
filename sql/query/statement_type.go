@@ -37,6 +37,7 @@ const (
 	TruncateStatement
 	BeginStatement
 	RollbackStatement
+	UseStatement
 )
 
 // StatementType returns the statement type.
@@ -80,6 +81,8 @@ func (stmtType StatementType) String() string {
 		return "BEGIN"
 	case RollbackStatement:
 		return "ROLLBACK"
+	case UseStatement:
+		return "USE"
 	default:
 		return ""
 	}

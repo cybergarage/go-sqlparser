@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -208,6 +208,10 @@ func (v *BaseSQLiteParserVisitor) VisitDrop_view_stmt(ctx *Drop_view_stmtContext
 }
 
 func (v *BaseSQLiteParserVisitor) VisitIf_exists(ctx *If_existsContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitUse_stmt(ctx *Use_stmtContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 

@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -159,6 +159,9 @@ type SQLiteParserVisitor interface {
 
 	// Visit a parse tree produced by SQLiteParser#if_exists.
 	VisitIf_exists(ctx *If_existsContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#use_stmt.
+	VisitUse_stmt(ctx *Use_stmtContext) interface{}
 
 	// Visit a parse tree produced by SQLiteParser#copy_stmt.
 	VisitCopy_stmt(ctx *Copy_stmtContext) interface{}

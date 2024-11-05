@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -328,6 +328,12 @@ func (s *BaseSQLiteParserListener) EnterIf_exists(ctx *If_existsContext) {}
 
 // ExitIf_exists is called when production if_exists is exited.
 func (s *BaseSQLiteParserListener) ExitIf_exists(ctx *If_existsContext) {}
+
+// EnterUse_stmt is called when production use_stmt is entered.
+func (s *BaseSQLiteParserListener) EnterUse_stmt(ctx *Use_stmtContext) {}
+
+// ExitUse_stmt is called when production use_stmt is exited.
+func (s *BaseSQLiteParserListener) ExitUse_stmt(ctx *Use_stmtContext) {}
 
 // EnterCopy_stmt is called when production copy_stmt is entered.
 func (s *BaseSQLiteParserListener) EnterCopy_stmt(ctx *Copy_stmtContext) {}

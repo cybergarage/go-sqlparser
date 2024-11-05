@@ -1,4 +1,4 @@
-// Code generated from SQLiteParser.g4 by ANTLR 4.13.1. DO NOT EDIT.
+// Code generated from SQLiteParser.g4 by ANTLR 4.13.2. DO NOT EDIT.
 
 package antlr // SQLiteParser
 import "github.com/antlr4-go/antlr/v4"
@@ -159,6 +159,9 @@ type SQLiteParserListener interface {
 
 	// EnterIf_exists is called when entering the if_exists production.
 	EnterIf_exists(c *If_existsContext)
+
+	// EnterUse_stmt is called when entering the use_stmt production.
+	EnterUse_stmt(c *Use_stmtContext)
 
 	// EnterCopy_stmt is called when entering the copy_stmt production.
 	EnterCopy_stmt(c *Copy_stmtContext)
@@ -606,6 +609,9 @@ type SQLiteParserListener interface {
 
 	// ExitIf_exists is called when exiting the if_exists production.
 	ExitIf_exists(c *If_existsContext)
+
+	// ExitUse_stmt is called when exiting the use_stmt production.
+	ExitUse_stmt(c *Use_stmtContext)
 
 	// ExitCopy_stmt is called when exiting the copy_stmt production.
 	ExitCopy_stmt(c *Copy_stmtContext)

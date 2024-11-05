@@ -71,6 +71,7 @@ sql_stmt: (EXPLAIN_ (QUERY_ PLAN_)?)? (
         | select_stmt
         | update_stmt
         | update_stmt_limited
+        | use_stmt
         | vacuum_stmt
         | copy_stmt
         | truncate_stmt
@@ -349,6 +350,10 @@ drop_view_stmt:
 
 if_exists:
     IF_ EXISTS_
+;
+
+use_stmt:
+    USE_ database_name
 ;
 
 copy_stmt:

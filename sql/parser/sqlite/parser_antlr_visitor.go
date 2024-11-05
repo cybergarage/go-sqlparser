@@ -107,6 +107,9 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 		return newCommitWith(stmt)
 	}
 	// Extra statements
+	if stmt := ctx.Use_stmt(); stmt != nil {
+		return newUseWith(stmt)
+	}
 	if stmt := ctx.Copy_stmt(); stmt != nil {
 		return newCopyWith(stmt)
 	}
@@ -565,4 +568,8 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 		}
 	}
 	return nil
+}
+
+func newUseWith(ctx antlr.IUse_stmtContext) *query.Use {
+	return query.NewUseWith(ctx.Database_name().GetText())
 }
