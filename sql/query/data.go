@@ -39,6 +39,7 @@ const (
 	CharacterData
 	ClobData
 	DateData
+	DateTimeData
 	DecimalData
 	DoubleData
 	DoublePrecision
@@ -76,6 +77,7 @@ var dataTypeStrings = map[DataType]string{
 	CharacterData:    "CHARACTER",
 	ClobData:         "CLOB",
 	DateData:         "DATE",
+	DateTimeData:     "DATETIME",
 	DecimalData:      "DECIMAL",
 	DoubleData:       "DOUBLE",
 	DoublePrecision:  "DOUBLE PRECISION",
