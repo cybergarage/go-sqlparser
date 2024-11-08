@@ -499,7 +499,7 @@ func newCopyWith(ctx antlr.ICopy_stmtContext) query.Copy {
 	)
 }
 
-func newTruncateWith(ctx antlr.ITruncate_stmtContext) *query.Truncate {
+func newTruncateWith(ctx antlr.ITruncate_stmtContext) query.Truncate {
 	tbls := query.NewTables()
 	for _, table := range ctx.AllTable_name() {
 		tbls = append(tbls, query.NewTableWith(table.GetText()))

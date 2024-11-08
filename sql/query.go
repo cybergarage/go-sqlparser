@@ -93,10 +93,7 @@ type Copy = query.Copy
 type Vacuum = query.Vacuum
 
 // Truncate represents a "TRUNCATE" statement interface.
-type Truncate interface {
-	Statement
-	Tables() query.TableList
-}
+type Truncate = query.Truncate
 
 // Use represents a "USE" statement interface.
 type Use interface {

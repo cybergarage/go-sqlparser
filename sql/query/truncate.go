@@ -18,25 +18,31 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Truncate is a "TRUNCATE" statement.
-type Truncate struct {
+// Truncate represents a "TRUNCATE" statement interface.
+type Truncate interface {
+	Statement
+	Tables() TableList
+}
+
+// truncateStmt is a "TRUNCATE" statement.
+type truncateStmt struct {
 	TableList
 }
 
 // NewTruncateWith returns a new truncate statement instance with the specified parameters.
-func NewTruncateWith(tbls TableList) *Truncate {
-	return &Truncate{
+func NewTruncateWith(tbls TableList) *truncateStmt {
+	return &truncateStmt{
 		TableList: tbls,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *Truncate) StatementType() StatementType {
+func (stmt *truncateStmt) StatementType() StatementType {
 	return TruncateStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Truncate) String() string {
+func (stmt *truncateStmt) String() string {
 	strs := []string{
 		"TRUNCATE",
 		"TABLE",
