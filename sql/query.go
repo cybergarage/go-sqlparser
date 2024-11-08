@@ -69,16 +69,7 @@ type DropTable = query.DropTable
 type Insert = query.Insert
 
 // Select represents a "SELECT" statement interface.
-type Select interface {
-	Statement
-	IsSelectAll() bool
-	Selectors() query.SelectorList
-	From() query.TableList
-	Limit() *query.Limit
-	GroupBy() *query.GroupBy
-	OrderBy() *query.OrderBy
-	Where() *query.Condition
-}
+type Select = query.Select
 
 // Update represents a "UPDATE" statement interface.
 type Update interface {

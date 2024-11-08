@@ -375,7 +375,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
 	return query.NewUpdateWith(tbl, columns, where)
 }
 
-func newSelectWith(ctx antlr.ISelect_stmtContext) *query.Select {
+func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 	sels := query.NewSelectors()
 	tbls := query.NewTables()
 	opts := []query.SelectOption{}

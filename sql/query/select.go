@@ -17,10 +17,22 @@ package query
 import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 
 // SelectOption represents a select option function.
-type SelectOption = func(*Select)
+type SelectOption = func(*selectStmt)
 
-// Select is a "SELECT" statement.
-type Select struct {
+// Select represents a "SELECT" statement interface.
+type Select interface {
+	Statement
+	IsSelectAll() bool
+	Selectors() SelectorList
+	From() TableList
+	Limit() *Limit
+	GroupBy() *GroupBy
+	OrderBy() *OrderBy
+	Where() *Condition
+}
+
+// selectStmt is a "SELECT" statement.
+type selectStmt struct {
 	TableList
 	SelectorList
 	*Condition
@@ -29,9 +41,9 @@ type Select struct {
 	groupBy *GroupBy
 }
 
-// NewSelectWith returns a new Select statement instance with the specified parameters.
-func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ...SelectOption) *Select {
-	stmt := &Select{
+// NewSelectWith returns a new selectStmt statement instance with the specified parameters.
+func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ...SelectOption) *selectStmt {
+	stmt := &selectStmt{
 		SelectorList: selectors,
 		TableList:    tbls,
 		Condition:    w,
@@ -46,58 +58,58 @@ func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ..
 }
 
 // WithSelectOrderBy sets order by options.
-func WithSelectOrderBy(orderBy *OrderBy) func(*Select) {
-	return func(stmt *Select) {
+func WithSelectOrderBy(orderBy *OrderBy) func(*selectStmt) {
+	return func(stmt *selectStmt) {
 		stmt.orderBy = orderBy
 	}
 }
 
 // WithSelectLimit sets order by options.
-func WithSelectLimit(offset int, limit int) func(*Select) {
-	return func(stmt *Select) {
+func WithSelectLimit(offset int, limit int) func(*selectStmt) {
+	return func(stmt *selectStmt) {
 		stmt.limit = NewLimitWith(offset, limit)
 	}
 }
 
 // WithSelectOrderBy sets order by options.
-func WithSelectGroupBy(name string) func(*Select) {
-	return func(stmt *Select) {
+func WithSelectGroupBy(name string) func(*selectStmt) {
+	return func(stmt *selectStmt) {
 		stmt.groupBy = NewGroupByWith(name)
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *Select) StatementType() StatementType {
+func (stmt *selectStmt) StatementType() StatementType {
 	return SelectStatement
 }
 
 // From returns the source table list.
-func (stmt *Select) From() TableList {
+func (stmt *selectStmt) From() TableList {
 	return stmt.Tables()
 }
 
 // Where returns the condition.
-func (stmt *Select) Where() *Condition {
+func (stmt *selectStmt) Where() *Condition {
 	return stmt.Condition
 }
 
 // OrderBy returns the order by clause.
-func (stmt *Select) OrderBy() *OrderBy {
+func (stmt *selectStmt) OrderBy() *OrderBy {
 	return stmt.orderBy
 }
 
 // Limit returns the limit clause.
-func (stmt *Select) Limit() *Limit {
+func (stmt *selectStmt) Limit() *Limit {
 	return stmt.limit
 }
 
 // GroupBy returns the group by clause.
-func (stmt *Select) GroupBy() *GroupBy {
+func (stmt *selectStmt) GroupBy() *GroupBy {
 	return stmt.groupBy
 }
 
 // String returns the statement string representation.
-func (stmt *Select) String() string {
+func (stmt *selectStmt) String() string {
 	selectorStr := "*"
 	if 0 < len(stmt.SelectorList) {
 		selectorStr = stmt.SelectorList.SelectorString()
