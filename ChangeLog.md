@@ -6,6 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.4.0 (2024-11-xx)
+- Added
+  - Query executor interface
+
 # v1.3.6 (2024-11-08)
 - Supported
   - DATETIME
