@@ -90,10 +90,7 @@ type Rollback = query.Rollback
 type Copy = query.Copy
 
 // Vacuum represents a "VACUUM" statement interface.
-type Vacuum interface {
-	Statement
-	TableName() string
-}
+type Vacuum = query.Vacuum
 
 // Truncate represents a "TRUNCATE" statement interface.
 type Truncate interface {

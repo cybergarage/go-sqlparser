@@ -18,32 +18,38 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Vacuum is a "VACUUM" statement.
-type Vacuum struct {
+// Vacuum represents a "VACUUM" statement interface.
+type Vacuum interface {
+	Statement
+	TableName() string
+}
+
+// vacuumStmt is a "VACUUM" statement.
+type vacuumStmt struct {
 	*Table
 }
 
 // NewVacuum returns a new vacuum statement instance.
-func NewVacuum() *Vacuum {
-	return &Vacuum{
+func NewVacuum() *vacuumStmt {
+	return &vacuumStmt{
 		Table: nil,
 	}
 }
 
 // NewVacuumWith returns a new vacuum statement instance with the specified parameters.
-func NewVacuumWith(tbl *Table) *Vacuum {
-	return &Vacuum{
+func NewVacuumWith(tbl *Table) *vacuumStmt {
+	return &vacuumStmt{
 		Table: tbl,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *Vacuum) StatementType() StatementType {
+func (stmt *vacuumStmt) StatementType() StatementType {
 	return VacuumStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Vacuum) String() string {
+func (stmt *vacuumStmt) String() string {
 	strs := []string{
 		"VACUUM",
 	}

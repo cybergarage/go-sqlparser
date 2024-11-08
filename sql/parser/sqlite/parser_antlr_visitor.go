@@ -507,7 +507,7 @@ func newTruncateWith(ctx antlr.ITruncate_stmtContext) *query.Truncate {
 	return query.NewTruncateWith(tbls)
 }
 
-func newVacuumWith(ctx antlr.IVacuum_stmtContext) *query.Vacuum {
+func newVacuumWith(ctx antlr.IVacuum_stmtContext) query.Vacuum {
 	if schema, ok := ctx.Schema_name().(*antlr.Schema_nameContext); ok {
 		return query.NewVacuumWith(query.NewTableWith(schema.GetText()))
 	}
