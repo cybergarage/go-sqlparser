@@ -32,7 +32,7 @@ type AlterTable interface {
 
 // alterTableStmt is a "ALTER TABLE" statement.
 type alterTableStmt struct {
-	*Schema
+	schemaName string
 	Table
 	renameTableTo    Table
 	renameColumnFrom *Column
@@ -44,10 +44,10 @@ type alterTableStmt struct {
 }
 
 // NewAlterTableWith returns a new alterTable statement instance with the specified options.
-func NewAlterTableWith(tblName string, opts ...AlterTableOption) *alterTableStmt {
+func NewAlterTableWith(tblName string, opts ...AlterTableOption) AlterTable {
 	stmt := &alterTableStmt{
-		Schema:           nil,
-		Table:            NewTableWith(tblName),
+		schemaName:       "",
+		Table:            nil,
 		renameTableTo:    nil,
 		renameColumnFrom: nil,
 		renameColumnTo:   nil,
@@ -59,13 +59,18 @@ func NewAlterTableWith(tblName string, opts ...AlterTableOption) *alterTableStmt
 	for _, opt := range opts {
 		opt(stmt)
 	}
+	tblOpts := []TableOption{}
+	if 0 < len(stmt.schemaName) {
+		tblOpts = append(tblOpts, WithTableSchema(stmt.schemaName))
+	}
+	stmt.Table = NewTableWith(tblName, tblOpts...)
 	return stmt
 }
 
 // WithAlterTableSchema sets a schema.
 func WithAlterTableSchema(name string) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
-		stmt.Schema = NewSchemaWith(name)
+		stmt.schemaName = name
 	}
 }
 

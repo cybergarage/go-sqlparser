@@ -236,7 +236,7 @@ func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) *query.Index {
 	return query.NewIndexWith("", indexType, columns)
 }
 
-func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
+func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 	tblName := ctx.Table_name().GetText()
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
@@ -262,7 +262,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) *query.Schema {
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
-func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) *query.Schema {
+func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 	tblName := ctx.Table_name().GetText()
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()

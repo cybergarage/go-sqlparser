@@ -106,9 +106,9 @@ func (columns ColumnList) ValueString() string {
 }
 
 // SetSchema sets a schema to update column values.
-func (columns ColumnList) SetSchema(schema *Schema) error {
+func (columns ColumnList) SetSchema(schema Schema) error {
 	for _, col := range columns {
-		schemaCol, err := schema.LookupColumn(col.Name())
+		schemaCol, err := schema.Columns().LookupColumn(col.Name())
 		if err != nil {
 			return err
 		}

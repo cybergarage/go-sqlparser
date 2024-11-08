@@ -22,18 +22,18 @@ import (
 type CreateTable interface {
 	Statement
 	TableName() string
-	Schema() *Schema
+	Schema() Schema
 	IfNotExists() bool
 }
 
 // createTableStmt is a "CREATE TABLE" statement.
 type createTableStmt struct {
-	schema *Schema
+	schema Schema
 	*IfNotExistsOpt
 }
 
 // NewCreateTableWith returns a new createTable statement instance with the specified options.
-func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) CreateTable {
+func NewCreateTableWith(schema Schema, ifne *IfNotExistsOpt) CreateTable {
 	return &createTableStmt{
 		schema:         schema,
 		IfNotExistsOpt: ifne,
@@ -41,7 +41,7 @@ func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) CreateTable {
 }
 
 // Schema returns the schema.
-func (stmt *createTableStmt) Schema() *Schema {
+func (stmt *createTableStmt) Schema() Schema {
 	return stmt.schema
 }
 
@@ -58,10 +58,10 @@ func (stmt *createTableStmt) StatementType() StatementType {
 // String returns the statement string representation.
 func (stmt *createTableStmt) String() string {
 	columnsStr := "("
-	columnsStr += stmt.schema.ColumnList.DefinitionString()
-	if 0 < len(stmt.schema.IndexList) {
+	columnsStr += stmt.schema.Columns().DefinitionString()
+	if 0 < len(stmt.schema.Indexes()) {
 		columnsStr += ", "
-		columnsStr += stmt.schema.IndexList.DefinitionString()
+		columnsStr += stmt.schema.Indexes().DefinitionString()
 	}
 	columnsStr += ")"
 

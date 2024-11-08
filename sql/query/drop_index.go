@@ -19,7 +19,7 @@ import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 // DropIndex is a "DROP INDEX" statement.
 type DropIndex struct {
 	*Index
-	*Schema
+	Schema
 	*IfExistsOpt
 }
 
