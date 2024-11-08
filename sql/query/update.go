@@ -20,16 +20,24 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Update is a "UPDATE" statement.
-type Update struct {
+// Update represents a "UPDATE" statement interface.
+type Update interface {
+	Statement
+	TableName() string
+	Columns() ColumnList
+	Where() *Condition
+}
+
+// updateStmt is a "UPDATE" statement.
+type updateStmt struct {
 	table *Table
 	ColumnList
 	*Condition
 }
 
-// NewUpdateWith returns a new Update statement instance with the specified parameters.
-func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *Update {
-	return &Update{
+// NewUpdateWith returns a new updateStmt statement instance with the specified parameters.
+func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *updateStmt {
+	return &updateStmt{
 		table:      tbl,
 		ColumnList: columns,
 		Condition:  w,
@@ -37,27 +45,22 @@ func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *Update {
 }
 
 // StatementType returns the statement type.
-func (stmt *Update) StatementType() StatementType {
+func (stmt *updateStmt) StatementType() StatementType {
 	return UpdateStatement
 }
 
 // Table returns the table.
-func (stmt *Update) Table() *Table {
+func (stmt *updateStmt) Table() *Table {
 	return stmt.table
 }
 
 // TableName returns the table name.
-func (stmt *Update) TableName() string {
+func (stmt *updateStmt) TableName() string {
 	return stmt.table.TableName()
 }
 
-// To returns the table.
-func (stmt *Delete) To() *Table {
-	return stmt.table
-}
-
 // String returns the statement string representation.
-func (stmt *Update) String() string {
+func (stmt *updateStmt) String() string {
 	strs := []string{
 		"UPDATE",
 		stmt.table.String(),

@@ -330,7 +330,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
 	return query.NewInsertWith(tbl, columns)
 }
 
-func newUpdateWith(ctx antlr.IUpdate_stmtContext) *query.Update {
+func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
 	columns := query.NewColumns()
 	for _, set := range ctx.AllUpdate_column_set() {

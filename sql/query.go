@@ -72,12 +72,7 @@ type Insert = query.Insert
 type Select = query.Select
 
 // Update represents a "UPDATE" statement interface.
-type Update interface {
-	Statement
-	TableName() string
-	Columns() query.ColumnList
-	Where() *query.Condition
-}
+type Update = query.Update
 
 // Delete represents a "DELETE" statement interface.
 type Delete interface {
