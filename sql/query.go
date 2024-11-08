@@ -57,15 +57,7 @@ type CreateTable = query.CreateTable
 type AlterDatabase = query.AlterDatabase
 
 // AlterTable represents a "ALTER TABLE" statement interface.
-type AlterTable interface {
-	Statement
-	TableName() string
-	AddColumn() (*query.Column, bool)
-	AddIndex() (*query.Index, bool)
-	DropColumn() (*query.Column, bool)
-	RenameColumns() (*query.Column, *query.Column, bool)
-	RenameTo() (*query.Table, bool)
-}
+type AlterTable = query.AlterTable
 
 // DropTable represents a "DROP TABLE" statement interface.
 type DropDatabase interface {

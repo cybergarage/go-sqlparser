@@ -190,7 +190,7 @@ func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) query.AlterData
 	return query.NewAlterDatabaseWith(dbName, toDBName)
 }
 
-func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) *query.AlterTable {
+func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) query.AlterTable {
 	opts := []query.AlterTableOption{}
 	if ctx := ctx.Schema_name(); ctx != nil {
 		schemaName := ctx.GetText()
