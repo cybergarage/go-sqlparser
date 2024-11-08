@@ -147,7 +147,7 @@ func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) query.CreateTable {
 	return query.NewCreateTableWith(newIndexSchemaWith(ctx), ifNotExists)
 }
 
-func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) *query.DropDatabase {
+func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) query.DropDatabase {
 	dbName := ctx.Database_name().GetText()
 	ifExists := query.NewIfExistsWith(false)
 	if ctx.If_exists() != nil {

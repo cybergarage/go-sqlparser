@@ -59,12 +59,8 @@ type AlterDatabase = query.AlterDatabase
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable = query.AlterTable
 
-// DropTable represents a "DROP TABLE" statement interface.
-type DropDatabase interface {
-	Statement
-	DatabaseName() string
-	IfExists() bool
-}
+// DropDatabase represents a "DROP DATABASE" statement interface.
+type DropDatabase = query.DropDatabase
 
 // DropTable represents a "DROP TABLE" statement interface.
 type DropTable interface {

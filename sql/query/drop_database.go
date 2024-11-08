@@ -14,29 +14,38 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
-// DropDatabase is a "DROP DATABASE" statement.
-type DropDatabase struct {
+// DropDatabase represents a "DROP DATABASE" statement interface.
+type DropDatabase interface {
+	Statement
+	DatabaseName() string
+	IfExists() bool
+}
+
+// dropDatabase is a "DROP DATABASE" statement.
+type dropDatabase struct {
 	*Database
 	*IfExistsOpt
 }
 
-// NewDropDatabaseWith returns a new DropDatabase statement instance with the specified parameters.
-func NewDropDatabaseWith(name string, ife *IfExistsOpt) *DropDatabase {
-	return &DropDatabase{
+// NewDropDatabaseWith returns a new dropDatabase statement instance with the specified parameters.
+func NewDropDatabaseWith(name string, ife *IfExistsOpt) *dropDatabase {
+	return &dropDatabase{
 		Database:    NewDatabaseWith(name),
 		IfExistsOpt: ife,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *DropDatabase) StatementType() StatementType {
+func (stmt *dropDatabase) StatementType() StatementType {
 	return DropDatabaseStatement
 }
 
 // String returns the statement string representation.
-func (stmt *DropDatabase) String() string {
+func (stmt *dropDatabase) String() string {
 	strs := []string{
 		"DROP",
 		"DATABASE",
