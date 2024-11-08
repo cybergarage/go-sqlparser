@@ -8,6 +8,7 @@
 
 # v1.4.0 (2024-11-xx)
 - Added
+  - net package to handle network connections
   - Query executor interface
 
 # v1.3.6 (2024-11-08)
