@@ -26,27 +26,27 @@ type Insert interface {
 	IsSelectAll() bool
 }
 
-// insert is a "INSERT" statement.
-type insert struct {
+// insertStmt is a "INSERT" statement.
+type insertStmt struct {
 	*Table
 	ColumnList
 }
 
 // NewInsertWith returns a new insert statement instance with the specified parameters.
 func NewInsertWith(tbl *Table, columns ColumnList) Insert {
-	return &insert{
+	return &insertStmt{
 		Table:      tbl,
 		ColumnList: columns,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *insert) StatementType() StatementType {
+func (stmt *insertStmt) StatementType() StatementType {
 	return InsertStatement
 }
 
 // String returns the statement string representation.
-func (stmt *insert) String() string {
+func (stmt *insertStmt) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
