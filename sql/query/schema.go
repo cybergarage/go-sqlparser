@@ -18,7 +18,7 @@ import "strings"
 
 // Schema represents a table schema.
 type Schema struct {
-	*Table
+	Table
 	ColumnList
 	IndexList
 }
@@ -54,7 +54,7 @@ func WithSchemaIndexes(idxes IndexList) func(*Schema) {
 }
 
 // SchemaTable returns the table.
-func (schema *Schema) SchemaTable() *Table {
+func (schema *Schema) SchemaTable() Table {
 	return schema.Table
 }
 

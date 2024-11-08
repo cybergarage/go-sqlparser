@@ -19,7 +19,7 @@ import (
 )
 
 // TableList represens a column array.
-type TableList []*Table
+type TableList []Table
 
 // NewTables returns a column array instance.
 func NewTables() TableList {
@@ -27,7 +27,7 @@ func NewTables() TableList {
 }
 
 // NewTablesWith returns a column array instance with the specified columns.
-func NewTablesWith(tables ...*Table) TableList {
+func NewTablesWith(tables ...Table) TableList {
 	c := make(TableList, len(tables))
 	copy(c, tables)
 	return c
@@ -42,7 +42,7 @@ func (tbls TableList) Tables() TableList {
 func (tbls TableList) HasTable(names ...string) bool {
 	for _, name := range names {
 		for _, tbl := range tbls {
-			if tbl.IsName(name) {
+			if tbl.IsTableName(name) {
 				return true
 			}
 		}
@@ -78,7 +78,7 @@ func (tbls TableList) HasTableName(names ...string) bool {
 func (tbls TableList) String() string {
 	strs := make([]string, len(tbls))
 	for n, tbl := range tbls {
-		strs[n] = tbl.String()
+		strs[n] = tbl.FullTableName()
 	}
 	return strings.JoinWithComma(strs)
 }

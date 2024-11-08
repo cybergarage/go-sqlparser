@@ -28,12 +28,12 @@ type Insert interface {
 
 // insertStmt is a "INSERT" statement.
 type insertStmt struct {
-	*Table
+	Table
 	ColumnList
 }
 
 // NewInsertWith returns a new insert statement instance with the specified parameters.
-func NewInsertWith(tbl *Table, columns ColumnList) Insert {
+func NewInsertWith(tbl Table, columns ColumnList) Insert {
 	return &insertStmt{
 		Table:      tbl,
 		ColumnList: columns,
@@ -50,7 +50,7 @@ func (stmt *insertStmt) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
-		stmt.Table.String(),
+		stmt.Table.FullTableName(),
 		"(" + stmt.ColumnList.NameString() + ")",
 		"VALUES",
 		"(" + stmt.ColumnList.ValueString() + ")",

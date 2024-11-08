@@ -30,13 +30,13 @@ type Update interface {
 
 // updateStmt is a "UPDATE" statement.
 type updateStmt struct {
-	table *Table
+	table Table
 	ColumnList
 	*Condition
 }
 
 // NewUpdateWith returns a new updateStmt statement instance with the specified parameters.
-func NewUpdateWith(tbl *Table, columns ColumnList, w *Condition) *updateStmt {
+func NewUpdateWith(tbl Table, columns ColumnList, w *Condition) *updateStmt {
 	return &updateStmt{
 		table:      tbl,
 		ColumnList: columns,
@@ -50,7 +50,7 @@ func (stmt *updateStmt) StatementType() StatementType {
 }
 
 // Table returns the table.
-func (stmt *updateStmt) Table() *Table {
+func (stmt *updateStmt) Table() Table {
 	return stmt.table
 }
 
@@ -63,7 +63,7 @@ func (stmt *updateStmt) TableName() string {
 func (stmt *updateStmt) String() string {
 	strs := []string{
 		"UPDATE",
-		stmt.table.String(),
+		stmt.table.FullTableName(),
 		"SET",
 	}
 	columns := []string{}

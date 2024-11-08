@@ -30,12 +30,12 @@ type Delete interface {
 
 // deleteStmt is a "DELETE" statement.
 type deleteStmt struct {
-	table *Table
+	table Table
 	*Condition
 }
 
 // NewDeleteWith returns a new deleteStmt statement instance with the specified parameters.
-func NewDeleteWith(tbl *Table, opts ...DeleteOption) *deleteStmt {
+func NewDeleteWith(tbl Table, opts ...DeleteOption) *deleteStmt {
 	stmt := &deleteStmt{
 		table:     tbl,
 		Condition: nil,
@@ -58,7 +58,7 @@ func (stmt *deleteStmt) StatementType() StatementType {
 }
 
 // Table returns the table.
-func (stmt *deleteStmt) Table() *Table {
+func (stmt *deleteStmt) Table() Table {
 	return stmt.table
 }
 
@@ -68,7 +68,7 @@ func (stmt *deleteStmt) TableName() string {
 }
 
 // From returns the table.
-func (stmt *deleteStmt) From() *Table {
+func (stmt *deleteStmt) From() Table {
 	return stmt.table
 }
 
@@ -77,7 +77,7 @@ func (stmt *deleteStmt) String() string {
 	strs := []string{
 		"DELETE",
 		"FROM",
-		stmt.table.String(),
+		stmt.table.FullTableName(),
 	}
 	if stmt.Condition != nil {
 		strs = append(strs, "WHERE", stmt.Condition.String())

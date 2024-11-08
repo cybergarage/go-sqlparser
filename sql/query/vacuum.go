@@ -26,7 +26,7 @@ type Vacuum interface {
 
 // vacuumStmt is a "VACUUM" statement.
 type vacuumStmt struct {
-	*Table
+	Table
 }
 
 // NewVacuum returns a new vacuum statement instance.
@@ -37,7 +37,7 @@ func NewVacuum() *vacuumStmt {
 }
 
 // NewVacuumWith returns a new vacuum statement instance with the specified parameters.
-func NewVacuumWith(tbl *Table) *vacuumStmt {
+func NewVacuumWith(tbl Table) *vacuumStmt {
 	return &vacuumStmt{
 		Table: tbl,
 	}
@@ -54,7 +54,7 @@ func (stmt *vacuumStmt) String() string {
 		"VACUUM",
 	}
 	if stmt.Table != nil {
-		strs = append(strs, stmt.Table.String())
+		strs = append(strs, stmt.Table.FullTableName())
 	}
 	return strings.JoinWithSpace(strs)
 }

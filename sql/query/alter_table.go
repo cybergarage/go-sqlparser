@@ -27,14 +27,14 @@ type AlterTable interface {
 	AddIndex() (*Index, bool)
 	DropColumn() (*Column, bool)
 	RenameColumns() (*Column, *Column, bool)
-	RenameTo() (*Table, bool)
+	RenameTo() (Table, bool)
 }
 
 // alterTableStmt is a "ALTER TABLE" statement.
 type alterTableStmt struct {
 	*Schema
-	*Table
-	renameTableTo    *Table
+	Table
+	renameTableTo    Table
 	renameColumnFrom *Column
 	renameColumnTo   *Column
 	addColumn        *Column
@@ -70,7 +70,7 @@ func WithAlterTableSchema(name string) func(*alterTableStmt) {
 }
 
 // WithAlterTableRenameTo sets a rename table.
-func WithAlterTableRenameTo(tbl *Table) func(*alterTableStmt) {
+func WithAlterTableRenameTo(tbl Table) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.renameTableTo = tbl
 	}
@@ -118,7 +118,7 @@ func (stmt *alterTableStmt) StatementType() StatementType {
 }
 
 // RenameTo returns the rename table.
-func (stmt *alterTableStmt) RenameTo() (*Table, bool) {
+func (stmt *alterTableStmt) RenameTo() (Table, bool) {
 	if stmt.renameTableTo == nil {
 		return nil, false
 	}
@@ -170,14 +170,14 @@ func (stmt *alterTableStmt) String() string {
 	elems := []string{
 		"ALTER",
 		"TABLE",
-		stmt.Table.String(),
+		stmt.Table.FullTableName(),
 	}
 	if tbl, ok := stmt.RenameTo(); ok {
 		elems = append(elems,
 			[]string{
 				"RENAME",
 				"TO",
-				tbl.String(),
+				tbl.FullTableName(),
 			}...)
 	}
 	if f, t, ok := stmt.RenameColumns(); ok {

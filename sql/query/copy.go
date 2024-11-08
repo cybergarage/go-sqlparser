@@ -78,7 +78,7 @@ type Copy interface {
 
 // copyStmt is a "COPY" statement.
 type copyStmt struct {
-	*Table
+	Table
 	ColumnList
 	source string
 	format CopyFormat

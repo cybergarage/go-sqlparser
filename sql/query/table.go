@@ -21,18 +21,34 @@ import (
 // TableNameSep represents a table name separator.
 const TableNameSep = "."
 
-// Table represents a table.
-type Table struct {
+// Table represents a table interface.
+type Table interface {
+	// FullTableName returns the full name of the table including schema and table name.
+	FullTableName() string
+	// IsFullTableName returns true if the provided name matches the full name of the table,
+	IsFullTableName(name string) bool
+	// SchemaName returns the table schema name.
+	SchemaName() string
+	// IsSchemaName returns true whether the table is named.
+	IsSchemaName(name string) bool
+	// TableName returns the table name for embedded use.
+	TableName() string
+	// IsTableName returns true whether the table is named.
+	IsTableName(name string) bool
+}
+
+// table represents a table.
+type table struct {
 	schema string
 	name   string
 }
 
 // TableOption represents a table option function.
-type TableOption = func(*Table)
+type TableOption = func(*table)
 
-// NewTableWith returns a new Table instance with the specified name.
-func NewTableWith(name string, opts ...TableOption) *Table {
-	tbl := &Table{
+// NewTableWith returns a new table instance with the specified name.
+func NewTableWith(name string, opts ...TableOption) Table {
+	tbl := &table{
 		name:   name,
 		schema: "",
 	}
@@ -43,14 +59,14 @@ func NewTableWith(name string, opts ...TableOption) *Table {
 }
 
 // WithTableSchema sets a table schema.
-func WithTableSchema(schema string) func(*Table) {
-	return func(tbl *Table) {
+func WithTableSchema(schema string) func(*table) {
+	return func(tbl *table) {
 		tbl.schema = schema
 	}
 }
 
-// Name returns the schema and table name.
-func (tbl *Table) Name() string {
+// FullTableName returns the full name of the table including schema and table name.
+func (tbl *table) FullTableName() string {
 	names := []string{}
 	if 0 < len(tbl.schema) {
 		names = append(names, tbl.schema)
@@ -61,32 +77,32 @@ func (tbl *Table) Name() string {
 	return strings.Join(names, TableNameSep)
 }
 
-// IsName returns true whether the table is named.
-func (tbl *Table) IsName(name string) bool {
-	return strings.EqualFold(tbl.Name(), name)
+// IsFullTableName returns true if the provided name matches the full name of the table,
+func (tbl *table) IsFullTableName(name string) bool {
+	return strings.EqualFold(tbl.FullTableName(), name)
 }
 
 // SchemaName returns the table schema name.
-func (tbl *Table) SchemaName() string {
+func (tbl *table) SchemaName() string {
 	return tbl.schema
 }
 
 // IsSchemaName returns true whether the table is named.
-func (tbl *Table) IsSchemaName(name string) bool {
+func (tbl *table) IsSchemaName(name string) bool {
 	return strings.EqualFold(tbl.schema, name)
 }
 
 // TableName returns the table name for embedded use.
-func (tbl *Table) TableName() string {
+func (tbl *table) TableName() string {
 	return tbl.name
 }
 
 // IsTableName returns true whether the table is named.
-func (tbl *Table) IsTableName(name string) bool {
+func (tbl *table) IsTableName(name string) bool {
 	return strings.EqualFold(tbl.name, name)
 }
 
 // String returns the string representation.
-func (tbl *Table) String() string {
-	return tbl.Name()
+func (tbl *table) String() string {
+	return tbl.FullTableName()
 }
