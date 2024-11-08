@@ -25,7 +25,7 @@ type Use interface {
 }
 
 type useStmt struct {
-	*Database
+	Database
 }
 
 func NewUseWith(name string) *useStmt {
@@ -40,6 +40,6 @@ func (stmt *useStmt) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *useStmt) String() string {
-	strs := []string{"USE", stmt.Database.String()}
+	strs := []string{"USE", stmt.DatabaseName()}
 	return strings.JoinWithSpace(strs)
 }

@@ -14,29 +14,29 @@
 
 package query
 
-// Database represents a database.
-type Database struct {
+// Database represents a database interface.
+type Database interface {
+	DatabaseName() string
+}
+
+// database represents a database.
+type database struct {
 	name string
 }
 
-// NewDatabaseWith returns a new Database instance with the specified name.
-func NewDatabaseWith(name string) *Database {
-	return &Database{
+// NewDatabaseWith returns a new database instance with the specified name.
+func NewDatabaseWith(name string) Database {
+	return &database{
 		name: name,
 	}
 }
 
-// Database returns the database.
-func (db *Database) Database() *Database {
-	return db
-}
-
 // DatabaseName returns the database name.
-func (db *Database) DatabaseName() string {
+func (db *database) DatabaseName() string {
 	return db.name
 }
 
 // String returns the string representation.
-func (db *Database) String() string {
+func (db *database) String() string {
 	return db.name
 }

@@ -27,7 +27,7 @@ type CreateDatabase interface {
 
 // createDatabaseStmt is a "CREATE DATABASE" statement.
 type createDatabaseStmt struct {
-	*Database
+	Database
 	*IfNotExistsOpt
 }
 
@@ -51,6 +51,6 @@ func (stmt *createDatabaseStmt) String() string {
 	if stmt.IfNotExists() {
 		elems = append(elems, stmt.IfNotExistsOpt.String())
 	}
-	elems = append(elems, stmt.name)
+	elems = append(elems, stmt.DatabaseName())
 	return strings.JoinWithSpace(elems)
 }

@@ -27,7 +27,7 @@ type DropDatabase interface {
 
 // dropDatabaseStmt is a "DROP DATABASE" statement.
 type dropDatabaseStmt struct {
-	*Database
+	Database
 	*IfExistsOpt
 }
 
@@ -53,6 +53,6 @@ func (stmt *dropDatabaseStmt) String() string {
 	if stmt.IfExists() {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
-	strs = append(strs, stmt.Database.String())
+	strs = append(strs, stmt.DatabaseName())
 	return strings.JoinWithSpace(strs)
 }

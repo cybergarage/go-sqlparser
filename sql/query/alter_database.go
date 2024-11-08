@@ -22,13 +22,13 @@ import (
 type AlterDatabase interface {
 	Statement
 	DatabaseName() string
-	RenameTo() *Database
+	RenameTo() Database
 }
 
 // alterDatabaseStmt is a "ALTER DATABASE" statement.
 type alterDatabaseStmt struct {
-	*Database
-	to *Database
+	Database
+	to Database
 }
 
 // NewAlterDatabaseWith returns a new alterDatabase statement instance with the specified options.
@@ -45,7 +45,7 @@ func (stmt *alterDatabaseStmt) StatementType() StatementType {
 }
 
 // RenameTo returns the "TO" database.
-func (stmt *alterDatabaseStmt) RenameTo() *Database {
+func (stmt *alterDatabaseStmt) RenameTo() Database {
 	return stmt.to
 }
 
