@@ -17,7 +17,7 @@ package query
 import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 
 // AlterTableOption represents an alter table option function.
-type AlterTableOption = func(*alterTable)
+type AlterTableOption = func(*alterTableStmt)
 
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {
@@ -30,8 +30,8 @@ type AlterTable interface {
 	RenameTo() (*Table, bool)
 }
 
-// alterTable is a "ALTER TABLE" statement.
-type alterTable struct {
+// alterTableStmt is a "ALTER TABLE" statement.
+type alterTableStmt struct {
 	*Schema
 	*Table
 	renameTableTo    *Table
@@ -44,8 +44,8 @@ type alterTable struct {
 }
 
 // NewAlterTableWith returns a new alterTable statement instance with the specified options.
-func NewAlterTableWith(tblName string, opts ...AlterTableOption) *alterTable {
-	stmt := &alterTable{
+func NewAlterTableWith(tblName string, opts ...AlterTableOption) *alterTableStmt {
+	stmt := &alterTableStmt{
 		Schema:           nil,
 		Table:            NewTableWith(tblName),
 		renameTableTo:    nil,
@@ -63,62 +63,62 @@ func NewAlterTableWith(tblName string, opts ...AlterTableOption) *alterTable {
 }
 
 // WithAlterTableSchema sets a schema.
-func WithAlterTableSchema(name string) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableSchema(name string) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.Schema = NewSchemaWith(name)
 	}
 }
 
 // WithAlterTableRenameTo sets a rename table.
-func WithAlterTableRenameTo(tbl *Table) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableRenameTo(tbl *Table) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.renameTableTo = tbl
 	}
 }
 
 // WithAlterTableRenameColumn sets a rename column.
-func WithAlterTableRenameColumn(from *Column, to *Column) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableRenameColumn(from *Column, to *Column) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.renameColumnFrom = from
 		stmt.renameColumnTo = to
 	}
 }
 
 // WithAlterTableAddColumn sets an add column.
-func WithAlterTableAddColumn(column *Column) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableAddColumn(column *Column) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.addColumn = column
 	}
 }
 
 // WithAlterTableAddIndex sets an add index.
-func WithAlterTableAddIndex(index *Index) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableAddIndex(index *Index) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.addIndex = index
 	}
 }
 
 // WithAlterTableDropColumn sets a drop column.
-func WithAlterTableDropColumn(column *Column) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableDropColumn(column *Column) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.dropColumn = column
 	}
 }
 
 // WithAlterTableDropColumn sets a drop index.
-func WithAlterTableDropIndex(index *Index) func(*alterTable) {
-	return func(stmt *alterTable) {
+func WithAlterTableDropIndex(index *Index) func(*alterTableStmt) {
+	return func(stmt *alterTableStmt) {
 		stmt.dropIndex = index
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *alterTable) StatementType() StatementType {
+func (stmt *alterTableStmt) StatementType() StatementType {
 	return AlterTableStatement
 }
 
 // RenameTo returns the rename table.
-func (stmt *alterTable) RenameTo() (*Table, bool) {
+func (stmt *alterTableStmt) RenameTo() (*Table, bool) {
 	if stmt.renameTableTo == nil {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (stmt *alterTable) RenameTo() (*Table, bool) {
 }
 
 // RenameColumns returns the rename columns.
-func (stmt *alterTable) RenameColumns() (*Column, *Column, bool) {
+func (stmt *alterTableStmt) RenameColumns() (*Column, *Column, bool) {
 	if stmt.renameColumnFrom == nil || stmt.renameColumnTo == nil {
 		return nil, nil, false
 	}
@@ -134,7 +134,7 @@ func (stmt *alterTable) RenameColumns() (*Column, *Column, bool) {
 }
 
 // AddColumn returns the add column.
-func (stmt *alterTable) AddColumn() (*Column, bool) {
+func (stmt *alterTableStmt) AddColumn() (*Column, bool) {
 	if stmt.addColumn == nil {
 		return nil, false
 	}
@@ -142,7 +142,7 @@ func (stmt *alterTable) AddColumn() (*Column, bool) {
 }
 
 // AddIndex returns the add index.
-func (stmt *alterTable) AddIndex() (*Index, bool) {
+func (stmt *alterTableStmt) AddIndex() (*Index, bool) {
 	if stmt.addIndex == nil {
 		return nil, false
 	}
@@ -150,7 +150,7 @@ func (stmt *alterTable) AddIndex() (*Index, bool) {
 }
 
 // DropColumn returns the drop column.
-func (stmt *alterTable) DropColumn() (*Column, bool) {
+func (stmt *alterTableStmt) DropColumn() (*Column, bool) {
 	if stmt.dropColumn == nil {
 		return nil, false
 	}
@@ -158,7 +158,7 @@ func (stmt *alterTable) DropColumn() (*Column, bool) {
 }
 
 // DropIndex returns the drop index.
-func (stmt *alterTable) DropIndex() (*Index, bool) {
+func (stmt *alterTableStmt) DropIndex() (*Index, bool) {
 	if stmt.dropIndex == nil {
 		return nil, false
 	}
@@ -166,7 +166,7 @@ func (stmt *alterTable) DropIndex() (*Index, bool) {
 }
 
 // String returns the statement string representation.
-func (stmt *alterTable) String() string {
+func (stmt *alterTableStmt) String() string {
 	elems := []string{
 		"ALTER",
 		"TABLE",
