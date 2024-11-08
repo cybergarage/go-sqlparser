@@ -29,7 +29,7 @@ type Column struct {
 	name string
 	*DataDef
 	*Literal
-	*BindParam
+	BindParam
 	FunctionExecutor
 	consts ColumnConstraint
 	args   []any

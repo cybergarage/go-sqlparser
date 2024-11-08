@@ -14,31 +14,35 @@
 
 package query
 
-// BindParam represents a bind param.
-type BindParam struct {
+type BindParam interface {
+	Name() string
+}
+
+// bindParam represents a bind param.
+type bindParam struct {
 	name string
 }
 
 // NewBindParam returns a bind param instance.
-func NewBindParamWith(name string) *BindParam {
-	param := &BindParam{
+func NewBindParamWith(name string) *bindParam {
+	param := &bindParam{
 		name: name,
 	}
 	return param
 }
 
 // Name returns the bind param name.
-func (param *BindParam) Name() string {
+func (param *bindParam) Name() string {
 	return param.name
 }
 
 // String returns the string representation.
-func (param *BindParam) String() string {
+func (param *bindParam) String() string {
 	return param.name
 }
 
 // BindParams represens a bind param array.
-type BindParams []*BindParam
+type BindParams []BindParam
 
 // NewBindParams returns a bind param array instance.
 func NewBindParams() BindParams {
