@@ -25,27 +25,27 @@ type DropDatabase interface {
 	IfExists() bool
 }
 
-// dropDatabase is a "DROP DATABASE" statement.
-type dropDatabase struct {
+// dropDatabaseStmt is a "DROP DATABASE" statement.
+type dropDatabaseStmt struct {
 	*Database
 	*IfExistsOpt
 }
 
 // NewDropDatabaseWith returns a new dropDatabase statement instance with the specified parameters.
-func NewDropDatabaseWith(name string, ife *IfExistsOpt) *dropDatabase {
-	return &dropDatabase{
+func NewDropDatabaseWith(name string, ife *IfExistsOpt) *dropDatabaseStmt {
+	return &dropDatabaseStmt{
 		Database:    NewDatabaseWith(name),
 		IfExistsOpt: ife,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *dropDatabase) StatementType() StatementType {
+func (stmt *dropDatabaseStmt) StatementType() StatementType {
 	return DropDatabaseStatement
 }
 
 // String returns the statement string representation.
-func (stmt *dropDatabase) String() string {
+func (stmt *dropDatabaseStmt) String() string {
 	strs := []string{
 		"DROP",
 		"DATABASE",
