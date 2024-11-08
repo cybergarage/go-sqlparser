@@ -25,7 +25,7 @@ type Select interface {
 	IsSelectAll() bool
 	Selectors() SelectorList
 	From() TableList
-	Limit() *Limit
+	Limit() Limit
 	GroupBy() *GroupBy
 	OrderBy() *OrderBy
 	Where() Condition
@@ -37,7 +37,7 @@ type selectStmt struct {
 	SelectorList
 	Condition
 	orderBy *OrderBy
-	limit   *Limit
+	limit   Limit
 	groupBy *GroupBy
 }
 
@@ -99,7 +99,7 @@ func (stmt *selectStmt) OrderBy() *OrderBy {
 }
 
 // Limit returns the limit clause.
-func (stmt *selectStmt) Limit() *Limit {
+func (stmt *selectStmt) Limit() Limit {
 	return stmt.limit
 }
 

@@ -20,52 +20,59 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Limit represents a LIMIT clause.
-type Limit struct {
+// Limit represents a LIMIT interface.
+type Limit interface {
+	Offset() int
+	Limit() int
+	String() string
+}
+
+// limitParam represents a LIMIT clause.
+type limitParam struct {
 	offset int
 	limit  int
 }
 
-// NewLimit returns a new Limit instance.
-func NewLimit() *Limit {
-	return &Limit{
+// NewLimit returns a new limit instance.
+func NewLimit() Limit {
+	return &limitParam{
 		offset: 0,
 		limit:  0,
 	}
 }
 
-// NewLimitWith returns a new Limit instance with the specified offset and limit.
-func NewLimitWith(offset int, limit int) *Limit {
-	return &Limit{
+// NewLimitWith returns a new limitParam instance with the specified offset and limit.
+func NewLimitWith(offset int, limit int) *limitParam {
+	return &limitParam{
 		offset: offset,
 		limit:  limit,
 	}
 }
 
 // SetLimit sets the limit.
-func (limit *Limit) SetLimit(n int) *Limit {
+func (limit *limitParam) SetLimit(n int) *limitParam {
 	limit.limit = n
 	return limit
 }
 
 // SetOffset sets the offset.
-func (limit *Limit) SetOffset(n int) *Limit {
+func (limit *limitParam) SetOffset(n int) *limitParam {
 	limit.offset = n
 	return limit
 }
 
 // Offset returns the offset.
-func (limit *Limit) Offset() int {
+func (limit *limitParam) Offset() int {
 	return limit.offset
 }
 
-// Limit returns the limit.
-func (limit *Limit) Limit() int {
+// limitParam returns the limit.
+func (limit *limitParam) Limit() int {
 	return limit.limit
 }
 
 // String returns the string representation.
-func (limit *Limit) String() string {
+func (limit *limitParam) String() string {
 	strs := []string{}
 	if limit.offset <= 0 {
 		strs = append(strs, "LIMIT", strconv.Itoa(limit.limit))
