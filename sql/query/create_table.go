@@ -26,37 +26,37 @@ type CreateTable interface {
 	IfNotExists() bool
 }
 
-// createTable is a "CREATE TABLE" statement.
-type createTable struct {
+// createTableStmt is a "CREATE TABLE" statement.
+type createTableStmt struct {
 	schema *Schema
 	*IfNotExistsOpt
 }
 
 // NewCreateTableWith returns a new createTable statement instance with the specified options.
 func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) CreateTable {
-	return &createTable{
+	return &createTableStmt{
 		schema:         schema,
 		IfNotExistsOpt: ifne,
 	}
 }
 
 // Schema returns the schema.
-func (stmt *createTable) Schema() *Schema {
+func (stmt *createTableStmt) Schema() *Schema {
 	return stmt.schema
 }
 
 // TableName returns the table name.
-func (stmt *createTable) TableName() string {
+func (stmt *createTableStmt) TableName() string {
 	return stmt.schema.TableName()
 }
 
 // StatementType returns the statement type.
-func (stmt *createTable) StatementType() StatementType {
+func (stmt *createTableStmt) StatementType() StatementType {
 	return CreateTableStatement
 }
 
 // String returns the statement string representation.
-func (stmt *createTable) String() string {
+func (stmt *createTableStmt) String() string {
 	columnsStr := "("
 	columnsStr += stmt.schema.ColumnList.DefinitionString()
 	if 0 < len(stmt.schema.IndexList) {
