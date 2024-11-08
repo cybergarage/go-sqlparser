@@ -77,7 +77,7 @@ func (tbl *table) FullTableName() string {
 	return strings.Join(names, TableNameSep)
 }
 
-// IsFullTableName returns true if the provided name matches the full name of the table,
+// IsFullTableName returns true if the provided name matches the full name of the table,.
 func (tbl *table) IsFullTableName(name string) bool {
 	return strings.EqualFold(tbl.FullTableName(), name)
 }
