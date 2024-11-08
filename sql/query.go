@@ -63,11 +63,7 @@ type AlterTable = query.AlterTable
 type DropDatabase = query.DropDatabase
 
 // DropTable represents a "DROP TABLE" statement interface.
-type DropTable interface {
-	Statement
-	Tables() query.TableList
-	IfExists() bool
-}
+type DropTable = query.DropTable
 
 // Insert represents a "INSERT" statement interface.
 type Insert interface {

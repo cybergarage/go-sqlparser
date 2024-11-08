@@ -156,7 +156,7 @@ func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) query.DropDatabas
 	return query.NewDropDatabaseWith(dbName, ifExists)
 }
 
-func newDropTableWith(ctx antlr.IDrop_table_stmtContext) *query.DropTable {
+func newDropTableWith(ctx antlr.IDrop_table_stmtContext) query.DropTable {
 	ifExists := query.NewIfExistsWith(false)
 	if ctx.If_exists() != nil {
 		ifExists = query.NewIfExistsWith(true)

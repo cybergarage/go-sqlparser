@@ -14,29 +14,38 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
-// DropTable is a "DROP TABLE" statement.
-type DropTable struct {
+// DropTable represents a "DROP TABLE" statement interface.
+type DropTable interface {
+	Statement
+	Tables() TableList
+	IfExists() bool
+}
+
+// dropTable is a "DROP TABLE" statement.
+type dropTable struct {
 	TableList
 	*IfExistsOpt
 }
 
-// NewDropTableWith returns a new DropTable statement instance with the specified parameters.
-func NewDropTableWith(tbls TableList, ife *IfExistsOpt) *DropTable {
-	return &DropTable{
+// NewDropTableWith returns a new dropTable statement instance with the specified parameters.
+func NewDropTableWith(tbls TableList, ife *IfExistsOpt) *dropTable {
+	return &dropTable{
 		TableList:   tbls,
 		IfExistsOpt: ife,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *DropTable) StatementType() StatementType {
+func (stmt *dropTable) StatementType() StatementType {
 	return DropTableStatement
 }
 
 // String returns the statement string representation.
-func (stmt *DropTable) String() string {
+func (stmt *dropTable) String() string {
 	strs := []string{
 		"DROP",
 		"TABLE",
