@@ -14,35 +14,42 @@
 
 package query
 
-// Condition represents a where condition.
-type Condition struct {
+// Condition represents a where condition interface.
+type Condition interface {
+	IsEmpty() bool
+	Expr() Expr
+	String() string
+}
+
+// condition represents a where condition.
+type condition struct {
 	expr Expr
 }
 
 // NewConditionWith returns a new where condition instance with the specified parameters.
-func NewConditionWith(expr Expr) *Condition {
-	return &Condition{
+func NewConditionWith(expr Expr) Condition {
+	return &condition{
 		expr: expr,
 	}
 }
 
 // Where returns the table.
-func (w *Condition) Where() *Condition {
+func (w *condition) Where() *condition {
 	return w
 }
 
 // Expr returns the top expression.
-func (w *Condition) Expr() Expr {
+func (w *condition) Expr() Expr {
 	return w.expr
 }
 
 // String returns the string representation.
-func (w *Condition) String() string {
+func (w *condition) String() string {
 	return w.expr.String()
 }
 
 // IsEmpty returns true if the where condition is empty.
-func (w *Condition) IsEmpty() bool {
+func (w *condition) IsEmpty() bool {
 	if w == nil {
 		return true
 	}

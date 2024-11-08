@@ -368,7 +368,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 		}
 		columns = append(columns, query.NewColumnWithOptions(opts...))
 	}
-	var where *query.Condition
+	var where query.Condition
 	if w := ctx.GetWhereExpr(); w != nil {
 		where = query.NewConditionWith(newExprWith(w))
 	}
@@ -405,7 +405,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 			opts = append(opts, query.WithSelectGroupBy(groupBy[0].GetText()))
 		}
 	}
-	var where *query.Condition
+	var where query.Condition
 	if topExpr != nil {
 		where = query.NewConditionWith(topExpr)
 	}

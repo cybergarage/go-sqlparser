@@ -28,21 +28,21 @@ type Select interface {
 	Limit() *Limit
 	GroupBy() *GroupBy
 	OrderBy() *OrderBy
-	Where() *Condition
+	Where() Condition
 }
 
 // selectStmt is a "SELECT" statement.
 type selectStmt struct {
 	TableList
 	SelectorList
-	*Condition
+	Condition
 	orderBy *OrderBy
 	limit   *Limit
 	groupBy *GroupBy
 }
 
 // NewSelectWith returns a new selectStmt statement instance with the specified parameters.
-func NewSelectWith(selectors SelectorList, tbls TableList, w *Condition, opts ...SelectOption) *selectStmt {
+func NewSelectWith(selectors SelectorList, tbls TableList, w Condition, opts ...SelectOption) *selectStmt {
 	stmt := &selectStmt{
 		SelectorList: selectors,
 		TableList:    tbls,
@@ -89,7 +89,7 @@ func (stmt *selectStmt) From() TableList {
 }
 
 // Where returns the condition.
-func (stmt *selectStmt) Where() *Condition {
+func (stmt *selectStmt) Where() Condition {
 	return stmt.Condition
 }
 

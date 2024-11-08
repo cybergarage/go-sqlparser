@@ -25,17 +25,17 @@ type DeleteOption = func(*deleteStmt)
 type Delete interface {
 	Statement
 	TableName() string
-	Where() *Condition
+	Where() Condition
 }
 
 // deleteStmt is a "DELETE" statement.
 type deleteStmt struct {
 	table Table
-	*Condition
+	Condition
 }
 
 // NewDeleteWith returns a new deleteStmt statement instance with the specified parameters.
-func NewDeleteWith(tbl Table, opts ...DeleteOption) *deleteStmt {
+func NewDeleteWith(tbl Table, opts ...DeleteOption) Delete {
 	stmt := &deleteStmt{
 		table:     tbl,
 		Condition: nil,
@@ -46,7 +46,7 @@ func NewDeleteWith(tbl Table, opts ...DeleteOption) *deleteStmt {
 	return stmt
 }
 
-func WithDeleteCondition(cond *Condition) func(*deleteStmt) {
+func WithDeleteCondition(cond Condition) func(*deleteStmt) {
 	return func(stmt *deleteStmt) {
 		stmt.Condition = cond
 	}
@@ -70,6 +70,11 @@ func (stmt *deleteStmt) TableName() string {
 // From returns the table.
 func (stmt *deleteStmt) From() Table {
 	return stmt.table
+}
+
+// Where returns the condition.
+func (stmt *deleteStmt) Where() Condition {
+	return stmt.Condition
 }
 
 // String returns the statement string representation.

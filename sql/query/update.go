@@ -25,18 +25,18 @@ type Update interface {
 	Statement
 	TableName() string
 	Columns() ColumnList
-	Where() *Condition
+	Where() Condition
 }
 
 // updateStmt is a "UPDATE" statement.
 type updateStmt struct {
 	table Table
 	ColumnList
-	*Condition
+	Condition
 }
 
 // NewUpdateWith returns a new updateStmt statement instance with the specified parameters.
-func NewUpdateWith(tbl Table, columns ColumnList, w *Condition) *updateStmt {
+func NewUpdateWith(tbl Table, columns ColumnList, w Condition) Update {
 	return &updateStmt{
 		table:      tbl,
 		ColumnList: columns,
@@ -57,6 +57,11 @@ func (stmt *updateStmt) Table() Table {
 // TableName returns the table name.
 func (stmt *updateStmt) TableName() string {
 	return stmt.table.TableName()
+}
+
+// Where returns the condition.
+func (stmt *updateStmt) Where() Condition {
+	return stmt.Condition
 }
 
 // String returns the statement string representation.
