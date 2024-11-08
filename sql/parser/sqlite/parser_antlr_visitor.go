@@ -570,6 +570,6 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 	return nil
 }
 
-func newUseWith(ctx antlr.IUse_stmtContext) *query.Use {
+func newUseWith(ctx antlr.IUse_stmtContext) query.Use {
 	return query.NewUseWith(ctx.Database_name().GetText())
 }

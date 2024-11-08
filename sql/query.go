@@ -96,7 +96,4 @@ type Vacuum = query.Vacuum
 type Truncate = query.Truncate
 
 // Use represents a "USE" statement interface.
-type Use interface {
-	Statement
-	DatabaseName() string
-}
+type Use = query.Use

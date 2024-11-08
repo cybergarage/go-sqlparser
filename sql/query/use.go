@@ -18,22 +18,28 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-type Use struct {
+// Use represents a "USE" statement interface.
+type Use interface {
+	Statement
+	DatabaseName() string
+}
+
+type useStmt struct {
 	*Database
 }
 
-func NewUseWith(name string) *Use {
-	return &Use{
+func NewUseWith(name string) *useStmt {
+	return &useStmt{
 		Database: NewDatabaseWith(name),
 	}
 }
 
-func (stmt *Use) StatementType() StatementType {
+func (stmt *useStmt) StatementType() StatementType {
 	return UseStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Use) String() string {
+func (stmt *useStmt) String() string {
 	strs := []string{"USE", stmt.Database.String()}
 	return strings.JoinWithSpace(strs)
 }
