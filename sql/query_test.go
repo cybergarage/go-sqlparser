@@ -110,7 +110,7 @@ func TestQueryInterface(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		q, ok := test.q.(Query)
+		q, ok := test.q.(Statement)
 		if !ok {
 			t.Errorf("The query type is invalid (%s)", test.q)
 		}

@@ -44,22 +44,19 @@ type AggregateResultSet = query.AggregateResultSet
 // Schema represents a schema.
 type Schema = query.Schema
 
-// Query represents a common query interface.
-type Query interface {
-	StatementType() query.StatementType
-	String() string
-}
+// Statement represents a common query interface.
+type Statement = query.Statement
 
 // CreateDatabase represents a "CREATE DATABASE" statement interface.
 type CreateDatabase interface {
-	Query
+	Statement
 	DatabaseName() string
 	IfNotExists() bool
 }
 
 // CreateTable represents a "CREATE TABLE" statement interface.
 type CreateTable interface {
-	Query
+	Statement
 	TableName() string
 	Schema() *Schema
 	IfNotExists() bool
@@ -67,14 +64,14 @@ type CreateTable interface {
 
 // AlterDatabase represents a "ALTER DATABASE" statement interface.
 type AlterDatabase interface {
-	Query
+	Statement
 	DatabaseName() string
 	RenameTo() *query.Database
 }
 
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {
-	Query
+	Statement
 	TableName() string
 	AddColumn() (*query.Column, bool)
 	AddIndex() (*query.Index, bool)
@@ -85,21 +82,21 @@ type AlterTable interface {
 
 // DropTable represents a "DROP TABLE" statement interface.
 type DropDatabase interface {
-	Query
+	Statement
 	DatabaseName() string
 	IfExists() bool
 }
 
 // DropTable represents a "DROP TABLE" statement interface.
 type DropTable interface {
-	Query
+	Statement
 	Tables() query.TableList
 	IfExists() bool
 }
 
 // Insert represents a "INSERT" statement interface.
 type Insert interface {
-	Query
+	Statement
 	TableName() string
 	Columns() query.ColumnList
 	IsSelectAll() bool
@@ -107,7 +104,7 @@ type Insert interface {
 
 // Select represents a "SELECT" statement interface.
 type Select interface {
-	Query
+	Statement
 	IsSelectAll() bool
 	Selectors() query.SelectorList
 	From() query.TableList
@@ -119,7 +116,7 @@ type Select interface {
 
 // Update represents a "UPDATE" statement interface.
 type Update interface {
-	Query
+	Statement
 	TableName() string
 	Columns() query.ColumnList
 	Where() *query.Condition
@@ -127,47 +124,47 @@ type Update interface {
 
 // Delete represents a "DELETE" statement interface.
 type Delete interface {
-	Query
+	Statement
 	TableName() string
 	Where() *query.Condition
 }
 
 // Begin represents a "BEGIN" statement interface.
 type Begin interface {
-	Query
+	Statement
 }
 
 // Commit represents a "COMMIT" statement interface.
 type Commit interface {
-	Query
+	Statement
 }
 
 // Rollback represents a "ROLLBACK" statement interface.
 type Rollback interface {
-	Query
+	Statement
 }
 
 // Copy represents a "COPY" statement interface.
 type Copy interface {
-	Query
+	Statement
 	Columns() query.ColumnList
 	TableName() string
 }
 
 // Vacuum represents a "VACUUM" statement interface.
 type Vacuum interface {
-	Query
+	Statement
 	TableName() string
 }
 
 // Truncate represents a "TRUNCATE" statement interface.
 type Truncate interface {
-	Query
+	Statement
 	Tables() query.TableList
 }
 
 // Use represents a "USE" statement interface.
 type Use interface {
-	Query
+	Statement
 	DatabaseName() string
 }
