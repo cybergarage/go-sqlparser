@@ -35,5 +35,6 @@ func (stmt *CreateIndex) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *CreateIndex) String() string {
-	return stmt.Schema.String()
+	// TODO: implement me
+	return ""
 }
