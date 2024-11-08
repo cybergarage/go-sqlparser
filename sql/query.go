@@ -87,11 +87,7 @@ type Commit = query.Commit
 type Rollback = query.Rollback
 
 // Copy represents a "COPY" statement interface.
-type Copy interface {
-	Statement
-	Columns() query.ColumnList
-	TableName() string
-}
+type Copy = query.Copy
 
 // Vacuum represents a "VACUUM" statement interface.
 type Vacuum interface {

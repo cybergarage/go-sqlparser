@@ -46,18 +46,18 @@ func (fmt CopyFormat) String() string {
 }
 
 // CopyOption represents a copy option.
-type CopyOption = func(*Copy)
+type CopyOption = func(*copyStmt)
 
 // WithCopyColumns returns a copy option to set the columns.
-func WithCopyColumns(columns ...*Column) func(*Copy) {
-	return func(stmt *Copy) {
+func WithCopyColumns(columns ...*Column) func(*copyStmt) {
+	return func(stmt *copyStmt) {
 		stmt.ColumnList = NewColumnsWith(columns...)
 	}
 }
 
 // WithCopyFormat returns a copy option to set the format.
-func WithCopyFormat(fmt string) func(*Copy) {
-	return func(stmt *Copy) {
+func WithCopyFormat(fmt string) func(*copyStmt) {
+	return func(stmt *copyStmt) {
 		switch strconv.ToUpper(fmt) {
 		case "TEXT":
 			stmt.format = CopyFormatText
@@ -69,17 +69,24 @@ func WithCopyFormat(fmt string) func(*Copy) {
 	}
 }
 
-// Copy is a "COPY" statement.
-type Copy struct {
+// Copy represents a "COPY" statement interface.
+type Copy interface {
+	Statement
+	Columns() ColumnList
+	TableName() string
+}
+
+// copyStmt is a "COPY" statement.
+type copyStmt struct {
 	*Table
 	ColumnList
 	source string
 	format CopyFormat
 }
 
-// NewCopyWith returns a new Copy statement instance with the specified parameters.
-func NewCopyWith(tblName string, src string, opts ...CopyOption) *Copy {
-	stmt := &Copy{
+// NewCopyWith returns a new copyStmt statement instance with the specified parameters.
+func NewCopyWith(tblName string, src string, opts ...CopyOption) *copyStmt {
+	stmt := &copyStmt{
 		Table:      NewTableWith(tblName),
 		ColumnList: NewColumns(),
 		source:     src,
@@ -92,21 +99,21 @@ func NewCopyWith(tblName string, src string, opts ...CopyOption) *Copy {
 }
 
 // StatementType returns the statement type.
-func (stmt *Copy) StatementType() StatementType {
+func (stmt *copyStmt) StatementType() StatementType {
 	return CopyStatement
 }
 
 // Source returns the source resource.
-func (stmt *Copy) Source() string {
+func (stmt *copyStmt) Source() string {
 	return stmt.source
 }
 
-func (stmt *Copy) Format() CopyFormat {
+func (stmt *copyStmt) Format() CopyFormat {
 	return stmt.format
 }
 
 // String returns the statement string representation.
-func (stmt *Copy) String() string {
+func (stmt *copyStmt) String() string {
 	strs := []string{
 		"COPY",
 		stmt.TableName(),

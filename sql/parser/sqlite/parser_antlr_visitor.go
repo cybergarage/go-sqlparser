@@ -479,7 +479,7 @@ func newDeleteWith(ctx antlr.IDelete_stmtContext) query.Delete {
 	return query.NewDeleteWith(tbl, opts...)
 }
 
-func newCopyWith(ctx antlr.ICopy_stmtContext) *query.Copy {
+func newCopyWith(ctx antlr.ICopy_stmtContext) query.Copy {
 	opts := []query.CopyOption{}
 	if ctx := ctx.Copy_column_list(); ctx != nil {
 		columns := query.NewColumns()
