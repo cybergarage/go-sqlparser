@@ -18,22 +18,27 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Rollback represents a rollback statement.
-type Rollback struct {
+// Rollback represents a "ROLLBACK" statement interface.
+type Rollback interface {
+	Statement
 }
 
-// NewRollbackWith returns a new Rollback statement instance with the specified parameters.
-func NewRollback() *Rollback {
-	return &Rollback{}
+// rollbackStmt represents a rollback statement.
+type rollbackStmt struct {
+}
+
+// NewRollbackWith returns a new rollbackStmt statement instance with the specified parameters.
+func NewRollback() *rollbackStmt {
+	return &rollbackStmt{}
 }
 
 // StatementType returns the statement type.
-func (stmt *Rollback) StatementType() StatementType {
+func (stmt *rollbackStmt) StatementType() StatementType {
 	return RollbackStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Rollback) String() string {
+func (stmt *rollbackStmt) String() string {
 	strs := []string{
 		"ROLLBACK",
 	}

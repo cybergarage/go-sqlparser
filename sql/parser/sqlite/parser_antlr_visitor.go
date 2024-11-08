@@ -518,7 +518,7 @@ func newBeginWith(ctx antlr.IBegin_stmtContext) query.Begin {
 	return query.NewBegin()
 }
 
-func newRollbackWith(ctx antlr.IRollback_stmtContext) *query.Rollback {
+func newRollbackWith(ctx antlr.IRollback_stmtContext) query.Rollback {
 	return query.NewRollback()
 }
 

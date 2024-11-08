@@ -84,9 +84,7 @@ type Begin = query.Begin
 type Commit = query.Commit
 
 // Rollback represents a "ROLLBACK" statement interface.
-type Rollback interface {
-	Statement
-}
+type Rollback = query.Rollback
 
 // Copy represents a "COPY" statement interface.
 type Copy interface {
