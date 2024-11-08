@@ -25,27 +25,27 @@ type DropTable interface {
 	IfExists() bool
 }
 
-// dropTable is a "DROP TABLE" statement.
-type dropTable struct {
+// dropTableStmt is a "DROP TABLE" statement.
+type dropTableStmt struct {
 	TableList
 	*IfExistsOpt
 }
 
 // NewDropTableWith returns a new dropTable statement instance with the specified parameters.
-func NewDropTableWith(tbls TableList, ife *IfExistsOpt) *dropTable {
-	return &dropTable{
+func NewDropTableWith(tbls TableList, ife *IfExistsOpt) *dropTableStmt {
+	return &dropTableStmt{
 		TableList:   tbls,
 		IfExistsOpt: ife,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *dropTable) StatementType() StatementType {
+func (stmt *dropTableStmt) StatementType() StatementType {
 	return DropTableStatement
 }
 
 // String returns the statement string representation.
-func (stmt *dropTable) String() string {
+func (stmt *dropTableStmt) String() string {
 	strs := []string{
 		"DROP",
 		"TABLE",
