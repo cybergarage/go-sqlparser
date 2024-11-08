@@ -25,32 +25,32 @@ type AlterDatabase interface {
 	RenameTo() *Database
 }
 
-// alterDatabase is a "ALTER DATABASE" statement.
-type alterDatabase struct {
+// alterDatabaseStmt is a "ALTER DATABASE" statement.
+type alterDatabaseStmt struct {
 	*Database
 	to *Database
 }
 
 // NewAlterDatabaseWith returns a new alterDatabase statement instance with the specified options.
-func NewAlterDatabaseWith(name string, to string) *alterDatabase {
-	return &alterDatabase{
+func NewAlterDatabaseWith(name string, to string) *alterDatabaseStmt {
+	return &alterDatabaseStmt{
 		Database: NewDatabaseWith(name),
 		to:       NewDatabaseWith(to),
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *alterDatabase) StatementType() StatementType {
+func (stmt *alterDatabaseStmt) StatementType() StatementType {
 	return AlterDatabaseStatement
 }
 
 // RenameTo returns the "TO" database.
-func (stmt *alterDatabase) RenameTo() *Database {
+func (stmt *alterDatabaseStmt) RenameTo() *Database {
 	return stmt.to
 }
 
 // String returns the statement string representation.
-func (stmt *alterDatabase) String() string {
+func (stmt *alterDatabaseStmt) String() string {
 	elems := []string{
 		"ALTER",
 		"DATABASE",
