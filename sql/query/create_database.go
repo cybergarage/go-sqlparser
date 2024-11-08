@@ -18,27 +18,34 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// CreateDatabase is a "CREATE DATABASE" statement.
-type CreateDatabase struct {
+// CreateDatabase represents a "CREATE DATABASE" statement interface.
+type CreateDatabase interface {
+	Statement
+	DatabaseName() string
+	IfNotExists() bool
+}
+
+// createDatabase is a "CREATE DATABASE" statement.
+type createDatabase struct {
 	*Database
 	*IfNotExistsOpt
 }
 
-// NewCreateDatabaseWith returns a new CreateDatabase statement instance with the specified options.
-func NewCreateDatabaseWith(name string, ifne *IfNotExistsOpt) *CreateDatabase {
-	return &CreateDatabase{
+// NewCreateDatabaseWith returns a new createDatabase statement instance with the specified options.
+func NewCreateDatabaseWith(name string, ifne *IfNotExistsOpt) CreateDatabase {
+	return &createDatabase{
 		Database:       NewDatabaseWith(name),
 		IfNotExistsOpt: ifne,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *CreateDatabase) StatementType() StatementType {
+func (stmt *createDatabase) StatementType() StatementType {
 	return CreateDatabaseStatement
 }
 
 // String returns the statement string representation.
-func (stmt *CreateDatabase) String() string {
+func (stmt *createDatabase) String() string {
 	elems := []string{
 		"CREATE DATABASE"}
 	if stmt.IfNotExists() {

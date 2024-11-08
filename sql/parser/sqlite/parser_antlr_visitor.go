@@ -122,7 +122,7 @@ func newStatementWith(ctx antlr.ISql_stmtContext) query.Statement {
 	return nil
 }
 
-func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) *query.CreateDatabase {
+func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) query.CreateDatabase {
 	dbName := ctx.Database_name().GetText()
 	ifNotExists := query.NewIfNotExistsWith(false)
 	if ctx.If_not_exists() != nil {

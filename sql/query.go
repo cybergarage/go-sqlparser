@@ -48,11 +48,7 @@ type Schema = query.Schema
 type Statement = query.Statement
 
 // CreateDatabase represents a "CREATE DATABASE" statement interface.
-type CreateDatabase interface {
-	Statement
-	DatabaseName() string
-	IfNotExists() bool
-}
+type CreateDatabase = query.CreateDatabase
 
 // CreateTable represents a "CREATE TABLE" statement interface.
 type CreateTable interface {
