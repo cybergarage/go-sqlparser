@@ -181,7 +181,7 @@ func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
 	return query.NewDropIndexWith(schemaName, idxName, ifExists)
 }
 
-func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) *query.AlterDatabase {
+func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) query.AlterDatabase {
 	dbName := ctx.Database_name().GetText()
 	toDBName := ""
 	if ctx := ctx.Rename_database_to(); ctx != nil {

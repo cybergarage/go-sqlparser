@@ -54,11 +54,7 @@ type CreateDatabase = query.CreateDatabase
 type CreateTable = query.CreateTable
 
 // AlterDatabase represents a "ALTER DATABASE" statement interface.
-type AlterDatabase interface {
-	Statement
-	DatabaseName() string
-	RenameTo() *query.Database
-}
+type AlterDatabase = query.AlterDatabase
 
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {

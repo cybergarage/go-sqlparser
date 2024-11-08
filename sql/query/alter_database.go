@@ -14,34 +14,43 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
-// AlterDatabase is a "ALTER DATABASE" statement.
-type AlterDatabase struct {
+// AlterDatabase represents a "ALTER DATABASE" statement interface.
+type AlterDatabase interface {
+	Statement
+	DatabaseName() string
+	RenameTo() *Database
+}
+
+// alterDatabase is a "ALTER DATABASE" statement.
+type alterDatabase struct {
 	*Database
 	to *Database
 }
 
-// NewAlterDatabaseWith returns a new AlterDatabase statement instance with the specified options.
-func NewAlterDatabaseWith(name string, to string) *AlterDatabase {
-	return &AlterDatabase{
+// NewAlterDatabaseWith returns a new alterDatabase statement instance with the specified options.
+func NewAlterDatabaseWith(name string, to string) *alterDatabase {
+	return &alterDatabase{
 		Database: NewDatabaseWith(name),
 		to:       NewDatabaseWith(to),
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *AlterDatabase) StatementType() StatementType {
+func (stmt *alterDatabase) StatementType() StatementType {
 	return AlterDatabaseStatement
 }
 
 // RenameTo returns the "TO" database.
-func (stmt *AlterDatabase) RenameTo() *Database {
+func (stmt *alterDatabase) RenameTo() *Database {
 	return stmt.to
 }
 
 // String returns the statement string representation.
-func (stmt *AlterDatabase) String() string {
+func (stmt *alterDatabase) String() string {
 	elems := []string{
 		"ALTER",
 		"DATABASE",
