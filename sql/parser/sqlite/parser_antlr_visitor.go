@@ -131,7 +131,7 @@ func newCreateDatabaseWith(ctx antlr.ICreate_database_stmtContext) query.CreateD
 	return query.NewCreateDatabaseWith(dbName, ifNotExists)
 }
 
-func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable {
+func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) query.CreateTable {
 	ifNotExists := query.NewIfNotExistsWith(false)
 	if ctx.If_not_exists() != nil {
 		ifNotExists = query.NewIfNotExistsWith(true)
@@ -139,7 +139,7 @@ func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) *query.CreateTable 
 	return query.NewCreateTableWith(newTableSchemaWith(ctx), ifNotExists)
 }
 
-func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) *query.CreateTable {
+func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) query.CreateTable {
 	ifNotExists := query.NewIfNotExistsWith(false)
 	if ctx.If_not_exists() != nil {
 		ifNotExists = query.NewIfNotExistsWith(true)

@@ -14,39 +14,49 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
-// CreateTable is a "CREATE TABLE" statement.
-type CreateTable struct {
+// CreateTable represents a "CREATE TABLE" statement interface.
+type CreateTable interface {
+	Statement
+	TableName() string
+	Schema() *Schema
+	IfNotExists() bool
+}
+
+// createTable is a "CREATE TABLE" statement.
+type createTable struct {
 	schema *Schema
 	*IfNotExistsOpt
 }
 
-// NewCreateTableWith returns a new CreateTable statement instance with the specified options.
-func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) *CreateTable {
-	return &CreateTable{
+// NewCreateTableWith returns a new createTable statement instance with the specified options.
+func NewCreateTableWith(schema *Schema, ifne *IfNotExistsOpt) CreateTable {
+	return &createTable{
 		schema:         schema,
 		IfNotExistsOpt: ifne,
 	}
 }
 
 // Schema returns the schema.
-func (stmt *CreateTable) Schema() *Schema {
+func (stmt *createTable) Schema() *Schema {
 	return stmt.schema
 }
 
 // TableName returns the table name.
-func (stmt *CreateTable) TableName() string {
+func (stmt *createTable) TableName() string {
 	return stmt.schema.TableName()
 }
 
 // StatementType returns the statement type.
-func (stmt *CreateTable) StatementType() StatementType {
+func (stmt *createTable) StatementType() StatementType {
 	return CreateTableStatement
 }
 
 // String returns the statement string representation.
-func (stmt *CreateTable) String() string {
+func (stmt *createTable) String() string {
 	columnsStr := "("
 	columnsStr += stmt.schema.ColumnList.DefinitionString()
 	if 0 < len(stmt.schema.IndexList) {

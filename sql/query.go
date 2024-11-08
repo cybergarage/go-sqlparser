@@ -51,12 +51,7 @@ type Statement = query.Statement
 type CreateDatabase = query.CreateDatabase
 
 // CreateTable represents a "CREATE TABLE" statement interface.
-type CreateTable interface {
-	Statement
-	TableName() string
-	Schema() *Schema
-	IfNotExists() bool
-}
+type CreateTable = query.CreateTable
 
 // AlterDatabase represents a "ALTER DATABASE" statement interface.
 type AlterDatabase interface {
