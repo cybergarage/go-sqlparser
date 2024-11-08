@@ -368,7 +368,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 		}
 		columns = append(columns, query.NewColumnWithOptions(opts...))
 	}
-	var where query.Condition
+	where := query.NewCondition()
 	if w := ctx.GetWhereExpr(); w != nil {
 		where = query.NewConditionWith(newExprWith(w))
 	}
@@ -405,7 +405,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 			opts = append(opts, query.WithSelectGroupBy(groupBy[0].GetText()))
 		}
 	}
-	var where query.Condition
+	where := query.NewCondition()
 	if topExpr != nil {
 		where = query.NewConditionWith(topExpr)
 	}
@@ -472,11 +472,11 @@ func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
 
 func newDeleteWith(ctx antlr.IDelete_stmtContext) query.Delete {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
-	opts := []query.DeleteOption{}
+	where := query.NewCondition()
 	if w := ctx.GetWhereExpr(); w != nil {
-		opts = append(opts, query.WithDeleteCondition(query.NewConditionWith(newExprWith(w))))
+		where = query.NewConditionWith(newExprWith(w))
 	}
-	return query.NewDeleteWith(tbl, opts...)
+	return query.NewDeleteWith(tbl, where)
 }
 
 func newCopyWith(ctx antlr.ICopy_stmtContext) query.Copy {

@@ -35,21 +35,15 @@ type deleteStmt struct {
 }
 
 // NewDeleteWith returns a new deleteStmt statement instance with the specified parameters.
-func NewDeleteWith(tbl Table, opts ...DeleteOption) Delete {
+func NewDeleteWith(tbl Table, w Condition, opts ...DeleteOption) Delete {
 	stmt := &deleteStmt{
 		table:     tbl,
-		Condition: nil,
+		Condition: w,
 	}
 	for _, opt := range opts {
 		opt(stmt)
 	}
 	return stmt
-}
-
-func WithDeleteCondition(cond Condition) func(*deleteStmt) {
-	return func(stmt *deleteStmt) {
-		stmt.Condition = cond
-	}
 }
 
 // StatementType returns the statement type.
