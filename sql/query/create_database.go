@@ -25,27 +25,27 @@ type CreateDatabase interface {
 	IfNotExists() bool
 }
 
-// createDatabase is a "CREATE DATABASE" statement.
-type createDatabase struct {
+// createDatabaseStmt is a "CREATE DATABASE" statement.
+type createDatabaseStmt struct {
 	*Database
 	*IfNotExistsOpt
 }
 
 // NewCreateDatabaseWith returns a new createDatabase statement instance with the specified options.
 func NewCreateDatabaseWith(name string, ifne *IfNotExistsOpt) CreateDatabase {
-	return &createDatabase{
+	return &createDatabaseStmt{
 		Database:       NewDatabaseWith(name),
 		IfNotExistsOpt: ifne,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *createDatabase) StatementType() StatementType {
+func (stmt *createDatabaseStmt) StatementType() StatementType {
 	return CreateDatabaseStatement
 }
 
 // String returns the statement string representation.
-func (stmt *createDatabase) String() string {
+func (stmt *createDatabaseStmt) String() string {
 	elems := []string{
 		"CREATE DATABASE"}
 	if stmt.IfNotExists() {
