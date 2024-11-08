@@ -66,12 +66,7 @@ type DropDatabase = query.DropDatabase
 type DropTable = query.DropTable
 
 // Insert represents a "INSERT" statement interface.
-type Insert interface {
-	Statement
-	TableName() string
-	Columns() query.ColumnList
-	IsSelectAll() bool
-}
+type Insert = query.Insert
 
 // Select represents a "SELECT" statement interface.
 type Select interface {

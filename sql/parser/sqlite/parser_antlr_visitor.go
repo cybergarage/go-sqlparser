@@ -296,7 +296,7 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
 	return query.NewColumnWithOptions(query.WithColumnName(name), query.WithColumnData(t))
 }
 
-func newInsertWith(ctx antlr.IInsert_stmtContext) *query.Insert {
+func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
 	tbl := query.NewTableWith(ctx.Table_name().GetText())
 	columns := query.NewColumns()
 	names := []string{}

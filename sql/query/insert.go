@@ -18,27 +18,35 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Insert is a "INSERT" statement.
-type Insert struct {
+// Insert represents a "INSERT" statement interface.
+type Insert interface {
+	Statement
+	TableName() string
+	Columns() ColumnList
+	IsSelectAll() bool
+}
+
+// insert is a "INSERT" statement.
+type insert struct {
 	*Table
 	ColumnList
 }
 
-// NewInsertWith returns a new Insert statement instance with the specified parameters.
-func NewInsertWith(tbl *Table, columns ColumnList) *Insert {
-	return &Insert{
+// NewInsertWith returns a new insert statement instance with the specified parameters.
+func NewInsertWith(tbl *Table, columns ColumnList) Insert {
+	return &insert{
 		Table:      tbl,
 		ColumnList: columns,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *Insert) StatementType() StatementType {
+func (stmt *insert) StatementType() StatementType {
 	return InsertStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Insert) String() string {
+func (stmt *insert) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
