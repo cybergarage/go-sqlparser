@@ -26,6 +26,13 @@ type condition struct {
 	expr Expr
 }
 
+// NewCondition returns a new where condition instance.
+func NewCondition() Condition {
+	return &condition{
+		expr: nil,
+	}
+}
+
 // NewConditionWith returns a new where condition instance with the specified parameters.
 func NewConditionWith(expr Expr) Condition {
 	return &condition{
