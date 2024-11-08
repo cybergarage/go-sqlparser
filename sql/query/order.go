@@ -76,55 +76,65 @@ func (t OrderType) String() string {
 	}
 }
 
-// Order represents an ORDER BY clause.
-type Order struct {
+// Order represents an ORDER BY interface.
+type Order interface {
+	Column() string
+	Type() OrderType
+	IsNone() bool
+	IsAsc() bool
+	IsDesc() bool
+	String() string
+}
+
+// orderParam represents an ORDER BY clause.
+type orderParam struct {
 	column string
 	order  OrderType
 }
 
 // NewOrder returns a new order instance.
-func NewOrder() *Order {
-	return &Order{
+func NewOrder() Order {
+	return &orderParam{
 		column: "",
 		order:  OrderNone,
 	}
 }
 
 // NewOrderWith returns a new order instance with the specified column and order.
-func NewOrderWith(column string, order OrderType) *Order {
-	return &Order{
+func NewOrderWith(column string, order OrderType) Order {
+	return &orderParam{
 		column: column,
 		order:  order,
 	}
 }
 
 // Column returns the column name.
-func (order *Order) Column() string {
+func (order *orderParam) Column() string {
 	return order.column
 }
 
-// Order returns the order.
-func (order *Order) Order() OrderType {
+// Type returns the order type.
+func (order *orderParam) Type() OrderType {
 	return order.order
 }
 
 // IsNone returns true whether the order is none.
-func (order *Order) IsNone() bool {
+func (order *orderParam) IsNone() bool {
 	return order.order.IsNone()
 }
 
 // IsAsc returns true whether the order is asc.
-func (order *Order) IsAsc() bool {
+func (order *orderParam) IsAsc() bool {
 	return order.order.IsAsc()
 }
 
 // IsDesc returns true whether the order is desc.
-func (order *Order) IsDesc() bool {
+func (order *orderParam) IsDesc() bool {
 	return order.order.IsDesc()
 }
 
 // String returns the string representation.
-func (order *Order) String() string {
+func (order *orderParam) String() string {
 	if order.IsNone() {
 		return ""
 	}
@@ -135,27 +145,38 @@ func (order *Order) String() string {
 		})
 }
 
-// OrderBy represents an ORDER BY clause.
-type OrderBy struct {
-	orders []*Order
+// OrderBy represents an ORDER BY interface.
+type OrderBy interface {
+	Orders() []Order
+	String() string
 }
 
-// NewOrderBy returns a new OrderBy instance.
-func NewOrderBy() *OrderBy {
-	return &OrderBy{
-		orders: []*Order{},
+// orderByParam represents an ORDER BY clause.
+type orderByParam struct {
+	orders []Order
+}
+
+// NewOrderBy returns a new orderByParam instance.
+func NewOrderBy() OrderBy {
+	return &orderByParam{
+		orders: []Order{},
 	}
 }
 
-// NewOrderByWith returns a new OrderBy instance with the specified orders.
-func NewOrderByWith(orders []*Order) *OrderBy {
-	return &OrderBy{
+// NewOrderByWith returns a new orderByParam instance with the specified orders.
+func NewOrderByWith(orders []Order) OrderBy {
+	return &orderByParam{
 		orders: orders,
 	}
 }
 
+// Orders returns the orders.
+func (orderBy *orderByParam) Orders() []Order {
+	return orderBy.orders
+}
+
 // String returns the string representation.
-func (orderBy *OrderBy) String() string {
+func (orderBy *orderByParam) String() string {
 	if len(orderBy.orders) == 0 {
 		return ""
 	}

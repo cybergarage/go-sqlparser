@@ -413,7 +413,7 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 	if ctx := ctx.Order_by_stmt(); ctx != nil {
 		orderBy := ctx.AllOrdering_term()
 		if 0 < len(orderBy) {
-			orders := []*query.Order{}
+			orders := []query.Order{}
 			for _, order := range orderBy {
 				orderColumn := order.Expr().GetText()
 				orderType := query.OrderNone

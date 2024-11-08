@@ -27,7 +27,7 @@ type Select interface {
 	From() TableList
 	Limit() Limit
 	GroupBy() *GroupBy
-	OrderBy() *OrderBy
+	OrderBy() OrderBy
 	Where() Condition
 }
 
@@ -36,7 +36,7 @@ type selectStmt struct {
 	TableList
 	SelectorList
 	Condition
-	orderBy *OrderBy
+	orderBy OrderBy
 	limit   Limit
 	groupBy *GroupBy
 }
@@ -58,7 +58,7 @@ func NewSelectWith(selectors SelectorList, tbls TableList, w Condition, opts ...
 }
 
 // WithSelectOrderBy sets order by options.
-func WithSelectOrderBy(orderBy *OrderBy) func(*selectStmt) {
+func WithSelectOrderBy(orderBy OrderBy) func(*selectStmt) {
 	return func(stmt *selectStmt) {
 		stmt.orderBy = orderBy
 	}
@@ -94,7 +94,7 @@ func (stmt *selectStmt) Where() Condition {
 }
 
 // OrderBy returns the order by clause.
-func (stmt *selectStmt) OrderBy() *OrderBy {
+func (stmt *selectStmt) OrderBy() OrderBy {
 	return stmt.orderBy
 }
 
