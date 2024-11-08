@@ -18,47 +18,53 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// GroupByNone represents an empty ORDER BY clause.
+// GroupByNone represents an empty GROUP BY clause.
 const GroupByNone = ""
 
-// GroupBy represents an ORDER BY clause.
-type GroupBy struct {
+// GroupBy represents an GROUP interface.
+type GroupBy interface {
+	Column() string
+	String() string
+}
+
+// groupBy represents an GROUP BY clause.
+type groupBy struct {
 	column string
 }
 
-// NewGroupBy returns a new GroupBy instance.
-func NewGroupBy() *GroupBy {
-	return &GroupBy{
+// NewGroupBy returns a new groupBy instance.
+func NewGroupBy() *groupBy {
+	return &groupBy{
 		column: "",
 	}
 }
 
-// NewGroupByWith returns a new GroupBy instance with the specified column name.
-func NewGroupByWith(column string) *GroupBy {
-	return &GroupBy{
+// NewGroupByWith returns a new groupBy instance with the specified column name.
+func NewGroupByWith(column string) *groupBy {
+	return &groupBy{
 		column: column,
 	}
 }
 
 // SetColumn sets the column name.
-func (groupBy *GroupBy) SetColumn(name string) *GroupBy {
+func (groupBy *groupBy) SetColumn(name string) *groupBy {
 	groupBy.column = name
 	return groupBy
 }
 
 // Column returns the column name.
-func (groupBy *GroupBy) Column() string {
+func (groupBy *groupBy) Column() string {
 	return groupBy.column
 }
 
 // String returns the string representation.
-func (groupBy *GroupBy) String() string {
+func (groupBy *groupBy) String() string {
 	if len(groupBy.column) == 0 {
 		return ""
 	}
 	return strings.JoinWithSpace(
 		[]string{
-			"ORDER BY",
+			"GROUP BY",
 			groupBy.column,
 		})
 }

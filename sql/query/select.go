@@ -26,7 +26,7 @@ type Select interface {
 	Selectors() SelectorList
 	From() TableList
 	Limit() Limit
-	GroupBy() *GroupBy
+	GroupBy() GroupBy
 	OrderBy() OrderBy
 	Where() Condition
 }
@@ -38,7 +38,7 @@ type selectStmt struct {
 	Condition
 	orderBy OrderBy
 	limit   Limit
-	groupBy *GroupBy
+	groupBy GroupBy
 }
 
 // NewSelectWith returns a new selectStmt statement instance with the specified parameters.
@@ -104,7 +104,7 @@ func (stmt *selectStmt) Limit() Limit {
 }
 
 // GroupBy returns the group by clause.
-func (stmt *selectStmt) GroupBy() *GroupBy {
+func (stmt *selectStmt) GroupBy() GroupBy {
 	return stmt.groupBy
 }
 
