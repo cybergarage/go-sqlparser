@@ -14,6 +14,13 @@
 
 package sql
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/net"
+)
+
+// Conn represents a connection.
+type Conn = net.Conn
+
 // DDOExecutor defines a executor interface for DDO (Data Definition Operations).
 type DDOExecutor interface {
 	// CreateDatabase handles a CREATE DATABASE query.

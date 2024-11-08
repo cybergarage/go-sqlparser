@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package net
 
 import (
 	"net"
@@ -23,7 +23,7 @@ import (
 )
 
 // ConnID represents a connection ID.
-type ConnID uint64
+type ConnID = uint64
 
 // Conn represents a connection.
 type Conn interface {
