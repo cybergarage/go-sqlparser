@@ -470,7 +470,7 @@ func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
 	return query.NewColumnWithOptions(query.WithColumnName(ctx.GetText())), nil
 }
 
-func newDeleteWith(ctx antlr.IDelete_stmtContext) *query.Delete {
+func newDeleteWith(ctx antlr.IDelete_stmtContext) query.Delete {
 	tbl := query.NewTableWith(ctx.GetTable().GetText())
 	opts := []query.DeleteOption{}
 	if w := ctx.GetWhereExpr(); w != nil {

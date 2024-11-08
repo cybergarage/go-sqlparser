@@ -19,17 +19,24 @@ import (
 )
 
 // DeleteOption represents a delete option function.
-type DeleteOption = func(*Delete)
+type DeleteOption = func(*deleteStmt)
 
-// Delete is a "DELETE" statement.
-type Delete struct {
+// Delete represents a "DELETE" statement interface.
+type Delete interface {
+	Statement
+	TableName() string
+	Where() *Condition
+}
+
+// deleteStmt is a "DELETE" statement.
+type deleteStmt struct {
 	table *Table
 	*Condition
 }
 
-// NewDeleteWith returns a new Delete statement instance with the specified parameters.
-func NewDeleteWith(tbl *Table, opts ...DeleteOption) *Delete {
-	stmt := &Delete{
+// NewDeleteWith returns a new deleteStmt statement instance with the specified parameters.
+func NewDeleteWith(tbl *Table, opts ...DeleteOption) *deleteStmt {
+	stmt := &deleteStmt{
 		table:     tbl,
 		Condition: nil,
 	}
@@ -39,34 +46,34 @@ func NewDeleteWith(tbl *Table, opts ...DeleteOption) *Delete {
 	return stmt
 }
 
-func WithDeleteCondition(cond *Condition) func(*Delete) {
-	return func(stmt *Delete) {
+func WithDeleteCondition(cond *Condition) func(*deleteStmt) {
+	return func(stmt *deleteStmt) {
 		stmt.Condition = cond
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *Delete) StatementType() StatementType {
+func (stmt *deleteStmt) StatementType() StatementType {
 	return DeleteStatement
 }
 
 // Table returns the table.
-func (stmt *Delete) Table() *Table {
+func (stmt *deleteStmt) Table() *Table {
 	return stmt.table
 }
 
 // TableName returns the table name.
-func (stmt *Delete) TableName() string {
+func (stmt *deleteStmt) TableName() string {
 	return stmt.table.TableName()
 }
 
 // From returns the table.
-func (stmt *Delete) From() *Table {
+func (stmt *deleteStmt) From() *Table {
 	return stmt.table
 }
 
 // String returns the statement string representation.
-func (stmt *Delete) String() string {
+func (stmt *deleteStmt) String() string {
 	strs := []string{
 		"DELETE",
 		"FROM",

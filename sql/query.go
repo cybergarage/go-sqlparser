@@ -75,11 +75,7 @@ type Select = query.Select
 type Update = query.Update
 
 // Delete represents a "DELETE" statement interface.
-type Delete interface {
-	Statement
-	TableName() string
-	Where() *query.Condition
-}
+type Delete = query.Delete
 
 // Begin represents a "BEGIN" statement interface.
 type Begin interface {
