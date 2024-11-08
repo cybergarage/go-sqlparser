@@ -42,8 +42,14 @@ type DMOExecutor interface {
 	Delete(Conn, Delete) (ResultSet, error)
 }
 
-// TCLExecutor defines a executor interface for TCL (Transaction Control Language).
-type TCLExecutor interface {
+// DCOExecutor defines a executor interface for DCO (Data Control Operations).
+type DCOExecutor interface {
+	// Use handles a USE query.
+	Use(Conn, Use) error
+}
+
+// TCOExecutor defines a executor interface for TCO (Transaction Control Operations).
+type TCOExecutor interface {
 	// Begin handles a BEGIN query.
 	Begin(Conn, Begin) error
 	// Commit handles a COMMIT query.
@@ -56,6 +62,8 @@ type TCLExecutor interface {
 type QueryExecutor interface {
 	DDOExecutor
 	DMOExecutor
+	DCOExecutor
+	TCOExecutor
 }
 
 // ErrorHandler represents a user error handler.
@@ -64,8 +72,7 @@ type ErrorHandler interface {
 }
 
 // Executor represents a frontend message executor.
-type Executor interface { // nolint: interfacebloat
-	TCLExecutor
+type Executor interface {
 	QueryExecutor
 	ErrorHandler
 }
