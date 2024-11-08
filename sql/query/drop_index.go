@@ -14,6 +14,8 @@
 
 package query
 
+import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+
 // DropIndex is a "DROP INDEX" statement.
 type DropIndex struct {
 	*Index
@@ -37,5 +39,17 @@ func (stmt *DropIndex) StatementType() StatementType {
 
 // String returns the statement string representation.
 func (stmt *DropIndex) String() string {
-	return stmt.Schema.String()
+	strs := []string{
+		"DROP",
+		"INDEX",
+	}
+	if stmt.IfExists() {
+		strs = append(strs, stmt.IfExistsOpt.String())
+	}
+	strs = append(strs, stmt.Index.Name())
+	tableName := stmt.Schema.FullTableName()
+	if 0 < len(tableName) {
+		strs = append(strs, "ON", tableName)
+	}
+	return strings.JoinWithSpace(strs)
 }
