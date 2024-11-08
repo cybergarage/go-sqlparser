@@ -18,22 +18,27 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Begin represents a begin statement.
-type Begin struct {
+// Begin represents a "BEGIN" statement interface.
+type Begin interface {
+	Statement
+}
+
+// beginStmt represents a begin statement.
+type beginStmt struct {
 }
 
 // NewBegin returns a new begin statement.
-func NewBegin() *Begin {
-	return &Begin{}
+func NewBegin() *beginStmt {
+	return &beginStmt{}
 }
 
 // StatementType returns the statement type.
-func (stmt *Begin) StatementType() StatementType {
+func (stmt *beginStmt) StatementType() StatementType {
 	return BeginStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Begin) String() string {
+func (stmt *beginStmt) String() string {
 	strs := []string{
 		"BEGIN",
 	}

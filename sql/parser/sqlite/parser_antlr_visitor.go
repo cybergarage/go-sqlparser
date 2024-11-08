@@ -514,7 +514,7 @@ func newVacuumWith(ctx antlr.IVacuum_stmtContext) *query.Vacuum {
 	return query.NewVacuum()
 }
 
-func newBeginWith(ctx antlr.IBegin_stmtContext) *query.Begin {
+func newBeginWith(ctx antlr.IBegin_stmtContext) query.Begin {
 	return query.NewBegin()
 }
 

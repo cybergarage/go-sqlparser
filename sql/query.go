@@ -78,9 +78,7 @@ type Update = query.Update
 type Delete = query.Delete
 
 // Begin represents a "BEGIN" statement interface.
-type Begin interface {
-	Statement
-}
+type Begin = query.Begin
 
 // Commit represents a "COMMIT" statement interface.
 type Commit interface {
