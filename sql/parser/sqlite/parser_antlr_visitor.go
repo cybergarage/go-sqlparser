@@ -522,7 +522,7 @@ func newRollbackWith(ctx antlr.IRollback_stmtContext) *query.Rollback {
 	return query.NewRollback()
 }
 
-func newCommitWith(ctx antlr.ICommit_stmtContext) *query.Commit {
+func newCommitWith(ctx antlr.ICommit_stmtContext) query.Commit {
 	return query.NewCommit()
 }
 

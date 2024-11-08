@@ -81,9 +81,7 @@ type Delete = query.Delete
 type Begin = query.Begin
 
 // Commit represents a "COMMIT" statement interface.
-type Commit interface {
-	Statement
-}
+type Commit = query.Commit
 
 // Rollback represents a "ROLLBACK" statement interface.
 type Rollback interface {

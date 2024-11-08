@@ -16,22 +16,27 @@ package query
 
 import "github.com/cybergarage/go-sqlparser/sql/util/strings"
 
-// Commit is a "COMMIT" statement.
-type Commit struct {
+// Commit represents a "COMMIT" statement interface.
+type Commit interface {
+	Statement
 }
 
-// NewCommitWith returns a new Commit statement instance with the specified parameters.
-func NewCommit() *Commit {
-	return &Commit{}
+// commitStmt is a "COMMIT" statement.
+type commitStmt struct {
+}
+
+// NewCommitWith returns a new commitStmt statement instance with the specified parameters.
+func NewCommit() *commitStmt {
+	return &commitStmt{}
 }
 
 // StatementType returns the statement type.
-func (stmt *Commit) StatementType() StatementType {
+func (stmt *commitStmt) StatementType() StatementType {
 	return CommitStatement
 }
 
 // String returns the statement string representation.
-func (stmt *Commit) String() string {
+func (stmt *commitStmt) String() string {
 	strs := []string{
 		"COMMIT",
 	}
