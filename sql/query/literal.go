@@ -83,8 +83,8 @@ func (lit *Literal) Value() any {
 	return lit.v
 }
 
-// SetType sets a type.
-func (lit *Literal) SetType(t LiteralType) *Literal {
+// SetValueType sets a literal type.
+func (lit *Literal) SetValueType(t LiteralType) *Literal {
 	lit.t = t
 	return lit
 }
