@@ -72,8 +72,10 @@ func WithCopyFormat(fmt string) func(*copyStmt) {
 // Copy represents a "COPY" statement interface.
 type Copy interface {
 	Statement
-	Columns() ColumnList
+	// TableName returns the table name.
 	TableName() string
+	// Columns returns the column list.
+	Columns() ColumnList
 }
 
 // copyStmt is a "COPY" statement.
