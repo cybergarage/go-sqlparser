@@ -48,9 +48,11 @@ type Column interface {
 	ValueType() LiteralType
 	// ValueString returns the column value string.
 	ValueString() string
-	Executor() FunctionExecutor
+	// Executor returns the executor.
+	Executor() (FunctionExecutor, bool)
+	// Arguments returns the executor arguments.
 	Arguments() []any
-	ExecuteUpdator(map[string]any) (any, error)
+	// ExecuteUpdator(map[string]any) (any, error)
 	// Copy returns a copy of the column.
 	Copy() Column
 	// String returns the string representation.
@@ -139,8 +141,11 @@ func (col *column) Name() string {
 }
 
 // Executor returns the executor.
-func (col *column) Executor() FunctionExecutor {
-	return col.FunctionExecutor
+func (col *column) Executor() (FunctionExecutor, bool) {
+	if col.FunctionExecutor == nil {
+		return nil, false
+	}
+	return col.FunctionExecutor, true
 }
 
 // Arguments returns the executor arguments.
@@ -279,12 +284,12 @@ func (col *column) ExecuteUpdator(row map[string]any) (any, error) {
 
 // UpdatorString returns the updator string representation.
 func (col *column) UpdatorString() string {
-	if col.Executor() != nil {
+	if executor, ok := col.Executor(); ok {
 		strs := []string{}
 		for n, arg := range col.args {
 			strs = append(strs, fmt.Sprintf("%v", arg))
 			if n == 0 {
-				strs = append(strs, col.Executor().Name())
+				strs = append(strs, executor.Name())
 			}
 		}
 		return strings.Join(strs, " ")

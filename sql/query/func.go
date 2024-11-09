@@ -59,17 +59,52 @@ type Function interface {
 
 // function represents a function interface.
 type function struct {
-	name string
+	name     string
+	executor FunctionExecutor
 	ArgumentList
 }
 
+// FunctionOption represents a function option function.
+type FunctionOption = func(*function)
+
 // NewFunctionWith returns a function instance.
-func NewFunctionWith(name string, args ...Argument) *function {
+func NewFunctionWith(opts ...FunctionOption) Function {
 	fn := &function{
-		name:         strings.ToUpper(name),
-		ArgumentList: NewArgumentsWith(args...),
+		name:         "",
+		executor:     nil,
+		ArgumentList: NewArguments(),
+	}
+	for _, opt := range opts {
+		opt(fn)
 	}
 	return fn
+}
+
+// WithFunctionName sets the function name.
+func WithFunctionName(name string) FunctionOption {
+	return func(fn *function) {
+		fn.SetName(name)
+	}
+}
+
+// WithFunctionArguments sets the function arguments.
+func WithFunctionArguments(args ...Argument) FunctionOption {
+	return func(fn *function) {
+		fn.ArgumentList = NewArgumentsWith(args...)
+	}
+}
+
+// WithFunctionExecutor sets the function executor.
+func WithFunctionExecutor(executor FunctionExecutor) FunctionOption {
+	return func(fn *function) {
+		fn.SetName(executor.Name())
+		fn.executor = executor
+	}
+}
+
+// SetName sets the function name.
+func (fn *function) SetName(name string) {
+	fn.name = strings.ToUpper(name)
 }
 
 // Name returns the function name.
