@@ -21,26 +21,28 @@ import (
 // Vacuum represents a "VACUUM" statement interface.
 type Vacuum interface {
 	Statement
+	// Table returns the table.
+	Table() Table
 	// TableName returns the table name.
 	TableName() string
 }
 
 // vacuumStmt is a "VACUUM" statement.
 type vacuumStmt struct {
-	Table
+	table Table
 }
 
 // NewVacuum returns a new vacuum statement instance.
 func NewVacuum() *vacuumStmt {
 	return &vacuumStmt{
-		Table: nil,
+		table: nil,
 	}
 }
 
 // NewVacuumWith returns a new vacuum statement instance with the specified parameters.
 func NewVacuumWith(tbl Table) *vacuumStmt {
 	return &vacuumStmt{
-		Table: tbl,
+		table: tbl,
 	}
 }
 
@@ -49,13 +51,26 @@ func (stmt *vacuumStmt) StatementType() StatementType {
 	return VacuumStatement
 }
 
+// Table returns the table.
+func (stmt *vacuumStmt) Table() Table {
+	return stmt.table
+}
+
+// TableName returns the table name.
+func (stmt *vacuumStmt) TableName() string {
+	if stmt.table == nil {
+		return ""
+	}
+	return stmt.table.FullTableName()
+}
+
 // String returns the statement string representation.
 func (stmt *vacuumStmt) String() string {
 	strs := []string{
 		"VACUUM",
 	}
-	if stmt.Table != nil {
-		strs = append(strs, stmt.Table.FullTableName())
+	if stmt.table != nil {
+		strs = append(strs, stmt.table.FullTableName())
 	}
 	return strings.JoinWithSpace(strs)
 }
