@@ -22,12 +22,19 @@ type SelectOption = func(*selectStmt)
 // Select represents a "SELECT" statement interface.
 type Select interface {
 	Statement
+	// IsSelectAll returns true if the statement is a "SELECT *".
 	IsSelectAll() bool
+	// Selectors returns the selectors.
 	Selectors() SelectorList
+	// From returns the source table list.
 	From() TableList
+	// Limit returns the limit clause.
 	Limit() Limit
+	// GroupBy returns the group by clause.
 	GroupBy() GroupBy
+	// OrderBy returns the order by clause.
 	OrderBy() OrderBy
+	// Where returns the condition.
 	Where() Condition
 }
 
