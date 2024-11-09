@@ -16,30 +16,9 @@ package query
 
 import "strings"
 
-// IndexType represents a index type.
-type IndexType uint8
-
-const (
-	UnknownIndex   IndexType = 0
-	PrimaryIndex   IndexType = 1
-	SecondaryIndex IndexType = 2
-)
-
 const (
 	indexNameSep = "_"
 )
-
-// String returns the string representation.
-func (t IndexType) String() string {
-	switch t {
-	case PrimaryIndex:
-		return "PRIMARY KEY"
-	case SecondaryIndex:
-		return "SECONDARY KEY"
-	default:
-		return "UNKNOWN KEY"
-	}
-}
 
 // Index represents a index.
 type Index struct {
