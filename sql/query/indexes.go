@@ -19,7 +19,7 @@ import (
 )
 
 // IndexList represents an index array.
-type IndexList []*Index
+type IndexList []Index
 
 // NewIndexes returns a new Indexes instance.
 func NewIndexes() IndexList {
@@ -32,7 +32,7 @@ func (indexes IndexList) Indexes() IndexList {
 }
 
 // LookupIndex returns an index by the specified name.
-func (indexes IndexList) LookupIndex(name string) (*Index, error) {
+func (indexes IndexList) LookupIndex(name string) (Index, error) {
 	for _, index := range indexes {
 		if strings.EqualFold(index.Name(), name) {
 			return index, nil

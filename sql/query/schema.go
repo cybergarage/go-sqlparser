@@ -37,9 +37,9 @@ type Schema interface {
 	// Indexes returns the all indexes.
 	Indexes() IndexList
 	// LookupIndex returns an index by the specified name.
-	LookupIndex(name string) (*Index, error)
+	LookupIndex(name string) (Index, error)
 	// AddIndex adds an index.
-	AddIndex(index *Index) error
+	AddIndex(index Index) error
 	// DropIndex drops an index by the specified name.
 	DropIndex(name string) error
 	// Selectors returns the all selectors from the columns.
@@ -105,7 +105,7 @@ func (schema *schema) AddColumn(column Column) error {
 }
 
 // AddIndex adds an index.
-func (schema *schema) AddIndex(index *Index) error {
+func (schema *schema) AddIndex(index Index) error {
 	schema.IndexList = append(schema.IndexList, index)
 	return nil
 }

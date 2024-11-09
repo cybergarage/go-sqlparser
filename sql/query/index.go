@@ -14,22 +14,32 @@
 
 package query
 
-import "strings"
+import (
+	"strings"
+)
 
 const (
 	indexNameSep = "_"
 )
 
-// Index represents a index.
-type Index struct {
+// Index represents a index interface.
+type Index interface {
+	Name() string
+	Type() IndexType
+	Columns() ColumnList
+	DefinitionString() string
+}
+
+// index represents a index.
+type index struct {
 	name string
 	typ  IndexType
 	ColumnList
 }
 
 // NewIndexWith returns a new index instance.
-func NewIndexWith(name string, t IndexType, columns ColumnList) *Index {
-	idx := &Index{
+func NewIndexWith(name string, t IndexType, columns ColumnList) Index {
+	idx := &index{
 		name:       name,
 		typ:        t,
 		ColumnList: columns,
@@ -38,33 +48,33 @@ func NewIndexWith(name string, t IndexType, columns ColumnList) *Index {
 }
 
 // NewPrimaryIndexWith returns a new primary index instance.
-func NewPrimaryIndexWith(columns ColumnList) *Index {
+func NewPrimaryIndexWith(columns ColumnList) Index {
 	idxName := strings.Join(columns.Names(), indexNameSep)
 	return NewIndexWith(idxName, PrimaryIndex, columns)
 }
 
 // NewSecondaryIndexWith returns a new secondary index instance.
-func NewSecondaryIndexWith(name string, columns ColumnList) *Index {
+func NewSecondaryIndexWith(name string, columns ColumnList) Index {
 	return NewIndexWith(name, SecondaryIndex, columns)
 }
 
 // Name returns the index name.
-func (idx *Index) Name() string {
+func (idx *index) Name() string {
 	return idx.name
 }
 
 // Type returns the index type.
-func (idx *Index) Type() IndexType {
+func (idx *index) Type() IndexType {
 	return idx.typ
 }
 
 // String returns the index string representation.
-func (idx *Index) String() string {
+func (idx *index) String() string {
 	return idx.name
 }
 
 // DefinitionString returns the index definition string representation.
-func (idx *Index) DefinitionString() string {
+func (idx *index) DefinitionString() string {
 	s := idx.typ.String()
 	s += " ("
 	s += strings.Join(idx.ColumnList.Names(), ", ")

@@ -26,7 +26,7 @@ type AlterTable interface {
 	Statement
 	TableName() string
 	AddColumn() (Column, bool)
-	AddIndex() (*Index, bool)
+	AddIndex() (Index, bool)
 	DropColumn() (Column, bool)
 	RenameColumns() (Column, Column, bool)
 	RenameTo() (Table, bool)
@@ -40,9 +40,9 @@ type alterTableStmt struct {
 	renameColumnFrom Column
 	renameColumnTo   Column
 	addColumn        Column
-	addIndex         *Index
+	addIndex         Index
 	dropColumn       Column
-	dropIndex        *Index
+	dropIndex        Index
 }
 
 // NewAlterTableWith returns a new alterTable statement instance with the specified options.
@@ -99,7 +99,7 @@ func WithAlterTableAddColumn(column Column) func(*alterTableStmt) {
 }
 
 // WithAlterTableAddIndex sets an add index.
-func WithAlterTableAddIndex(index *Index) func(*alterTableStmt) {
+func WithAlterTableAddIndex(index Index) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.addIndex = index
 	}
@@ -113,7 +113,7 @@ func WithAlterTableDropColumn(column Column) func(*alterTableStmt) {
 }
 
 // WithAlterTableDropColumn sets a drop index.
-func WithAlterTableDropIndex(index *Index) func(*alterTableStmt) {
+func WithAlterTableDropIndex(index Index) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.dropIndex = index
 	}
@@ -149,7 +149,7 @@ func (stmt *alterTableStmt) AddColumn() (Column, bool) {
 }
 
 // AddIndex returns the add index.
-func (stmt *alterTableStmt) AddIndex() (*Index, bool) {
+func (stmt *alterTableStmt) AddIndex() (Index, bool) {
 	if stmt.addIndex == nil {
 		return nil, false
 	}
@@ -165,7 +165,7 @@ func (stmt *alterTableStmt) DropColumn() (Column, bool) {
 }
 
 // DropIndex returns the drop index.
-func (stmt *alterTableStmt) DropIndex() (*Index, bool) {
+func (stmt *alterTableStmt) DropIndex() (Index, bool) {
 	if stmt.dropIndex == nil {
 		return nil, false
 	}

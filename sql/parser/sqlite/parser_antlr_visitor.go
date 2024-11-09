@@ -221,7 +221,7 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) query.AlterTable {
 	return query.NewAlterTableWith(tblName, opts...)
 }
 
-func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) *query.Index {
+func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
 	indexType := query.SecondaryIndex
 	if ctx := ctx.Column_constraint(); ctx != nil {
 		if ctx.Primary_key_constraint() != nil {
