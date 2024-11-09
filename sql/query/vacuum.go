@@ -21,6 +21,7 @@ import (
 // Vacuum represents a "VACUUM" statement interface.
 type Vacuum interface {
 	Statement
+	// TableName returns the table name.
 	TableName() string
 }
 
