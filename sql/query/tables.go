@@ -38,6 +38,15 @@ func (tbls TableList) Tables() TableList {
 	return tbls
 }
 
+// TableNames returns the table names.
+func (tbls TableList) TableNames() []string {
+	names := make([]string, len(tbls))
+	for n, tbl := range tbls {
+		names[n] = tbl.FullTableName()
+	}
+	return names
+}
+
 // HasTable returns true whether the table array has the specified table name.
 func (tbls TableList) HasTable(names ...string) bool {
 	for _, name := range names {
