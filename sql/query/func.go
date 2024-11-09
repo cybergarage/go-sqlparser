@@ -131,6 +131,9 @@ func (fn *function) IsAsterisk() bool {
 
 // Executor returns the executor of the function.
 func (fn *function) Executor() (FunctionExecutor, error) {
+	if fn.executor != nil {
+		return fn.executor, nil
+	}
 	return GetFunctionExecutor(fn.name)
 }
 
