@@ -29,7 +29,7 @@ func TestQueryString(t *testing.T, queryStr string) {
 		return
 	}
 
-	if err != nil || len(parsedQueries) != 1 {
+	if len(parsedQueries) != 1 {
 		t.Errorf("%s\n", queryStr)
 		for _, query := range parsedQueries {
 			t.Errorf("%s\n", query.String())
