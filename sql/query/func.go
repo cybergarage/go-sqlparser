@@ -15,6 +15,7 @@
 package query
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -48,8 +49,10 @@ type Function interface {
 	Arguments() ArgumentList
 	// IsAsterisk returns true if the argument list is "*".
 	IsAsterisk() bool
-	// Execute returns the executor of the function.
+	// Executor returns the executor of the function.
 	Executor() (FunctionExecutor, error)
+	// Execute executes the executor with the specified row.
+	Execute(col Column, row map[string]any) (any, error)
 	// String returns a string representation of the function.
 	String() string
 }
@@ -94,6 +97,38 @@ func (fn *function) IsAsterisk() bool {
 // Executor returns the executor of the function.
 func (fn *function) Executor() (FunctionExecutor, error) {
 	return GetFunctionExecutor(fn.name)
+}
+
+// ExecuteUpdator executes the executor with the specified row.
+func (fn *function) Execute(col Column, row map[string]any) (any, error) {
+	newErrInvalidArgs := func(fn Function, col Column, row map[string]any) error {
+		return fmt.Errorf("%v is %w arguments (%s:%s)", fn.String(), ErrInvalid, col.String(), row)
+	}
+
+	executor, err := fn.Executor()
+	if err != nil {
+		return nil, err
+	}
+
+	args := col.Arguments()
+	if len(args) < 2 {
+		return nil, newErrInvalidArgs(fn, col, row)
+	}
+	leftExprName, ok := args[0].(string)
+	if !ok {
+		return nil, newErrInvalidArgs(fn, col, row)
+	}
+	v, ok := row[leftExprName]
+	if !ok {
+		return nil, newErrInvalidArgs(fn, col, row)
+	}
+	args[0] = v
+	rv, err := executor.Execute(args...)
+	if err != nil {
+		return nil, err
+	}
+
+	return rv, nil
 }
 
 // String returns a string representation of the function.
