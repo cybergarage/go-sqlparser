@@ -19,99 +19,10 @@ import (
 	"strings"
 )
 
-// DataType represents a data type.
-type DataType uint8
-
 // DataDef represents a data definition.
 type DataDef struct {
 	Type   DataType
 	Length int
-}
-
-const (
-	UnknownData = iota
-	BigIntData
-	BinaryData
-	BitData
-	BlobData
-	BooleanData
-	CharData
-	CharacterData
-	ClobData
-	DateData
-	DateTimeData
-	DecimalData
-	DoubleData
-	DoublePrecision
-	FloatData
-	IntData
-	IntegerData
-	LongBlobData
-	LongTextData
-	MediumBlobData
-	MediumIntData
-	MediumTextData
-	NumericData
-	RealData
-	SetData
-	SmallIntData
-	TextData
-	TimeData
-	TimeStampData
-	TinyBlobData
-	TinyIntData
-	TinyTextData
-	VarBinaryData
-	VarCharData
-	VarCharacterData
-	YearData
-)
-
-var dataTypeStrings = map[DataType]string{
-	BigIntData:       "BIGINT",
-	BinaryData:       "BINARY",
-	BitData:          "BIT",
-	BlobData:         "BLOB",
-	BooleanData:      "BOOLEAN",
-	CharData:         "CHAR",
-	CharacterData:    "CHARACTER",
-	ClobData:         "CLOB",
-	DateData:         "DATE",
-	DateTimeData:     "DATETIME",
-	DecimalData:      "DECIMAL",
-	DoubleData:       "DOUBLE",
-	DoublePrecision:  "DOUBLE PRECISION",
-	FloatData:        "FLOAT",
-	IntData:          "INT",
-	IntegerData:      "INTEGER",
-	LongBlobData:     "LONGBLOB",
-	LongTextData:     "LONGTEXT",
-	MediumBlobData:   "MEDIUMBLOB",
-	MediumIntData:    "MEDIUMINT",
-	MediumTextData:   "MEDIUMTEXT",
-	NumericData:      "NUMERIC",
-	RealData:         "REAL",
-	SetData:          "SET",
-	SmallIntData:     "SMALLINT",
-	TextData:         "TEXT",
-	TimeData:         "TIME",
-	TimeStampData:    "TIMESTAMP",
-	TinyBlobData:     "TINYBLOB",
-	TinyIntData:      "TINYINT",
-	TinyTextData:     "TINYTEXT",
-	VarBinaryData:    "VARBINARY",
-	VarCharData:      "VARCHAR",
-	VarCharacterData: "VARCHARACTER",
-	YearData:         "YEAR",
-}
-
-// String returns the string representation.
-func (t DataType) String() string {
-	s, ok := dataTypeStrings[t]
-	if !ok {
-		return ""
-	}
-	return s
 }
 
 // NewDataWith returns a new DataType instance with the specified type and length.
