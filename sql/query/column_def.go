@@ -19,8 +19,10 @@ import (
 	"strings"
 )
 
-// DataDef represents a data definition interface.
-type DataDef interface {
+// ColumnDef represents a data definition interface.
+type ColumnDef interface {
+	// Constrains returns the column constrains.
+	Constrains() Constraint
 	// DataType returns the column data type.
 	DataType() DataType
 	// DataTypeSize returns the column data type size.
@@ -31,28 +33,31 @@ type DataDef interface {
 
 // dataDef represents a data definition.
 type dataDef struct {
+	consts Constraint
 	Type   DataType
 	Length int
 }
 
 // NewDataDef returns a new DataType instance with the specified type and length.
-func NewDataDef(t DataType, l int) DataDef {
+func NewDataDef(t DataType, l int) ColumnDef {
 	return &dataDef{
+		consts: ConstraintNone,
 		Type:   t,
 		Length: l,
 	}
 }
 
 // NewUnknownDataDef returns a new unknown data type instance.
-func NewUnknownDataDef() DataDef {
+func NewUnknownDataDef() ColumnDef {
 	return &dataDef{
+		consts: ConstraintNone,
 		Type:   UnknownData,
 		Length: 0,
 	}
 }
 
 // NewDataDefFrom returns the data type of the specified string.
-func NewDataDefFrom(s string, l int) (DataDef, error) {
+func NewDataDefFrom(s string, l int) (ColumnDef, error) {
 	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == us {
@@ -66,6 +71,11 @@ func NewDataDefFrom(s string, l int) (DataDef, error) {
 		}
 	}
 	return nil, fmt.Errorf("%w data type : %s", ErrInvalid, s)
+}
+
+// Constrains returns the column constrains.
+func (da *dataDef) Constrains() Constraint {
+	return da.consts
 }
 
 // DataType returns the column data type.

@@ -121,7 +121,11 @@ func (columns ColumnList) SetSchema(schema Schema) error {
 		if err != nil {
 			return err
 		}
-		err = col.SetDefinition(schemaCol.Definition())
+		colImpl, ok := col.(*column)
+		if !ok {
+			return newErrColumnNotFound(col.Name())
+		}
+		err = colImpl.SetDefinition(schemaCol.Definition())
 		if err != nil {
 			return err
 		}

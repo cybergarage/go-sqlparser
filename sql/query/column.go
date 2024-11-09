@@ -30,25 +30,30 @@ type Column interface {
 	Name() string
 	// IsName returns true whether the column name is the specified one.
 	IsName(string) bool
+	// Definition returns the column definition.
+	Definition() ColumnDef
 	// Constrains returns the column constrains.
 	Constrains() Constraint
 	// DataType returns the column data type.
 	DataType() DataType
 	// DataTypeSize returns the column data type size.
 	DataTypeSize() int
+	// HasValue returns true whether the column has a value.
+	HasValue() bool
+	// SetValue sets a value.
+	SetValue(any) error
+	// Value returns the column value.
+	Value() any
+	// ValueType returns the column value type.
+	ValueType() LiteralType
+	// ValueString returns the column value string.
+	ValueString() string
 	Executor() FunctionExecutor
 	Arguments() []any
-	HasValue() bool
-	SetValue(any) error
-	Value() any
-	ValueType() LiteralType
-	ValueString() string
-	SetConstant(Constraint)
-	SetDefinition(DataDef) error
-	Definition() DataDef
 	ExecuteUpdator(map[string]any) (any, error)
-
+	// Copy returns a copy of the column.
 	Copy() Column
+	// String returns the string representation.
 	String() string
 }
 
@@ -67,22 +72,20 @@ type columnUpdatorStringer interface {
 // column represents a column.
 type column struct {
 	name string
-	DataDef
+	ColumnDef
 	*Literal
 	FunctionExecutor
-	consts Constraint
-	args   []any
+	args []any
 }
 
 // NewColumn returns a column instance.
 func NewColumnWithOptions(opts ...ColumnOption) Column {
 	col := &column{
 		name:             "",
-		DataDef:          nil,
+		ColumnDef:        nil,
 		Literal:          nil,
 		FunctionExecutor: nil,
 		args:             []any{},
-		consts:           ConstraintNone,
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -98,9 +101,9 @@ func WithColumnName(name string) func(*column) {
 }
 
 // WithColumnData sets a column data.
-func WithColumnData(data DataDef) func(*column) {
+func WithColumnData(data ColumnDef) func(*column) {
 	return func(col *column) {
-		col.DataDef = data
+		col.ColumnDef = data
 	}
 }
 
@@ -125,12 +128,6 @@ func WithColumnArguments(args []any) func(*column) {
 	}
 }
 
-func WithColumnConstant(c Constraint) func(*column) {
-	return func(col *column) {
-		col.consts |= c
-	}
-}
-
 // NewColumn returns a column instance.
 func NewColumnWithName(name string) Column {
 	return NewColumnWithOptions(WithColumnName(name))
@@ -151,11 +148,6 @@ func (col *column) Arguments() []any {
 	return col.args
 }
 
-// Constrains returns the column constrains.
-func (col *column) Constrains() Constraint {
-	return col.consts
-}
-
 // IsName returns true whether the column name is the specified one.
 func (col *column) IsName(name string) bool {
 	return col.name == name
@@ -164,17 +156,12 @@ func (col *column) IsName(name string) bool {
 // SetValue sets a value.
 func (col *column) SetValue(v any) error {
 	col.Literal.SetValue(v)
-	return col.SetDefinition(col.DataDef)
-}
-
-// SetConstant sets a constant.
-func (col *column) SetConstant(c Constraint) {
-	col.consts |= c
+	return col.SetDefinition(col.ColumnDef)
 }
 
 // SetDefinition sets the column definition to update the column value.
-func (col *column) SetDefinition(dataDef DataDef) error {
-	col.DataDef = dataDef
+func (col *column) SetDefinition(dataDef ColumnDef) error {
+	col.ColumnDef = dataDef
 
 	if dataDef == nil || col.Literal == nil {
 		return nil
@@ -231,7 +218,7 @@ func (col *column) SetDefinition(dataDef DataDef) error {
 func (col *column) Copy() Column {
 	return NewColumnWithOptions(
 		WithColumnName(col.name),
-		WithColumnData(col.DataDef),
+		WithColumnData(col.ColumnDef),
 		WithColumnLiteral(col.Literal),
 	)
 }
@@ -243,15 +230,15 @@ func (col *column) String() string {
 
 // DefinitionString returns the definition string representation.
 func (col *column) DefinitionString() string {
-	if col.DataDef == nil {
+	if col.ColumnDef == nil {
 		return col.name
 	}
-	return col.name + " " + col.DataDef.String()
+	return col.name + " " + col.ColumnDef.String()
 }
 
 // Definition returns the column definition.
-func (col *column) Definition() DataDef {
-	return col.DataDef
+func (col *column) Definition() ColumnDef {
+	return col.ColumnDef
 }
 
 // SelectorString returns the selector string representation.
