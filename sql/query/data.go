@@ -33,8 +33,8 @@ func NewDataDef(t DataType, l int) *DataDef {
 	}
 }
 
-// NewDataDefinitionFrom returns the data type of the specified string.
-func NewDataDefinitionFrom(s string, l int) (*DataDef, error) {
+// NewDataDefFrom returns the data type of the specified string.
+func NewDataDefFrom(s string, l int) (*DataDef, error) {
 	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == us {
