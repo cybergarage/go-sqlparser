@@ -21,7 +21,9 @@ import (
 // DropDatabase represents a "DROP DATABASE" statement interface.
 type DropDatabase interface {
 	Statement
+	// DatabaseName returns the database name.
 	DatabaseName() string
+	// IfExists returns true if the "IF EXISTS" option is set.
 	IfExists() bool
 }
 
