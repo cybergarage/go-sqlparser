@@ -74,7 +74,7 @@ func (limit *limitParam) Limit() int {
 // String returns the string representation.
 func (limit *limitParam) String() string {
 	strs := []string{}
-	if limit.offset <= 0 {
+	if 0 < limit.limit {
 		strs = append(strs, "LIMIT", strconv.Itoa(limit.limit))
 	}
 	if 0 < limit.offset {
