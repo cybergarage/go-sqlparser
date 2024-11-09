@@ -120,7 +120,7 @@ func (stmt *selectStmt) String() string {
 		"FROM",
 		stmt.TableList.String(),
 	}
-	if stmt.Condition != nil {
+	if !stmt.Condition.IsEmpty() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	strs = append(strs, stmt.orderBy.String())
