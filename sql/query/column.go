@@ -42,13 +42,17 @@ type Column interface {
 	Definition() DataDef
 	DataType() DataType
 	ExecuteUpdator(map[string]any) (any, error)
-	UpdatorString() string
+
 	Copy() Column
 	String() string
 }
 
 type columnDefStringer interface {
 	DefinitionString() string
+}
+
+type columnUpdateStringer interface {
+	UpdatorString() string
 }
 
 // column represents a column.
