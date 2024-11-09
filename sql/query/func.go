@@ -38,33 +38,49 @@ type FunctionExecutor interface {
 	Execute(...any) (any, error)
 }
 
-// Function represents a column.
-type Function struct {
+// Function represents a .
+type Function interface {
+	// Name returns the function name.
+	Name() string
+	// IsName returns true whether the function name is the specified one.
+	IsName(string) bool
+	// Arguments returns the argument list.
+	Arguments() ArgumentList
+	// IsAsterisk returns true if the argument list is "*".
+	IsAsterisk() bool
+	// Execute returns the executor of the function.
+	Executor() (FunctionExecutor, error)
+	// String returns a string representation of the function.
+	String() string
+}
+
+// function represents a function interface.
+type function struct {
 	name string
 	ArgumentList
 }
 
-// NewFunctionWith returns a column instance.
-func NewFunctionWith(name string, args ...Argument) *Function {
-	fn := &Function{
+// NewFunctionWith returns a function instance.
+func NewFunctionWith(name string, args ...Argument) *function {
+	fn := &function{
 		name:         strings.ToUpper(name),
 		ArgumentList: NewArgumentsWith(args...),
 	}
 	return fn
 }
 
-// Name returns the column name.
-func (fn *Function) Name() string {
+// Name returns the function name.
+func (fn *function) Name() string {
 	return fn.name
 }
 
-// IsName returns true whether the column name is the specified one.
-func (fn *Function) IsName(name string) bool {
+// IsName returns true whether the function name is the specified one.
+func (fn *function) IsName(name string) bool {
 	return fn.name == name
 }
 
-// IsSelectAll returns true if the argument list is "*".
-func (fn *Function) IsSelectAll() bool {
+// IsAsterisk returns true if the argument list is "*".
+func (fn *function) IsAsterisk() bool {
 	l := len(fn.ArgumentList)
 	switch {
 	case l == 1:
@@ -76,11 +92,11 @@ func (fn *Function) IsSelectAll() bool {
 }
 
 // Executor returns the executor of the function.
-func (fn *Function) Executor() (FunctionExecutor, error) {
+func (fn *function) Executor() (FunctionExecutor, error) {
 	return GetFunctionExecutor(fn.name)
 }
 
-// SelectorString returns the selector string representation.
-func (fn *Function) SelectorString() string {
+// String returns a string representation of the function.
+func (fn *function) String() string {
 	return fn.name + "(" + fn.ArgumentList.String() + ")"
 }

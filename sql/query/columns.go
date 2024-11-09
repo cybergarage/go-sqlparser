@@ -147,8 +147,8 @@ func (columns ColumnList) DefinitionString() string {
 	return strings.JoinWithComma(strs)
 }
 
-// IsSelectAll returns true if the column list is "*".
-func (columns ColumnList) IsSelectAll() bool {
+// IsAsterisk returns true if the column list is "*".
+func (columns ColumnList) IsAsterisk() bool {
 	l := len(columns)
 	switch {
 	case l == 1:

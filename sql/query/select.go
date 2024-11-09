@@ -22,8 +22,8 @@ type SelectOption = func(*selectStmt)
 // Select represents a "SELECT" statement interface.
 type Select interface {
 	Statement
-	// IsSelectAll returns true if the statement is a "SELECT *".
-	IsSelectAll() bool
+	// IsAsterisk returns true if the statement is a "SELECT *".
+	IsAsterisk() bool
 	// Selectors returns the selectors.
 	Selectors() SelectorList
 	// From returns the source table list.

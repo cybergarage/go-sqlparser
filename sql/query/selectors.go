@@ -66,10 +66,10 @@ func (selectors SelectorList) Len() int {
 }
 
 // Functions returns a function array.
-func (selectors SelectorList) Functions() []*Function {
-	fns := make([]*Function, 0)
+func (selectors SelectorList) Functions() []Function {
+	fns := make([]Function, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(*Function)
+		fn, ok := selector.(Function)
 		if !ok {
 			continue
 		}
@@ -79,9 +79,9 @@ func (selectors SelectorList) Functions() []*Function {
 }
 
 // LookupFunction returns a function with the specified name.
-func (selectors SelectorList) LookupFunction(name string) (*Function, error) {
+func (selectors SelectorList) LookupFunction(name string) (Function, error) {
 	for _, selector := range selectors {
-		fn, ok := selector.(*Function)
+		fn, ok := selector.(Function)
 		if !ok {
 			continue
 		}
@@ -96,7 +96,7 @@ func (selectors SelectorList) LookupFunction(name string) (*Function, error) {
 func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(*Function)
+		fn, ok := selector.(Function)
 		if !ok {
 			continue
 		}
@@ -122,7 +122,7 @@ func (selectors SelectorList) LookupFunctionExecutor(name string) (FunctionExecu
 func (selectors SelectorList) FunctionExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(*Function)
+		fn, ok := selector.(Function)
 		if !ok {
 			continue
 		}
@@ -143,8 +143,8 @@ func (selectors SelectorList) AggregateFunctions() ([]FunctionExecutor, error) {
 	return selectors.FunctionExecutorsForType(AggregateFunctionType)
 }
 
-// IsSelectAll returns true if the selector list is "*".
-func (selectors SelectorList) IsSelectAll() bool {
+// IsAsterisk returns true if the selector list is "*".
+func (selectors SelectorList) IsAsterisk() bool {
 	l := len(selectors)
 	switch {
 	case l == 1:
@@ -158,7 +158,7 @@ func (selectors SelectorList) IsSelectAll() bool {
 // HasFunction returns true if the selector list has a function.
 func (selectors SelectorList) HasFunction() bool {
 	for _, selector := range selectors {
-		_, ok := selector.(*Function)
+		_, ok := selector.(Function)
 		if ok {
 			return true
 		}
@@ -169,7 +169,7 @@ func (selectors SelectorList) HasFunction() bool {
 // HasFunctionWithType returns true if the selector list has a function with the specified type.
 func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
-		fn, ok := selector.(*Function)
+		fn, ok := selector.(Function)
 		if !ok {
 			continue
 		}
