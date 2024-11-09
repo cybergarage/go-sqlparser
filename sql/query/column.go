@@ -32,6 +32,10 @@ type Column interface {
 	IsName(string) bool
 	// Constrains returns the column constrains.
 	Constrains() Constraint
+	// DataType returns the column data type.
+	DataType() DataType
+	// DataTypeSize returns the column data type size.
+	DataTypeSize() int
 	Executor() FunctionExecutor
 	Arguments() []any
 	HasValue() bool
@@ -42,7 +46,6 @@ type Column interface {
 	SetConstant(Constraint)
 	SetDefinition(DataDef) error
 	Definition() DataDef
-	DataType() DataType
 	ExecuteUpdator(map[string]any) (any, error)
 
 	Copy() Column

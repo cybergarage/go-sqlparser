@@ -23,8 +23,8 @@ import (
 type DataDef interface {
 	// DataType returns the column data type.
 	DataType() DataType
-	// DataTypeLen returns the column data type length.
-	DataTypeLen() int
+	// DataTypeSize returns the column data type size.
+	DataTypeSize() int
 	// String returns the string representation.
 	String() string
 }
@@ -73,8 +73,8 @@ func (da *dataDef) DataType() DataType {
 	return da.Type
 }
 
-// DataTypeLen returns the column data type length.
-func (da *dataDef) DataTypeLen() int {
+// DataTypeSize returns the column data type length.
+func (da *dataDef) DataTypeSize() int {
 	return da.Length
 }
 
