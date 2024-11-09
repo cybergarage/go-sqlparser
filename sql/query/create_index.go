@@ -14,27 +14,68 @@
 
 package query
 
-// CreateIndex is a "CREATE INDEX" statement.
-type CreateIndex struct {
-	Schema
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
+
+// CreateIndex is a "CREATE INDEX" statement interface.
+type CreateIndex interface {
+	Statement
+	// TableName returns the table name.
+	TableName() string
+	// Index returns the index.
+	Index() Index
+	// IfNotExists returns true if the "IF NOT EXISTS" option is set.
+	IfNotExists() bool
+}
+
+// createIndex is a "CREATE INDEX" statement.
+type createIndex struct {
+	schema Schema
 	*IfNotExistsOpt
 }
 
-// NewCreateIndexWith returns a new CreateIndex statement instance with the specified parameters.
-func NewCreateIndexWith(schema Schema, ifne *IfNotExistsOpt) *CreateIndex {
-	return &CreateIndex{
-		Schema:         schema,
+// NewCreateIndexWith returns a new createIndex statement instance with the specified parameters.
+func NewCreateIndexWith(schema Schema, ifne *IfNotExistsOpt) CreateIndex {
+	return &createIndex{
+		schema:         schema,
 		IfNotExistsOpt: ifne,
 	}
 }
 
 // StatementType returns the statement type.
-func (stmt *CreateIndex) StatementType() StatementType {
+func (stmt *createIndex) StatementType() StatementType {
 	return CreateIndexStatement
 }
 
+// TableName returns the table name.
+func (stmt *createIndex) TableName() string {
+	return stmt.schema.FullTableName()
+}
+
+// Index returns the index.
+func (stmt *createIndex) Index() Index {
+	idxes := stmt.schema.Indexes()
+	if len(idxes) == 0 {
+		return nil
+	}
+	return idxes[0]
+}
+
 // String returns the statement string representation.
-func (stmt *CreateIndex) String() string {
-	// TODO: implement me
-	return ""
+func (stmt *createIndex) String() string {
+	strs := []string{
+		"CREATE",
+		"INDEX",
+	}
+	if stmt.IfNotExists() {
+		strs = append(strs, stmt.IfNotExistsOpt.String())
+	}
+	idx := stmt.Index()
+	if idx != nil {
+		strs = append(strs, idx.Name())
+		strs = append(strs, "ON")
+		strs = append(strs, stmt.TableName()+"("+strings.JoinWithComma(idx.Columns().ColumnNames())+")")
+	}
+	return strings.JoinWithSpace(strs)
 }

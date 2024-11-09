@@ -139,12 +139,12 @@ func newCreateTableWith(ctx antlr.ICreate_table_stmtContext) query.CreateTable {
 	return query.NewCreateTableWith(newTableSchemaWith(ctx), ifNotExists)
 }
 
-func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) query.CreateTable {
+func newCreateIndexWith(ctx antlr.ICreate_index_stmtContext) query.CreateIndex {
 	ifNotExists := query.NewIfNotExistsWith(false)
 	if ctx.If_not_exists() != nil {
 		ifNotExists = query.NewIfNotExistsWith(true)
 	}
-	return query.NewCreateTableWith(newIndexSchemaWith(ctx), ifNotExists)
+	return query.NewCreateIndexWith(newIndexSchemaWith(ctx), ifNotExists)
 }
 
 func newDropDatabaseWith(ctx antlr.IDrop_database_stmtContext) query.DropDatabase {
@@ -263,13 +263,17 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 }
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
+	idxName := ctx.Index_name().GetText()
 	tblName := ctx.Table_name().GetText()
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
+	indexColumns := query.NewColumns()
 	for _, columDef := range ctx.AllIndexed_column() {
-		column := newIndexedColumnWith(columDef)
-		columns = append(columns, column)
+		columDef := columDef.Column_name().GetText()
+		indexColumn := query.NewColumnWithName(columDef)
+		indexColumns = append(indexColumns, indexColumn)
 	}
+	indexes = append(indexes, query.NewSecondaryIndexWith(idxName, indexColumns))
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
