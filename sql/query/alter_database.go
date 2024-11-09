@@ -21,7 +21,9 @@ import (
 // AlterDatabase represents a "ALTER DATABASE" statement interface.
 type AlterDatabase interface {
 	Statement
+	// DatabaseName returns the database name.
 	DatabaseName() string
+	// RenameTo returns the "TO" database.
 	RenameTo() Database
 }
 
