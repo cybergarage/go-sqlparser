@@ -31,6 +31,15 @@ func (indexes IndexList) Indexes() IndexList {
 	return indexes
 }
 
+// IndexNames returns an index name array.
+func (indexes IndexList) IndexNames() []string {
+	names := make([]string, len(indexes))
+	for n, index := range indexes {
+		names[n] = index.Name()
+	}
+	return names
+}
+
 // LookupIndex returns an index by the specified name.
 func (indexes IndexList) LookupIndex(name string) (Index, error) {
 	for _, index := range indexes {
