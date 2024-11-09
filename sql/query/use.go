@@ -21,6 +21,7 @@ import (
 // Use represents a "USE" statement interface.
 type Use interface {
 	Statement
+	// DatabaseName returns the database name.
 	DatabaseName() string
 }
 
