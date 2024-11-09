@@ -52,12 +52,12 @@ func (t CmpExprOperator) String() string {
 // CmpExpr represents an comparison expression.
 type CmpExpr struct {
 	op    CmpExprOperator
-	left  *Column
+	left  Column
 	right *Literal
 }
 
 // NewCmpExprWith returns a new CompExpr instance with the specified parameters.
-func NewCmpExprWith(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
+func NewCmpExprWith(op CmpExprOperator, left Column, right *Literal) *CmpExpr {
 	return &CmpExpr{
 		op:    op,
 		left:  left,
@@ -66,32 +66,32 @@ func NewCmpExprWith(op CmpExprOperator, left *Column, right *Literal) *CmpExpr {
 }
 
 // NewEQ returns a new CompExpr instance with the specified parameters.
-func NewEQWith(left *Column, right *Literal) *CmpExpr {
+func NewEQWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(EQ, left, right)
 }
 
 // NewNEQ returns a new CompExpr instance with the specified parameters.
-func NewNEQWith(left *Column, right *Literal) *CmpExpr {
+func NewNEQWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(NEQ, left, right)
 }
 
 // NewLT returns a new CompExpr instance with the specified parameters.
-func NewLTWith(left *Column, right *Literal) *CmpExpr {
+func NewLTWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(LT, left, right)
 }
 
 // NewGT returns a new CompExpr instance with the specified parameters.
-func NewGTWith(left *Column, right *Literal) *CmpExpr {
+func NewGTWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(GT, left, right)
 }
 
 // NewLE returns a new CompExpr instance with the specified parameters.
-func NewLEWith(left *Column, right *Literal) *CmpExpr {
+func NewLEWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(LE, left, right)
 }
 
 // NewGE returns a new CompExpr instance with the specified parameters.
-func NewGEWith(left *Column, right *Literal) *CmpExpr {
+func NewGEWith(left Column, right *Literal) *CmpExpr {
 	return NewCmpExprWith(GE, left, right)
 }
 
@@ -101,7 +101,7 @@ func (expr *CmpExpr) Operator() CmpExprOperator {
 }
 
 // Left returns the left column.
-func (expr *CmpExpr) Left() *Column {
+func (expr *CmpExpr) Left() Column {
 	return expr.left
 }
 

@@ -21,7 +21,7 @@ import (
 )
 
 // ColumnList represens a column array.
-type ColumnList []*Column
+type ColumnList []Column
 
 // NewColumns returns a column array instance.
 func NewColumns() ColumnList {
@@ -29,7 +29,7 @@ func NewColumns() ColumnList {
 }
 
 // NewColumnsWith returns a column array instance with the specified columns.
-func NewColumnsWith(columns ...*Column) ColumnList {
+func NewColumnsWith(columns ...Column) ColumnList {
 	c := make(ColumnList, len(columns))
 	copy(c, columns)
 	return c
@@ -51,7 +51,7 @@ func (columns ColumnList) Selectors() SelectorList {
 }
 
 // ColumnAt returns a column by the specified index.
-func (columns ColumnList) ColumnAt(n int) (*Column, error) {
+func (columns ColumnList) ColumnAt(n int) (Column, error) {
 	if len(columns) <= n {
 		return nil, newErrColumnIndexOutOfRange(n)
 	}
@@ -59,7 +59,7 @@ func (columns ColumnList) ColumnAt(n int) (*Column, error) {
 }
 
 // LookupColumn returns a column by the specified name.
-func (columns ColumnList) LookupColumn(name string) (*Column, error) {
+func (columns ColumnList) LookupColumn(name string) (Column, error) {
 	for _, column := range columns {
 		if std_strings.EqualFold(column.Name(), name) {
 			return column, nil
@@ -112,7 +112,7 @@ func (columns ColumnList) SetSchema(schema Schema) error {
 		if err != nil {
 			return err
 		}
-		err = col.SetDef(schemaCol.DataDef)
+		err = col.SetDefinition(schemaCol.Definition())
 		if err != nil {
 			return err
 		}

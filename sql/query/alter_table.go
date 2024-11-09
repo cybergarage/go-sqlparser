@@ -14,7 +14,9 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
 // AlterTableOption represents an alter table option function.
 type AlterTableOption = func(*alterTableStmt)
@@ -23,10 +25,10 @@ type AlterTableOption = func(*alterTableStmt)
 type AlterTable interface {
 	Statement
 	TableName() string
-	AddColumn() (*Column, bool)
+	AddColumn() (Column, bool)
 	AddIndex() (*Index, bool)
-	DropColumn() (*Column, bool)
-	RenameColumns() (*Column, *Column, bool)
+	DropColumn() (Column, bool)
+	RenameColumns() (Column, Column, bool)
 	RenameTo() (Table, bool)
 }
 
@@ -35,11 +37,11 @@ type alterTableStmt struct {
 	schemaName string
 	Table
 	renameTableTo    Table
-	renameColumnFrom *Column
-	renameColumnTo   *Column
-	addColumn        *Column
+	renameColumnFrom Column
+	renameColumnTo   Column
+	addColumn        Column
 	addIndex         *Index
-	dropColumn       *Column
+	dropColumn       Column
 	dropIndex        *Index
 }
 
@@ -82,7 +84,7 @@ func WithAlterTableRenameTo(tbl Table) func(*alterTableStmt) {
 }
 
 // WithAlterTableRenameColumn sets a rename column.
-func WithAlterTableRenameColumn(from *Column, to *Column) func(*alterTableStmt) {
+func WithAlterTableRenameColumn(from Column, to Column) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.renameColumnFrom = from
 		stmt.renameColumnTo = to
@@ -90,7 +92,7 @@ func WithAlterTableRenameColumn(from *Column, to *Column) func(*alterTableStmt) 
 }
 
 // WithAlterTableAddColumn sets an add column.
-func WithAlterTableAddColumn(column *Column) func(*alterTableStmt) {
+func WithAlterTableAddColumn(column Column) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.addColumn = column
 	}
@@ -104,7 +106,7 @@ func WithAlterTableAddIndex(index *Index) func(*alterTableStmt) {
 }
 
 // WithAlterTableDropColumn sets a drop column.
-func WithAlterTableDropColumn(column *Column) func(*alterTableStmt) {
+func WithAlterTableDropColumn(column Column) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.dropColumn = column
 	}
@@ -131,7 +133,7 @@ func (stmt *alterTableStmt) RenameTo() (Table, bool) {
 }
 
 // RenameColumns returns the rename columns.
-func (stmt *alterTableStmt) RenameColumns() (*Column, *Column, bool) {
+func (stmt *alterTableStmt) RenameColumns() (Column, Column, bool) {
 	if stmt.renameColumnFrom == nil || stmt.renameColumnTo == nil {
 		return nil, nil, false
 	}
@@ -139,7 +141,7 @@ func (stmt *alterTableStmt) RenameColumns() (*Column, *Column, bool) {
 }
 
 // AddColumn returns the add column.
-func (stmt *alterTableStmt) AddColumn() (*Column, bool) {
+func (stmt *alterTableStmt) AddColumn() (Column, bool) {
 	if stmt.addColumn == nil {
 		return nil, false
 	}
@@ -155,7 +157,7 @@ func (stmt *alterTableStmt) AddIndex() (*Index, bool) {
 }
 
 // DropColumn returns the drop column.
-func (stmt *alterTableStmt) DropColumn() (*Column, bool) {
+func (stmt *alterTableStmt) DropColumn() (Column, bool) {
 	if stmt.dropColumn == nil {
 		return nil, false
 	}

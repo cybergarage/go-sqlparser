@@ -29,9 +29,9 @@ type Schema interface {
 	// Columns returns the all columns.
 	Columns() ColumnList
 	// LookupColumn returns a column by the specified name.
-	LookupColumn(name string) (*Column, error)
+	LookupColumn(name string) (Column, error)
 	// AddColumn adds a column.
-	AddColumn(column *Column) error
+	AddColumn(column Column) error
 	// DropColumn drops a column by the specified name.
 	DropColumn(name string) error
 	// Indexes returns the all indexes.
@@ -99,7 +99,7 @@ func (schema *schema) Name() string {
 }
 
 // AddColumn adds a column.
-func (schema *schema) AddColumn(column *Column) error {
+func (schema *schema) AddColumn(column Column) error {
 	schema.ColumnList = append(schema.ColumnList, column)
 	return nil
 }

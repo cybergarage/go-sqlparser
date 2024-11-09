@@ -273,7 +273,7 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
-func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
+func newColumnWith(ctx antlr.IColumn_defContext) query.Column {
 	opts := []query.ColumnOption{
 		query.WithColumnName(ctx.Column_name().GetText()),
 	}
@@ -287,7 +287,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) *query.Column {
 	return query.NewColumnWithOptions(opts...)
 }
 
-func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) *query.Column {
+func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
 	name := ctx.Column_name().GetText()
 	t, err := query.NewDataFrom("", -1) // FIXME
 	if err != nil {

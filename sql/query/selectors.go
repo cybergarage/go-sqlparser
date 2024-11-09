@@ -34,7 +34,7 @@ func NewSelectorsWith(selectors ...Selector) SelectorList {
 }
 
 // NewSelectorsWithColums returns a selector array instance with the specified selectors.
-func NewSelectorsWithColums(selectors ...*Column) SelectorList {
+func NewSelectorsWithColums(selectors ...Column) SelectorList {
 	s := make(SelectorList, len(selectors))
 	for n, selector := range selectors {
 		s[n] = selector
@@ -48,10 +48,10 @@ func (selectors SelectorList) Selectors() SelectorList {
 }
 
 // Column returns a column array.
-func (selectors SelectorList) Columns() []*Column {
-	cols := make([]*Column, 0)
+func (selectors SelectorList) Columns() []Column {
+	cols := make([]Column, 0)
 	for _, selector := range selectors {
-		col, ok := selector.(*Column)
+		col, ok := selector.(Column)
 		if !ok {
 			continue
 		}

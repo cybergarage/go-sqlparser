@@ -49,7 +49,7 @@ func (fmt CopyFormat) String() string {
 type CopyOption = func(*copyStmt)
 
 // WithCopyColumns returns a copy option to set the columns.
-func WithCopyColumns(columns ...*Column) func(*copyStmt) {
+func WithCopyColumns(columns ...Column) func(*copyStmt) {
 	return func(stmt *copyStmt) {
 		stmt.ColumnList = NewColumnsWith(columns...)
 	}

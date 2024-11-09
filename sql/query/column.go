@@ -22,10 +22,34 @@ import (
 )
 
 // ColumnOption represents a column option function.
-type ColumnOption = func(*Column)
+type ColumnOption = func(*column)
 
-// Column represents a column.
-type Column struct {
+// Column represents a column interface.
+type Column interface {
+	Name() string
+	Executor() FunctionExecutor
+	Arguments() []any
+	Constrains() ColumnConstraint
+	IsName(string) bool
+	HasLiteral() bool
+	SetValue(any) error
+	Value() any
+	ValueType() LiteralType
+	ValueString() string
+	SetConstant(ColumnConstraint)
+	SetDefinition(*DataDef) error
+	Definition() *DataDef
+	DefinitionString() string
+	DataType() DataType
+	SelectorString() string
+	ExecuteUpdator(map[string]any) (any, error)
+	UpdatorString() string
+	Copy() Column
+	String() string
+}
+
+// column represents a column.
+type column struct {
 	name string
 	*DataDef
 	*Literal
@@ -35,8 +59,8 @@ type Column struct {
 }
 
 // NewColumn returns a column instance.
-func NewColumnWithOptions(opts ...ColumnOption) *Column {
-	col := &Column{
+func NewColumnWithOptions(opts ...ColumnOption) Column {
+	col := &column{
 		name:             "",
 		DataDef:          nil,
 		Literal:          nil,
@@ -51,89 +75,89 @@ func NewColumnWithOptions(opts ...ColumnOption) *Column {
 }
 
 // WithColumnName sets a column name.
-func WithColumnName(name string) func(*Column) {
-	return func(col *Column) {
+func WithColumnName(name string) func(*column) {
+	return func(col *column) {
 		col.name = name
 	}
 }
 
 // WithColumnData sets a column data.
-func WithColumnData(data *DataDef) func(*Column) {
-	return func(col *Column) {
+func WithColumnData(data *DataDef) func(*column) {
+	return func(col *column) {
 		col.DataDef = data
 	}
 }
 
 // WithColumnLiteral sets a column data.
-func WithColumnLiteral(l *Literal) func(*Column) {
-	return func(col *Column) {
+func WithColumnLiteral(l *Literal) func(*column) {
+	return func(col *column) {
 		col.Literal = l
 	}
 }
 
 // WithColumnFunction sets a column function.
-func WithColumnFunction(fn FunctionExecutor) func(*Column) {
-	return func(col *Column) {
+func WithColumnFunction(fn FunctionExecutor) func(*column) {
+	return func(col *column) {
 		col.FunctionExecutor = fn
 	}
 }
 
 // WithColumnArguments sets column arguments.
-func WithColumnArguments(args []any) func(*Column) {
-	return func(col *Column) {
+func WithColumnArguments(args []any) func(*column) {
+	return func(col *column) {
 		col.args = args
 	}
 }
 
-func WithColumnConstant(c ColumnConstraint) func(*Column) {
-	return func(col *Column) {
+func WithColumnConstant(c ColumnConstraint) func(*column) {
+	return func(col *column) {
 		col.consts |= c
 	}
 }
 
 // NewColumn returns a column instance.
-func NewColumnWithName(name string) *Column {
+func NewColumnWithName(name string) Column {
 	return NewColumnWithOptions(WithColumnName(name))
 }
 
 // Name returns the column name.
-func (col *Column) Name() string {
+func (col *column) Name() string {
 	return col.name
 }
 
 // Executor returns the executor.
-func (col *Column) Executor() FunctionExecutor {
+func (col *column) Executor() FunctionExecutor {
 	return col.FunctionExecutor
 }
 
 // Arguments returns the executor arguments.
-func (col *Column) Arguments() []any {
+func (col *column) Arguments() []any {
 	return col.args
 }
 
 // Constrains returns the column constrains.
-func (col *Column) Constrains() ColumnConstraint {
+func (col *column) Constrains() ColumnConstraint {
 	return col.consts
 }
 
 // IsName returns true whether the column name is the specified one.
-func (col *Column) IsName(name string) bool {
+func (col *column) IsName(name string) bool {
 	return col.name == name
 }
 
 // SetValue sets a value.
-func (col *Column) SetValue(v any) error {
+func (col *column) SetValue(v any) error {
 	col.Literal.SetValue(v)
-	return col.SetDef(col.DataDef)
+	return col.SetDefinition(col.DataDef)
 }
 
 // SetConstant sets a constant.
-func (col *Column) SetConstant(c ColumnConstraint) {
+func (col *column) SetConstant(c ColumnConstraint) {
 	col.consts |= c
 }
 
-// SetDef sets the column definition to update the column value.
-func (col *Column) SetDef(dataDef *DataDef) error {
+// SetDefinition sets the column definition to update the column value.
+func (col *column) SetDefinition(dataDef *DataDef) error {
 	col.DataDef = dataDef
 
 	if dataDef == nil || col.Literal == nil {
@@ -188,7 +212,7 @@ func (col *Column) SetDef(dataDef *DataDef) error {
 }
 
 // Copy returns a copy of the column.
-func (col *Column) Copy() *Column {
+func (col *column) Copy() Column {
 	return NewColumnWithOptions(
 		WithColumnName(col.name),
 		WithColumnData(col.DataDef),
@@ -197,26 +221,31 @@ func (col *Column) Copy() *Column {
 }
 
 // String returns the string representation.
-func (col *Column) String() string {
+func (col *column) String() string {
 	return col.name
 }
 
 // DefinitionString returns the definition string representation.
-func (col *Column) DefinitionString() string {
+func (col *column) DefinitionString() string {
 	if col.DataDef == nil {
 		return col.name
 	}
 	return col.name + " " + col.DataDef.String()
 }
 
+// Definition returns the column definition.
+func (col *column) Definition() *DataDef {
+	return col.DataDef
+}
+
 // SelectorString returns the selector string representation.
-func (col *Column) SelectorString() string {
+func (col *column) SelectorString() string {
 	return col.name
 }
 
 // ExecuteUpdator executes the executor with the specified row.
-func (col *Column) ExecuteUpdator(row map[string]any) (any, error) {
-	newErrInvalidUpdateExecutor := func(col *Column) error {
+func (col *column) ExecuteUpdator(row map[string]any) (any, error) {
+	newErrInvalidUpdateExecutor := func(col *column) error {
 		return fmt.Errorf("%v is %w", col.UpdatorString(), ErrInvalid)
 	}
 
@@ -246,7 +275,7 @@ func (col *Column) ExecuteUpdator(row map[string]any) (any, error) {
 }
 
 // UpdatorString returns the updator string representation.
-func (col *Column) UpdatorString() string {
+func (col *column) UpdatorString() string {
 	if col.Executor() != nil {
 		strs := []string{}
 		for n, arg := range col.args {

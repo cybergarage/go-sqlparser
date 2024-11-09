@@ -19,7 +19,7 @@ import (
 )
 
 // NewResultSetColumnFrom returns a new resultset column from the specified column.
-func NewResultSetColumnFrom(column *query.Column) (ResultSetColumn, error) {
+func NewResultSetColumnFrom(column query.Column) (ResultSetColumn, error) {
 	return NewResultSetColumn(
 		WithResultSetColumnName(column.Name()),
 		WithResultSetColumnType(column.DataType()),
