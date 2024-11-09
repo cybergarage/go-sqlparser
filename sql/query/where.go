@@ -52,6 +52,9 @@ func (w *condition) Expr() Expr {
 
 // String returns the string representation.
 func (w *condition) String() string {
+	if w.expr == nil {
+		return ""
+	}
 	return w.expr.String()
 }
 
