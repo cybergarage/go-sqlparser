@@ -25,11 +25,12 @@ type AlterTableOption = func(*alterTableStmt)
 type AlterTable interface {
 	Statement
 	TableName() string
+	RenameTo() (Table, bool)
 	AddColumn() (Column, bool)
-	AddIndex() (Index, bool)
 	DropColumn() (Column, bool)
 	RenameColumns() (Column, Column, bool)
-	RenameTo() (Table, bool)
+	AddIndex() (Index, bool)
+	DropIndex() (Index, bool)
 }
 
 // alterTableStmt is a "ALTER TABLE" statement.
