@@ -37,8 +37,8 @@ type Column interface {
 	ValueType() LiteralType
 	ValueString() string
 	SetConstant(ColumnConstraint)
-	SetDefinition(*DataDef) error
-	Definition() *DataDef
+	SetDefinition(DataDef) error
+	Definition() DataDef
 	DefinitionString() string
 	DataType() DataType
 	SelectorString() string
@@ -51,7 +51,7 @@ type Column interface {
 // column represents a column.
 type column struct {
 	name string
-	*DataDef
+	DataDef
 	*Literal
 	FunctionExecutor
 	consts ColumnConstraint
@@ -82,7 +82,7 @@ func WithColumnName(name string) func(*column) {
 }
 
 // WithColumnData sets a column data.
-func WithColumnData(data *DataDef) func(*column) {
+func WithColumnData(data DataDef) func(*column) {
 	return func(col *column) {
 		col.DataDef = data
 	}
@@ -157,7 +157,7 @@ func (col *column) SetConstant(c ColumnConstraint) {
 }
 
 // SetDefinition sets the column definition to update the column value.
-func (col *column) SetDefinition(dataDef *DataDef) error {
+func (col *column) SetDefinition(dataDef DataDef) error {
 	col.DataDef = dataDef
 
 	if dataDef == nil || col.Literal == nil {
@@ -234,7 +234,7 @@ func (col *column) DefinitionString() string {
 }
 
 // Definition returns the column definition.
-func (col *column) Definition() *DataDef {
+func (col *column) Definition() DataDef {
 	return col.DataDef
 }
 

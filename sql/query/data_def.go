@@ -19,22 +19,40 @@ import (
 	"strings"
 )
 
-// DataDef represents a data definition.
-type DataDef struct {
+// DataDef represents a data definition interface.
+type DataDef interface {
+	// DataType returns the column data type.
+	DataType() DataType
+	// DataTypeLen returns the column data type length.
+	DataTypeLen() int
+	// String returns the string representation.
+	String() string
+}
+
+// dataDef represents a data definition.
+type dataDef struct {
 	Type   DataType
 	Length int
 }
 
 // NewDataDef returns a new DataType instance with the specified type and length.
-func NewDataDef(t DataType, l int) *DataDef {
-	return &DataDef{
+func NewDataDef(t DataType, l int) DataDef {
+	return &dataDef{
 		Type:   t,
 		Length: l,
 	}
 }
 
+// NewUnknownDataDef returns a new unknown data type instance.
+func NewUnknownDataDef() DataDef {
+	return &dataDef{
+		Type:   UnknownData,
+		Length: 0,
+	}
+}
+
 // NewDataDefFrom returns the data type of the specified string.
-func NewDataDefFrom(s string, l int) (*DataDef, error) {
+func NewDataDefFrom(s string, l int) (DataDef, error) {
 	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == us {
@@ -51,17 +69,17 @@ func NewDataDefFrom(s string, l int) (*DataDef, error) {
 }
 
 // DataType returns the column data type.
-func (da *DataDef) DataType() DataType {
+func (da *dataDef) DataType() DataType {
 	return da.Type
 }
 
 // DataTypeLen returns the column data type length.
-func (da *DataDef) DataTypeLen() int {
+func (da *dataDef) DataTypeLen() int {
 	return da.Length
 }
 
 // String returns the string representation.
-func (da *DataDef) String() string {
+func (da *dataDef) String() string {
 	s, ok := dataTypeStrings[da.Type]
 	if !ok {
 		return ""
