@@ -29,7 +29,6 @@ type Column struct {
 	name string
 	*DataDef
 	*Literal
-	BindParam
 	FunctionExecutor
 	consts ColumnConstraint
 	args   []any
@@ -41,7 +40,6 @@ func NewColumnWithOptions(opts ...ColumnOption) *Column {
 		name:             "",
 		DataDef:          nil,
 		Literal:          nil,
-		BindParam:        nil,
 		FunctionExecutor: nil,
 		args:             []any{},
 		consts:           ConstraintNone,
