@@ -193,7 +193,12 @@ func (selectors SelectorList) HasAggregateFunction() bool {
 func (selectors SelectorList) SelectorString() string {
 	strs := make([]string, len(selectors))
 	for n, col := range selectors {
-		strs[n] = col.SelectorString()
+		sel, ok := col.(selectorStringer)
+		if ok {
+			strs[n] = sel.SelectorString()
+		} else {
+			strs[n] = col.String()
+		}
 	}
 	return strings.JoinWithComma(strs)
 }

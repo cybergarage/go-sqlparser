@@ -18,6 +18,11 @@ package query
 type Selector interface {
 	// Name returns the name of the selector.
 	Name() string
+	// String returns the string representation.
+	String() string
+}
+
+type selectorStringer interface {
 	// SelectorString returns a string representation of the selector.
 	SelectorString() string
 }
