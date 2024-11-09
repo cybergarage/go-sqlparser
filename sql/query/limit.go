@@ -22,8 +22,11 @@ import (
 
 // Limit represents a LIMIT interface.
 type Limit interface {
+	// Offset returns the offset.
 	Offset() int
+	// Limit returns the limit.
 	Limit() int
+	// String returns the string representation.
 	String() string
 }
 
