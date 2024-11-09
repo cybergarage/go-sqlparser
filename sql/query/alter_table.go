@@ -24,12 +24,19 @@ type AlterTableOption = func(*alterTableStmt)
 // AlterTable represents a "ALTER TABLE" statement interface.
 type AlterTable interface {
 	Statement
+	// TableName returns the table name.
 	TableName() string
+	// RenameTo returns the rename table.
 	RenameTo() (Table, bool)
+	// RenameColumns returns the rename columns.
 	AddColumn() (Column, bool)
+	// DropColumn returns the drop column.
 	DropColumn() (Column, bool)
+	// RenameColumns returns the rename columns.
 	RenameColumns() (Column, Column, bool)
+	// AddIndex returns the add index.
 	AddIndex() (Index, bool)
+	// DropIndex returns the drop index.
 	DropIndex() (Index, bool)
 }
 
