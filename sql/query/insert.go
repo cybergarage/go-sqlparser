@@ -21,9 +21,10 @@ import (
 // Insert represents a "INSERT" statement interface.
 type Insert interface {
 	Statement
+	// TableName returns the table name.
 	TableName() string
+	// Columns returns the columns.
 	Columns() ColumnList
-	IsSelectAll() bool
 }
 
 // insertStmt is a "INSERT" statement.
