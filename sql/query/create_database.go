@@ -21,7 +21,9 @@ import (
 // CreateDatabase represents a "CREATE DATABASE" statement interface.
 type CreateDatabase interface {
 	Statement
+	// DatabaseName returns the database name.
 	DatabaseName() string
+	// IfNotExists returns true if the "IF NOT EXISTS" option is set.
 	IfNotExists() bool
 }
 
