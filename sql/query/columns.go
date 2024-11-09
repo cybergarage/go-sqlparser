@@ -40,6 +40,15 @@ func (columns ColumnList) Columns() ColumnList {
 	return columns
 }
 
+// ColumnNames returns a column name array.
+func (columns ColumnList) ColumnNames() []string {
+	names := make([]string, len(columns))
+	for n, col := range columns {
+		names[n] = col.Name()
+	}
+	return names
+}
+
 // Len returns the length of the column array.
 func (columns ColumnList) Len() int {
 	return len(columns)
