@@ -21,8 +21,11 @@ import (
 // CreateTable represents a "CREATE TABLE" statement interface.
 type CreateTable interface {
 	Statement
+	// TableName returns the table name.
 	TableName() string
+	// Schema returns the schema.
 	Schema() Schema
+	// IfNotExists returns true if the "IF NOT EXISTS" option is set.
 	IfNotExists() bool
 }
 
