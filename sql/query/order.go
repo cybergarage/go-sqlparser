@@ -15,74 +15,22 @@
 package query
 
 import (
-	std_strings "strings"
-
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// OrderType represents an ordertype.
-type OrderType uint8
-
-const (
-	// OrderNone represents none order.
-	OrderNone OrderType = iota
-	// OrderAsc represents asc order.
-	OrderAsc
-	// OrderDesc represents desc order.
-	OrderDesc
-)
-
-const (
-	orderNoneString = "NONE"
-	orderAscString  = "ASC"
-	orderDescString = "DESC"
-)
-
-// NewOrderTypeWith returns a new OrderType instance.
-func NewOrderTypeWith(order string) OrderType {
-	switch std_strings.ToUpper(order) {
-	case orderAscString:
-		return OrderAsc
-	case orderDescString:
-		return OrderDesc
-	}
-	return OrderNone
-}
-
-// IsNone returns true whether the order is none.
-func (t OrderType) IsNone() bool {
-	return t == OrderNone
-}
-
-// IsAsc returns true whether the order is asc.
-func (t OrderType) IsAsc() bool {
-	return t == OrderAsc
-}
-
-// IsDesc returns true whether the order is desc.
-func (t OrderType) IsDesc() bool {
-	return t == OrderDesc
-}
-
-// String returns the string representation.
-func (t OrderType) String() string {
-	switch t {
-	case OrderAsc:
-		return orderAscString
-	case OrderDesc:
-		return orderDescString
-	default:
-		return orderNoneString
-	}
-}
-
 // Order represents an ORDER BY interface.
 type Order interface {
-	Column() string
+	// ColumnName returns the column name.
+	ColumnName() string
+	// Type returns the order type.
 	Type() OrderType
+	// IsNone returns true whether the order is none.
 	IsNone() bool
+	// IsAsc returns true whether the order is asc.
 	IsAsc() bool
+	// IsDesc returns true whether the order is desc.
 	IsDesc() bool
+	// String returns the string representation.
 	String() string
 }
 
@@ -109,7 +57,7 @@ func NewOrderWith(column string, order OrderType) Order {
 }
 
 // Column returns the column name.
-func (order *orderParam) Column() string {
+func (order *orderParam) ColumnName() string {
 	return order.column
 }
 
