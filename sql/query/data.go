@@ -144,8 +144,8 @@ func (da *DataDef) DataType() DataType {
 	return da.Type
 }
 
-// DataLength returns the column data length.
-func (da *DataDef) DataLength() int {
+// DataTypeLen returns the column data type length.
+func (da *DataDef) DataTypeLen() int {
 	return da.Length
 }
 
