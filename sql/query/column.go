@@ -48,11 +48,10 @@ type Column interface {
 	ValueType() LiteralType
 	// ValueString returns the column value string.
 	ValueString() string
-	// Executor returns the executor.
-	Executor() (FunctionExecutor, bool)
+	// IsFunction returns true whether the column is a function.
+	IsFunction() (Function, bool)
 	// Arguments returns the executor arguments.
 	Arguments() []any
-	// ExecuteUpdator(map[string]any) (any, error)
 	// Copy returns a copy of the column.
 	Copy() Column
 	// String returns the string representation.
@@ -138,6 +137,16 @@ func NewColumnWithName(name string) Column {
 // Name returns the column name.
 func (col *column) Name() string {
 	return col.name
+}
+
+// IsFunction returns true whether the column is a function.
+func (col *column) IsFunction() (Function, bool) {
+	if col.FunctionExecutor == nil {
+		return nil, false
+	}
+	return NewFunctionWith(
+		WithFunctionExecutor(col.FunctionExecutor),
+	), true
 }
 
 // Executor returns the executor.
@@ -249,37 +258,6 @@ func (col *column) Definition() ColumnDef {
 // SelectorString returns the selector string representation.
 func (col *column) SelectorString() string {
 	return col.name
-}
-
-// ExecuteUpdator executes the executor with the specified row.
-func (col *column) ExecuteUpdator(row map[string]any) (any, error) {
-	newErrInvalidUpdateExecutor := func(col *column) error {
-		return fmt.Errorf("%v is %w", col.UpdatorString(), ErrInvalid)
-	}
-
-	if col.FunctionExecutor == nil {
-		return nil, newErrInvalidUpdateExecutor(col)
-	}
-
-	args := col.Arguments()
-	if len(args) < 2 {
-		return nil, newErrInvalidUpdateExecutor(col)
-	}
-	leftExprName, ok := args[0].(string)
-	if !ok {
-		return nil, newErrInvalidUpdateExecutor(col)
-	}
-	v, ok := row[leftExprName]
-	if !ok {
-		return nil, newErrInvalidUpdateExecutor(col)
-	}
-	args[0] = v
-	rv, err := col.FunctionExecutor.Execute(args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return rv, nil
 }
 
 // UpdatorString returns the updator string representation.
