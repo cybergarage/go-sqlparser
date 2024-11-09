@@ -26,6 +26,7 @@ type ColumnOption = func(*column)
 
 // Column represents a column interface.
 type Column interface {
+	// Name returns the column name.
 	Name() string
 	Executor() FunctionExecutor
 	Arguments() []any
@@ -39,13 +40,15 @@ type Column interface {
 	SetConstant(ColumnConstraint)
 	SetDefinition(DataDef) error
 	Definition() DataDef
-	DefinitionString() string
 	DataType() DataType
-	SelectorString() string
 	ExecuteUpdator(map[string]any) (any, error)
 	UpdatorString() string
 	Copy() Column
 	String() string
+}
+
+type columnDefStringer interface {
+	DefinitionString() string
 }
 
 // column represents a column.

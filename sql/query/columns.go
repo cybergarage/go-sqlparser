@@ -133,7 +133,12 @@ func (columns ColumnList) SetSchema(schema Schema) error {
 func (columns ColumnList) DefinitionString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
-		strs[n] = col.DefinitionString()
+		def, ok := col.(columnDefStringer)
+		if ok {
+			strs[n] = def.DefinitionString()
+		} else {
+			strs[n] = col.String()
+		}
 	}
 	return strings.JoinWithComma(strs)
 }

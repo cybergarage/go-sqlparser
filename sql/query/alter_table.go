@@ -210,7 +210,12 @@ func (stmt *alterTableStmt) String() string {
 		if c.Constrains() != ConstraintNone {
 			elems = append(elems, c.Constrains().String())
 		}
-		elems = append(elems, c.DefinitionString())
+		def, ok := c.(columnDefStringer)
+		if ok {
+			elems = append(elems, def.DefinitionString())
+		} else {
+			elems = append(elems, c.String())
+		}
 	}
 	if i, ok := stmt.AddIndex(); ok {
 		elems = append(elems, "ADD")
