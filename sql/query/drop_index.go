@@ -69,10 +69,11 @@ func (stmt *dropIndex) String() string {
 	if stmt.IfExists() {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
-	strs = append(strs, stmt.Index.Name())
+	idxName := stmt.IndexName()
 	tableName := stmt.Schema.FullTableName()
 	if 0 < len(tableName) {
-		strs = append(strs, "ON", tableName)
+		idxName = tableName + "." + idxName
 	}
+	strs = append(strs, idxName)
 	return strings.JoinWithSpace(strs)
 }
