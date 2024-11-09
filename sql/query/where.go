@@ -16,8 +16,11 @@ package query
 
 // Condition represents a where condition interface.
 type Condition interface {
+	// IsEmpty returns true if the where condition is empty.
 	IsEmpty() bool
+	// Expr returns the top expression.
 	Expr() Expr
+	// String returns the string representation.
 	String() string
 }
 

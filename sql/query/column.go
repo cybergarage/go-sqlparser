@@ -31,7 +31,7 @@ type Column interface {
 	Arguments() []any
 	Constrains() ColumnConstraint
 	IsName(string) bool
-	HasLiteral() bool
+	HasValue() bool
 	SetValue(any) error
 	Value() any
 	ValueType() LiteralType

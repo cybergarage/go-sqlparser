@@ -67,8 +67,8 @@ func WithLiteralType(t LiteralType) func(*Literal) {
 	}
 }
 
-// HasLiteral returns true whether the literal has a value.
-func (lit *Literal) HasLiteral() bool {
+// HasValue returns true whether the literal has a value.
+func (lit *Literal) HasValue() bool {
 	return lit != nil
 }
 
