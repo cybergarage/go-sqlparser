@@ -21,7 +21,10 @@ import (
 // Truncate represents a "TRUNCATE" statement interface.
 type Truncate interface {
 	Statement
+	// Tables returns the table list.
 	Tables() TableList
+	// TableNames returns the table names.
+	TableNames() []string
 }
 
 // truncateStmt is a "TRUNCATE" statement.
