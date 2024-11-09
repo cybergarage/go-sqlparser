@@ -24,9 +24,13 @@ const (
 
 // Index represents a index interface.
 type Index interface {
+	// Name returns the index name.
 	Name() string
+	// Type returns the index type.
 	Type() IndexType
+	// String returns the index string representation.
 	Columns() ColumnList
+	// DefinitionString returns the index definition string representation.
 	DefinitionString() string
 }
 
