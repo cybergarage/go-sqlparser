@@ -14,24 +14,24 @@
 
 package query
 
-// ColumnConstraint represents a column constraint.
-type ColumnConstraint int
+// Constraint represents a column constraint.
+type Constraint int
 
 const (
 	// ConstraintNone represents no constraint.
-	ConstraintNone       ColumnConstraint = 0x00
-	PrimaryKeyConstraint ColumnConstraint = 0x01
-	NotNullConstraint    ColumnConstraint = 0x02
-	UniqueConstraint     ColumnConstraint = 0x04
+	ConstraintNone       Constraint = 0x00
+	PrimaryKeyConstraint Constraint = 0x01
+	NotNullConstraint    Constraint = 0x02
+	UniqueConstraint     Constraint = 0x04
 )
 
 // IsPrimaryKey returns true whether the column is a primary key.
-func (c ColumnConstraint) IsPrimaryKey() bool {
+func (c Constraint) IsPrimaryKey() bool {
 	return (c & PrimaryKeyConstraint) != 0
 }
 
 // String returns the string representation.
-func (c ColumnConstraint) String() string {
+func (c Constraint) String() string {
 	switch c {
 	case PrimaryKeyConstraint:
 		return "PRIMARY KEY"

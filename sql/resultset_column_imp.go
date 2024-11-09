@@ -17,7 +17,7 @@ package sql
 type resultsetColumn struct {
 	name string
 	t    DataType
-	c    ColumnConstraint
+	c    Constraint
 }
 
 // ResultSetColumnOptions represents a functional option for resultsetColumn.
@@ -38,7 +38,7 @@ func WithResultSetColumnType(t DataType) ResultSetColumnOption {
 }
 
 // WithResultSetColumnConstraint returns a functional option for resultsetColumn.
-func WithResultSetColumnConstraint(c ColumnConstraint) ResultSetColumnOption {
+func WithResultSetColumnConstraint(c Constraint) ResultSetColumnOption {
 	return func(col *resultsetColumn) {
 		col.c = c
 	}
@@ -68,6 +68,6 @@ func (col *resultsetColumn) Type() DataType {
 }
 
 // Constraint returns the column constraint.
-func (col *resultsetColumn) Constraint() ColumnConstraint {
+func (col *resultsetColumn) Constraint() Constraint {
 	return col.c
 }

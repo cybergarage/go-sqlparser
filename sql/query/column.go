@@ -28,16 +28,18 @@ type ColumnOption = func(*column)
 type Column interface {
 	// Name returns the column name.
 	Name() string
+	// IsName returns true whether the column name is the specified one.
+	IsName(string) bool
+	// Constrains returns the column constrains.
+	Constrains() Constraint
 	Executor() FunctionExecutor
 	Arguments() []any
-	Constrains() ColumnConstraint
-	IsName(string) bool
 	HasValue() bool
 	SetValue(any) error
 	Value() any
 	ValueType() LiteralType
 	ValueString() string
-	SetConstant(ColumnConstraint)
+	SetConstant(Constraint)
 	SetDefinition(DataDef) error
 	Definition() DataDef
 	DataType() DataType
@@ -65,7 +67,7 @@ type column struct {
 	DataDef
 	*Literal
 	FunctionExecutor
-	consts ColumnConstraint
+	consts Constraint
 	args   []any
 }
 
@@ -120,7 +122,7 @@ func WithColumnArguments(args []any) func(*column) {
 	}
 }
 
-func WithColumnConstant(c ColumnConstraint) func(*column) {
+func WithColumnConstant(c Constraint) func(*column) {
 	return func(col *column) {
 		col.consts |= c
 	}
@@ -147,7 +149,7 @@ func (col *column) Arguments() []any {
 }
 
 // Constrains returns the column constrains.
-func (col *column) Constrains() ColumnConstraint {
+func (col *column) Constrains() Constraint {
 	return col.consts
 }
 
@@ -163,7 +165,7 @@ func (col *column) SetValue(v any) error {
 }
 
 // SetConstant sets a constant.
-func (col *column) SetConstant(c ColumnConstraint) {
+func (col *column) SetConstant(c Constraint) {
 	col.consts |= c
 }
 
