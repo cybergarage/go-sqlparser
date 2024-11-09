@@ -21,6 +21,15 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql"
 )
 
+func TestQueries(t *testing.T) {
+	queries := []string{}
+	for _, query := range queries {
+		t.Run(query, func(t *testing.T) {
+			TestQueryString(t, query)
+		})
+	}
+}
+
 func TestEmptyQueries(t *testing.T) {
 	queries := []string{
 		"",
