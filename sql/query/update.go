@@ -23,8 +23,11 @@ import (
 // Update represents a "UPDATE" statement interface.
 type Update interface {
 	Statement
+	// Table returns the table.
 	TableName() string
+	// Columns returns the columns.
 	Columns() ColumnList
+	// Where returns the condition.
 	Where() Condition
 }
 
