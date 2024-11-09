@@ -21,7 +21,11 @@ import (
 // DropTable represents a "DROP TABLE" statement interface.
 type DropTable interface {
 	Statement
+	// Tables returns the table list.
 	Tables() TableList
+	// TableNames returns the table names.
+	TableNames() []string
+	// IfExists returns true if the "IF EXISTS" option is set.
 	IfExists() bool
 }
 
