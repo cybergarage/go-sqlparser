@@ -25,8 +25,8 @@ type DataDef struct {
 	Length int
 }
 
-// NewDataWith returns a new DataType instance with the specified type and length.
-func NewDataWith(t DataType, l int) *DataDef {
+// NewDataDefWith returns a new DataType instance with the specified type and length.
+func NewDataDefWith(t DataType, l int) *DataDef {
 	return &DataDef{
 		Type:   t,
 		Length: l,
@@ -38,13 +38,13 @@ func NewDataFrom(s string, l int) (*DataDef, error) {
 	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == us {
-			return NewDataWith(dataType, l), nil
+			return NewDataDefWith(dataType, l), nil
 		}
 	}
 	for dataType, dataTypeString := range dataTypeStrings {
 		dataTypeString = strings.ReplaceAll(dataTypeString, " ", "")
 		if dataTypeString == us {
-			return NewDataWith(dataType, l), nil
+			return NewDataDefWith(dataType, l), nil
 		}
 	}
 	return nil, fmt.Errorf("%w data type : %s", ErrInvalid, s)
