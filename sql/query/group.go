@@ -23,7 +23,9 @@ const GroupByNone = ""
 
 // GroupBy represents an GROUP interface.
 type GroupBy interface {
-	Column() string
+	// ColumnName returns the column name.
+	ColumnName() string
+	// String returns the string representation.
 	String() string
 }
 
@@ -52,8 +54,8 @@ func (groupBy *groupBy) SetColumn(name string) *groupBy {
 	return groupBy
 }
 
-// Column returns the column name.
-func (groupBy *groupBy) Column() string {
+// ColumnName returns the column name.
+func (groupBy *groupBy) ColumnName() string {
 	return groupBy.column
 }
 
