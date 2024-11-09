@@ -21,8 +21,3 @@ type Selector interface {
 	// String returns the string representation.
 	String() string
 }
-
-type selectorStringer interface {
-	// SelectorString returns a string representation of the selector.
-	SelectorString() string
-}

@@ -78,7 +78,7 @@ func (stmt *updateStmt) String() string {
 	for _, column := range stmt.ColumnList {
 		name := column.Name()
 		value := column.String()
-		updator, ok := column.(columnUpdateStringer)
+		updator, ok := column.(columnUpdatorStringer)
 		if ok {
 			value = updator.UpdatorString()
 		}

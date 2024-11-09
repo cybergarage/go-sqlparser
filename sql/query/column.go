@@ -47,11 +47,15 @@ type Column interface {
 	String() string
 }
 
+type columnSelectorStringer interface {
+	SelectorString() string
+}
+
 type columnDefStringer interface {
 	DefinitionString() string
 }
 
-type columnUpdateStringer interface {
+type columnUpdatorStringer interface {
 	UpdatorString() string
 }
 
