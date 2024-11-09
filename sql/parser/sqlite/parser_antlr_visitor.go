@@ -168,7 +168,7 @@ func newDropTableWith(ctx antlr.IDrop_table_stmtContext) query.DropTable {
 	return query.NewDropTableWith(tbls, ifExists)
 }
 
-func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) *query.DropIndex {
+func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) query.DropIndex {
 	schemaName := ""
 	if ctx.Schema_name() != nil {
 		schemaName = ctx.Schema_name().GetText()

@@ -14,31 +14,54 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
-// DropIndex is a "DROP INDEX" statement.
-type DropIndex struct {
+// DropIndex is a "DROP INDEX" statement interface.
+type DropIndex interface {
+	Statement
+	// TableName returns the table name.
+	TableName() string
+	// IndexName returns the index name.
+	IndexName() string
+	// IfExists returns true if the "IF EXISTS" option is set.
+	IfExists() bool
+}
+
+// dropIndex is a "DROP INDEX" statement.
+type dropIndex struct {
 	Index
 	Schema
 	*IfExistsOpt
 }
 
-// NewDropIndexWith returns a new DropIndex statement instance with the specified parameters.
-func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) *DropIndex {
-	return &DropIndex{
+// NewDropIndexWith returns a new dropIndex statement instance with the specified parameters.
+func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) DropIndex {
+	return &dropIndex{
 		Schema:      NewSchemaWith(schemaName),
 		Index:       NewIndexWith(idxName, UnknownIndex, NewColumns()),
 		IfExistsOpt: ife,
 	}
 }
 
+// TableName returns the table name.
+func (stmt *dropIndex) TableName() string {
+	return stmt.Schema.FullTableName()
+}
+
+// IndexName returns the index name.
+func (stmt *dropIndex) IndexName() string {
+	return stmt.Index.Name()
+}
+
 // StatementType returns the statement type.
-func (stmt *DropIndex) StatementType() StatementType {
+func (stmt *dropIndex) StatementType() StatementType {
 	return DropIndexStatement
 }
 
 // String returns the statement string representation.
-func (stmt *DropIndex) String() string {
+func (stmt *dropIndex) String() string {
 	strs := []string{
 		"DROP",
 		"INDEX",
