@@ -23,6 +23,6 @@ func NewResultSetColumnFrom(column query.Column) (ResultSetColumn, error) {
 	return NewResultSetColumn(
 		WithResultSetColumnName(column.Name()),
 		WithResultSetColumnType(column.DataType()),
-		WithResultSetColumnConstraint(column.Constrains()),
+		WithResultSetColumnConstraint(column.Constraint()),
 	), nil
 }

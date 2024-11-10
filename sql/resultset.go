@@ -18,7 +18,7 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-type DataType = query.DataType
+type DataType = query.DataType	// DataType represents a data type.
 type Constraint = query.Constraint
 
 // ResultSetColumn represents a column interface in a resultset.

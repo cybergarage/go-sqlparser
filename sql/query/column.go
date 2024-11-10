@@ -32,8 +32,8 @@ type Column interface {
 	IsName(string) bool
 	// Definition returns the column definition.
 	Definition() ColumnDef
-	// Constrains returns the column constrains.
-	Constrains() Constraint
+	// Constraint returns the column constrains.
+	Constraint() Constraint
 	// DataType returns the column data type.
 	DataType() DataType
 	// DataTypeSize returns the column data type size.

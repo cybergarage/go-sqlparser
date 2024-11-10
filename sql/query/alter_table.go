@@ -207,8 +207,8 @@ func (stmt *alterTableStmt) String() string {
 	}
 	if c, ok := stmt.AddColumn(); ok {
 		elems = append(elems, "ADD")
-		if c.Constrains() != ConstraintNone {
-			elems = append(elems, c.Constrains().String())
+		if c.Constraint() != ConstraintNone {
+			elems = append(elems, c.Constraint().String())
 		}
 		def, ok := c.(columnDefStringer)
 		if ok {

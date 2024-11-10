@@ -21,8 +21,8 @@ import (
 
 // ColumnDef represents a data definition interface.
 type ColumnDef interface {
-	// Constrains returns the column constrains.
-	Constrains() Constraint
+	// Constraint returns the column constrains.
+	Constraint() Constraint
 	// DataType returns the column data type.
 	DataType() DataType
 	// DataTypeSize returns the column data type size.
@@ -73,8 +73,8 @@ func NewDataDefFrom(s string, l int) (ColumnDef, error) {
 	return nil, fmt.Errorf("%w data type : %s", ErrInvalid, s)
 }
 
-// Constrains returns the column constrains.
-func (da *dataDef) Constrains() Constraint {
+// Constraint returns the column constrains.
+func (da *dataDef) Constraint() Constraint {
 	return da.consts
 }
 
