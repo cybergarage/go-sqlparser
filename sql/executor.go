@@ -75,6 +75,7 @@ type QueryExecutor interface {
 
 // ErrorHandler represents a user error handler.
 type ErrorHandler interface {
+	// ParserError handles a parser error.
 	ParserError(Conn, string, error) error
 }
 
