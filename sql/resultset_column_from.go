@@ -26,3 +26,12 @@ func NewResultSetColumnFrom(column query.Column) (ResultSetColumn, error) {
 		WithResultSetColumnConstraint(column.Constraint()),
 	), nil
 }
+
+// NewResultSetColumnsFrom returns a new resultset columns from the specified column list.
+func NewResultSetColumnsFrom(column query.ColumnList) []ResultSetColumn {
+	columns := make([]ResultSetColumn, len(column))
+	for n, c := range column {
+		columns[n] = c
+	}
+	return columns
+}
