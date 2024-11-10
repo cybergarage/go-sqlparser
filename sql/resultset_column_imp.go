@@ -62,8 +62,8 @@ func (col *resultsetColumn) Name() string {
 	return col.name
 }
 
-// Type returns the column type.
-func (col *resultsetColumn) Type() DataType {
+// DataType returns the column type.
+func (col *resultsetColumn) DataType() DataType {
 	return col.t
 }
 
