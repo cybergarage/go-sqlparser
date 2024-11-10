@@ -55,15 +55,14 @@ type ResultSetRow interface {
 
 // ResultSet represents a response resultset interface.
 type ResultSet interface {
-	ResultSetSchema
-	// Row returns the current row.
-	Row() ResultSetRow
 	// Schema returns the schema.
 	Schema() ResultSetSchema
-	// RowsAffected returns the number of rows affected.
-	RowsAffected() uint64
 	// Next returns the next row.
 	Next() bool
+	// Row returns the current row.
+	Row() ResultSetRow
+	// RowsAffected returns the number of rows affected.
+	RowsAffected() uint64
 	// Close closes the resultset.
 	Close() error
 }
