@@ -15,6 +15,7 @@
 package net
 
 import (
+	"context"
 	"net"
 	"time"
 
@@ -28,6 +29,8 @@ type ConnID = uint64
 // Conn represents a connection.
 type Conn interface {
 	tracer.Context
+	// Context returns the context.
+	Context() context.Context
 	// RemoteAddr returns the remote address.
 	RemoteAddr() net.Addr
 	// Close closes the connection.
