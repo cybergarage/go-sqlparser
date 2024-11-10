@@ -112,6 +112,7 @@ func (conn *conn) ID() ConnID {
 	return ConnID(conn.id)
 }
 
+// Context returns the context of the connection.
 func (conn *conn) Context() context.Context {
 	return context.Background()
 }
