@@ -73,6 +73,12 @@ type QueryExecutor interface {
 	TCOExecutor
 }
 
+// SystemDMOExecutor defines a system executor interface for DMO (Data Manipulation Operations).
+type SystemDMOExecutor interface {
+	// SystemSelect handles a system SELECT query.
+	SystemSelect(Conn, Select) (ResultSet, error)
+}
+
 // ErrorHandler represents a user error handler.
 type ErrorHandler interface {
 	// ParserError handles a parser error.
@@ -82,5 +88,6 @@ type ErrorHandler interface {
 // Executor represents a frontend message executor.
 type Executor interface {
 	QueryExecutor
+	SystemDMOExecutor
 	ErrorHandler
 }
