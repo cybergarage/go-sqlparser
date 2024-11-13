@@ -79,6 +79,11 @@ type SystemDMOExecutor interface {
 	SystemSelect(Conn, Select) (ResultSet, error)
 }
 
+// SystemQueryExecutor represents a system query message executor.
+type SystemQueryExecutor interface {
+	SystemDMOExecutor
+}
+
 // ErrorHandler represents a user error handler.
 type ErrorHandler interface {
 	// ParserError handles a parser error.
@@ -88,6 +93,6 @@ type ErrorHandler interface {
 // Executor represents a frontend message executor.
 type Executor interface {
 	QueryExecutor
-	SystemDMOExecutor
+	SystemQueryExecutor
 	ErrorHandler
 }
