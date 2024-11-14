@@ -18,11 +18,11 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// NewResultSetSchemaFrom returns a new resultset schema from the specified schema.
-func NewResultSetSchemaFrom(db query.Database, schema query.Schema) ResultSetSchema {
-	return NewResultSetSchema(
-		WithResultSetSchemaDatabaseName(db.DatabaseName()),
-		WithResultSetSchemaTableName(schema.TableName()),
-		WithResultSetSchemaResultSetColumns(NewResultSetColumnsFrom(schema.Columns())),
+// NewSchemaFrom returns a new resultset schema from the specified schema.
+func NewSchemaFrom(db query.Database, schema query.Schema) Schema {
+	return NewSchema(
+		WithSchemaDatabaseName(db.DatabaseName()),
+		WithSchemaTableName(schema.TableName()),
+		WithSchemaResultSetColumns(NewResultSetColumnsFrom(schema.Columns())),
 	)
 }

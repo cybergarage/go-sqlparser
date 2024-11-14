@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The go-sqlparser Authors. All rights reserved.
+// Copyright (C) 2024 The go-mysql Authors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,20 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 import (
-	"github.com/cybergarage/go-sqlparser/sql/response/resultset"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// ResultSetColumn represents a column interface in a resultset.
-type ResultSetColumn = resultset.Column
-
-// ResultSetSchema represents a schema interface in a resultset.
-type ResultSetSchema = resultset.Schema
-
-// ResultSetRow represents a row interface.
-type ResultSetRow = resultset.ResultSetRow
-
-// ResultSet represents a response resultset interface.
-type ResultSet = resultset.ResultSet
+// Schema represents a schema interface in a resultset.
+type Schema interface {
+	// DatabaseName returns the database name.
+	DatabaseName() string
+	// TableName returns the table name.
+	TableName() string
+	// Selectows returns the selectors.
+	Selectors() query.SelectorList
+	// Columns returns the columns.
+	Columns() []Column
+	// LookupColumn returns the column by the specified name.
+	LookupColumn(name string) (Column, error)
+}

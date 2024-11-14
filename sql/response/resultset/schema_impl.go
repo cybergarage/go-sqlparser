@@ -26,32 +26,32 @@ type resultsetSchema struct {
 	columns     []Column
 }
 
-// ResultSetSchemaOptions represents a functional option for resultsetSchema.
-type ResultSetSchemaOptions func(*resultsetSchema)
+// SchemaOptions represents a functional option for resultsetSchema.
+type SchemaOptions func(*resultsetSchema)
 
-// WithResultSetSchemaDatabaseName returns a functional option for resultsetSchema.
-func WithResultSetSchemaDatabaseName(name string) ResultSetSchemaOptions {
+// WithSchemaDatabaseName returns a functional option for resultsetSchema.
+func WithSchemaDatabaseName(name string) SchemaOptions {
 	return func(schema *resultsetSchema) {
 		schema.databaeName = name
 	}
 }
 
-// WithResultSetSchemaTableName returns a functional option for resultsetSchema.
-func WithResultSetSchemaTableName(name string) ResultSetSchemaOptions {
+// WithSchemaTableName returns a functional option for resultsetSchema.
+func WithSchemaTableName(name string) SchemaOptions {
 	return func(schema *resultsetSchema) {
 		schema.tableName = name
 	}
 }
 
-// WithResultSetSchemaResultSetColumns returns a functional option for resultsetSchema.
-func WithResultSetSchemaResultSetColumns(columns []Column) ResultSetSchemaOptions {
+// WithSchemaResultSetColumns returns a functional option for resultsetSchema.
+func WithSchemaResultSetColumns(columns []Column) SchemaOptions {
 	return func(schema *resultsetSchema) {
 		schema.columns = columns
 	}
 }
 
-// NewResultSetSchema returns a new resultsetSchema.
-func NewResultSetSchema(opts ...ResultSetSchemaOptions) ResultSetSchema {
+// NewSchema returns a new resultsetSchema.
+func NewSchema(opts ...SchemaOptions) Schema {
 	schema := &resultsetSchema{
 		databaeName: "",
 		tableName:   "",

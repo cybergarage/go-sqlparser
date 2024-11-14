@@ -14,24 +14,6 @@
 
 package resultset
 
-import (
-	"github.com/cybergarage/go-sqlparser/sql/query"
-)
-
-// ResultSetSchema represents a schema interface in a resultset.
-type ResultSetSchema interface {
-	// DatabaseName returns the database name.
-	DatabaseName() string
-	// TableName returns the table name.
-	TableName() string
-	// Selectows returns the selectors.
-	Selectors() query.SelectorList
-	// Columns returns the columns.
-	Columns() []Column
-	// LookupColumn returns the column by the specified name.
-	LookupColumn(name string) (Column, error)
-}
-
 // ResultSetRow represents a row interface.
 type ResultSetRow interface {
 	// Values returns the all values.
@@ -47,7 +29,7 @@ type ResultSetRow interface {
 // ResultSet represents a response resultset interface.
 type ResultSet interface {
 	// Schema returns the schema.
-	Schema() ResultSetSchema
+	Schema() Schema
 	// Next returns the next row.
 	Next() bool
 	// Row returns the current row.

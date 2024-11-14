@@ -15,7 +15,7 @@
 package resultset
 
 type resultset struct {
-	ResultSetSchema
+	schema       Schema
 	rows         []ResultSetRow
 	rowsAffected uint64
 	rowCursor    int
@@ -31,10 +31,10 @@ func WithResultSetRowsAffected(rowsAffected uint64) ResultSetOption {
 	}
 }
 
-// WithResultSetSchema returns a resultset option to set the schema.
-func WithResultSetSchema(schema ResultSetSchema) ResultSetOption {
+// WithSchema returns a resultset option to set the schema.
+func WithSchema(schema Schema) ResultSetOption {
 	return func(r *resultset) {
-		r.ResultSetSchema = schema
+		r.schema = schema
 	}
 }
 
@@ -48,10 +48,10 @@ func WithResultSetRows(rows []ResultSetRow) ResultSetOption {
 // NewResultSet returns a new ResultSet.
 func NewResultSet(opts ...ResultSetOption) ResultSet {
 	rs := &resultset{
-		ResultSetSchema: nil,
-		rows:            []ResultSetRow{},
-		rowsAffected:    0,
-		rowCursor:       0,
+		schema:       nil,
+		rows:         []ResultSetRow{},
+		rowsAffected: 0,
+		rowCursor:    0,
 	}
 	for _, opt := range opts {
 		opt(rs)
@@ -79,8 +79,8 @@ func (r *resultset) Row() ResultSetRow {
 }
 
 // Schema returns the schema.
-func (r *resultset) Schema() ResultSetSchema {
-	return r.ResultSetSchema
+func (r *resultset) Schema() Schema {
+	return r.schema
 }
 
 // Close closes the resultset.
