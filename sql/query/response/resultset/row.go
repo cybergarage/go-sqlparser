@@ -14,16 +14,14 @@
 
 package resultset
 
-// ResultSet represents a response resultset interface.
-type ResultSet interface {
-	// Schema returns the schema.
-	Schema() Schema
-	// Next returns the next row.
-	Next() bool
-	// Row returns the current row.
-	Row() Row
-	// RowsAffected returns the number of rows affected.
-	RowsAffected() uint64
-	// Close closes the resultset.
-	Close() error
+// Row represents a row interface.
+type Row interface {
+	// Objects returns the row objects.
+	Objects() []any
+	// ObjectAt returns the row object at the specified index.
+	ObjectAt(index int) (any, error)
+	// Scan scans the values.
+	Scan(...any) error
+	// ScanAt scans the value at the specified index.
+	ScanAt(int, any) error
 }

@@ -26,8 +26,8 @@ type row struct {
 // RowOptions represents a functional option for resultsetRow.
 type RowOptions func(*row)
 
-// WithRowValues returns a functional option for resultsetRow.
-func WithRowValues(values []any) RowOptions {
+// WithRowObjects returns a functional option for resultsetRow.
+func WithRowObjects(values []any) RowOptions {
 	return func(row *row) {
 		row.values = values
 	}
@@ -44,13 +44,13 @@ func NewRow(opts ...RowOptions) Row {
 	return row
 }
 
-// Values returns the values.
-func (row *row) Values() []any {
+// Objects returns the row objects.
+func (row *row) Objects() []any {
 	return row.values
 }
 
-// ValueAt returns the value at the specified index.
-func (row *row) ValueAt(index int) (any, error) {
+// ObjectAt returns the row object at the specified index.
+func (row *row) ObjectAt(index int) (any, error) {
 	if len(row.values) <= index {
 		return nil, errors.ErrNotExist
 	}
@@ -74,7 +74,7 @@ func (row *row) Scan(tos ...any) error {
 
 // ScanAt scans the value at the specified index.
 func (row *row) ScanAt(index int, to any) error {
-	v, err := row.ValueAt(index)
+	v, err := row.ObjectAt(index)
 	if err != nil {
 		return err
 	}
