@@ -197,7 +197,7 @@ func (selectors SelectorList) SelectorString() string {
 		if ok {
 			strs[n] = sel.SelectorString()
 		} else {
-			strs[n] = col.String()
+			strs[n] = col.Name()
 		}
 	}
 	return strings.JoinWithComma(strs)
