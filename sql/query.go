@@ -29,6 +29,12 @@ const (
 	NIN = query.NIN
 )
 
+// DataType represents a data type.
+type DataType = query.DataType // DataType represents a data type.
+
+// Constraint represents a constraint.
+type Constraint = query.Constraint
+
 // Function represents a function.
 type Function = query.Function
 

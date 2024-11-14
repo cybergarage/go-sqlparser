@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 type resultsetColumn struct {
 	name string
@@ -45,7 +45,7 @@ func WithResultSetColumnConstraint(c Constraint) ResultSetColumnOption {
 }
 
 // ResultSetColumn represents a resultset column interface.
-func NewResultSetColumn(opts ...ResultSetColumnOption) ResultSetColumn {
+func NewResultSetColumn(opts ...ResultSetColumnOption) Column {
 	col := &resultsetColumn{
 		name: "",
 		t:    0,

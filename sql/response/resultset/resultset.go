@@ -12,24 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
-
-type DataType = query.DataType // DataType represents a data type.
-type Constraint = query.Constraint
-
-// ResultSetColumn represents a column interface in a resultset.
-type ResultSetColumn interface {
-	// Name returns the column name.
-	Name() string
-	// DataType returns the data type.
-	DataType() DataType
-	// Constraint returns the column constraint.
-	Constraint() Constraint
-}
 
 // ResultSetSchema represents a schema interface in a resultset.
 type ResultSetSchema interface {
@@ -40,9 +27,9 @@ type ResultSetSchema interface {
 	// Selectows returns the selectors.
 	Selectors() query.SelectorList
 	// Columns returns the columns.
-	Columns() []ResultSetColumn
+	Columns() []Column
 	// LookupColumn returns the column by the specified name.
-	LookupColumn(name string) (ResultSetColumn, error)
+	LookupColumn(name string) (Column, error)
 }
 
 // ResultSetRow represents a row interface.

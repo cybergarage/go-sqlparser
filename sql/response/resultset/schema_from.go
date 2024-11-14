@@ -12,26 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// NewResultSetColumnFrom returns a new resultset column from the specified column.
-func NewResultSetColumnFrom(column query.Column) (ResultSetColumn, error) {
-	return NewResultSetColumn(
-		WithResultSetColumnName(column.Name()),
-		WithResultSetColumnType(column.DataType()),
-		WithResultSetColumnConstraint(column.Constraint()),
-	), nil
-}
-
-// NewResultSetColumnsFrom returns a new resultset columns from the specified column list.
-func NewResultSetColumnsFrom(column query.ColumnList) []ResultSetColumn {
-	columns := make([]ResultSetColumn, len(column))
-	for n, c := range column {
-		columns[n] = c
-	}
-	return columns
+// NewResultSetSchemaFrom returns a new resultset schema from the specified schema.
+func NewResultSetSchemaFrom(db query.Database, schema query.Schema) ResultSetSchema {
+	return NewResultSetSchema(
+		WithResultSetSchemaDatabaseName(db.DatabaseName()),
+		WithResultSetSchemaTableName(schema.TableName()),
+		WithResultSetSchemaResultSetColumns(NewResultSetColumnsFrom(schema.Columns())),
+	)
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ import (
 type resultsetSchema struct {
 	databaeName string
 	tableName   string
-	columns     []ResultSetColumn
+	columns     []Column
 }
 
 // ResultSetSchemaOptions represents a functional option for resultsetSchema.
@@ -44,7 +44,7 @@ func WithResultSetSchemaTableName(name string) ResultSetSchemaOptions {
 }
 
 // WithResultSetSchemaResultSetColumns returns a functional option for resultsetSchema.
-func WithResultSetSchemaResultSetColumns(columns []ResultSetColumn) ResultSetSchemaOptions {
+func WithResultSetSchemaResultSetColumns(columns []Column) ResultSetSchemaOptions {
 	return func(schema *resultsetSchema) {
 		schema.columns = columns
 	}
@@ -55,7 +55,7 @@ func NewResultSetSchema(opts ...ResultSetSchemaOptions) ResultSetSchema {
 	schema := &resultsetSchema{
 		databaeName: "",
 		tableName:   "",
-		columns:     []ResultSetColumn{},
+		columns:     []Column{},
 	}
 	for _, opt := range opts {
 		opt(schema)
@@ -74,7 +74,7 @@ func (schema *resultsetSchema) TableName() string {
 }
 
 // Columns returns the columns.
-func (schema *resultsetSchema) Columns() []ResultSetColumn {
+func (schema *resultsetSchema) Columns() []Column {
 	return schema.columns
 }
 
@@ -83,7 +83,7 @@ func newErrColumnNotFound(name string) error {
 }
 
 // LookupColumn returns the column by the specified name.
-func (schema *resultsetSchema) LookupColumn(name string) (ResultSetColumn, error) {
+func (schema *resultsetSchema) LookupColumn(name string) (Column, error) {
 	for _, column := range schema.columns {
 		if column.Name() == name {
 			return column, nil

@@ -12,17 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sql
+package resultset
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// NewResultSetSchemaFrom returns a new resultset schema from the specified schema.
-func NewResultSetSchemaFrom(db query.Database, schema query.Schema) ResultSetSchema {
-	return NewResultSetSchema(
-		WithResultSetSchemaDatabaseName(db.DatabaseName()),
-		WithResultSetSchemaTableName(schema.TableName()),
-		WithResultSetSchemaResultSetColumns(NewResultSetColumnsFrom(schema.Columns())),
-	)
+// DataType represents a data type.
+type DataType = query.DataType
+
+// Constraint represents a column constraint.
+type Constraint = query.Constraint
+
+// Column represents a column interface in a resultset.
+type Column interface {
+	// Name returns the column name.
+	Name() string
+	// DataType returns the data type.
+	DataType() DataType
+	// Constraint returns the column constraint.
+	Constraint() Constraint
 }
