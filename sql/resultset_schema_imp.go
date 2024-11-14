@@ -15,6 +15,8 @@
 package sql
 
 import (
+	"fmt"
+
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
@@ -74,6 +76,20 @@ func (schema *resultsetSchema) TableName() string {
 // Columns returns the columns.
 func (schema *resultsetSchema) Columns() []ResultSetColumn {
 	return schema.columns
+}
+
+func newErrColumnNotFound(name string) error {
+	return fmt.Errorf("column (%s) %w", name, query.ErrNotFound)
+}
+
+// LookupColumn returns the column by the specified name.
+func (schema *resultsetSchema) LookupColumn(name string) (ResultSetColumn, error) {
+	for _, column := range schema.columns {
+		if column.Name() == name {
+			return column, nil
+		}
+	}
+	return nil, newErrColumnNotFound(name)
 }
 
 // Selectors returns the selectors.

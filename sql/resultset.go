@@ -37,10 +37,12 @@ type ResultSetSchema interface {
 	DatabaseName() string
 	// TableName returns the table name.
 	TableName() string
-	// Columns returns the columns.
-	Columns() []ResultSetColumn
 	// Selectows returns the selectors.
 	Selectors() query.SelectorList
+	// Columns returns the columns.
+	Columns() []ResultSetColumn
+	// LookupColumn returns the column by the specified name.
+	LookupColumn(name string) (ResultSetColumn, error)
 }
 
 // ResultSetRow represents a row interface.
