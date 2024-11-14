@@ -19,23 +19,23 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/errors"
 )
 
-type resultsetRow struct {
+type row struct {
 	values []any
 }
 
-// ResultSetRowOptions represents a functional option for resultsetRow.
-type ResultSetRowOptions func(*resultsetRow)
+// RowOptions represents a functional option for resultsetRow.
+type RowOptions func(*row)
 
-// WithResultSetRowValues returns a functional option for resultsetRow.
-func WithResultSetRowValues(values []any) ResultSetRowOptions {
-	return func(row *resultsetRow) {
+// WithRowValues returns a functional option for resultsetRow.
+func WithRowValues(values []any) RowOptions {
+	return func(row *row) {
 		row.values = values
 	}
 }
 
-// NewResultSetRow returns a new resultsetRow.
-func NewResultSetRow(opts ...ResultSetRowOptions) ResultSetRow {
-	row := &resultsetRow{
+// NewRow returns a new resultsetRow.
+func NewRow(opts ...RowOptions) Row {
+	row := &row{
 		values: []any{},
 	}
 	for _, opt := range opts {
@@ -45,12 +45,12 @@ func NewResultSetRow(opts ...ResultSetRowOptions) ResultSetRow {
 }
 
 // Values returns the values.
-func (row *resultsetRow) Values() []any {
+func (row *row) Values() []any {
 	return row.values
 }
 
 // ValueAt returns the value at the specified index.
-func (row *resultsetRow) ValueAt(index int) (any, error) {
+func (row *row) ValueAt(index int) (any, error) {
 	if len(row.values) <= index {
 		return nil, errors.ErrNotExist
 	}
@@ -58,7 +58,7 @@ func (row *resultsetRow) ValueAt(index int) (any, error) {
 }
 
 // Scan scans the values.
-func (row *resultsetRow) Scan(tos ...any) error {
+func (row *row) Scan(tos ...any) error {
 	for i, to := range tos {
 		if len(row.values) <= i {
 			return errors.ErrNotExist
@@ -73,7 +73,7 @@ func (row *resultsetRow) Scan(tos ...any) error {
 }
 
 // ScanAt scans the value at the specified index.
-func (row *resultsetRow) ScanAt(index int, to any) error {
+func (row *row) ScanAt(index int, to any) error {
 	v, err := row.ValueAt(index)
 	if err != nil {
 		return err

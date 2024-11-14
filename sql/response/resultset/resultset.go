@@ -14,8 +14,8 @@
 
 package resultset
 
-// ResultSetRow represents a row interface.
-type ResultSetRow interface {
+// Row represents a row interface.
+type Row interface {
 	// Values returns the all values.
 	Values() []any
 	// ValueAt returns the value at the specified index.
@@ -33,7 +33,7 @@ type ResultSet interface {
 	// Next returns the next row.
 	Next() bool
 	// Row returns the current row.
-	Row() ResultSetRow
+	Row() Row
 	// RowsAffected returns the number of rows affected.
 	RowsAffected() uint64
 	// Close closes the resultset.

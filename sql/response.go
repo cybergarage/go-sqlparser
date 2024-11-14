@@ -24,8 +24,8 @@ type ResultSetColumn = resultset.Column
 // ResultSetSchema represents a schema interface in a resultset.
 type ResultSetSchema = resultset.Schema
 
-// ResultSetRow represents a row interface.
-type ResultSetRow = resultset.ResultSetRow
+// Row represents a row interface.
+type ResultSetRow = resultset.Row
 
 // ResultSet represents a response resultset interface.
 type ResultSet = resultset.ResultSet

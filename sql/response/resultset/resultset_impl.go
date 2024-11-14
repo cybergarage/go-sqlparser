@@ -16,7 +16,7 @@ package resultset
 
 type resultset struct {
 	schema       Schema
-	rows         []ResultSetRow
+	rows         []Row
 	rowsAffected uint64
 	rowCursor    int
 }
@@ -24,8 +24,8 @@ type resultset struct {
 // ResultSet represents a response resultset interface.
 type ResultSetOption func(*resultset)
 
-// WithResultSetRowsAffected returns a resultset option to set the rows affected.
-func WithResultSetRowsAffected(rowsAffected uint64) ResultSetOption {
+// WithRowsAffected returns a resultset option to set the rows affected.
+func WithRowsAffected(rowsAffected uint64) ResultSetOption {
 	return func(r *resultset) {
 		r.rowsAffected = rowsAffected
 	}
@@ -38,8 +38,8 @@ func WithSchema(schema Schema) ResultSetOption {
 	}
 }
 
-// WithResultSetRows returns a resultset option to set the rows.
-func WithResultSetRows(rows []ResultSetRow) ResultSetOption {
+// WithRows returns a resultset option to set the rows.
+func WithRows(rows []Row) ResultSetOption {
 	return func(r *resultset) {
 		r.rows = rows
 	}
@@ -49,7 +49,7 @@ func WithResultSetRows(rows []ResultSetRow) ResultSetOption {
 func NewResultSet(opts ...ResultSetOption) ResultSet {
 	rs := &resultset{
 		schema:       nil,
-		rows:         []ResultSetRow{},
+		rows:         []Row{},
 		rowsAffected: 0,
 		rowCursor:    0,
 	}
@@ -71,7 +71,7 @@ func (r *resultset) Next() bool {
 }
 
 // Row returns the current row.
-func (r *resultset) Row() ResultSetRow {
+func (r *resultset) Row() Row {
 	if len(r.rows) < (r.rowCursor - 1) {
 		return nil
 	}
