@@ -93,7 +93,7 @@ func (schema *schema) LookupColumn(name string) (Column, error) {
 }
 
 // Selectors returns the selectors.
-func (schema *schema) Selectors() query.SelectorList {
+func (schema *schema) Selectors() query.Selectors {
 	selectors := query.NewSelectors()
 	for _, column := range schema.columns {
 		selectors = append(selectors, column)

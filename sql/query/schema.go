@@ -43,7 +43,7 @@ type Schema interface {
 	// DropIndex drops an index by the specified name.
 	DropIndex(name string) error
 	// Selectors returns the all selectors from the columns.
-	Selectors() SelectorList
+	Selectors() Selectors
 }
 
 // schema represents a table schema.

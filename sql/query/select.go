@@ -25,7 +25,7 @@ type Select interface {
 	// IsAsterisk returns true if the statement is a "SELECT *".
 	IsAsterisk() bool
 	// Selectors returns the selectors.
-	Selectors() SelectorList
+	Selectors() Selectors
 	// From returns the source table list.
 	From() TableList
 	// Limit returns the limit clause.
@@ -41,7 +41,7 @@ type Select interface {
 // selectStmt is a "SELECT" statement.
 type selectStmt struct {
 	TableList
-	SelectorList
+	selectors Selectors
 	Condition
 	orderBy OrderBy
 	limit   Limit
@@ -49,14 +49,14 @@ type selectStmt struct {
 }
 
 // NewSelectWith returns a new selectStmt statement instance with the specified parameters.
-func NewSelectWith(selectors SelectorList, tbls TableList, w Condition, opts ...SelectOption) *selectStmt {
+func NewSelectWith(selectors Selectors, tbls TableList, w Condition, opts ...SelectOption) *selectStmt {
 	stmt := &selectStmt{
-		SelectorList: selectors,
-		TableList:    tbls,
-		Condition:    w,
-		orderBy:      NewOrderBy(),
-		limit:        NewLimit(),
-		groupBy:      NewGroupBy(),
+		selectors: selectors,
+		TableList: tbls,
+		Condition: w,
+		orderBy:   NewOrderBy(),
+		limit:     NewLimit(),
+		groupBy:   NewGroupBy(),
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -90,6 +90,16 @@ func (stmt *selectStmt) StatementType() StatementType {
 	return SelectStatement
 }
 
+// IsAsterisk returns true if the statement is a "SELECT *".
+func (stmt *selectStmt) IsAsterisk() bool {
+	return stmt.selectors.IsAsterisk()
+}
+
+// Selectors returns the selectors.
+func (stmt *selectStmt) Selectors() Selectors {
+	return stmt.selectors
+}
+
 // From returns the source table list.
 func (stmt *selectStmt) From() TableList {
 	return stmt.Tables()
@@ -118,8 +128,8 @@ func (stmt *selectStmt) GroupBy() GroupBy {
 // String returns the statement string representation.
 func (stmt *selectStmt) String() string {
 	selectorStr := "*"
-	if 0 < len(stmt.SelectorList) {
-		selectorStr = stmt.SelectorList.SelectorString()
+	if 0 < len(stmt.selectors) {
+		selectorStr = stmt.selectors.SelectorString()
 	}
 	strs := []string{
 		"SELECT",

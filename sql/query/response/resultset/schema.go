@@ -25,7 +25,7 @@ type Schema interface {
 	// TableName returns the table name.
 	TableName() string
 	// Selectows returns the selectors.
-	Selectors() query.SelectorList
+	Selectors() query.Selectors
 	// Columns returns the columns.
 	Columns() []Column
 	// LookupColumn returns the column by the specified name.

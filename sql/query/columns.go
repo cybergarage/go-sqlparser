@@ -55,7 +55,7 @@ func (columns ColumnList) Len() int {
 }
 
 // Selectors returns a selector array.
-func (columns ColumnList) Selectors() SelectorList {
+func (columns ColumnList) Selectors() Selectors {
 	return NewSelectorsWithColums(columns...)
 }
 

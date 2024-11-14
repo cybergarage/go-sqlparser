@@ -18,24 +18,24 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// SelectorList represens a selector array.
-type SelectorList []Selector
+// Selectors represens a selector array.
+type Selectors []Selector
 
 // NewSelectors returns a selector array instance.
-func NewSelectors() SelectorList {
-	return make(SelectorList, 0)
+func NewSelectors() Selectors {
+	return make(Selectors, 0)
 }
 
 // NewSelectorsWith returns a selector array instance with the specified selectors.
-func NewSelectorsWith(selectors ...Selector) SelectorList {
-	s := make(SelectorList, len(selectors))
+func NewSelectorsWith(selectors ...Selector) Selectors {
+	s := make(Selectors, len(selectors))
 	copy(s, selectors)
 	return s
 }
 
 // NewSelectorsWithColums returns a selector array instance with the specified selectors.
-func NewSelectorsWithColums(selectors ...Column) SelectorList {
-	s := make(SelectorList, len(selectors))
+func NewSelectorsWithColums(selectors ...Column) Selectors {
+	s := make(Selectors, len(selectors))
 	for n, selector := range selectors {
 		s[n] = selector
 	}
@@ -43,12 +43,12 @@ func NewSelectorsWithColums(selectors ...Column) SelectorList {
 }
 
 // Selector returns a selector array.
-func (selectors SelectorList) Selectors() SelectorList {
+func (selectors Selectors) Selectors() Selectors {
 	return selectors
 }
 
 // Column returns a column array.
-func (selectors SelectorList) Columns() []Column {
+func (selectors Selectors) Columns() []Column {
 	cols := make([]Column, 0)
 	for _, selector := range selectors {
 		col, ok := selector.(Column)
@@ -61,12 +61,12 @@ func (selectors SelectorList) Columns() []Column {
 }
 
 // Len returns the length of the selector array.
-func (selectors SelectorList) Len() int {
+func (selectors Selectors) Len() int {
 	return len(selectors)
 }
 
 // Functions returns a function array.
-func (selectors SelectorList) Functions() []Function {
+func (selectors Selectors) Functions() []Function {
 	fns := make([]Function, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
@@ -79,7 +79,7 @@ func (selectors SelectorList) Functions() []Function {
 }
 
 // LookupFunction returns a function with the specified name.
-func (selectors SelectorList) LookupFunction(name string) (Function, error) {
+func (selectors Selectors) LookupFunction(name string) (Function, error) {
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
 		if !ok {
@@ -93,7 +93,7 @@ func (selectors SelectorList) LookupFunction(name string) (Function, error) {
 }
 
 // FunctionExecutors returns a function executor array.
-func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
+func (selectors Selectors) FunctionExecutors() ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
@@ -110,7 +110,7 @@ func (selectors SelectorList) FunctionExecutors() ([]FunctionExecutor, error) {
 }
 
 // LookupFunctionExecutor returns a function executor with the specified name.
-func (selectors SelectorList) LookupFunctionExecutor(name string) (FunctionExecutor, error) {
+func (selectors Selectors) LookupFunctionExecutor(name string) (FunctionExecutor, error) {
 	fn, err := selectors.LookupFunction(name)
 	if err != nil {
 		return nil, err
@@ -119,7 +119,7 @@ func (selectors SelectorList) LookupFunctionExecutor(name string) (FunctionExecu
 }
 
 // FunctionExecutorsForType returns a function executor array with the specified type.
-func (selectors SelectorList) FunctionExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
+func (selectors Selectors) FunctionExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
@@ -139,12 +139,12 @@ func (selectors SelectorList) FunctionExecutorsForType(t FunctionType) ([]Functi
 }
 
 // AggregateFunctions returns an aggregate function array.
-func (selectors SelectorList) AggregateFunctions() ([]FunctionExecutor, error) {
+func (selectors Selectors) AggregateFunctions() ([]FunctionExecutor, error) {
 	return selectors.FunctionExecutorsForType(AggregateFunctionType)
 }
 
 // IsAsterisk returns true if the selector list is "*".
-func (selectors SelectorList) IsAsterisk() bool {
+func (selectors Selectors) IsAsterisk() bool {
 	l := len(selectors)
 	switch {
 	case l == 1:
@@ -156,7 +156,7 @@ func (selectors SelectorList) IsAsterisk() bool {
 }
 
 // HasFunction returns true if the selector list has a function.
-func (selectors SelectorList) HasFunction() bool {
+func (selectors Selectors) HasFunction() bool {
 	for _, selector := range selectors {
 		_, ok := selector.(Function)
 		if ok {
@@ -167,7 +167,7 @@ func (selectors SelectorList) HasFunction() bool {
 }
 
 // HasFunctionWithType returns true if the selector list has a function with the specified type.
-func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
+func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
 		if !ok {
@@ -185,12 +185,12 @@ func (selectors SelectorList) HasFunctionWithType(t FunctionType) bool {
 }
 
 // HasAggregateFunction returns true if the selector list has an aggregate function.
-func (selectors SelectorList) HasAggregateFunction() bool {
+func (selectors Selectors) HasAggregateFunction() bool {
 	return selectors.HasFunctionWithType(AggregateFunctionType)
 }
 
 // SelectorString returns a string representation of the selector array.
-func (selectors SelectorList) SelectorString() string {
+func (selectors Selectors) SelectorString() string {
 	strs := make([]string, len(selectors))
 	for n, col := range selectors {
 		sel, ok := col.(columnSelectorStringer)
