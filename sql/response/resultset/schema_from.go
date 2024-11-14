@@ -23,6 +23,6 @@ func NewSchemaFrom(db query.Database, schema query.Schema) Schema {
 	return NewSchema(
 		WithSchemaDatabaseName(db.DatabaseName()),
 		WithSchemaTableName(schema.TableName()),
-		WithSchemaResultSetColumns(NewResultSetColumnsFrom(schema.Columns())),
+		WithSchemaResultSetColumns(NewColumnsFrom(schema.Columns())),
 	)
 }

@@ -18,17 +18,17 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// NewResultSetColumnFrom returns a new resultset column from the specified column.
-func NewResultSetColumnFrom(column query.Column) (Column, error) {
-	return NewResultSetColumn(
-		WithResultSetColumnName(column.Name()),
-		WithResultSetColumnType(column.DataType()),
-		WithResultSetColumnConstraint(column.Constraint()),
+// NewColumnFrom returns a new resultset column from the specified column.
+func NewColumnFrom(column query.Column) (Column, error) {
+	return NewColumn(
+		WithColumnName(column.Name()),
+		WithColumnType(column.DataType()),
+		WithColumnConstraint(column.Constraint()),
 	), nil
 }
 
-// NewResultSetColumnsFrom returns a new resultset columns from the specified column list.
-func NewResultSetColumnsFrom(column query.ColumnList) []Column {
+// NewColumnsFrom returns a new resultset columns from the specified column list.
+func NewColumnsFrom(column query.ColumnList) []Column {
 	columns := make([]Column, len(column))
 	for n, c := range column {
 		columns[n] = c

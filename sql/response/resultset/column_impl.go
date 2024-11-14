@@ -14,39 +14,39 @@
 
 package resultset
 
-type resultsetColumn struct {
+type column struct {
 	name string
 	t    DataType
 	c    Constraint
 }
 
 // ResultSetColumnOptions represents a functional option for resultsetColumn.
-type ResultSetColumnOption func(*resultsetColumn)
+type ColumnOption func(*column)
 
-// WithResultSetColumnName returns a functional option for resultsetColumn.
-func WithResultSetColumnName(name string) ResultSetColumnOption {
-	return func(col *resultsetColumn) {
+// WithColumnName returns a functional option for resultsetColumn.
+func WithColumnName(name string) ColumnOption {
+	return func(col *column) {
 		col.name = name
 	}
 }
 
-// WithResultSetColumnType returns a functional option for resultsetColumn.
-func WithResultSetColumnType(t DataType) ResultSetColumnOption {
-	return func(col *resultsetColumn) {
+// WithColumnType returns a functional option for resultsetColumn.
+func WithColumnType(t DataType) ColumnOption {
+	return func(col *column) {
 		col.t = t
 	}
 }
 
-// WithResultSetColumnConstraint returns a functional option for resultsetColumn.
-func WithResultSetColumnConstraint(c Constraint) ResultSetColumnOption {
-	return func(col *resultsetColumn) {
+// WithColumnConstraint returns a functional option for resultsetColumn.
+func WithColumnConstraint(c Constraint) ColumnOption {
+	return func(col *column) {
 		col.c = c
 	}
 }
 
 // ResultSetColumn represents a resultset column interface.
-func NewResultSetColumn(opts ...ResultSetColumnOption) Column {
-	col := &resultsetColumn{
+func NewColumn(opts ...ColumnOption) Column {
+	col := &column{
 		name: "",
 		t:    0,
 		c:    0,
@@ -58,16 +58,16 @@ func NewResultSetColumn(opts ...ResultSetColumnOption) Column {
 }
 
 // Name returns the column name.
-func (col *resultsetColumn) Name() string {
+func (col *column) Name() string {
 	return col.name
 }
 
 // DataType returns the column type.
-func (col *resultsetColumn) DataType() DataType {
+func (col *column) DataType() DataType {
 	return col.t
 }
 
 // Constraint returns the column constraint.
-func (col *resultsetColumn) Constraint() Constraint {
+func (col *column) Constraint() Constraint {
 	return col.c
 }
