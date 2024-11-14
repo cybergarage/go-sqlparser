@@ -20,39 +20,39 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-type resultsetSchema struct {
+type schema struct {
 	databaeName string
 	tableName   string
 	columns     []Column
 }
 
 // SchemaOptions represents a functional option for resultsetSchema.
-type SchemaOptions func(*resultsetSchema)
+type SchemaOptions func(*schema)
 
 // WithSchemaDatabaseName returns a functional option for resultsetSchema.
 func WithSchemaDatabaseName(name string) SchemaOptions {
-	return func(schema *resultsetSchema) {
+	return func(schema *schema) {
 		schema.databaeName = name
 	}
 }
 
 // WithSchemaTableName returns a functional option for resultsetSchema.
 func WithSchemaTableName(name string) SchemaOptions {
-	return func(schema *resultsetSchema) {
+	return func(schema *schema) {
 		schema.tableName = name
 	}
 }
 
 // WithSchemaResultSetColumns returns a functional option for resultsetSchema.
 func WithSchemaResultSetColumns(columns []Column) SchemaOptions {
-	return func(schema *resultsetSchema) {
+	return func(schema *schema) {
 		schema.columns = columns
 	}
 }
 
 // NewSchema returns a new resultsetSchema.
 func NewSchema(opts ...SchemaOptions) Schema {
-	schema := &resultsetSchema{
+	schema := &schema{
 		databaeName: "",
 		tableName:   "",
 		columns:     []Column{},
@@ -64,17 +64,17 @@ func NewSchema(opts ...SchemaOptions) Schema {
 }
 
 // DatabaseName returns the database name.
-func (schema *resultsetSchema) DatabaseName() string {
+func (schema *schema) DatabaseName() string {
 	return schema.databaeName
 }
 
 // TableName returns the table name.
-func (schema *resultsetSchema) TableName() string {
+func (schema *schema) TableName() string {
 	return schema.tableName
 }
 
 // Columns returns the columns.
-func (schema *resultsetSchema) Columns() []Column {
+func (schema *schema) Columns() []Column {
 	return schema.columns
 }
 
@@ -83,7 +83,7 @@ func newErrColumnNotFound(name string) error {
 }
 
 // LookupColumn returns the column by the specified name.
-func (schema *resultsetSchema) LookupColumn(name string) (Column, error) {
+func (schema *schema) LookupColumn(name string) (Column, error) {
 	for _, column := range schema.columns {
 		if column.Name() == name {
 			return column, nil
@@ -93,7 +93,7 @@ func (schema *resultsetSchema) LookupColumn(name string) (Column, error) {
 }
 
 // Selectors returns the selectors.
-func (schema *resultsetSchema) Selectors() query.SelectorList {
+func (schema *schema) Selectors() query.SelectorList {
 	selectors := query.NewSelectors()
 	for _, column := range schema.columns {
 		selectors = append(selectors, column)
