@@ -15,7 +15,7 @@
 package sql
 
 import (
-	"github.com/cybergarage/go-sqlparser/sql/response/resultset"
+	"github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 )
 
 // ResultSetColumn represents a column interface in a resultset.
