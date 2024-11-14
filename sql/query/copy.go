@@ -51,7 +51,7 @@ type CopyOption = func(*copyStmt)
 // WithCopyColumns returns a copy option to set the columns.
 func WithCopyColumns(columns ...Column) func(*copyStmt) {
 	return func(stmt *copyStmt) {
-		stmt.ColumnList = NewColumnsWith(columns...)
+		stmt.columns = NewColumnsWith(columns...)
 	}
 }
 
@@ -75,24 +75,24 @@ type Copy interface {
 	// TableName returns the table name.
 	TableName() string
 	// Columns returns the column list.
-	Columns() ColumnList
+	Columns() Columns
 }
 
 // copyStmt is a "COPY" statement.
 type copyStmt struct {
 	Table
-	ColumnList
-	source string
-	format CopyFormat
+	columns Columns
+	source  string
+	format  CopyFormat
 }
 
 // NewCopyWith returns a new copyStmt statement instance with the specified parameters.
 func NewCopyWith(tblName string, src string, opts ...CopyOption) *copyStmt {
 	stmt := &copyStmt{
-		Table:      NewTableWith(tblName),
-		ColumnList: NewColumns(),
-		source:     src,
-		format:     CopyFormatText,
+		Table:   NewTableWith(tblName),
+		columns: NewColumns(),
+		source:  src,
+		format:  CopyFormatText,
 	}
 	for _, opt := range opts {
 		opt(stmt)
@@ -103,6 +103,11 @@ func NewCopyWith(tblName string, src string, opts ...CopyOption) *copyStmt {
 // StatementType returns the statement type.
 func (stmt *copyStmt) StatementType() StatementType {
 	return CopyStatement
+}
+
+// Columns returns the columns.
+func (stmt *copyStmt) Columns() Columns {
+	return stmt.columns
 }
 
 // Source returns the source resource.
@@ -120,8 +125,8 @@ func (stmt *copyStmt) String() string {
 		"COPY",
 		stmt.TableName(),
 	}
-	if 0 < len(stmt.ColumnList) {
-		strs = append(strs, "("+strings.JoinWithComma(stmt.ColumnList.Names())+")")
+	if 0 < len(stmt.columns) {
+		strs = append(strs, "("+strings.JoinWithComma(stmt.columns.Names())+")")
 	}
 	strs = append(strs,
 		"FROM",

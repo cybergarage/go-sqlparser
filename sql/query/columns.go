@@ -20,28 +20,28 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// ColumnList represens a column array.
-type ColumnList []Column
+// Columns represens a column array.
+type Columns []Column
 
 // NewColumns returns a column array instance.
-func NewColumns() ColumnList {
-	return make(ColumnList, 0)
+func NewColumns() Columns {
+	return make(Columns, 0)
 }
 
 // NewColumnsWith returns a column array instance with the specified columns.
-func NewColumnsWith(columns ...Column) ColumnList {
-	c := make(ColumnList, len(columns))
+func NewColumnsWith(columns ...Column) Columns {
+	c := make(Columns, len(columns))
 	copy(c, columns)
 	return c
 }
 
 // Column returns a column array.
-func (columns ColumnList) Columns() ColumnList {
+func (columns Columns) Columns() Columns {
 	return columns
 }
 
 // ColumnNames returns a column name array.
-func (columns ColumnList) ColumnNames() []string {
+func (columns Columns) ColumnNames() []string {
 	names := make([]string, len(columns))
 	for n, col := range columns {
 		names[n] = col.Name()
@@ -50,17 +50,17 @@ func (columns ColumnList) ColumnNames() []string {
 }
 
 // Len returns the length of the column array.
-func (columns ColumnList) Len() int {
+func (columns Columns) Len() int {
 	return len(columns)
 }
 
 // Selectors returns a selector array.
-func (columns ColumnList) Selectors() Selectors {
+func (columns Columns) Selectors() Selectors {
 	return NewSelectorsWithColums(columns...)
 }
 
 // ColumnAt returns a column by the specified index.
-func (columns ColumnList) ColumnAt(n int) (Column, error) {
+func (columns Columns) ColumnAt(n int) (Column, error) {
 	if len(columns) <= n {
 		return nil, newErrColumnIndexOutOfRange(n)
 	}
@@ -68,7 +68,7 @@ func (columns ColumnList) ColumnAt(n int) (Column, error) {
 }
 
 // LookupColumn returns a column by the specified name.
-func (columns ColumnList) LookupColumn(name string) (Column, error) {
+func (columns Columns) LookupColumn(name string) (Column, error) {
 	for _, column := range columns {
 		if std_strings.EqualFold(column.Name(), name) {
 			return column, nil
@@ -78,7 +78,7 @@ func (columns ColumnList) LookupColumn(name string) (Column, error) {
 }
 
 // LookupIndexOfColumn returns the index of the column by the specified name.
-func (columns ColumnList) LookupIndexOfColumn(name string) (int, error) {
+func (columns Columns) LookupIndexOfColumn(name string) (int, error) {
 	for n, column := range columns {
 		if std_strings.EqualFold(column.Name(), name) {
 			return n, nil
@@ -88,7 +88,7 @@ func (columns ColumnList) LookupIndexOfColumn(name string) (int, error) {
 }
 
 // Names returns a column name array.
-func (columns ColumnList) Names() []string {
+func (columns Columns) Names() []string {
 	names := make([]string, len(columns))
 	for n, col := range columns {
 		names[n] = col.Name()
@@ -97,7 +97,7 @@ func (columns ColumnList) Names() []string {
 }
 
 // NameString returns a string representation of the the column names.
-func (columns ColumnList) NameString() string {
+func (columns Columns) NameString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
 		strs[n] = col.Name()
@@ -106,7 +106,7 @@ func (columns ColumnList) NameString() string {
 }
 
 // ValueString returns a string representation of the the column values.
-func (columns ColumnList) ValueString() string {
+func (columns Columns) ValueString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
 		strs[n] = col.ValueString()
@@ -115,7 +115,7 @@ func (columns ColumnList) ValueString() string {
 }
 
 // SetSchema sets a schema to update column values.
-func (columns ColumnList) SetSchema(schema Schema) error {
+func (columns Columns) SetSchema(schema Schema) error {
 	for _, col := range columns {
 		schemaCol, err := schema.Columns().LookupColumn(col.Name())
 		if err != nil {
@@ -134,7 +134,7 @@ func (columns ColumnList) SetSchema(schema Schema) error {
 }
 
 // DefinitionString returns a string representation of the the column definitions.
-func (columns ColumnList) DefinitionString() string {
+func (columns Columns) DefinitionString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
 		def, ok := col.(columnDefStringer)
@@ -148,7 +148,7 @@ func (columns ColumnList) DefinitionString() string {
 }
 
 // IsAsterisk returns true if the column list is "*".
-func (columns ColumnList) IsAsterisk() bool {
+func (columns Columns) IsAsterisk() bool {
 	l := len(columns)
 	switch {
 	case l == 1:
@@ -160,8 +160,8 @@ func (columns ColumnList) IsAsterisk() bool {
 }
 
 // Copy returns a copy of the column list.
-func (columns ColumnList) Copy() ColumnList {
-	cpColums := make(ColumnList, len(columns))
+func (columns Columns) Copy() Columns {
+	cpColums := make(Columns, len(columns))
 	for n, col := range columns {
 		cpColums[n] = col.Copy()
 	}

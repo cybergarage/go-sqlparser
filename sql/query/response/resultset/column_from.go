@@ -28,7 +28,7 @@ func NewColumnFrom(column query.Column) (Column, error) {
 }
 
 // NewColumnsFrom returns a new resultset columns from the specified column list.
-func NewColumnsFrom(column query.ColumnList) []Column {
+func NewColumnsFrom(column query.Columns) []Column {
 	columns := make([]Column, len(column))
 	for n, c := range column {
 		columns[n] = c

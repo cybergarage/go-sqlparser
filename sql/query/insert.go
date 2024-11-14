@@ -24,20 +24,20 @@ type Insert interface {
 	// TableName returns the table name.
 	TableName() string
 	// Columns returns the columns.
-	Columns() ColumnList
+	Columns() Columns
 }
 
 // insertStmt is a "INSERT" statement.
 type insertStmt struct {
 	Table
-	ColumnList
+	columns Columns
 }
 
 // NewInsertWith returns a new insert statement instance with the specified parameters.
-func NewInsertWith(tbl Table, columns ColumnList) Insert {
+func NewInsertWith(tbl Table, columns Columns) Insert {
 	return &insertStmt{
-		Table:      tbl,
-		ColumnList: columns,
+		Table:   tbl,
+		columns: columns,
 	}
 }
 
@@ -46,15 +46,20 @@ func (stmt *insertStmt) StatementType() StatementType {
 	return InsertStatement
 }
 
+// Columns returns the columns.
+func (stmt *insertStmt) Columns() Columns {
+	return stmt.columns
+}
+
 // String returns the statement string representation.
 func (stmt *insertStmt) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
 		stmt.Table.FullTableName(),
-		"(" + stmt.ColumnList.NameString() + ")",
+		"(" + stmt.Columns().NameString() + ")",
 		"VALUES",
-		"(" + stmt.ColumnList.ValueString() + ")",
+		"(" + stmt.Columns().ValueString() + ")",
 	}
 	return strings.JoinWithSpace(strs)
 }

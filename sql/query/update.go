@@ -26,24 +26,24 @@ type Update interface {
 	// Table returns the table.
 	TableName() string
 	// Columns returns the columns.
-	Columns() ColumnList
+	Columns() Columns
 	// Where returns the condition.
 	Where() Condition
 }
 
 // updateStmt is a "UPDATE" statement.
 type updateStmt struct {
-	table Table
-	ColumnList
+	table   Table
+	columns Columns
 	Condition
 }
 
 // NewUpdateWith returns a new updateStmt statement instance with the specified parameters.
-func NewUpdateWith(tbl Table, columns ColumnList, w Condition) Update {
+func NewUpdateWith(tbl Table, columns Columns, w Condition) Update {
 	return &updateStmt{
-		table:      tbl,
-		ColumnList: columns,
-		Condition:  w,
+		table:     tbl,
+		columns:   columns,
+		Condition: w,
 	}
 }
 
@@ -62,6 +62,11 @@ func (stmt *updateStmt) TableName() string {
 	return stmt.table.TableName()
 }
 
+// Columns returns the columns.
+func (stmt *updateStmt) Columns() Columns {
+	return stmt.columns
+}
+
 // Where returns the condition.
 func (stmt *updateStmt) Where() Condition {
 	return stmt.Condition
@@ -75,7 +80,7 @@ func (stmt *updateStmt) String() string {
 		"SET",
 	}
 	columns := []string{}
-	for _, column := range stmt.ColumnList {
+	for _, column := range stmt.columns {
 		name := column.Name()
 		value := column.String()
 		updator, ok := column.(columnUpdatorStringer)
