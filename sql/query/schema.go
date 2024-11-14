@@ -35,7 +35,7 @@ type Schema interface {
 	// DropColumn drops a column by the specified name.
 	DropColumn(name string) error
 	// Indexes returns the all indexes.
-	Indexes() IndexList
+	Indexes() Indexes
 	// LookupIndex returns an index by the specified name.
 	LookupIndex(name string) (Index, error)
 	// AddIndex adds an index.
@@ -50,7 +50,7 @@ type Schema interface {
 type schema struct {
 	Table
 	columns Columns
-	IndexList
+	indexes Indexes
 }
 
 // SchemaOption represents a schema option function.
@@ -59,9 +59,9 @@ type SchemaOption = func(*schema)
 // NewSchemaWith returns a new schema statement instance with the parameters.
 func NewSchemaWith(name string, opts ...SchemaOption) Schema {
 	s := &schema{
-		Table:     NewTableWith(name),
-		columns:   NewColumns(),
-		IndexList: NewIndexes(),
+		Table:   NewTableWith(name),
+		columns: NewColumns(),
+		indexes: NewIndexes(),
 	}
 	for _, opt := range opts {
 		opt(s)
@@ -77,9 +77,9 @@ func WithSchemaColumns(columns Columns) func(*schema) {
 }
 
 // WithSchemaIndexes returns a schema option to set the indexes.
-func WithSchemaIndexes(idxes IndexList) func(*schema) {
+func WithSchemaIndexes(idxes Indexes) func(*schema) {
 	return func(schema *schema) {
-		schema.IndexList = idxes
+		schema.indexes = idxes
 	}
 }
 
@@ -98,14 +98,14 @@ func (schema *schema) Name() string {
 	return schema.TableName()
 }
 
-// Columns returns the all columns.
-func (schema *schema) Columns() Columns {
-	return schema.columns
-}
-
 // Selectors returns the all selectors from the columns.
 func (schema *schema) Selectors() Selectors {
 	return schema.columns.Selectors()
+}
+
+// Columns returns the all columns.
+func (schema *schema) Columns() Columns {
+	return schema.columns
 }
 
 // LookupColumn returns a column by the specified name.
@@ -116,12 +116,6 @@ func (schema *schema) LookupColumn(name string) (Column, error) {
 // AddColumn adds a column.
 func (schema *schema) AddColumn(column Column) error {
 	schema.columns = append(schema.columns, column)
-	return nil
-}
-
-// AddIndex adds an index.
-func (schema *schema) AddIndex(index Index) error {
-	schema.IndexList = append(schema.IndexList, index)
 	return nil
 }
 
@@ -137,13 +131,29 @@ func (schema *schema) DropColumn(name string) error {
 	return newErrColumnNotFound(name)
 }
 
+// AddIndex adds an index.
+func (schema *schema) AddIndex(index Index) error {
+	schema.indexes = append(schema.indexes, index)
+	return nil
+}
+
+// Indexes returns the all indexes.
+func (schema *schema) Indexes() Indexes {
+	return schema.indexes
+}
+
+// LookupIndex returns an index by the specified name.
+func (schema *schema) LookupIndex(name string) (Index, error) {
+	return schema.indexes.LookupIndex(name)
+}
+
 // DropIndex drops an index by the specified name.
 func (schema *schema) DropIndex(name string) error {
-	for n, index := range schema.IndexList {
+	for n, index := range schema.indexes {
 		if strings.EqualFold(index.Name(), name) {
 			continue
 		}
-		schema.IndexList = append(schema.IndexList[:n], schema.IndexList[n+1:]...)
+		schema.indexes = append(schema.indexes[:n], schema.indexes[n+1:]...)
 		return nil
 	}
 	return newErrIndexNotFound(name)

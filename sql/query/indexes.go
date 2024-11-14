@@ -18,21 +18,21 @@ import (
 	"strings"
 )
 
-// IndexList represents an index array.
-type IndexList []Index
+// Indexes represents an index array.
+type Indexes []Index
 
 // NewIndexes returns a new Indexes instance.
-func NewIndexes() IndexList {
-	return make(IndexList, 0)
+func NewIndexes() Indexes {
+	return make(Indexes, 0)
 }
 
 // Indexes returns an index array.
-func (indexes IndexList) Indexes() IndexList {
+func (indexes Indexes) Indexes() Indexes {
 	return indexes
 }
 
 // IndexNames returns an index name array.
-func (indexes IndexList) IndexNames() []string {
+func (indexes Indexes) IndexNames() []string {
 	names := make([]string, len(indexes))
 	for n, index := range indexes {
 		names[n] = index.Name()
@@ -41,7 +41,7 @@ func (indexes IndexList) IndexNames() []string {
 }
 
 // LookupIndex returns an index by the specified name.
-func (indexes IndexList) LookupIndex(name string) (Index, error) {
+func (indexes Indexes) LookupIndex(name string) (Index, error) {
 	for _, index := range indexes {
 		if strings.EqualFold(index.Name(), name) {
 			return index, nil
@@ -51,7 +51,7 @@ func (indexes IndexList) LookupIndex(name string) (Index, error) {
 }
 
 // LookupIndexOfIndex returns an index index by the specified name.
-func (indexes IndexList) LookupIndexOfIndex(name string) (int, error) {
+func (indexes Indexes) LookupIndexOfIndex(name string) (int, error) {
 	for n, index := range indexes {
 		if strings.EqualFold(index.Name(), name) {
 			return n, nil
@@ -61,7 +61,7 @@ func (indexes IndexList) LookupIndexOfIndex(name string) (int, error) {
 }
 
 // DefinitionString returns the index definition string representation.
-func (indexes IndexList) DefinitionString() string {
+func (indexes Indexes) DefinitionString() string {
 	elems := make([]string, len(indexes))
 	for n, index := range indexes {
 		elems[n] = index.DefinitionString()
