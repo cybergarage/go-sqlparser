@@ -14,6 +14,10 @@
 
 package sql
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/query"
+)
+
 type resultsetSchema struct {
 	databaeName string
 	tableName   string
@@ -70,4 +74,13 @@ func (schema *resultsetSchema) TableName() string {
 // Columns returns the columns.
 func (schema *resultsetSchema) Columns() []ResultSetColumn {
 	return schema.columns
+}
+
+// Selectors returns the selectors.
+func (schema *resultsetSchema) Selectors() query.SelectorList {
+	selectors := query.NewSelectors()
+	for _, column := range schema.columns {
+		selectors = append(selectors, column)
+	}
+	return selectors
 }

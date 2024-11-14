@@ -39,6 +39,8 @@ type ResultSetSchema interface {
 	TableName() string
 	// Columns returns the columns.
 	Columns() []ResultSetColumn
+	// Selectows returns the selectors.
+	Selectors() query.SelectorList
 }
 
 // ResultSetRow represents a row interface.
