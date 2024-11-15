@@ -20,6 +20,7 @@ import (
 )
 
 type row struct {
+	object map[string]any
 	schema Schema
 	values []any
 }
@@ -27,14 +28,21 @@ type row struct {
 // RowOptions represents a functional option for Row.
 type RowOptions func(*row)
 
-// WithSchemas returns a functional option for Row.
-func WithSchemas(schema Schema) RowOptions {
+// WithRowObject returns a functional option for row object.
+func WithRowObject(object map[string]any) RowOptions {
+	return func(row *row) {
+		row.object = object
+	}
+}
+
+// WithRowSchema returns a functional option for row schema.
+func WithRowSchema(schema Schema) RowOptions {
 	return func(row *row) {
 		row.schema = schema
 	}
 }
 
-// WithRowValues returns a functional option for Row.
+// WithRowValues returns a functional option for row values.
 func WithRowValues(values []any) RowOptions {
 	return func(row *row) {
 		row.values = values
@@ -44,6 +52,7 @@ func WithRowValues(values []any) RowOptions {
 // NewRow returns a new resultsetRow.
 func NewRow(opts ...RowOptions) Row {
 	row := &row{
+		object: nil,
 		schema: nil,
 		values: []any{},
 	}
@@ -83,6 +92,7 @@ func (row *row) Scan(tos ...any) error {
 			return err
 		}
 	}
+
 	return nil
 }
 
