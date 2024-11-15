@@ -20,14 +20,22 @@ import (
 )
 
 type row struct {
+	schema Schema
 	values []any
 }
 
-// RowOptions represents a functional option for resultsetRow.
+// RowOptions represents a functional option for Row.
 type RowOptions func(*row)
 
-// WithRowObjects returns a functional option for resultsetRow.
-func WithRowObjects(values []any) RowOptions {
+// WithSchemas returns a functional option for Row.
+func WithSchemas(schema Schema) RowOptions {
+	return func(row *row) {
+		row.schema = schema
+	}
+}
+
+// WithRowValues returns a functional option for Row.
+func WithRowValues(values []any) RowOptions {
 	return func(row *row) {
 		row.values = values
 	}
@@ -36,6 +44,7 @@ func WithRowObjects(values []any) RowOptions {
 // NewRow returns a new resultsetRow.
 func NewRow(opts ...RowOptions) Row {
 	row := &row{
+		schema: nil,
 		values: []any{},
 	}
 	for _, opt := range opts {
@@ -45,12 +54,17 @@ func NewRow(opts ...RowOptions) Row {
 }
 
 // Objects returns the row objects.
-func (row *row) Objects() []any {
+func (row *row) Object() map[string]any {
+	return map[string]any{}
+}
+
+// Values returns the row values.
+func (row *row) Values() []any {
 	return row.values
 }
 
-// ObjectAt returns the row object at the specified index.
-func (row *row) ObjectAt(index int) (any, error) {
+// ValueAt returns the row value at the specified index.
+func (row *row) ValueAt(index int) (any, error) {
 	if len(row.values) <= index {
 		return nil, errors.ErrNotExist
 	}
@@ -74,7 +88,7 @@ func (row *row) Scan(tos ...any) error {
 
 // ScanAt scans the value at the specified index.
 func (row *row) ScanAt(index int, to any) error {
-	v, err := row.ObjectAt(index)
+	v, err := row.ValueAt(index)
 	if err != nil {
 		return err
 	}

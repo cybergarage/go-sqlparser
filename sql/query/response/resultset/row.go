@@ -16,10 +16,12 @@ package resultset
 
 // Row represents a row interface.
 type Row interface {
-	// Objects returns the row objects.
-	Objects() []any
-	// ObjectAt returns the row object at the specified index.
-	ObjectAt(index int) (any, error)
+	// Object returns the row object.
+	Object() map[string]any
+	// Values returns the row values.
+	Values() []any
+	// ValueAt returns the row value at the specified index.
+	ValueAt(index int) (any, error)
 	// Scan scans the values.
 	Scan(...any) error
 	// ScanAt scans the value at the specified index.
