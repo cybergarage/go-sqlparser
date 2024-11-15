@@ -21,9 +21,13 @@ type Row interface {
 	// Values returns the row values.
 	Values() []any
 	// ValueAt returns the row value at the specified index.
-	ValueAt(index int) (any, error)
+	ValueAt(int) (any, error)
+	// ValueBy returns the row value by the specified name.
+	ValueBy(string) (any, error)
 	// Scan scans the values.
 	Scan(...any) error
 	// ScanAt scans the value at the specified index.
 	ScanAt(int, any) error
+	// ScanBy scans the value by the specified name.
+	ScanBy(string, any) error
 }

@@ -15,6 +15,9 @@
 package resultset
 
 import (
+	"sort"
+	"strconv"
+
 	"github.com/cybergarage/go-safecast/safecast"
 	"github.com/cybergarage/go-sqlparser/sql/errors"
 )
@@ -54,7 +57,7 @@ func NewRow(opts ...RowOptions) Row {
 	row := &row{
 		object: nil,
 		schema: nil,
-		values: []any{},
+		values: nil,
 	}
 	for _, opt := range opts {
 		opt(row)
@@ -64,41 +67,120 @@ func NewRow(opts ...RowOptions) Row {
 
 // Objects returns the row objects.
 func (row *row) Object() map[string]any {
-	return map[string]any{}
+	if row.object != nil {
+		return row.object
+	}
+	if row.values == nil {
+		return map[string]any{}
+	}
+	// Generate object from the values.
+	names := []string{}
+	if row.schema != nil {
+		for _, column := range row.schema.Columns() {
+			names = append(names, column.Name())
+		}
+	} else {
+		for n := 0; n < len(row.values); n++ {
+			names = append(names, strconv.Itoa((n + 1)))
+		}
+	}
+	row.object = make(map[string]any)
+	for n, name := range names {
+		var v any
+		if n < len(row.values) {
+			v = row.values[n]
+		} else {
+			v = nil
+		}
+		row.object[name] = v
+	}
+	return row.object
 }
 
 // Values returns the row values.
 func (row *row) Values() []any {
+	if row.values != nil {
+		return row.values
+	}
+	if row.object == nil {
+		return []any{}
+	}
+	// Generate values from the object.
+	row.values = []any{}
+	var names []string
+	if row.schema != nil {
+		for _, column := range row.schema.Columns() {
+			names = append(names, column.Name())
+		}
+	} else {
+		var keys []string
+		for key := range row.object {
+			keys = append(keys, key)
+		}
+		sort.Strings(keys)
+		names = append(names, keys...)
+	}
+	for _, name := range names {
+		v, ok := row.object[name]
+		if ok {
+			row.values = append(row.values, v)
+		} else {
+			row.values = append(row.values, nil)
+		}
+	}
 	return row.values
 }
 
 // ValueAt returns the row value at the specified index.
 func (row *row) ValueAt(index int) (any, error) {
-	if len(row.values) <= index {
+	values := row.Values()
+	if len(values) <= index {
 		return nil, errors.ErrNotExist
 	}
-	return row.values[index], nil
+	return values[index], nil
+}
+
+// ValueBy returns the row value by the specified name.
+func (row *row) ValueBy(name string) (any, error) {
+	obj := row.Object()
+	if obj == nil {
+		return nil, errors.ErrNotExist
+	}
+	v, ok := obj[name]
+	if !ok {
+		return nil, errors.ErrNotExist
+	}
+	return v, nil
 }
 
 // Scan scans the values.
 func (row *row) Scan(tos ...any) error {
-	for i, to := range tos {
-		if len(row.values) <= i {
+	values := row.Values()
+	for n, to := range tos {
+		if len(values) <= n {
 			return errors.ErrNotExist
 		}
-		v := row.values[i]
+		v := values[n]
 		err := safecast.To(v, to)
 		if err != nil {
 			return err
 		}
 	}
-
 	return nil
 }
 
 // ScanAt scans the value at the specified index.
 func (row *row) ScanAt(index int, to any) error {
 	v, err := row.ValueAt(index)
+	if err != nil {
+		return err
+	}
+	return safecast.To(v, to)
+}
+
+// ScanBy scans the value by the specified name.
+func (row *row) ScanBy(name string, to any) error {
+	v, err := row.ValueBy(name)
 	if err != nil {
 		return err
 	}
