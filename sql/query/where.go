@@ -16,8 +16,8 @@ package query
 
 // Condition represents a where condition interface.
 type Condition interface {
-	// IsEmpty returns true if the where condition is empty.
-	IsEmpty() bool
+	// HasConditions returns true if the condition has conditions.
+	HasConditions() bool
 	// Expr returns the top expression.
 	Expr() Expr
 	// String returns the string representation.
@@ -61,10 +61,7 @@ func (w *condition) String() string {
 	return w.expr.String()
 }
 
-// IsEmpty returns true if the where condition is empty.
-func (w *condition) IsEmpty() bool {
-	if w == nil {
-		return true
-	}
-	return w.expr == nil
+// HasConditions returns true if the condition has conditions.
+func (w *condition) HasConditions() bool {
+	return w.expr != nil
 }

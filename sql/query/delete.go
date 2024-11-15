@@ -24,7 +24,11 @@ type DeleteOption = func(*deleteStmt)
 // Delete represents a "DELETE" statement interface.
 type Delete interface {
 	Statement
+	// Table returns the table.
 	TableName() string
+	// HasConditions returns true if the statement has conditions.
+	HasConditions() bool
+	// Where returns the condition.
 	Where() Condition
 }
 
@@ -78,7 +82,7 @@ func (stmt *deleteStmt) String() string {
 		"FROM",
 		stmt.table.FullTableName(),
 	}
-	if !stmt.Condition.IsEmpty() {
+	if stmt.Condition.HasConditions() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	return strings.JoinWithSpace(strs)
