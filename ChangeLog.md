@@ -6,10 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
-# v1.4.0 (2024-11-xx)
+# v1.4.0 (2024-11-16)
 - Added
-  - net package to handle network connections
   - Query executor interface
+  - net package to handle network connections
 
 # v1.3.6 (2024-11-08)
 - Supported
