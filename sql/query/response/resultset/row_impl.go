@@ -106,7 +106,6 @@ func (row *row) Values() []any {
 		return []any{}
 	}
 	// Generate values from the object.
-	row.values = []any{}
 	var names []string
 	if row.schema != nil {
 		for _, column := range row.schema.Columns() {
@@ -120,6 +119,7 @@ func (row *row) Values() []any {
 		sort.Strings(keys)
 		names = append(names, keys...)
 	}
+	row.values = []any{}
 	for _, name := range names {
 		v, ok := row.object[name]
 		if ok {
