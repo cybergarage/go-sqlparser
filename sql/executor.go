@@ -94,5 +94,4 @@ type ErrorHandler interface {
 type Executor interface {
 	QueryExecutor
 	SystemQueryExecutor
-	ErrorHandler
 }
