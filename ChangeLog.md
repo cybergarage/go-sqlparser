@@ -49,7 +49,7 @@
 
 # v1.2.5 (2023-09-28)
 - Improved
-  - Add utility functions for Schema 
+  - Add utility functions for Schema
 
 # v1.2.4 (2023-09-24)
 - Updated
