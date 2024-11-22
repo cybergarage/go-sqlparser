@@ -84,12 +84,6 @@ type SystemQueryExecutor interface {
 	SystemDMOExecutor
 }
 
-// ErrorHandler represents a user error handler.
-type ErrorHandler interface {
-	// ParserError handles a parser error.
-	ParserError(Conn, string, error) error
-}
-
 // Executor represents a frontend message executor.
 type Executor interface {
 	QueryExecutor
