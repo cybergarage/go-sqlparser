@@ -47,7 +47,6 @@ linters:
     - gochecknoinits
     - containedctx
     - asasalint
-    - nilnil
     - inamedparam # Deprecated
     - perfsprint # Deprecated
     - mnd # Deprecated
