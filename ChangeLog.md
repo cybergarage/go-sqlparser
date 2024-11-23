@@ -7,7 +7,8 @@
   - Add new ANTLR parser instead of SQLite3 parser
 
 # v1.4.1 (2024-11-xx)
-- Update Executor interface to remove ErrorHandler
+- Updated
+  - Executor interface to remove ErrorHandler
 
 # v1.4.0 (2024-11-16)
 - Added
