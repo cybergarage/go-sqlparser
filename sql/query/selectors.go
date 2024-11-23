@@ -60,8 +60,8 @@ func (selectors Selectors) Columns() []Column {
 	return cols
 }
 
-// Names returns a name array.
-func (selectors Selectors) Names() []string {
+// SelectorNames returns a name array.
+func (selectors Selectors) SelectorNames() []string {
 	names := make([]string, 0)
 	for _, selector := range selectors {
 		names = append(names, selector.Name())
