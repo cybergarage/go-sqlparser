@@ -31,6 +31,7 @@ TEST_PKG_ROOT=${GIT_ROOT}/${PRODUCT_NAME}/${TEST_PKG_NAME}
 TEST_PKG=${TEST_PKG_ROOT}
 
 .PHONY: version antlr clean
+.IGNORE: lint
 
 all: test
 
