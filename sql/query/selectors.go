@@ -60,6 +60,15 @@ func (selectors Selectors) Columns() []Column {
 	return cols
 }
 
+// Names returns a name array.
+func (selectors Selectors) Names() []string {
+	names := make([]string, 0)
+	for _, selector := range selectors {
+		names = append(names, selector.Name())
+	}
+	return names
+}
+
 // Len returns the length of the selector array.
 func (selectors Selectors) Len() int {
 	return len(selectors)
