@@ -45,7 +45,12 @@ func NewErrNotImplemented(s string) error {
 	return fmt.Errorf("%s is %w", s, ErrNotImplemented)
 }
 
-// NewErrNotExis returns an error for a not exist.
-func NewErrNotExis(name string) error {
+// NewErrNotExist returns an error for a not exist.
+func NewErrNotExist(name string) error {
+	return fmt.Errorf("%s is not exists", name)
+}
+
+// NewErrExist returns an error for a exist.
+func NewErrExist(name string) error {
 	return fmt.Errorf("%s is not exists", name)
 }
