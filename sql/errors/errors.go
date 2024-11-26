@@ -40,6 +40,9 @@ var ErrInvalid = errors.New("invalid")
 // ErrNotFound is returned when the specified object is not found.
 var ErrNotFound = errors.New("not found")
 
+// ErrNoRows is returned when no rows are found.
+var ErrNoRows = errors.New("no rows")
+
 // NewErrNotImplemented returns an error for a not implemented.
 func NewErrNotImplemented(s string) error {
 	return fmt.Errorf("%s is %w", s, ErrNotImplemented)
