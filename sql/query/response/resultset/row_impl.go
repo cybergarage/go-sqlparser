@@ -28,32 +28,32 @@ type row struct {
 	values []any
 }
 
-// RowOptions represents a functional option for Row.
-type RowOptions func(*row)
+// RowOption represents a functional option for Row.
+type RowOption func(*row)
 
 // WithRowObject returns a functional option for row object.
-func WithRowObject(object map[string]any) RowOptions {
+func WithRowObject(object map[string]any) RowOption {
 	return func(row *row) {
 		row.object = object
 	}
 }
 
 // WithRowSchema returns a functional option for row schema.
-func WithRowSchema(schema Schema) RowOptions {
+func WithRowSchema(schema Schema) RowOption {
 	return func(row *row) {
 		row.schema = schema
 	}
 }
 
 // WithRowValues returns a functional option for row values.
-func WithRowValues(values []any) RowOptions {
+func WithRowValues(values []any) RowOption {
 	return func(row *row) {
 		row.values = values
 	}
 }
 
 // NewRow returns a new resultsetRow.
-func NewRow(opts ...RowOptions) Row {
+func NewRow(opts ...RowOption) Row {
 	row := &row{
 		object: nil,
 		schema: nil,
