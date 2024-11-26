@@ -26,32 +26,32 @@ type schema struct {
 	columns     []Column
 }
 
-// SchemaOptions represents a functional option for resultsetSchema.
-type SchemaOptions func(*schema)
+// SchemaOption represents a functional option for resultsetSchema.
+type SchemaOption func(*schema)
 
 // WithSchemaDatabaseName returns a functional option for resultsetSchema.
-func WithSchemaDatabaseName(name string) SchemaOptions {
+func WithSchemaDatabaseName(name string) SchemaOption {
 	return func(schema *schema) {
 		schema.databaeName = name
 	}
 }
 
 // WithSchemaTableName returns a functional option for resultsetSchema.
-func WithSchemaTableName(name string) SchemaOptions {
+func WithSchemaTableName(name string) SchemaOption {
 	return func(schema *schema) {
 		schema.tableName = name
 	}
 }
 
 // WithSchemaColumns returns a functional option for resultsetSchema.
-func WithSchemaColumns(columns []Column) SchemaOptions {
+func WithSchemaColumns(columns []Column) SchemaOption {
 	return func(schema *schema) {
 		schema.columns = columns
 	}
 }
 
 // NewSchema returns a new resultsetSchema.
-func NewSchema(opts ...SchemaOptions) Schema {
+func NewSchema(opts ...SchemaOption) Schema {
 	schema := &schema{
 		databaeName: "",
 		tableName:   "",
