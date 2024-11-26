@@ -43,8 +43,8 @@ func WithSchemaTableName(name string) SchemaOptions {
 	}
 }
 
-// WithSchemaResultSetColumns returns a functional option for resultsetSchema.
-func WithSchemaResultSetColumns(columns []Column) SchemaOptions {
+// WithSchemaColumns returns a functional option for resultsetSchema.
+func WithSchemaColumns(columns []Column) SchemaOptions {
 	return func(schema *schema) {
 		schema.columns = columns
 	}
