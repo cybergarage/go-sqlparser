@@ -6,6 +6,10 @@
     - Support subqueries
   - Add new ANTLR parser instead of SQLite3 parser
 
+# v1.4.2 (2024-11-xx)
+- Updated
+  - ResultSet interface to return error in Row() method
+
 # v1.4.1 (2024-11-24)
 - Updated
   - Executor interface to remove ErrorHandler
