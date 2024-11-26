@@ -14,6 +14,10 @@
 
 package resultset
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/errors"
+)
+
 type resultset struct {
 	schema       Schema
 	rows         []Row
@@ -71,11 +75,11 @@ func (r *resultset) Next() bool {
 }
 
 // Row returns the current row.
-func (r *resultset) Row() Row {
+func (r *resultset) Row() (Row, error) {
 	if len(r.rows) < (r.rowCursor - 1) {
-		return nil
+		return nil, errors.ErrNoRows
 	}
-	return r.rows[r.rowCursor-1]
+	return r.rows[r.rowCursor-1], nil
 }
 
 // Schema returns the schema.

@@ -21,7 +21,7 @@ type ResultSet interface {
 	// Next returns the next row.
 	Next() bool
 	// Row returns the current row.
-	Row() Row
+	Row() (Row, error)
 	// RowsAffected returns the number of rows affected.
 	RowsAffected() uint64
 	// Close closes the resultset.
