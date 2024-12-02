@@ -24,6 +24,7 @@ QUERY_FILES = \
 	insert.sql \
 	select.sql \
 	update.sql \
-	delete.sql
+	delete.sql \
+	create_index.sql
 
 queries: ${QUERY_FILES}
