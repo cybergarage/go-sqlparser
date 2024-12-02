@@ -57,3 +57,8 @@ func NewErrNotExist(name string) error {
 func NewErrExist(name string) error {
 	return fmt.Errorf("%s is not exists", name)
 }
+
+// NewErrNotSupported returns an error for a not supported.
+func NewErrNotSupported(name string) error {
+	return fmt.Errorf("%s is not supported", name)
+}
