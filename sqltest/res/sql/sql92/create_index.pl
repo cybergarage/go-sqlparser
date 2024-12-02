@@ -24,17 +24,19 @@ my @data_types = split(/\t/, $first_line, -1);
 my $tbl_name = "test";
 
 for (my $n = 0; $n < scalar(@data_types); $n++) {
-  my $type_name = lc($data_types[$n]);
-  print "CREATE INDEX ${type_name}_index ON ${tbl_name} (";  
+  my $index_name = lc($data_types[$n]) . "_index";
   for (my $i = 0; $i < scalar(@data_types); $i++) {
-      my $type_name = lc($data_types[$i]);
+    print "CREATE INDEX ${index_name} ON ${tbl_name} (";  
+    for (my $j = 0; $j <= $i; $j++) {
+      my $type_name = lc($data_types[$j]);
       my $column_name = "i" . $type_name;
-      if (0 < $i) {
+      if (0 < $j) {
         print ",";  
       }
       print $column_name;
     }
-  print ");\n\n";  
+    print ");\n\n";  
+  }
 }
 
 close(IN);
