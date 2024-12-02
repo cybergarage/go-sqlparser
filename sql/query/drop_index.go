@@ -23,6 +23,8 @@ type DropIndex interface {
 	Statement
 	// TableName returns the table name.
 	TableName() string
+	// Indexreturns the index.
+	Index() Index
 	// IndexName returns the index name.
 	IndexName() string
 	// IfExists returns true if the "IF EXISTS" option is set.
@@ -31,7 +33,7 @@ type DropIndex interface {
 
 // dropIndex is a "DROP INDEX" statement.
 type dropIndex struct {
-	Index
+	index Index
 	Schema
 	*IfExistsOpt
 }
@@ -40,7 +42,7 @@ type dropIndex struct {
 func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) DropIndex {
 	return &dropIndex{
 		Schema:      NewSchemaWith(schemaName),
-		Index:       NewIndexWith(idxName, UnknownIndex, NewColumns()),
+		index:       NewIndexWith(idxName, UnknownIndex, NewColumns()),
 		IfExistsOpt: ife,
 	}
 }
@@ -50,9 +52,14 @@ func (stmt *dropIndex) TableName() string {
 	return stmt.Schema.FullTableName()
 }
 
+// Index returns the index.
+func (stmt *dropIndex) Index() Index {
+	return stmt.index
+}
+
 // IndexName returns the index name.
 func (stmt *dropIndex) IndexName() string {
-	return stmt.Index.Name()
+	return stmt.index.Name()
 }
 
 // StatementType returns the statement type.
