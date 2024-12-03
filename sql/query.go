@@ -103,3 +103,9 @@ type Truncate = query.Truncate
 
 // Use represents a "USE" statement interface.
 type Use = query.Use
+
+// CreateIndex represents a "CREATE INDEX" statement interface.
+type CreateIndex = query.CreateIndex
+
+// DropIndex represents a "DROP INDEX" statement interface.
+type DropIndex = query.DropIndex
