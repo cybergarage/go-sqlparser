@@ -16,6 +16,8 @@ package query
 
 import (
 	"strings"
+
+	"github.com/cybergarage/go-sqlparser/sql/errors"
 )
 
 // Schema represents a table schema interface.
@@ -29,19 +31,21 @@ type Schema interface {
 	// Columns returns the all columns.
 	Columns() Columns
 	// LookupColumn returns a column by the specified name.
-	LookupColumn(name string) (Column, error)
-	// AddColumn adds a column.
-	AddColumn(column Column) error
-	// DropColumn drops a column by the specified name.
-	DropColumn(name string) error
+	LookupColumn(string) (Column, error)
 	// Indexes returns the all indexes.
 	Indexes() Indexes
 	// LookupIndex returns an index by the specified name.
-	LookupIndex(name string) (Index, error)
+	LookupIndex(string) (Index, error)
+	// Alter alters the schema.
+	Alter(AlterTable) error
+	// AddColumn adds a column.
+	AddColumn(Column) error
+	// DropColumn drops a column by the specified name.
+	DropColumn(string) error
 	// AddIndex adds an index.
-	AddIndex(index Index) error
+	AddIndex(Index) error
 	// DropIndex drops an index by the specified name.
-	DropIndex(name string) error
+	DropIndex(string) error
 	// Selectors returns the all selectors from the columns.
 	Selectors() Selectors
 }
@@ -113,6 +117,57 @@ func (schema *schema) LookupColumn(name string) (Column, error) {
 	return schema.columns.LookupColumn(name)
 }
 
+// Indexes returns the all indexes.
+func (schema *schema) Indexes() Indexes {
+	return schema.indexes
+}
+
+// LookupIndex returns an index by the specified name.
+func (schema *schema) LookupIndex(name string) (Index, error) {
+	return schema.indexes.LookupIndex(name)
+}
+
+// Alter alters the schema.
+func (schema *schema) Alter(stmt AlterTable) error {
+	if column, ok := stmt.AddColumn(); ok {
+		err := schema.AddColumn(column)
+		if err != nil {
+			return err
+		}
+	}
+
+	if idx, ok := stmt.AddIndex(); ok {
+		err := schema.AddIndex(idx)
+		if err != nil {
+			return err
+		}
+	}
+
+	if col, ok := stmt.DropColumn(); ok {
+		err := schema.DropColumn(col.Name())
+		if err != nil {
+			return err
+		}
+	}
+
+	if idx, ok := stmt.DropIndex(); ok {
+		err := schema.DropIndex(idx.Name())
+		if err != nil {
+			return err
+		}
+	}
+
+	if _, ok := stmt.RenameTo(); ok {
+		return errors.NewErrNotImplemented(stmt.String())
+	}
+
+	if _, _, ok := stmt.RenameColumns(); ok {
+		return errors.NewErrNotImplemented(stmt.String())
+	}
+
+	return nil
+}
+
 // AddColumn adds a column.
 func (schema *schema) AddColumn(column Column) error {
 	schema.columns = append(schema.columns, column)
@@ -135,16 +190,6 @@ func (schema *schema) DropColumn(name string) error {
 func (schema *schema) AddIndex(index Index) error {
 	schema.indexes = append(schema.indexes, index)
 	return nil
-}
-
-// Indexes returns the all indexes.
-func (schema *schema) Indexes() Indexes {
-	return schema.indexes
-}
-
-// LookupIndex returns an index by the specified name.
-func (schema *schema) LookupIndex(name string) (Index, error) {
-	return schema.indexes.LookupIndex(name)
 }
 
 // DropIndex drops an index by the specified name.
