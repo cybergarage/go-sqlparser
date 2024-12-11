@@ -11,7 +11,7 @@
 - ResultSet Interface
   - Return error in `Row()` method
 ### Additions
-- Utility functions for `CREATE INDEX` and `DROP INDEX`
+- Utility functions for `CREATE INDEX` and `DROP INDEX` to convert to ALTER TABLE statements
 
 ## v1.4.1 (2024-11-24)
 ### Updates
