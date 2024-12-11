@@ -2,20 +2,20 @@
 
 ## v2.0.0 (2023-xx-xx)
 ### Updates
-- **SELECT**
+- SELECT
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.4.2 (2024-11-xx)
+## v1.4.2 (2024-12-11)
 ### Updates
-- **ResultSet Interface**
+- ResultSet Interface
   - Return error in `Row()` method
 ### Additions
 - Utility functions for `CREATE INDEX` and `DROP INDEX`
 
 ## v1.4.1 (2024-11-24)
 ### Updates
-- **Executor Interface**
+- Executor Interface
   - Remove `ErrorHandler`
 
 ## v1.4.0 (2024-11-16)
@@ -25,11 +25,11 @@
 
 ## v1.3.6 (2024-11-08)
 ### Support
-- **DATETIME**
+- DATETIME
 
 ## v1.3.5 (2024-11-05)
 ### Support
-- **USE Statement**
+- USE Statement
 
 ## v1.3.4 (2024-10-27)
 ### Updates
@@ -37,15 +37,15 @@
 
 ## v1.3.3 (2024-10-13)
 ### Additions
-- **Executor Interface**
+- Executor Interface
 
 ## v1.3.2 (2024-10-12)
 ### Additions
-- **Query Interface**
+- Query Interface
 
 ## v1.3.1 (2024-10-11)
 ### Additions
-- **Conn Interface**
+- Conn Interface
 
 ## v1.3.0 (2024-10-06)
 ### Additions
@@ -53,12 +53,12 @@
 
 ## v1.2.7 (2023-12-03)
 ### Updates
-- **Parser::Parse()**
+- Parser::Parse()
   - Return empty query errors
 
 ## v1.2.6 (2023-09-29)
 ### Updates
-- **ALTER TABLE**
+- ALTER TABLE
   - Support `ALTER ADD INDEX`
 ### Improvements
 - Utility functions for `StatementType`
@@ -69,64 +69,64 @@
 
 ## v1.2.4 (2023-09-24)
 ### Updates
-- **SELECT**
+- SELECT
   - Support schema name
-- **COPY**
+- COPY
   - Support column and format options
 
 ## v1.2.3 (2023-09-19)
 ### Updates
-- **UPDATE**
+- UPDATE
   - Support arithmetic operations (`+`, `-`, `*`, `/`, `%`)
 
 ## v1.2.2 (2023-09-18)
 ### Updates
-- **VACUUM**
+- VACUUM
   - Support `ANALYZE` clause
-- **DELETE**
+- DELETE
   - Add option functions
 
 ## v1.2.1 (2023-09-17)
 ### Updates
-- **SELECT**
+- SELECT
   - Support multiple `ORDER BY`
 
 ## v1.2.0 (2023-09-16)
 ### Support
-- **Transaction Statements**
+- Transaction Statements
   - `BEGIN`, `COMMIT`, `ROLLBACK`
-- **SELECT**
+- SELECT
   - `GROUP BY`
 ### Additions
-- **Function Executors**
+- Function Executors
   - Math functions (`ABS`, `FLOOR`, `CEIL`)
   - Aggregate functions (`COUNT`, `MAX`, `MIN`, `AVG`, `SUM`)
 ### Updates
-- **Selector**
+- Selector
   - Utility functions
 
 ## v1.1.0 (2023-09-09)
 ### Support
-- **ALTER DATABASE**
-- **ALTER TABLE**
+- ALTER DATABASE
+- ALTER TABLE
   - `ADD`, `RENAME`, `DROP COLUMN`
   - `ADD PRIMARY KEY` (PostgreSQL)
 ### Updates
-- **SELECT**
+- SELECT
   - Support functions
 
 ## v1.0.1 (2023-09-05)
 ### Improvements
-- **Parser**
+- Parser
   - Enable parsing of signed numbers
-- **Testing**
+- Testing
   - Add new test queries using PICT data types
 
 ## v1.0.0 (2023-08-27)
 ### Fixes
 - Parser and query interfaces
 ### Support
-- **SELECT**
+- SELECT
   - `LIMIT`, `ORDER BY`
 
 ## v0.9.2 (2023-08-18)
