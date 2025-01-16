@@ -1,6 +1,6 @@
 module github.com/cybergarage/go-sqlparser
 
-go 1.22.0
+go 1.23.0
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
