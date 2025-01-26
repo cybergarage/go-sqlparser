@@ -15,8 +15,28 @@
 SHELL := bash
 
 GO_SQLTEST_DIR=../../../../../go-sqltest
+TEST_FILE_PREFIX=sqltest-
 
-all: select
+all: insert select update delete
 
-.PHONY select:
-	find ${GO_SQLTEST_DIR} -name "*.qst" | xargs more | grep SELECT > select.sql
+.PHONY: insert select update delete
+
+insert:
+	find ${GO_SQLTEST_DIR} -name "*.qst" | xargs more | grep INSERT > ${TEST_FILE_PREFIX}insert.sql
+	git add ${TEST_FILE_PREFIX}insert.sql
+	git commit -m "Update ${TEST_FILE_PREFIX}insert.sql" ${TEST_FILE_PREFIX}insert.sql
+
+select:
+	find ${GO_SQLTEST_DIR} -name "*.qst" | xargs more | grep SELECT > ${TEST_FILE_PREFIX}select.sql
+	git add ${TEST_FILE_PREFIX}select.sql
+	git commit -m "Update ${TEST_FILE_PREFIX}select.sql" ${TEST_FILE_PREFIX}select.sql
+
+update:
+	find ${GO_SQLTEST_DIR} -name "*.qst" | xargs more | grep UPDATE | grep -v pgbench > ${TEST_FILE_PREFIX}update.sql
+	git add ${TEST_FILE_PREFIX}update.sql
+	git commit -m "Update ${TEST_FILE_PREFIX}update.sql" ${TEST_FILE_PREFIX}update.sql
+
+delete:
+	find ${GO_SQLTEST_DIR} -name "*.qst" | xargs more | grep DELETE > ${TEST_FILE_PREFIX}delete.sql
+	git add ${TEST_FILE_PREFIX}delete.sql
+	git commit -m "Update ${TEST_FILE_PREFIX}delete.sql" ${TEST_FILE_PREFIX}delete.sql
