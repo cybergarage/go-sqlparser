@@ -9,6 +9,8 @@
 ## v1.4.3 (2025-01-XX)
 ### Fixes
 - SQLiteParser to support bind parameters
+### Updates
+- Added test queries in go-sqltest
  
 ## v1.4.2 (2024-12-11)
 ### Updates
