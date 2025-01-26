@@ -6,6 +6,10 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.4.3 (2025-01-XX)
+### Fixes
+- SQLiteParser to support bind parameters
+ 
 ## v1.4.2 (2024-12-11)
 ### Updates
 - ResultSet Interface
