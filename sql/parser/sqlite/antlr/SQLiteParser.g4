@@ -457,6 +457,7 @@ literal_value:
     | CURRENT_TIME_
     | CURRENT_DATE_
     | CURRENT_TIMESTAMP_
+    | bind_param
 ;
 
 bind_param:
