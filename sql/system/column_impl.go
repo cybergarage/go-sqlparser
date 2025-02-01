@@ -14,6 +14,8 @@
 
 package system
 
+import "fmt"
+
 type column struct {
 	name       string
 	dataType   DataType
@@ -23,9 +25,18 @@ type column struct {
 type ColumnOption func(*column) error
 
 // WithColumnName returns a column option to set the column name.
-func WithColumnName(v any) ColumnOption {
+func WithColumnName(a any) ColumnOption {
 	return func(c *column) error {
-		// c.name = name
+		var name string
+		switch v := a.(type) {
+		case string:
+			name = v
+		case []byte:
+			name = string(v)
+		default:
+			return fmt.Errorf("%w column name %v", ErrInvalid, a)
+		}
+		c.name = name
 		return nil
 	}
 }
