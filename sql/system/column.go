@@ -14,17 +14,22 @@
 
 package system
 
-const (
-	DefaultSchemaColumnsCatalog = "def"
-
-	SchemaColumnsColumnName = "COLUMN_NAME"
-	SchemaColumnsDataType   = "DATA_TYPE"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// SchemaColumns represents a schema columns.
-type SchemaColumns interface {
-	TableCatalog() string
-	TableSchema() string
-	TableName() string
-	Columns() []Column
+// DataType represents a data type.
+type DataType = query.DataType
+
+// Constraint represents a column constraint.
+type Constraint = query.Constraint
+
+// Column represents a column interface in a resultset.
+type Column interface {
+	// Name returns the column name.
+	Name() string
+	// DataType returns the data type.
+	DataType() DataType
+	// Constraint returns the column constraint.
+	Constraint() Constraint
 }
