@@ -4,3 +4,5 @@
 |====
 include::csv/query_types.csv[]
 |====
+
+*1) The SQL99 standard does not define a DESCRIBE and SHOT statements. However, it defines the INFORMATION_SCHEMA.TABLES and INFORMATION_SCHEMA.COLUMNS views.
