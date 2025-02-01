@@ -14,11 +14,18 @@
 
 package system
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
+)
+
+// ResultSet represents a response resultset interface.
+type ResultSet = resultset.ResultSet
+
 type schemaColumns struct {
 	tableCatalog string
 	tableSchema  string
 	tableName    string
-	columns      []ColumnDef
+	columns      []Column
 }
 
 // NewSchemaColumns returns a new SchemaColumns instance.
@@ -46,7 +53,7 @@ func WithTableName(name string) SchemaColumnOption {
 }
 
 // WithColumns returns a SchemaColumnOption that sets the columns.
-func WithColumns(columns []ColumnDef) SchemaColumnOption {
+func WithColumns(columns []Column) SchemaColumnOption {
 	return func(s *schemaColumns) {
 		s.columns = columns
 	}
@@ -55,15 +62,52 @@ func WithColumns(columns []ColumnDef) SchemaColumnOption {
 // NewSchemaColumns returns a new SchemaColumns instance.
 func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumns {
 	s := &schemaColumns{
-		tableCatalog: "",
+		tableCatalog: "def",
 		tableSchema:  "",
 		tableName:    "",
-		columns:      []ColumnDef{},
+		columns:      []Column{},
 	}
 	for _, opt := range opts {
 		opt(s)
 	}
 	return s
+}
+
+// NewSchemaColumnsFromResultSet returns a new SchemaColumns instance from a ResultSet.
+func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumns, error) {
+	var tableSchema string
+	var tableName string
+	schema := rs.Schema()
+	if schema != nil {
+		tableSchema = schema.DatabaseName()
+		tableName = schema.TableName()
+	}
+
+	columns := []Column{}
+	for rs.Next() {
+		row, err := rs.Row()
+		if err != nil {
+			return nil, err
+		}
+		v, err := row.ValueBy(SchemaColumnsColumnName)
+		if err != nil {
+			return nil, err
+		}
+		v, err = row.ValueBy(SchemaColumnsDataType)
+		if err != nil {
+			return nil, err
+		}
+		columns = append(columns, NewColumn(
+			WithColumnName(v),
+			WithDataType(v),
+		))
+	}
+
+	return NewSchemaColumns(
+		WithTableSchema(tableSchema),
+		WithTableName(tableName),
+		WithColumns(columns),
+	), nil
 }
 
 // TableCatalog returns the table catalog.
