@@ -1,0 +1,36 @@
+Database,Column,Data Type,Description
+MySQL,COLUMN_NAME,varchar,Name of the column
+MySQL,DATA_TYPE,varchar,Data type of the column
+MySQL,IS_NULLABLE,varchar,Indicates if the column can contain NULL values
+MySQL,COLUMN_DEFAULT,varchar,Default value of the column
+MySQL,CHARACTER_MAXIMUM_LENGTH,int,Maximum length of the column
+MySQL,NUMERIC_PRECISION,int,Precision of numeric columns
+MySQL,NUMERIC_SCALE,int,Scale of numeric columns
+PostgreSQL,COLUMN_NAME,varchar,Name of the column
+PostgreSQL,DATA_TYPE,varchar,Data type of the column
+PostgreSQL,IS_NULLABLE,varchar,Indicates if the column can contain NULL values
+PostgreSQL,COLUMN_DEFAULT,varchar,Default value of the column
+PostgreSQL,CHARACTER_MAXIMUM_LENGTH,int,Maximum length of the column
+PostgreSQL,NUMERIC_PRECISION,int,Precision of numeric columns
+PostgreSQL,NUMERIC_SCALE,int,Scale of numeric columns
+MariaDB,COLUMN_NAME,varchar,Name of the column
+MariaDB,DATA_TYPE,varchar,Data type of the column
+MariaDB,IS_NULLABLE,varchar,Indicates if the column can contain NULL values
+MariaDB,COLUMN_DEFAULT,varchar,Default value of the column
+MariaDB,CHARACTER_MAXIMUM_LENGTH,int,Maximum length of the column
+MariaDB,NUMERIC_PRECISION,int,Precision of numeric columns
+MariaDB,NUMERIC_SCALE,int,Scale of numeric columns
+SQL Server,COLUMN_NAME,varchar,Name of the column
+SQL Server,DATA_TYPE,varchar,Data type of the column
+SQL Server,IS_NULLABLE,varchar,Indicates if the column can contain NULL values
+SQL Server,COLUMN_DEFAULT,varchar,Default value of the column
+SQL Server,CHARACTER_MAXIMUM_LENGTH,int,Maximum length of the column
+SQL Server,NUMERIC_PRECISION,int,Precision of numeric columns
+SQL Server,NUMERIC_SCALE,int,Scale of numeric columns
+Oracle,COLUMN_NAME,varchar,Name of the column
+Oracle,DATA_TYPE,varchar,Data type of the column
+Oracle,IS_NULLABLE,varchar,Indicates if the column can contain NULL values
+Oracle,COLUMN_DEFAULT,varchar,Default value of the column
+Oracle,CHARACTER_MAXIMUM_LENGTH,int,Maximum length of the column
+Oracle,NUMERIC_PRECISION,int,Precision of numeric columns
+Oracle,NUMERIC_SCALE,int,Scale of numeric columns
