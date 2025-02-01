@@ -90,10 +90,7 @@ func (da *dataDef) DataTypeSize() int {
 
 // String returns the string representation.
 func (da *dataDef) String() string {
-	s, ok := dataTypeStrings[da.Type]
-	if !ok {
-		return ""
-	}
+	s := da.Type.String()
 	if 0 < da.Length {
 		s += fmt.Sprintf("(%d)", da.Length)
 	}
