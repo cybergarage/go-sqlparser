@@ -14,7 +14,11 @@
 
 package system
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/cybergarage/go-sqlparser/sql/query"
+)
 
 type column struct {
 	name       string
@@ -44,7 +48,11 @@ func WithColumnName(a any) ColumnOption {
 // WithColumnDataType returns a column option to set the data type.
 func WithColumnDataType(v any) ColumnOption {
 	return func(c *column) error {
-		// c.dataType = dataType
+		dt, err := query.NewDataTypeFrom(v)
+		if err != nil {
+			return err
+		}
+		c.dataType = dt
 		return nil
 	}
 }
