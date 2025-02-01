@@ -67,7 +67,11 @@ func WithColumnConstraint(v any) ColumnOption {
 
 // NewColumn returns a new column.
 func NewColumn(opts ...ColumnOption) (Column, error) {
-	c := &column{}
+	c := &column{
+		name:       "",
+		dataType:   query.UnknownData,
+		constraint: query.ConstraintNone,
+	}
 	for _, opt := range opts {
 		if err := opt(c); err != nil {
 			return nil, err
