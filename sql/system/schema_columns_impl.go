@@ -62,7 +62,7 @@ func WithColumns(columns []Column) SchemaColumnOption {
 // NewSchemaColumns returns a new SchemaColumns instance.
 func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumns {
 	s := &schemaColumns{
-		tableCatalog: "def",
+		tableCatalog: DefaultSchemaColumnsCatalog,
 		tableSchema:  "",
 		tableName:    "",
 		columns:      []Column{},
@@ -89,18 +89,22 @@ func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumns, error) {
 		if err != nil {
 			return nil, err
 		}
-		v, err := row.ValueBy(SchemaColumnsColumnName)
+		name, err := row.ValueBy(SchemaColumnsColumnName)
 		if err != nil {
 			return nil, err
 		}
-		v, err = row.ValueBy(SchemaColumnsDataType)
+		typ, err := row.ValueBy(SchemaColumnsDataType)
 		if err != nil {
 			return nil, err
 		}
-		columns = append(columns, NewColumn(
-			WithColumnName(v),
-			WithDataType(v),
-		))
+		column, err := NewColumn(
+			WithColumnName(name),
+			WithColumnDataType(typ),
+		)
+		if err != nil {
+			return nil, err
+		}
+		columns = append(columns, column)
 	}
 
 	return NewSchemaColumns(
