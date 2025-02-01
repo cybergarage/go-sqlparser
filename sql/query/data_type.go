@@ -14,6 +14,8 @@
 
 package query
 
+import "strings"
+
 // DataType represents a data type.
 type DataType uint8
 
@@ -92,6 +94,30 @@ var dataTypeStrings = map[DataType]string{
 	VarCharData:      "VARCHAR",
 	VarCharacterData: "VARCHARACTER",
 	YearData:         "YEAR",
+}
+
+// NewDataTypeFrom create a data type from the specified value.
+func NewDataTypeFrom(a any) (DataType, error) {
+	var s string
+	switch v := a.(type) {
+	case string:
+		s = v
+	case []byte:
+		s = string(v)
+	default:
+		return UnknownData, newErrInvalidDataType(a)
+	}
+	us := strings.ToUpper(s)
+	for dataType, dataTypeString := range dataTypeStrings {
+		if dataTypeString == us {
+			return dataType, nil
+		}
+		dataTypeString = strings.ReplaceAll(dataTypeString, " ", "")
+		if dataTypeString == us {
+			return dataType, nil
+		}
+	}
+	return UnknownData, newErrInvalidDataType(a)
 }
 
 // String returns the string representation.

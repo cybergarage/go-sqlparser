@@ -16,7 +16,6 @@ package query
 
 import (
 	"fmt"
-	"strings"
 )
 
 // ColumnDef represents a data definition interface.
@@ -58,19 +57,11 @@ func NewUnknownDataDef() ColumnDef {
 
 // NewDataDefFrom returns the data type of the specified string.
 func NewDataDefFrom(s string, l int) (ColumnDef, error) {
-	us := strings.ToUpper(s)
-	for dataType, dataTypeString := range dataTypeStrings {
-		if dataTypeString == us {
-			return NewDataDef(dataType, l), nil
-		}
+	dt, err := NewDataTypeFrom(s)
+	if err != nil {
+		return nil, err
 	}
-	for dataType, dataTypeString := range dataTypeStrings {
-		dataTypeString = strings.ReplaceAll(dataTypeString, " ", "")
-		if dataTypeString == us {
-			return NewDataDef(dataType, l), nil
-		}
-	}
-	return nil, fmt.Errorf("%w data type : %s", ErrInvalid, s)
+	return NewDataDef(dt, l), nil
 }
 
 // Constraint returns the column constrains.
