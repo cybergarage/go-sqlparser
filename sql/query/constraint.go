@@ -30,6 +30,16 @@ func (c Constraint) IsPrimaryKey() bool {
 	return (c & PrimaryKeyConstraint) != 0
 }
 
+// IsNotNull returns true whether the column is not null.
+func (c Constraint) IsNotNull() bool {
+	return (c & NotNullConstraint) != 0
+}
+
+// IsUnique returns true whether the column is unique.
+func (c Constraint) IsUnique() bool {
+	return (c & UniqueConstraint) != 0
+}
+
 // String returns the string representation.
 func (c Constraint) String() string {
 	switch c {
