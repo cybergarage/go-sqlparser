@@ -130,6 +130,6 @@ func (s *schemaColumns) TableName() string {
 }
 
 // Columns returns the columns.
-func (s *schemaColumns) Columns() []ColumnDef {
+func (s *schemaColumns) Columns() []Column {
 	return s.columns
 }
