@@ -1,0 +1,14 @@
+= Information Schema
+
+== Columns
+
+[format="csv", options="header, autowidth"]
+|====
+include::csv/infomation_schema_colums.csv[]
+|====
+
+* https://www.postgresql.org/docs/current/information-schema.html[Information Schema - PostgreSQL]
+* https://dev.mysql.com/doc/refman/8.0/en/information-schema.html[The INFORMATION_SCHEMA TABLES Table - MySQL]
+* https://mariadb.com/kb/en/information-schema-tables-table/[Information Schema TABLES Table - MariaDB Knowledge Base]
+* https://learn.microsoft.com/en-us/sql/relational-databases/system-information-schema-views/system-information-schema-views-transact-sql?view=sql-server-ver16[System Information Schema Views (Transact-SQL) - SQL Server | Microsoft Learn]
+* https://cloud.google.com/bigquery/docs/information-schema-intro[Introduction to INFORMATION_SCHEMA | BigQuery | Google Cloud]
