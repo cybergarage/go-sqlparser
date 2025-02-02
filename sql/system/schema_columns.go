@@ -14,11 +14,15 @@
 
 package system
 
+// PostgreSQL: Documentation: 17: 35.17. columns
+// https://www.postgresql.org/docs/current/infoschema-columns.html
+
 const (
 	DefaultSchemaColumnsCatalog = "def"
 
 	SchemaColumnsColumnName = "COLUMN_NAME"
 	SchemaColumnsDataType   = "DATA_TYPE"
+	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS WHERE TABLE_NAME ="
 )
 
 // SchemaColumns represents a schema columns.
@@ -27,4 +31,9 @@ type SchemaColumns interface {
 	TableSchema() string
 	TableName() string
 	Columns() []Column
+}
+
+// NewSchemaColumns returns a new SchemaColumns instance.
+func NewSchemaColumnsQueryWith(tableName string) string {
+	return SchemaColumnsQuery + tableName
 }
