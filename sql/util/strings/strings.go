@@ -43,6 +43,11 @@ func EscapeString(s string) string {
 	return fmt.Sprintf("'%v'", s)
 }
 
+// Equal returns true whether the specified strings are equal.
+func Equal(s, t string) bool {
+	return strings.Compare(s, t) == 0
+}
+
 // SplitDataTypeString returns a data type and a size from the specified string.
 func SplitDataTypeString(s string) (string, int) {
 	sep := " "
