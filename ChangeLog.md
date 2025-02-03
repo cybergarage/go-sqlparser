@@ -6,6 +6,10 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.4.4 (2025-XX-XX)
+### Improvements
+- Support AND and OR operators in WHERE clause
+
 ## v1.4.3 (2025-01-XX)
 ### Fixes
 - SQLiteParser to support bind parameters
