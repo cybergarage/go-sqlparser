@@ -72,6 +72,18 @@ func (lit *Literal) HasValue() bool {
 	return lit != nil
 }
 
+// IsPlaceHolder returns true whether the literal is a place holder.
+func (lit *Literal) IsPlaceHolder() bool {
+	if lit == nil || lit.v == nil {
+		return false
+	}
+	switch v := lit.v.(type) {
+	case string:
+		return strings.Equal(v, "?")
+	}
+	return false
+}
+
 // SetValue sets a value.
 func (lit *Literal) SetValue(v any) *Literal {
 	lit.v = v

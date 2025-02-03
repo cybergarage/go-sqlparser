@@ -48,6 +48,8 @@ type Column interface {
 	ValueType() LiteralType
 	// ValueString returns the column value string.
 	ValueString() string
+	// IsPlaceHolder returns true whether the column is a place holder.
+	IsPlaceHolder() bool
 	// IsFunction returns true whether the column is a function.
 	IsFunction() (Function, bool)
 	// Arguments returns the executor arguments.
