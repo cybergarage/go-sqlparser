@@ -14,8 +14,13 @@
 
 package query
 
-// Expr represents an expression.
-type Expr interface {
-	// String returns the index string representation.
-	String() string
+// OrExpr represents an OR expression.
+type OrExpr struct {
+	Left  Expr
+	Right Expr
+}
+
+// String returns the index string representation.
+func (expr *OrExpr) String() string {
+	return expr.Left.String() + " OR " + expr.Right.String()
 }
