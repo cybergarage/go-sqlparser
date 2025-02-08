@@ -48,8 +48,8 @@ func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 	return s
 }
 
-// NewSchemaColumnsFromResultSet returns a new SchemaColumns instance from a ResultSet.
-func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error) {
+// NewSchemaColumnsResultSetFrom returns a new SchemaColumnsResultSet instance from the resultset.
+func NewSchemaColumnsResultSetFrom(rs ResultSet) (SchemaColumnsResultSet, error) {
 	columns := []SchemaColumn{}
 	for rs.Next() {
 		row, err := rs.Row()
