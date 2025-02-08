@@ -16,7 +16,15 @@ package system
 
 import (
 	"errors"
+	"fmt"
 )
 
 // ErrInvalid is returned when the value is invalid.
 var ErrInvalid = errors.New("invalid")
+
+// ErrNotFound is returned when the value is not found.
+var ErrNotFound = errors.New("not found")
+
+func newErrColumnNotFound(name string) error {
+	return fmt.Errorf("column not %w: %s", ErrNotFound, name)
+}
