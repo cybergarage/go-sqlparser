@@ -25,8 +25,8 @@ const (
 	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS"
 )
 
-// SchemaColumns represents a schema columns.
-type SchemaColumns interface {
+// SchemaColumnsResultSet represents a schema columns.
+type SchemaColumnsResultSet interface {
 	TableCatalog() string
 	TableSchema() string
 	TableName() string

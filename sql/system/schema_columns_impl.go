@@ -60,7 +60,7 @@ func WithColumns(columns []Column) SchemaColumnOption {
 }
 
 // NewSchemaColumns returns a new SchemaColumns instance.
-func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumns {
+func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 	s := &schemaColumns{
 		tableCatalog: DefaultSchemaColumnsCatalog,
 		tableSchema:  "",
@@ -74,7 +74,7 @@ func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumns {
 }
 
 // NewSchemaColumnsFromResultSet returns a new SchemaColumns instance from a ResultSet.
-func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumns, error) {
+func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error) {
 	var tableSchema string
 	var tableName string
 	schema := rs.Schema()
