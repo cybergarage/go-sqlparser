@@ -54,6 +54,18 @@ func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error)
 		if err != nil {
 			return nil, err
 		}
+		catalog, err := row.ValueBy(SchemaColumnsCatalog)
+		if err != nil {
+			return nil, err
+		}
+		schema, err := row.ValueBy(SchemaColumnsSchema)
+		if err != nil {
+			return nil, err
+		}
+		table, err := row.ValueBy(SchemaColumnsTable)
+		if err != nil {
+			return nil, err
+		}
 		name, err := row.ValueBy(SchemaColumnsColumnName)
 		if err != nil {
 			return nil, err
@@ -63,6 +75,9 @@ func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error)
 			return nil, err
 		}
 		column, err := NewColumn(
+			WithColumnCatalog(catalog),
+			WithColumnSchema(schema),
+			WithColumnTable(table),
 			WithColumnName(name),
 			WithColumnDataType(typ),
 		)

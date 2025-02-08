@@ -20,6 +20,9 @@ package system
 const (
 	DefaultSchemaColumnsCatalog = "def"
 
+	SchemaColumnsCatalog    = "TABLE_CATALOG"
+	SchemaColumnsSchema     = "TABLE_SCHEMA"
+	SchemaColumnsTable      = "TABLE_NAME"
 	SchemaColumnsColumnName = "COLUMN_NAME"
 	SchemaColumnsDataType   = "DATA_TYPE"
 	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS"
