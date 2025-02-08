@@ -40,8 +40,8 @@ type SchemaColumnsResultSet interface {
 	LookupColumn(name string) (SchemaColumn, error)
 }
 
-// NewSchemaColumnsQueryWithTableNames returns a new schema columns query with table names.
-func NewSchemaColumnsQueryWithTableNames(tableNames []string) (sql.Select, error) {
+// NewSchemaColumnsQueryFromTableNames returns a new schema columns query with table names.
+func NewSchemaColumnsQueryFromTableNames(tableNames []string) (sql.Select, error) {
 	query := SchemaColumnsQuery
 	if 0 < len(tableNames) {
 		query += " WHERE "
