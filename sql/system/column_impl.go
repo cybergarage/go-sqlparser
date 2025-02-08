@@ -17,10 +17,14 @@ package system
 import (
 	"fmt"
 
+	"github.com/cybergarage/go-safecast/safecast"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 type column struct {
+	catalog    string
+	schema     string
+	table      string
 	name       string
 	dataType   DataType
 	constraint Constraint
@@ -28,16 +32,51 @@ type column struct {
 
 type ColumnOption func(*column) error
 
+// WithColumnCatalog returns a column option to set the catalog name.
+func WithColumnCatalog(a any) ColumnOption {
+	return func(c *column) error {
+		var catalog string
+		err := safecast.ToString(a, &catalog)
+		if err != nil {
+			return fmt.Errorf("%w column catalog %v", ErrInvalid, a)
+		}
+		c.catalog = catalog
+		return nil
+	}
+}
+
+// WithColumnSchema returns a column option to set the schema name.
+func WithColumnSchema(a any) ColumnOption {
+	return func(c *column) error {
+		var schema string
+		err := safecast.ToString(a, &schema)
+		if err != nil {
+			return fmt.Errorf("%w column schema %v", ErrInvalid, a)
+		}
+		c.schema = schema
+		return nil
+	}
+}
+
+// WithColumnTable returns a column option to set the table name.
+func WithColumnTable(a any) ColumnOption {
+	return func(c *column) error {
+		var table string
+		err := safecast.ToString(a, &table)
+		if err != nil {
+			return fmt.Errorf("%w column table %v", ErrInvalid, a)
+		}
+		c.table = table
+		return nil
+	}
+}
+
 // WithColumnName returns a column option to set the column name.
 func WithColumnName(a any) ColumnOption {
 	return func(c *column) error {
 		var name string
-		switch v := a.(type) {
-		case string:
-			name = v
-		case []byte:
-			name = string(v)
-		default:
+		err := safecast.ToString(a, &name)
+		if err != nil {
 			return fmt.Errorf("%w column name %v", ErrInvalid, a)
 		}
 		c.name = name
@@ -68,6 +107,9 @@ func WithColumnConstraint(v any) ColumnOption {
 // NewColumn returns a new column.
 func NewColumn(opts ...ColumnOption) (Column, error) {
 	c := &column{
+		catalog:    "",
+		schema:     "",
+		table:      "",
 		name:       "",
 		dataType:   query.UnknownData,
 		constraint: query.ConstraintNone,
@@ -78,6 +120,21 @@ func NewColumn(opts ...ColumnOption) (Column, error) {
 		}
 	}
 	return c, nil
+}
+
+// Catalog returns the catalog name.
+func (c *column) Catalog() string {
+	return c.catalog
+}
+
+// Schema returns the schema name.
+func (c *column) Schema() string {
+	return c.schema
+}
+
+// Table returns the table name.
+func (c *column) Table() string {
+	return c.table
 }
 
 // Name returns the column name.

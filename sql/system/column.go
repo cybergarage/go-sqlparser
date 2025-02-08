@@ -26,6 +26,12 @@ type Constraint = query.Constraint
 
 // Column represents a column interface in a resultset.
 type Column interface {
+	// Catalog returns the catalog name.
+	Catalog() string
+	// Schema returns the schema name.
+	Schema() string
+	// Table returns the table name.
+	Table() string
 	// Name returns the column name.
 	Name() string
 	// DataType returns the data type.
