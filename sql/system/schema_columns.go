@@ -22,7 +22,7 @@ const (
 
 	SchemaColumnsColumnName = "COLUMN_NAME"
 	SchemaColumnsDataType   = "DATA_TYPE"
-	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS WHERE TABLE_NAME ="
+	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS"
 )
 
 // SchemaColumns represents a schema columns.
@@ -33,7 +33,17 @@ type SchemaColumns interface {
 	Columns() []Column
 }
 
-// NewSchemaColumns returns a new SchemaColumns instance.
-func NewSchemaColumnsQueryWith(tableName string) string {
-	return SchemaColumnsQuery + tableName
+// NewSchemaColumnsQueryWithTableNames returns a new schema columns query with table names.
+func NewSchemaColumnsQueryWithTableNames(tableNames []string) string {
+	if len(tableNames) == 0 {
+		return SchemaColumnsQuery
+	}
+	query := SchemaColumnsQuery + " WHERE "
+	for n, tableName := range tableNames {
+		if 0 < n {
+			query += " OR "
+		}
+		query += "TABLE_NAME = '" + tableName + "'"
+	}
+	return query
 }
