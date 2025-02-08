@@ -28,3 +28,7 @@ var ErrNotFound = errors.New("not found")
 func newErrColumnNotFound(name string) error {
 	return fmt.Errorf("column not %w: %s", ErrNotFound, name)
 }
+
+func newErrInvalidQuery(query string) error {
+	return fmt.Errorf("invalid query %w: %s", ErrInvalid, query)
+}

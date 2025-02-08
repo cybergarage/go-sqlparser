@@ -14,6 +14,10 @@
 
 package system
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql"
+)
+
 // PostgreSQL: Documentation: 17: 35.17. columns
 // https://www.postgresql.org/docs/current/infoschema-columns.html
 
@@ -37,16 +41,27 @@ type SchemaColumnsResultSet interface {
 }
 
 // NewSchemaColumnsQueryWithTableNames returns a new schema columns query with table names.
-func NewSchemaColumnsQueryWithTableNames(tableNames []string) string {
-	if len(tableNames) == 0 {
-		return SchemaColumnsQuery
-	}
-	query := SchemaColumnsQuery + " WHERE "
-	for n, tableName := range tableNames {
-		if 0 < n {
-			query += " OR "
+func NewSchemaColumnsQueryWithTableNames(tableNames []string) (sql.Select, error) {
+	query := SchemaColumnsQuery
+	if 0 < len(tableNames) {
+		query += " WHERE "
+		for n, tableName := range tableNames {
+			if 0 < n {
+				query += " OR "
+			}
+			query += "TABLE_NAME = '" + tableName + "'"
 		}
-		query += "TABLE_NAME = '" + tableName + "'"
 	}
-	return query
+	stmt, err := sql.NewParser().ParseString(query)
+	if err != nil {
+		return nil, err
+	}
+	if len(stmt) != 1 {
+		return nil, newErrInvalidQuery(query)
+	}
+	selectStmt, ok := stmt[0].(sql.Select)
+	if !ok {
+		return nil, newErrInvalidQuery(query)
+	}
+	return selectStmt, nil
 }
