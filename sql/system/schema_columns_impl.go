@@ -21,51 +21,24 @@ import (
 // ResultSet represents a response resultset interface.
 type ResultSet = resultset.ResultSet
 
-type schemaColumns struct {
-	tableCatalog string
-	tableSchema  string
-	tableName    string
-	columns      []Column
+type rs struct {
+	columns []Column
 }
 
 // NewSchemaColumns returns a new SchemaColumns instance.
-type SchemaColumnOption func(*schemaColumns)
-
-// WithTableCatalog returns a SchemaColumnOption that sets the table catalog.
-func WithTableCatalog(catalog string) SchemaColumnOption {
-	return func(s *schemaColumns) {
-		s.tableCatalog = catalog
-	}
-}
-
-// WithTableSchema returns a SchemaColumnOption that sets the table schema.
-func WithTableSchema(schema string) SchemaColumnOption {
-	return func(s *schemaColumns) {
-		s.tableSchema = schema
-	}
-}
-
-// WithTableName returns a SchemaColumnOption that sets the table name.
-func WithTableName(name string) SchemaColumnOption {
-	return func(s *schemaColumns) {
-		s.tableName = name
-	}
-}
+type SchemaColumnOption func(*rs)
 
 // WithColumns returns a SchemaColumnOption that sets the columns.
 func WithColumns(columns []Column) SchemaColumnOption {
-	return func(s *schemaColumns) {
+	return func(s *rs) {
 		s.columns = columns
 	}
 }
 
 // NewSchemaColumns returns a new SchemaColumns instance.
 func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
-	s := &schemaColumns{
-		tableCatalog: DefaultSchemaColumnsCatalog,
-		tableSchema:  "",
-		tableName:    "",
-		columns:      []Column{},
+	s := &rs{
+		columns: []Column{},
 	}
 	for _, opt := range opts {
 		opt(s)
@@ -75,14 +48,6 @@ func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 
 // NewSchemaColumnsFromResultSet returns a new SchemaColumns instance from a ResultSet.
 func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error) {
-	var tableSchema string
-	var tableName string
-	schema := rs.Schema()
-	if schema != nil {
-		tableSchema = schema.DatabaseName()
-		tableName = schema.TableName()
-	}
-
 	columns := []Column{}
 	for rs.Next() {
 		row, err := rs.Row()
@@ -108,28 +73,21 @@ func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error)
 	}
 
 	return NewSchemaColumns(
-		WithTableSchema(tableSchema),
-		WithTableName(tableName),
 		WithColumns(columns),
 	), nil
 }
 
-// TableCatalog returns the table catalog.
-func (s *schemaColumns) TableCatalog() string {
-	return s.tableCatalog
-}
-
-// TableSchema returns the table schema.
-func (s *schemaColumns) TableSchema() string {
-	return s.tableSchema
-}
-
-// TableName returns the table name.
-func (s *schemaColumns) TableName() string {
-	return s.tableName
-}
-
 // Columns returns the columns.
-func (s *schemaColumns) Columns() []Column {
+func (s *rs) Columns() []Column {
 	return s.columns
+}
+
+// LookupColumn returns the column by name.
+func (s *rs) LookupColumn(name string) (Column, error) {
+	for _, column := range s.columns {
+		if column.Name() == name {
+			return column, nil
+		}
+	}
+	return nil, newErrColumnNotFound(name)
 }

@@ -25,12 +25,12 @@ const (
 	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS"
 )
 
-// SchemaColumnsResultSet represents a schema columns.
+// SchemaColumnsResultSet represents a schema columns result set.
 type SchemaColumnsResultSet interface {
-	TableCatalog() string
-	TableSchema() string
-	TableName() string
+	// Columns returns the columns.
 	Columns() []Column
+	// LookupColumn returns the column by name.
+	LookupColumn(name string) (Column, error)
 }
 
 // NewSchemaColumnsQueryWithTableNames returns a new schema columns query with table names.
