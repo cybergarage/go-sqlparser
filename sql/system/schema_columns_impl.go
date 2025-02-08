@@ -15,6 +15,8 @@
 package system
 
 import (
+	"strings"
+
 	"github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 )
 
@@ -100,7 +102,7 @@ func (s *rs) Columns() []Column {
 // LookupColumn returns the column by name.
 func (s *rs) LookupColumn(name string) (Column, error) {
 	for _, column := range s.columns {
-		if column.Name() == name {
+		if strings.EqualFold(column.Name(), name) {
 			return column, nil
 		}
 	}
