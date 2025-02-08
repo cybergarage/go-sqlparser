@@ -105,7 +105,7 @@ func WithColumnConstraint(v any) ColumnOption {
 }
 
 // NewColumn returns a new column.
-func NewColumn(opts ...ColumnOption) (Column, error) {
+func NewColumn(opts ...ColumnOption) (SchemaColumn, error) {
 	c := &column{
 		catalog:    "",
 		schema:     "",

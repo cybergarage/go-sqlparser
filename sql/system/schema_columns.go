@@ -31,9 +31,9 @@ const (
 // SchemaColumnsResultSet represents a schema columns result set.
 type SchemaColumnsResultSet interface {
 	// Columns returns the columns.
-	Columns() []Column
+	Columns() []SchemaColumn
 	// LookupColumn returns the column by name.
-	LookupColumn(name string) (Column, error)
+	LookupColumn(name string) (SchemaColumn, error)
 }
 
 // NewSchemaColumnsQueryWithTableNames returns a new schema columns query with table names.

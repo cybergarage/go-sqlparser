@@ -24,14 +24,14 @@ import (
 type ResultSet = resultset.ResultSet
 
 type rs struct {
-	columns []Column
+	columns []SchemaColumn
 }
 
 // NewSchemaColumns returns a new SchemaColumns instance.
 type SchemaColumnOption func(*rs)
 
 // WithColumns returns a SchemaColumnOption that sets the columns.
-func WithColumns(columns []Column) SchemaColumnOption {
+func WithColumns(columns []SchemaColumn) SchemaColumnOption {
 	return func(s *rs) {
 		s.columns = columns
 	}
@@ -40,7 +40,7 @@ func WithColumns(columns []Column) SchemaColumnOption {
 // NewSchemaColumns returns a new SchemaColumns instance.
 func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 	s := &rs{
-		columns: []Column{},
+		columns: []SchemaColumn{},
 	}
 	for _, opt := range opts {
 		opt(s)
@@ -50,7 +50,7 @@ func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 
 // NewSchemaColumnsFromResultSet returns a new SchemaColumns instance from a ResultSet.
 func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error) {
-	columns := []Column{}
+	columns := []SchemaColumn{}
 	for rs.Next() {
 		row, err := rs.Row()
 		if err != nil {
@@ -95,12 +95,12 @@ func NewSchemaColumnsFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error)
 }
 
 // Columns returns the columns.
-func (s *rs) Columns() []Column {
+func (s *rs) Columns() []SchemaColumn {
 	return s.columns
 }
 
 // LookupColumn returns the column by name.
-func (s *rs) LookupColumn(name string) (Column, error) {
+func (s *rs) LookupColumn(name string) (SchemaColumn, error) {
 	for _, column := range s.columns {
 		if strings.EqualFold(column.Name(), name) {
 			return column, nil
