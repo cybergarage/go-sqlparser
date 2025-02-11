@@ -24,12 +24,14 @@ import (
 const (
 	DefaultSchemaColumnsCatalog = "def"
 
+	InformationSchema       = "information_schema"
+	SchemaColumns           = InformationSchema + ".COLUMNS"
 	SchemaColumnsCatalog    = "TABLE_CATALOG"
 	SchemaColumnsSchema     = "TABLE_SCHEMA"
 	SchemaColumnsTable      = "TABLE_NAME"
 	SchemaColumnsColumnName = "COLUMN_NAME"
 	SchemaColumnsDataType   = "DATA_TYPE"
-	SchemaColumnsQuery      = "SELECT * information_schema.COLUMNS"
+	SchemaColumnsQuery      = "SELECT * " + SchemaColumns
 )
 
 // SchemaColumnsResultSet represents a schema columns result set.
