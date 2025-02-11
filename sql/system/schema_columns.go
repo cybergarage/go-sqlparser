@@ -47,37 +47,3 @@ func IsSchemaColumsQuery(stmt sql.Select) bool {
 	}
 	return true
 }
-
-// SchemaColumnsResultSet represents a schema columns result set.
-type SchemaColumnsResultSet interface {
-	// Columns returns the columns.
-	Columns() []SchemaColumn
-	// LookupColumn returns the column by name.
-	LookupColumn(name string) (SchemaColumn, error)
-}
-
-// NewSchemaColumnsQueryFromTableNames returns a new schema columns query with table names.
-func NewSchemaColumnsQueryFromTableNames(tableNames []string) (sql.Select, error) {
-	query := SchemaColumnsQuery
-	if 0 < len(tableNames) {
-		query += " WHERE "
-		for n, tableName := range tableNames {
-			if 0 < n {
-				query += " OR "
-			}
-			query += "TABLE_NAME = '" + tableName + "'"
-		}
-	}
-	stmt, err := sql.NewParser().ParseString(query)
-	if err != nil {
-		return nil, err
-	}
-	if len(stmt) != 1 {
-		return nil, newErrInvalidQuery(query)
-	}
-	selectStmt, ok := stmt[0].(sql.Select)
-	if !ok {
-		return nil, newErrInvalidQuery(query)
-	}
-	return selectStmt, nil
-}
