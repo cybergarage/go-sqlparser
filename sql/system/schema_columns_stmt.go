@@ -20,5 +20,5 @@ package system
 // SchemaColumnsStatement represents a schema columns statement.
 type SchemaColumnsStatement interface {
 	DatabaseName() string
-	tableName() string
+	TableName() string
 }

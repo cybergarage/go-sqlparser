@@ -13,3 +13,40 @@
 // limitations under the License.
 
 package system
+
+import (
+	"github.com/cybergarage/go-sqlparser/sql"
+)
+
+type schemaColumnsStatement struct {
+	stmt  sql.Select
+	db    string
+	table string
+}
+
+// NewSchemaColumnsStatement returns a new SchemaColumnsStatement.
+func NewSchemaColumnsStatementFrom(sel sql.Select) (SchemaColumnsStatement, error) {
+	stmt := &schemaColumnsStatement{
+		stmt:  sel,
+		db:    "",
+		table: "",
+	}
+	if err := stmt.parseSelect(); err != nil {
+		return nil, err
+	}
+	return stmt, nil
+}
+
+func (stmt *schemaColumnsStatement) parseSelect() error {
+	return nil
+}
+
+// DatabaseName returns the database name.
+func (stmt *schemaColumnsStatement) DatabaseName() string {
+	return stmt.db
+}
+
+// TableName returns the table name.
+func (stmt *schemaColumnsStatement) TableName() string {
+	return stmt.table
+}
