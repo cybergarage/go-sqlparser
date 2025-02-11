@@ -15,6 +15,8 @@
 package system
 
 import (
+	"strings"
+
 	"github.com/cybergarage/go-sqlparser/sql"
 )
 
@@ -31,8 +33,20 @@ const (
 	SchemaColumnsTable      = "TABLE_NAME"
 	SchemaColumnsColumnName = "COLUMN_NAME"
 	SchemaColumnsDataType   = "DATA_TYPE"
-	SchemaColumnsQuery      = "SELECT * " + SchemaColumns
+	SchemaColumnsQuery      = "SELECT * FROM " + SchemaColumns
 )
+
+// IsSchemaColumsQuery returns true if the statement is a schema columns query.
+func IsSchemaColumsQuery(stmt sql.Select) bool {
+	tables := stmt.From()
+	if len(tables) != 1 {
+		return false
+	}
+	if !strings.EqualFold(tables[0].FullTableName(), SchemaColumns) {
+		return false
+	}
+	return true
+}
 
 // SchemaColumnsResultSet represents a schema columns result set.
 type SchemaColumnsResultSet interface {
