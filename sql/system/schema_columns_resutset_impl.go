@@ -48,52 +48,6 @@ func NewSchemaColumns(opts ...SchemaColumnOption) SchemaColumnsResultSet {
 	return s
 }
 
-// NewSchemaColumnsResultSetFrom returns a new SchemaColumnsResultSet instance from the resultset.
-func NewSchemaColumnsResultSetFrom(rs ResultSet) (SchemaColumnsResultSet, error) {
-	columns := []SchemaColumn{}
-	for rs.Next() {
-		row, err := rs.Row()
-		if err != nil {
-			return nil, err
-		}
-		catalog, err := row.ValueBy(SchemaColumnsCatalog)
-		if err != nil {
-			return nil, err
-		}
-		schema, err := row.ValueBy(SchemaColumnsSchema)
-		if err != nil {
-			return nil, err
-		}
-		table, err := row.ValueBy(SchemaColumnsTable)
-		if err != nil {
-			return nil, err
-		}
-		name, err := row.ValueBy(SchemaColumnsColumnName)
-		if err != nil {
-			return nil, err
-		}
-		typ, err := row.ValueBy(SchemaColumnsDataType)
-		if err != nil {
-			return nil, err
-		}
-		column, err := NewColumn(
-			WithColumnCatalog(catalog),
-			WithColumnSchema(schema),
-			WithColumnTable(table),
-			WithColumnName(name),
-			WithColumnDataType(typ),
-		)
-		if err != nil {
-			return nil, err
-		}
-		columns = append(columns, column)
-	}
-
-	return NewSchemaColumns(
-		WithColumns(columns),
-	), nil
-}
-
 // Columns returns the columns.
 func (s *rs) Columns() []SchemaColumn {
 	return s.columns
