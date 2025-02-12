@@ -26,14 +26,15 @@ import (
 const (
 	DefaultSchemaColumnsCatalog = "def"
 
-	InformationSchema       = "information_schema"
-	SchemaColumns           = InformationSchema + ".COLUMNS"
-	SchemaColumnsCatalog    = "TABLE_CATALOG"
-	SchemaColumnsSchema     = "TABLE_SCHEMA"
-	SchemaColumnsTable      = "TABLE_NAME"
-	SchemaColumnsColumnName = "COLUMN_NAME"
-	SchemaColumnsDataType   = "DATA_TYPE"
-	SchemaColumnsQuery      = "SELECT * FROM " + SchemaColumns
+	InformationSchema        = "information_schema"
+	InformationSchemaColumns = "COLUMNS"
+	SchemaColumns            = InformationSchema + "." + InformationSchemaColumns
+	SchemaColumnsCatalog     = "TABLE_CATALOG"
+	SchemaColumnsSchema      = "TABLE_SCHEMA"
+	SchemaColumnsTable       = "TABLE_NAME"
+	SchemaColumnsColumnName  = "COLUMN_NAME"
+	SchemaColumnsDataType    = "DATA_TYPE"
+	SchemaColumnsQuery       = "SELECT * FROM " + SchemaColumns
 )
 
 // IsSchemaColumsQuery returns true if the statement is a schema columns query.

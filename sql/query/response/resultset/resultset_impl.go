@@ -28,22 +28,22 @@ type resultset struct {
 // ResultSet represents a response resultset interface.
 type ResultSetOption func(*resultset)
 
-// WithRowsAffected returns a resultset option to set the rows affected.
-func WithRowsAffected(rowsAffected uint64) ResultSetOption {
+// WithResultSetRowsAffected returns a resultset option to set the rows affected.
+func WithResultSetRowsAffected(rowsAffected uint64) ResultSetOption {
 	return func(r *resultset) {
 		r.rowsAffected = rowsAffected
 	}
 }
 
-// WithSchema returns a resultset option to set the schema.
-func WithSchema(schema Schema) ResultSetOption {
+// WithResultSetSchema returns a resultset option to set the schema.
+func WithResultSetSchema(schema Schema) ResultSetOption {
 	return func(r *resultset) {
 		r.schema = schema
 	}
 }
 
-// WithRows returns a resultset option to set the rows.
-func WithRows(rows []Row) ResultSetOption {
+// WithResultSetRows returns a resultset option to set the rows.
+func WithResultSetRows(rows []Row) ResultSetOption {
 	return func(r *resultset) {
 		r.rows = rows
 	}
