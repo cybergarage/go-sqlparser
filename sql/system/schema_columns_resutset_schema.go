@@ -15,6 +15,7 @@
 package system
 
 import (
+	"github.com/cybergarage/go-sqlparser/sql/query"
 	"github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
 )
 
@@ -31,7 +32,25 @@ import (
 
 // SchemaColumnsResultSet represents a schema columns resultset.
 func NewSchemaColumnsResultSetSchema() (resultset.Schema, error) {
+	columnDefs := []struct {
+		name     string
+		dataType resultset.DataType
+	}{
+		{SchemaColumnsCatalog, query.TextData},
+		{SchemaColumnsSchema, query.TextData},
+		{SchemaColumnsTableName, query.TextData},
+		{SchemaColumnsColumnName, query.TextData},
+		{SchemaColumnsDataType, query.TextData},
+	}
+
 	colums := []resultset.Column{}
+	for _, columDef := range columnDefs {
+		colums = append(colums, resultset.NewColumn(
+			resultset.WithColumnName(columDef.name),
+			resultset.WithColumnType(columDef.dataType),
+		))
+	}
+
 	return resultset.NewSchema(
 		resultset.WithSchemaDatabaseName(InformationSchema),
 		resultset.WithSchemaTableName(InformationSchemaColumns),
