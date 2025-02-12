@@ -22,7 +22,9 @@ import (
 )
 
 func TestQueries(t *testing.T) {
-	queries := []string{}
+	queries := []string{
+		"SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'foo' AND TABLE_NAME = 'bar'",
+	}
 	for _, query := range queries {
 		t.Run(query, func(t *testing.T) {
 			TestQueryString(t, query)
