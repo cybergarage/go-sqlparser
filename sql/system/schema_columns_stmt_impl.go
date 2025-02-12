@@ -19,34 +19,98 @@ import (
 )
 
 type schemaColumnsStatement struct {
-	stmt  sql.Select
-	db    string
-	table string
+	stmt     sql.Select
+	dbName   string
+	tblNames []string
+}
+
+// SchemaColumnsStatement represents a schema columns statement.
+type SchemaColumnsStatementOption func(*schemaColumnsStatement)
+
+// With SchemaColumnsStatementDatabaseName sets the database name.
+func WithSchemaColumnsStatementDatabaseName(db string) SchemaColumnsStatementOption {
+	return func(stmt *schemaColumnsStatement) {
+		stmt.dbName = db
+	}
+}
+
+// WithSchemaColumnsStatementTableName sets the table name.
+func WithSchemaColumnsStatementTableNames(tables []string) SchemaColumnsStatementOption {
+	return func(stmt *schemaColumnsStatement) {
+		stmt.tblNames = tables
+	}
+}
+
+// WithSchemaColumnsStatementSelect sets the select statement.
+func WithSchemaColumnsStatementSelect(sel sql.Select) SchemaColumnsStatementOption {
+	return func(stmt *schemaColumnsStatement) {
+		stmt.stmt = sel
+	}
 }
 
 // NewSchemaColumnsStatement returns a new SchemaColumnsStatement.
-func NewSchemaColumnsStatementFrom(sel sql.Select) (SchemaColumnsStatement, error) {
+func NewSchemaColumnsStatement(opts ...SchemaColumnsStatementOption) (SchemaColumnsStatement, error) {
 	stmt := &schemaColumnsStatement{
-		stmt:  sel,
-		db:    "",
-		table: "",
+		stmt:     nil,
+		dbName:   "",
+		tblNames: []string{},
 	}
-	if err := stmt.parseSelect(); err != nil {
-		return nil, err
+	for _, opt := range opts {
+		opt(stmt)
+	}
+	if stmt.stmt == nil {
+		if err := stmt.generateSelectStatement(); err != nil {
+			return nil, err
+		}
+	} else {
+		if err := stmt.parseSelectStatement(); err != nil {
+			return nil, err
+		}
 	}
 	return stmt, nil
 }
 
-func (stmt *schemaColumnsStatement) parseSelect() error {
+func (stmt *schemaColumnsStatement) generateSelectStatement() error {
+	query := SchemaColumnsQuery
+	if 0 < len(stmt.tblNames) {
+		query += " WHERE "
+		for n, tblName := range stmt.tblNames {
+			if 0 < n {
+				query += " OR "
+			}
+			query += "TABLE_NAME = '" + tblName + "'"
+		}
+	}
+	parsedStmts, err := sql.NewParser().ParseString(query)
+	if err != nil {
+		return err
+	}
+	if len(parsedStmts) != 1 {
+		return newErrInvalidQuery(query)
+	}
+	selectStmt, ok := parsedStmts[0].(sql.Select)
+	if !ok {
+		return newErrInvalidQuery(query)
+	}
+	stmt.stmt = selectStmt
 	return nil
+}
+
+func (stmt *schemaColumnsStatement) parseSelectStatement() error {
+	return nil
+}
+
+// Statement returns the statement.
+func (stmt *schemaColumnsStatement) Statement() sql.Select {
+	return stmt.stmt
 }
 
 // DatabaseName returns the database name.
 func (stmt *schemaColumnsStatement) DatabaseName() string {
-	return stmt.db
+	return stmt.dbName
 }
 
-// TableName returns the table name.
-func (stmt *schemaColumnsStatement) TableName() string {
-	return stmt.table
+// TableNames returns the table names.
+func (stmt *schemaColumnsStatement) TableNames() []string {
+	return stmt.tblNames
 }

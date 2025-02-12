@@ -14,11 +14,19 @@
 
 package system
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql"
+)
+
 // PostgreSQL: Documentation: 17: 35.17. columns
 // https://www.postgresql.org/docs/current/infoschema-columns.html
 
 // SchemaColumnsStatement represents a schema columns statement.
 type SchemaColumnsStatement interface {
+	// Statement returns the statement.
+	Statement() sql.Select
+	// DatabaseName returns the database name.
 	DatabaseName() string
-	TableName() string
+	// TableNames returns the table names.
+	TableNames() []string
 }
