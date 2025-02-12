@@ -15,6 +15,8 @@
 package system
 
 import (
+	"strings"
+
 	"github.com/cybergarage/go-sqlparser/sql"
 )
 
@@ -71,16 +73,21 @@ func NewSchemaColumnsStatement(opts ...SchemaColumnsStatementOption) (SchemaColu
 }
 
 func (stmt *schemaColumnsStatement) generateSelectStatement() error {
-	query := SchemaColumnsQuery
-	if 0 < len(stmt.tblNames) {
-		query += " WHERE "
-		for n, tblName := range stmt.tblNames {
-			if 0 < n {
-				query += " OR "
-			}
-			query += "TABLE_NAME = '" + tblName + "'"
-		}
+	query := SchemaColumnsQuery + " WHERE "
+	if 0 < len(stmt.dbName) {
+		query += SchemaColumnsSchema + " = '" + stmt.dbName + "'"
 	}
+	switch {
+	case len(stmt.tblNames) == 1:
+		query += " AND " + SchemaColumnsTableName + " = '" + stmt.tblNames[0] + "'"
+	case 1 < len(stmt.tblNames):
+		escapedTableNames := make([]string, len(stmt.tblNames))
+		for n, tblName := range stmt.tblNames {
+			escapedTableNames[n] = "'" + tblName + "'"
+		}
+		query += " AND " + SchemaColumnsTableName + " IN (" + strings.Join(escapedTableNames, ",") + ")"
+	}
+
 	parsedStmts, err := sql.NewParser().ParseString(query)
 	if err != nil {
 		return err
