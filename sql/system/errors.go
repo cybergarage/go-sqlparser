@@ -30,5 +30,9 @@ func newErrColumnNotFound(name string) error {
 }
 
 func newErrInvalidQuery(query string) error {
-	return fmt.Errorf("invalid query %w: %s", ErrInvalid, query)
+	return fmt.Errorf("%w query: %s", ErrInvalid, query)
+}
+
+func newErrInvalidColumn(name string) error {
+	return fmt.Errorf("%w column : %s", ErrInvalid, name)
 }
