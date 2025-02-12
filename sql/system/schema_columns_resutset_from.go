@@ -14,6 +14,11 @@
 
 package system
 
+import (
+	"github.com/cybergarage/go-sqlparser/sql/query"
+	"github.com/cybergarage/go-sqlparser/sql/query/response/resultset"
+)
+
 // NewSchemaColumnsResultSetFromResultSet returns a new SchemaColumnsResultSet instance from the specified ResultSet.
 func NewSchemaColumnsResultSetFromResultSet(rs ResultSet) (SchemaColumnsResultSet, error) {
 	columns := []SchemaColumn{}
@@ -58,4 +63,17 @@ func NewSchemaColumnsResultSetFromResultSet(rs ResultSet) (SchemaColumnsResultSe
 	return NewSchemaColumns(
 		WithColumns(columns),
 	), nil
+}
+
+// NewSchemaColumnsResultSetFromSchemas returns a new ResultSet instance from the specified schemas.
+func NewSchemaColumnsResultSetFromSchemas(schemas []query.Schema) (ResultSet, error) {
+	schema, err := NewSchemaColumnsResultSetSchema()
+	if err != nil {
+		return nil, err
+	}
+	rsOpts := []resultset.ResultSetOption{
+		resultset.WithResultSetSchema(schema),
+		resultset.WithResultSetRowsAffected(0),
+	}
+	return resultset.NewResultSet(rsOpts...), nil
 }
