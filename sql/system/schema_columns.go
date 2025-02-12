@@ -31,7 +31,7 @@ const (
 	SchemaColumns            = InformationSchema + "." + InformationSchemaColumns
 	SchemaColumnsCatalog     = "TABLE_CATALOG"
 	SchemaColumnsSchema      = "TABLE_SCHEMA"
-	SchemaColumnsTable       = "TABLE_NAME"
+	SchemaColumnsTableName   = "TABLE_NAME"
 	SchemaColumnsColumnName  = "COLUMN_NAME"
 	SchemaColumnsDataType    = "DATA_TYPE"
 	SchemaColumnsQuery       = "SELECT * FROM " + SchemaColumns

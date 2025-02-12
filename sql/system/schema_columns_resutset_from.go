@@ -35,7 +35,7 @@ func NewSchemaColumnsResultSetFromResultSet(rs ResultSet) (SchemaColumnsResultSe
 		if err != nil {
 			return nil, err
 		}
-		table, err := row.ValueBy(SchemaColumnsTable)
+		table, err := row.ValueBy(SchemaColumnsTableName)
 		if err != nil {
 			return nil, err
 		}
