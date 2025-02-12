@@ -67,13 +67,41 @@ func NewSchemaColumnsResultSetFromResultSet(rs ResultSet) (SchemaColumnsResultSe
 
 // NewSchemaColumnsResultSetFromSchemas returns a new ResultSet instance from the specified schemas.
 func NewSchemaColumnsResultSetFromSchemas(schemas []query.Schema) (ResultSet, error) {
-	schema, err := NewSchemaColumnsResultSetSchema()
+	rsSchema, err := NewSchemaColumnsResultSetSchema()
 	if err != nil {
 		return nil, err
 	}
+	rows := []resultset.Row{}
+	for _, schema := range schemas {
+		obj := map[string]any{}
+		for _, column := range schema.Columns() {
+			for _, rsColumn := range rsSchema.Columns() {
+				switch rsColumn.Name() {
+				case SchemaColumnsCatalog:
+					obj[SchemaColumnsCatalog] = DefaultSchemaColumnsCatalog
+				case SchemaColumnsSchema:
+					obj[SchemaColumnsSchema] = rsSchema.DatabaseName()
+				case SchemaColumnsTableName:
+					obj[SchemaColumnsTableName] = rsSchema.TableName()
+				case SchemaColumnsColumnName:
+					obj[SchemaColumnsColumnName] = column.Name()
+				case SchemaColumnsDataType:
+					obj[SchemaColumnsDataType] = column.DataType().String()
+				default:
+					return nil, newErrInvalidColumn(rsColumn.Name())
+				}
+			}
+		}
+		row := resultset.NewRow(
+			resultset.WithRowObject(obj),
+			resultset.WithRowSchema(rsSchema),
+		)
+		rows = append(rows, row)
+	}
 	rsOpts := []resultset.ResultSetOption{
-		resultset.WithResultSetSchema(schema),
+		resultset.WithResultSetSchema(rsSchema),
 		resultset.WithResultSetRowsAffected(0),
+		resultset.WithResultSetRows(rows),
 	}
 	return resultset.NewResultSet(rsOpts...), nil
 }
