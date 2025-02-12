@@ -68,10 +68,12 @@ func WithTableSchema(schema string) func(*table) {
 // FullTableName returns the full name of the table including schema and table name.
 func (tbl *table) FullTableName() string {
 	names := []string{}
-	if 0 < len(tbl.schema) {
-		names = append(names, tbl.schema)
-	}
 	if 0 < len(tbl.name) {
+		if !strings.Contains(tbl.name, TableNameSep) {
+			if 0 < len(tbl.schema) {
+				names = append(names, tbl.schema)
+			}
+		}
 		names = append(names, tbl.name)
 	}
 	return strings.Join(names, TableNameSep)
