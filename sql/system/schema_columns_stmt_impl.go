@@ -18,6 +18,7 @@ import (
 	"strings"
 
 	"github.com/cybergarage/go-sqlparser/sql"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 type schemaColumnsStatement struct {
@@ -65,7 +66,7 @@ func NewSchemaColumnsStatement(opts ...SchemaColumnsStatementOption) (SchemaColu
 			return nil, err
 		}
 	} else {
-		if err := stmt.parseSelectStatement(); err != nil {
+		if err := stmt.traverseSelectStatement(); err != nil {
 			return nil, err
 		}
 	}
@@ -103,7 +104,53 @@ func (stmt *schemaColumnsStatement) generateSelectStatement() error {
 	return nil
 }
 
-func (stmt *schemaColumnsStatement) parseSelectStatement() error {
+func (stmt *schemaColumnsStatement) traverseSelectStatement() error {
+	var traverseExpr func(expr query.Expr) error
+	traverseExpr = func(expr query.Expr) error {
+		switch e := expr.(type) {
+		case *query.AndExpr:
+			if err := traverseExpr(e.Left); err != nil {
+				return err
+			}
+			if err := traverseExpr(e.Right); err != nil {
+				return err
+			}
+			return nil
+		case *query.CmpExpr:
+			if e.Operator() != query.EQ {
+				return newErrInvalidQuery(stmt.stmt.String())
+			}
+			var name string
+			switch v := e.Left().Value().(type) {
+			case string:
+				name = v
+			default:
+				return newErrInvalidQuery(stmt.stmt.String())
+			}
+			var value string
+			switch v := e.Right().Value().(type) {
+			case string:
+				value = v
+			default:
+				return newErrInvalidQuery(stmt.stmt.String())
+			}
+			switch {
+			case strings.EqualFold(name, SchemaColumnsSchema):
+				stmt.dbName = value
+			case strings.EqualFold(name, SchemaColumnsTableName):
+				stmt.tblNames = append(stmt.tblNames, value)
+			}
+			return nil
+		}
+		return newErrInvalidQuery(stmt.stmt.String())
+	}
+
+	stmt.tblNames = []string{}
+	err := traverseExpr(stmt.stmt.Where().Expr())
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
