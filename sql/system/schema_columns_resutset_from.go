@@ -73,8 +73,8 @@ func NewSchemaColumnsResultSetFromSchemas(schemas []query.Schema) (ResultSet, er
 	}
 	rows := []resultset.Row{}
 	for _, schema := range schemas {
-		obj := map[string]any{}
 		for _, column := range schema.Columns() {
+			obj := map[string]any{}
 			for _, rsColumn := range rsSchema.Columns() {
 				switch rsColumn.Name() {
 				case SchemaColumnsCatalog:
@@ -91,12 +91,12 @@ func NewSchemaColumnsResultSetFromSchemas(schemas []query.Schema) (ResultSet, er
 					return nil, newErrInvalidColumn(rsColumn.Name())
 				}
 			}
+			row := resultset.NewRow(
+				resultset.WithRowObject(obj),
+				resultset.WithRowSchema(rsSchema),
+			)
+			rows = append(rows, row)
 		}
-		row := resultset.NewRow(
-			resultset.WithRowObject(obj),
-			resultset.WithRowSchema(rsSchema),
-		)
-		rows = append(rows, row)
 	}
 	rsOpts := []resultset.ResultSetOption{
 		resultset.WithResultSetSchema(rsSchema),
