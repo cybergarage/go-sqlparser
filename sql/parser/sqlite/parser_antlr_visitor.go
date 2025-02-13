@@ -552,7 +552,7 @@ func newBindParamWith(ctx antlr.IBind_paramContext) *query.Literal {
 }
 
 func newExprWith(ctx antlr.IExprContext) query.Expr {
-	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
+	newCmpExpr := func(cmpExpr antlr.IComparison_exprContext) query.Expr {
 		c := query.NewColumnWithName(cmpExpr.Column_name().GetText())
 		l := newLiteralValueWith(cmpExpr.Literal_value())
 		if cmpExpr.ASSIGN() != nil {
@@ -573,7 +573,23 @@ func newExprWith(ctx antlr.IExprContext) query.Expr {
 		if cmpExpr.GT_EQ() != nil {
 			return query.NewCmpExprWith(query.GE, c, l)
 		}
+		return nil
 	}
+
+	if andExpr := ctx.And_expr(); andExpr != nil {
+		leftExpr := newCmpExpr(andExpr.GetLeft())
+		rightExpr := newCmpExpr(andExpr.GetRight())
+		return query.NewAndExpr(leftExpr, rightExpr)
+	}
+	if orExpr := ctx.Or_expr(); orExpr != nil {
+		leftExpr := newCmpExpr(orExpr.GetLeft())
+		rightExpr := newCmpExpr(orExpr.GetRight())
+		return query.NewOrExpr(leftExpr, rightExpr)
+	}
+	if cmpExpr := ctx.Comparison_expr(); cmpExpr != nil {
+		return newCmpExpr(cmpExpr)
+	}
+
 	return nil
 }
 
