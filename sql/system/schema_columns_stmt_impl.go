@@ -120,13 +120,7 @@ func (stmt *schemaColumnsStatement) traverseSelectStatement() error {
 			if e.Operator() != query.EQ {
 				return newErrInvalidQuery(stmt.stmt.String())
 			}
-			var name string
-			switch v := e.Left().Value().(type) {
-			case string:
-				name = v
-			default:
-				return newErrInvalidQuery(stmt.stmt.String())
-			}
+			name := e.Left().Name()
 			var value string
 			switch v := e.Right().Value().(type) {
 			case string:
