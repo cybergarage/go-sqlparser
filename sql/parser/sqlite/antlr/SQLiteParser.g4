@@ -396,6 +396,8 @@ expr:
     | expr PIPE2 expr
     | expr ( LT2 | GT2 | AMP | PIPE) expr
     | comparison_expr 
+    | and_expr
+    | or_expr
     | expr (
         EQ
         | IS_
@@ -406,8 +408,6 @@ expr:
         | MATCH_
         | REGEXP_
     ) expr
-    | expr AND_ expr
-    | expr OR_ expr
     | function
     | OPEN_PAR expr (COMMA expr)* CLOSE_PAR
     | CAST_ OPEN_PAR expr AS_ type_name CLOSE_PAR
@@ -436,6 +436,13 @@ comparison_expr:
     column_name ope=(ASSIGN | NOT_EQ1 | NOT_EQ2 | LT | LT_EQ | GT | GT_EQ) literal_value
 ;
 
+and_expr:
+    left=comparison_expr AND_ right=comparison_expr
+;
+
+or_expr:
+    left=comparison_expr OR_ right=comparison_expr
+;
 arithmetic_expr:
     column_name ope=(PLUS | MINUS | STAR | DIV | MOD) expr
 ;

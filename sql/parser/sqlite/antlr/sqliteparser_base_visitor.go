@@ -247,6 +247,14 @@ func (v *BaseSQLiteParserVisitor) VisitComparison_expr(ctx *Comparison_exprConte
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitAnd_expr(ctx *And_exprContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitOr_expr(ctx *Or_exprContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitArithmetic_expr(ctx *Arithmetic_exprContext) interface{} {
 	return v.VisitChildren(ctx)
 }

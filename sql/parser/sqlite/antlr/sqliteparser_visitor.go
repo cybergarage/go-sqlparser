@@ -187,6 +187,12 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#comparison_expr.
 	VisitComparison_expr(ctx *Comparison_exprContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#and_expr.
+	VisitAnd_expr(ctx *And_exprContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#or_expr.
+	VisitOr_expr(ctx *Or_exprContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#arithmetic_expr.
 	VisitArithmetic_expr(ctx *Arithmetic_exprContext) interface{}
 

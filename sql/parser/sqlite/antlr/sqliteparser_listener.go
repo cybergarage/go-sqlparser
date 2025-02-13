@@ -187,6 +187,12 @@ type SQLiteParserListener interface {
 	// EnterComparison_expr is called when entering the comparison_expr production.
 	EnterComparison_expr(c *Comparison_exprContext)
 
+	// EnterAnd_expr is called when entering the and_expr production.
+	EnterAnd_expr(c *And_exprContext)
+
+	// EnterOr_expr is called when entering the or_expr production.
+	EnterOr_expr(c *Or_exprContext)
+
 	// EnterArithmetic_expr is called when entering the arithmetic_expr production.
 	EnterArithmetic_expr(c *Arithmetic_exprContext)
 
@@ -636,6 +642,12 @@ type SQLiteParserListener interface {
 
 	// ExitComparison_expr is called when exiting the comparison_expr production.
 	ExitComparison_expr(c *Comparison_exprContext)
+
+	// ExitAnd_expr is called when exiting the and_expr production.
+	ExitAnd_expr(c *And_exprContext)
+
+	// ExitOr_expr is called when exiting the or_expr production.
+	ExitOr_expr(c *Or_exprContext)
 
 	// ExitArithmetic_expr is called when exiting the arithmetic_expr production.
 	ExitArithmetic_expr(c *Arithmetic_exprContext)
