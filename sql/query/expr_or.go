@@ -16,11 +16,26 @@ package query
 
 // OrExpr represents an OR expression.
 type OrExpr struct {
-	Left  Expr
-	Right Expr
+	left  Expr
+	right Expr
+}
+
+// NewOrExpr returns a new OrExpr.
+func NewOrExpr(left Expr, right Expr) *OrExpr {
+	return &OrExpr{left: left, right: right}
+}
+
+// Left returns the left expression.
+func (expr *OrExpr) Left() Expr {
+	return expr.left
+}
+
+// Right returns the right expression.
+func (expr *OrExpr) Right() Expr {
+	return expr.right
 }
 
 // String returns the index string representation.
 func (expr *OrExpr) String() string {
-	return expr.Left.String() + " OR " + expr.Right.String()
+	return expr.left.String() + " OR " + expr.right.String()
 }
