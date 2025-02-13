@@ -16,11 +16,26 @@ package query
 
 // AndExpr represents an AND expression.
 type AndExpr struct {
-	Left  Expr
-	Right Expr
+	left  Expr
+	right Expr
+}
+
+// NewAndExpr returns a new AndExpr.
+func NewAndExpr(left Expr, right Expr) *AndExpr {
+	return &AndExpr{left: left, right: right}
+}
+
+// Left returns the left expression.
+func (expr *AndExpr) Left() Expr {
+	return expr.left
+}
+
+// Right returns the right expression.
+func (expr *AndExpr) Right() Expr {
+	return expr.right
 }
 
 // String returns the index string representation.
 func (expr *AndExpr) String() string {
-	return expr.Left.String() + " AND " + expr.Right.String()
+	return expr.left.String() + " AND " + expr.right.String()
 }

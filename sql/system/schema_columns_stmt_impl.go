@@ -109,10 +109,10 @@ func (stmt *schemaColumnsStatement) traverseSelectStatement() error {
 	traverseExpr = func(expr query.Expr) error {
 		switch e := expr.(type) {
 		case *query.AndExpr:
-			if err := traverseExpr(e.Left); err != nil {
+			if err := traverseExpr(e.Left()); err != nil {
 				return err
 			}
-			if err := traverseExpr(e.Right); err != nil {
+			if err := traverseExpr(e.Right()); err != nil {
 				return err
 			}
 			return nil
