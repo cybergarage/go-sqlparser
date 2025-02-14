@@ -29,8 +29,8 @@ type mgr struct {
 	mutex  *sync.RWMutex
 }
 
-// NewconnManager returns a connection map.
-func NewconnManager() ConnManager {
+// NewConnManager returns a connection map.
+func NewConnManager() ConnManager {
 	return &mgr{
 		uidMap: map[uint64]Conn{},
 		m:      map[uuid.UUID]Conn{},
