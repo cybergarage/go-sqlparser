@@ -22,17 +22,6 @@ import (
 	"github.com/google/uuid"
 )
 
-var ErrExist = errors.New("exist")
-var ErrNotExist = errors.New("not exist")
-
-func newErrConnExist(s string) error {
-	return fmt.Errorf("connection (%s) is already %w", s, ErrExist)
-}
-
-func newErrConnNotExists(s string) error {
-	return fmt.Errorf("connection (%s) is not %w", s, ErrNotExist)
-}
-
 // ConnManager represents a connection map.
 type ConnManager struct {
 	uidMap map[uint64]Conn
