@@ -22,6 +22,20 @@ type bindStmt struct {
 // BindStatementOption is a bind statement option.
 type BindStatementOption func(*bindStmt)
 
+// WithBindStatementQuery sets the query.
+func WithBindStatementQuery(query string) BindStatementOption {
+	return func(stmt *bindStmt) {
+		stmt.query = query
+	}
+}
+
+// WithBindStatementParams sets the params.
+func WithBindStatementParams(params BindParams) BindStatementOption {
+	return func(stmt *bindStmt) {
+		stmt.params = params
+	}
+}
+
 // NewBindStatement creates a new bind statement.
 func NewBindStatement(opts ...BindStatementOption) BindStatement {
 	stmt := &bindStmt{
