@@ -14,7 +14,11 @@
 
 package stmt
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/cybergarage/go-mysql/mysql/query"
+)
 
 type bindStmt struct {
 	query  string
@@ -52,13 +56,20 @@ func NewBindStatement(opts ...BindStatementOption) BindStatement {
 
 // Statement returns the statement.
 func (stmt *bindStmt) Statement() (Statement, error) {
-	query := stmt.query
+	q := stmt.query
 	for _, param := range stmt.params {
 		s, err := param.String()
 		if err != nil {
 			return nil, err
 		}
-		query = strings.Replace(query, "?", s, 1)
+		q = strings.Replace(q, "?", s, 1)
 	}
-	return nil, nil
+	stmts, err := query.NewParser().ParseString(q)
+	if err != nil {
+		return nil, err
+	}
+	if len(stmts) != 1 {
+		return nil, newInvalidStatement(query.EQ.String())
+	}
+	return stmts[0], nil
 }
