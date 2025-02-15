@@ -15,21 +15,21 @@
 package stmt
 
 import (
-	"github.com/cybergarage/go-mysql/mysql/query"
+	"github.com/cybergarage/go-safecast/safecast"
 )
 
-// Statement is a query statement.
-type Statement = query.Statement
-
-// BindParam is a bind parameter interface.
-type BindParam interface {
-	String() (string, error)
+type bindParam struct {
+	v any
 }
 
-// BindParams is a bind parameters.
-type BindParams []BindParam
+// NewBindParam creates a new bind parameter.
+func NewBindParam(v any) BindParam {
+	return &bindParam{v: v}
+}
 
-// BindStatement is a bind statement.
-type BindStatement interface {
-	Statement() (Statement, error)
+// String returns the string representation of the bind parameter.
+func (p *bindParam) String() (string, error) {
+	var to string
+	err := safecast.ToString(p.v, &to)
+	return to, err
 }
