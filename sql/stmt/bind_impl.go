@@ -14,6 +14,8 @@
 
 package stmt
 
+import "strings"
+
 type bindStmt struct {
 	query  string
 	params BindParams
@@ -50,5 +52,13 @@ func NewBindStatement(opts ...BindStatementOption) BindStatement {
 
 // Statement returns the statement.
 func (stmt *bindStmt) Statement() (Statement, error) {
+	query := stmt.query
+	for _, param := range stmt.params {
+		s, err := param.String()
+		if err != nil {
+			return nil, err
+		}
+		query = strings.Replace(query, "?", s, 1)
+	}
 	return nil, nil
 }
