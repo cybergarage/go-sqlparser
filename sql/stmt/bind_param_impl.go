@@ -15,6 +15,8 @@
 package stmt
 
 import (
+	"time"
+
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
@@ -31,5 +33,12 @@ func NewBindParam(v any) BindParam {
 func (p *bindParam) String() (string, error) {
 	var to string
 	err := safecast.ToString(p.v, &to)
-	return to, err
+	if err != nil {
+		return "", err
+	}
+	switch p.v.(type) {
+	case string, time.Time:
+		to = "'" + to + "'"
+	}
+	return to, nil
 }
