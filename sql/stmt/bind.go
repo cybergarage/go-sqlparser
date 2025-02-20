@@ -15,7 +15,7 @@
 package stmt
 
 import (
-	"github.com/cybergarage/go-mysql/mysql/query"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 // Statement is a query statement.
