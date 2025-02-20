@@ -6,7 +6,10 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.4.3 (2025-02-20)
+## v1.5.0 (2025-02-20)
+### New Features
+- Add system package to handle system query commands
+- Add stmt package to handle bind statements
 ### Improvements
 - Support AND and OR operators in WHERE clause
 ### Fixes
