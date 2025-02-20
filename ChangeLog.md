@@ -8,12 +8,12 @@
 
 ## v1.5.0 (2025-02-20)
 ### New Features
-- Add system package to handle system query commands
-- Add stmt package to handle bind statements
+- Add `system` package to handle system query commands
+- Add `stmt` package to handle bind statements
 ### Improvements
-- Support AND and OR operators in WHERE clause
+- Support `AND` and `OR` operators in `WHERE` clause
 ### Fixes
-- SQLiteParser to support bind parameters
+- Update `SQLiteParser` to support bind parameters
  
 ## v1.4.2 (2024-12-11)
 ### Updates
