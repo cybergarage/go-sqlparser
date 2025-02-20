@@ -17,6 +17,7 @@ package stmt
 import (
 	"strings"
 
+	"github.com/cybergarage/go-sqlparser/sql"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
@@ -64,7 +65,7 @@ func (stmt *bindStmt) Statement() (Statement, error) {
 		}
 		q = strings.Replace(q, "?", s, 1)
 	}
-	stmts, err := query.NewParser().ParseString(q)
+	stmts, err := sql.NewParser().ParseString(q)
 	if err != nil {
 		return nil, err
 	}
