@@ -6,7 +6,7 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.5.0 (2025-02-XX)
+## v1.5.0 (2025-02-21)
 ### New Features
 - Add `system` package to handle system query commands
 - Add `stmt` package to handle bind statements
