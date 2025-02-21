@@ -15,6 +15,7 @@
 package stmt
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/cybergarage/go-safecast/safecast"
@@ -31,14 +32,20 @@ func NewBindParam(v any) BindParam {
 
 // String returns the string representation of the bind parameter.
 func (p *bindParam) String() (string, error) {
+	switch v := p.v.(type) {
+	case string:
+		return "'" + v + "'", nil
+	case time.Time:
+		if v.Nanosecond() == 0 {
+			return "'" + v.Format("2006-01-02 15:04:05") + "'", nil
+		}
+		return "'" + v.Format("2006-01-02 15:04:05.000000") + "'", nil
+	case float64:
+		return strconv.FormatFloat(v, 'g', -1, 64), nil
+	case float32:
+		return strconv.FormatFloat(float64(v), 'g', -1, 32), nil
+	}
+
 	var to string
-	err := safecast.ToString(p.v, &to)
-	if err != nil {
-		return "", err
-	}
-	switch p.v.(type) {
-	case string, time.Time:
-		to = "'" + to + "'"
-	}
-	return to, nil
+	return to, safecast.ToString(p.v, &to)
 }
