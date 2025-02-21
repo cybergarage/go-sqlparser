@@ -15,5 +15,5 @@
 package sql
 
 const (
-	Version = "v1.4.3"
+	Version = "v1.5.0"
 )
