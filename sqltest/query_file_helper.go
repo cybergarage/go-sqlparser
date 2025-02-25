@@ -103,21 +103,23 @@ func TestQueryFile(t *testing.T, file *util.File) {
 }
 
 func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
-	re, err := regexp.Compile(fileRegex)
-	if err != nil {
-		t.Error(err)
-		return
-	}
+	t.Run(fileRegex, func(t *testing.T) {
+		re, err := regexp.Compile(fileRegex)
+		if err != nil {
+			t.Error(err)
+			return
+		}
 
-	searchPath := util.NewFileWithPath(dir)
-	files, err := searchPath.ListFilesWithRegexp(re)
-	if err != nil {
-		t.Error(err)
-	}
+		searchPath := util.NewFileWithPath(dir)
+		files, err := searchPath.ListFilesWithRegexp(re)
+		if err != nil {
+			t.Error(err)
+		}
 
-	for _, file := range files {
-		t.Run(file.Name(), func(t *testing.T) {
-			TestQueryFile(t, file)
-		})
-	}
+		for _, file := range files {
+			t.Run(file.Name(), func(t *testing.T) {
+				TestQueryFile(t, file)
+			})
+		}
+	})
 }
