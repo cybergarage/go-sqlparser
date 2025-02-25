@@ -140,8 +140,17 @@ func (stmt *selectStmt) String() string {
 	if stmt.Condition.HasConditions() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
-	strs = append(strs, stmt.orderBy.String())
-	strs = append(strs, stmt.limit.String())
-	strs = append(strs, stmt.groupBy.String())
+	orderBy := stmt.orderBy.String()
+	if 0 < len(orderBy) {
+		strs = append(strs, orderBy)
+	}
+	limit := stmt.limit.String()
+	if 0 < len(limit) {
+		strs = append(strs, limit)
+	}
+	groupBy := stmt.groupBy.String()
+	if 0 < len(groupBy) {
+		strs = append(strs, groupBy)
+	}
 	return strings.JoinWithSpace(strs)
 }
