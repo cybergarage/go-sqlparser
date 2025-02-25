@@ -15,8 +15,46 @@
 package system
 
 import (
+	"strings"
 	"testing"
+
+	"github.com/cybergarage/go-sqlparser/sql/system"
 )
 
 func TestInfomationSchema(t *testing.T) {
+	t.Run("Columns", func(t *testing.T) {
+		tests := []struct {
+			dbName   string
+			tblName  string
+			expected string
+		}{
+			{
+				dbName:   "sqltest1740462150031924000",
+				tblName:  "test",
+				expected: "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'sqltest1740462150031924000' AND TABLE_NAME = 'test'",
+			},
+		}
+		for _, test := range tests {
+			t.Run(test.dbName+"."+test.tblName, func(t *testing.T) {
+				sysStmt, err := system.NewSchemaColumnsStatement(
+					system.WithSchemaColumnsStatementDatabaseName(test.dbName),
+					system.WithSchemaColumnsStatementTableNames([]string{test.tblName}),
+				)
+				if err != nil {
+					t.Error(err)
+					return
+				}
+				stmt := sysStmt.Statement()
+				if stmt == nil {
+					t.Error("stmt is nil")
+					return
+				}
+				stmtStr := stmt.String()
+				if !strings.EqualFold(stmtStr, test.expected) {
+					t.Errorf("expected: %s, got: %s", test.expected, stmtStr)
+				}
+			})
+		}
+
+	})
 }
