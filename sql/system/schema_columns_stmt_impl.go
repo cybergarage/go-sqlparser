@@ -88,8 +88,8 @@ func (stmt *schemaColumnsStatement) generateSelectStatement() error {
 		}
 		query += " AND " + SchemaColumnsTableName + " IN (" + strings.Join(escapedTableNames, ",") + ")"
 	}
-
-	parsedStmts, err := sql.NewParser().ParseString(query)
+	parser := sql.NewParser()
+	parsedStmts, err := parser.ParseString(query)
 	if err != nil {
 		return err
 	}
