@@ -55,6 +55,5 @@ func TestInfomationSchema(t *testing.T) {
 				}
 			})
 		}
-
 	})
 }
