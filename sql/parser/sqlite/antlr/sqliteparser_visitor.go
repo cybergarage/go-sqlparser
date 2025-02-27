@@ -76,6 +76,12 @@ type SQLiteParserVisitor interface {
 	// Visit a parse tree produced by SQLiteParser#create_table_stmt.
 	VisitCreate_table_stmt(ctx *Create_table_stmtContext) interface{}
 
+	// Visit a parse tree produced by SQLiteParser#table_options.
+	VisitTable_options(ctx *Table_optionsContext) interface{}
+
+	// Visit a parse tree produced by SQLiteParser#mysql_table_options.
+	VisitMysql_table_options(ctx *Mysql_table_optionsContext) interface{}
+
 	// Visit a parse tree produced by SQLiteParser#column_def.
 	VisitColumn_def(ctx *Column_defContext) interface{}
 

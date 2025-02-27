@@ -168,12 +168,18 @@ create_table_stmt:
         schema_name DOT
     )? table_name (
         OPEN_PAR column_def (COMMA column_def)*? (COMMA table_constraint)* CLOSE_PAR 
-        (
-            WITHOUT_ row_ROW_ID = IDENTIFIER
-            | WITH_ OPEN_PAR with_param (COMMA column_def)*? CLOSE_PAR
-        )?
+        (table_options | mysql_table_options)?
         | AS_ select_stmt
     )
+;
+
+table_options:
+    WITHOUT_ row_ROW_ID = IDENTIFIER
+    | WITH_ OPEN_PAR with_param (COMMA column_def)*? CLOSE_PAR
+;
+
+mysql_table_options:
+    ENGINE_ ASSIGN IDENTIFIER
 ;
 
 column_def:

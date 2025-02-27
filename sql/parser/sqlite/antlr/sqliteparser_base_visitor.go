@@ -99,6 +99,14 @@ func (v *BaseSQLiteParserVisitor) VisitCreate_table_stmt(ctx *Create_table_stmtC
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitTable_options(ctx *Table_optionsContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BaseSQLiteParserVisitor) VisitMysql_table_options(ctx *Mysql_table_optionsContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitColumn_def(ctx *Column_defContext) interface{} {
 	return v.VisitChildren(ctx)
 }

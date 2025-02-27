@@ -221,7 +221,9 @@ TIES_:              'TIES';
 OTHERS_:            'OTHERS';
 DO_:                'DO';
 NOTHING_:           'NOTHING';
-USE_:           'USE';
+USE_:               'USE';
+
+ENGINE_:            'ENGINE';
 
 IDENTIFIER:
     '"' (~'"' | '""')* '"'

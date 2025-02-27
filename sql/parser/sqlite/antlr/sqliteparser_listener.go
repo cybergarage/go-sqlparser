@@ -76,6 +76,12 @@ type SQLiteParserListener interface {
 	// EnterCreate_table_stmt is called when entering the create_table_stmt production.
 	EnterCreate_table_stmt(c *Create_table_stmtContext)
 
+	// EnterTable_options is called when entering the table_options production.
+	EnterTable_options(c *Table_optionsContext)
+
+	// EnterMysql_table_options is called when entering the mysql_table_options production.
+	EnterMysql_table_options(c *Mysql_table_optionsContext)
+
 	// EnterColumn_def is called when entering the column_def production.
 	EnterColumn_def(c *Column_defContext)
 
@@ -531,6 +537,12 @@ type SQLiteParserListener interface {
 
 	// ExitCreate_table_stmt is called when exiting the create_table_stmt production.
 	ExitCreate_table_stmt(c *Create_table_stmtContext)
+
+	// ExitTable_options is called when exiting the table_options production.
+	ExitTable_options(c *Table_optionsContext)
+
+	// ExitMysql_table_options is called when exiting the mysql_table_options production.
+	ExitMysql_table_options(c *Mysql_table_optionsContext)
 
 	// ExitColumn_def is called when exiting the column_def production.
 	ExitColumn_def(c *Column_defContext)

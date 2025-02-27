@@ -158,6 +158,18 @@ func (s *BaseSQLiteParserListener) EnterCreate_table_stmt(ctx *Create_table_stmt
 // ExitCreate_table_stmt is called when production create_table_stmt is exited.
 func (s *BaseSQLiteParserListener) ExitCreate_table_stmt(ctx *Create_table_stmtContext) {}
 
+// EnterTable_options is called when production table_options is entered.
+func (s *BaseSQLiteParserListener) EnterTable_options(ctx *Table_optionsContext) {}
+
+// ExitTable_options is called when production table_options is exited.
+func (s *BaseSQLiteParserListener) ExitTable_options(ctx *Table_optionsContext) {}
+
+// EnterMysql_table_options is called when production mysql_table_options is entered.
+func (s *BaseSQLiteParserListener) EnterMysql_table_options(ctx *Mysql_table_optionsContext) {}
+
+// ExitMysql_table_options is called when production mysql_table_options is exited.
+func (s *BaseSQLiteParserListener) ExitMysql_table_options(ctx *Mysql_table_optionsContext) {}
+
 // EnterColumn_def is called when production column_def is entered.
 func (s *BaseSQLiteParserListener) EnterColumn_def(ctx *Column_defContext) {}
 
