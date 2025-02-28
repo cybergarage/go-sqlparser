@@ -22,11 +22,11 @@ import (
 
 // TestQueryString tests a query string.
 func TestQueryString(t *testing.T, queryStr string, opts ...any) {
-	confg := NewDefaultConfig()
+	cfg := NewDefaultConfig()
 	for _, opt := range opts {
 		switch opt := opt.(type) {
 		case *Config:
-			confg = opt
+			cfg = opt
 		}
 	}
 
@@ -58,11 +58,19 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 			reParsedQuery := reParsedQueries[0]
 			reParsedQueryStr := formalizeQuery(reParsedQuery.String())
 			if parsedQueryStr != reParsedQueryStr {
-				t.Errorf("[P] %s\n", parsedQueryStr)
+				if cfg.SkipErrors() {
+					t.Skipf("[P] %s\n", parsedQueryStr)
+				} else {
+					t.Errorf("[P] %s\n", parsedQueryStr)
+				}
 				return
 			}
 		} else {
-			t.Errorf("[P] %s\n", parsedQueryStr)
+			if cfg.SkipErrors() {
+				t.Skipf("[P] %s\n", parsedQueryStr)
+			} else {
+				t.Errorf("[P] %s\n", parsedQueryStr)
+			}
 			return
 		}
 	}

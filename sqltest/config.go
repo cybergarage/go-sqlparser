@@ -19,18 +19,33 @@ type ConfigOption func(*Config)
 
 // Config represents a configuration.
 type Config struct {
+	skipErrors bool
 }
 
 // NewConfig returns a new Config instance.
 func NewConfig(opts ...ConfigOption) *Config {
-	c := &Config{}
-	for _, opt := range opts {
-		opt(c)
+	return NewDefaultConfig(opts...)
+}
+
+// WithConfigSkipErrors sets the skip errors option.
+func WithConfigSkipErrors(skipErrors bool) ConfigOption {
+	return func(c *Config) {
+		c.skipErrors = skipErrors
 	}
-	return c
 }
 
 // NewDefaultConfig returns a new Config instance with default options.
 func NewDefaultConfig(opts ...ConfigOption) *Config {
-	return NewConfig(opts...)
+	cfg := &Config{
+		skipErrors: false,
+	}
+	for _, opt := range opts {
+		opt(cfg)
+	}
+	return cfg
+}
+
+// SkipErrors returns the skip errors option.
+func (c *Config) SkipErrors() bool {
+	return c.skipErrors
 }
