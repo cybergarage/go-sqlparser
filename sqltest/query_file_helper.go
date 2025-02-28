@@ -83,7 +83,8 @@ func formalizeQuery(query string) string {
 	return query
 }
 
-func TestQueryFile(t *testing.T, file *util.File) {
+// TestQueryDirectory tests queries in the specified directory.
+func TestQueryFile(t *testing.T, file *util.File, opts ...any) {
 	queryBytes, err := readQueryFile(file.Path())
 	if err != nil {
 		t.Error(err)
@@ -97,12 +98,13 @@ func TestQueryFile(t *testing.T, file *util.File) {
 			continue
 		}
 		t.Run(formalizeQuery(query), func(t *testing.T) {
-			TestQueryString(t, query)
+			TestQueryString(t, query, opts...)
 		})
 	}
 }
 
-func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
+// TestQueryDirectoryWithRegex tests queries in the specified directory with the specified regular expression.
+func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string, opts ...any) {
 	t.Run(fileRegex, func(t *testing.T) {
 		re, err := regexp.Compile(fileRegex)
 		if err != nil {
@@ -118,7 +120,7 @@ func TestQueryDirectoryWithRegex(t *testing.T, dir string, fileRegex string) {
 
 		for _, file := range files {
 			t.Run(file.Name(), func(t *testing.T) {
-				TestQueryFile(t, file)
+				TestQueryFile(t, file, opts...)
 			})
 		}
 	})

@@ -20,7 +20,16 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql"
 )
 
-func TestQueryString(t *testing.T, queryStr string) {
+// TestQueryString tests a query string.
+func TestQueryString(t *testing.T, queryStr string, opts ...any) {
+	confg := NewDefaultConfig()
+	for _, opt := range opts {
+		switch opt := opt.(type) {
+		case *Config:
+			confg = opt
+		}
+	}
+
 	parser := sql.NewParser()
 
 	parsedQueries, err := parser.ParseString(queryStr)
