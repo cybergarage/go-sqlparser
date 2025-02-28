@@ -76,3 +76,21 @@ func TestExtraQueries(t *testing.T) {
 		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
 	}
 }
+
+func TestYCSBQueries(t *testing.T) {
+	res := []string{
+		"ycsb.*\\.sql",
+	}
+	for _, re := range res {
+		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	}
+}
+
+func TestSysbenchQueries(t *testing.T) {
+	res := []string{
+		"sysbench.*\\.sql",
+	}
+	for _, re := range res {
+		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+	}
+}
