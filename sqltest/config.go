@@ -29,3 +29,8 @@ func NewConfig(opts ...ConfigOption) *Config {
 	}
 	return c
 }
+
+// NewDefaultConfig returns a new Config instance with default options.
+func NewDefaultConfig(opts ...ConfigOption) *Config {
+	return NewConfig(opts...)
+}
