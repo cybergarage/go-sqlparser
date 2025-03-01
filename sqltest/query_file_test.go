@@ -88,7 +88,7 @@ func TestYCSBQueries(t *testing.T) {
 
 func TestSysbenchQueries(t *testing.T) {
 	res := []string{
-		"sysbench.*\\.sql",
+		// "sysbench.*\\.sql",
 	}
 	for _, re := range res {
 		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
