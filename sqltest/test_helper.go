@@ -23,6 +23,8 @@ import (
 
 // TestQueryString tests a query string.
 func TestQueryString(t *testing.T, queryStr string, opts ...any) {
+	//　Setup options.
+
 	cfg := NewDefaultConfig()
 	for _, opt := range opts {
 		switch opt := opt.(type) {
@@ -34,7 +36,6 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 	// Create a new parser.
 
 	parser := sql.NewParser()
-
 	parsedQueries, err := parser.ParseString(queryStr)
 	if err != nil {
 		t.Error(err)
@@ -55,37 +56,48 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 	parsedQueryStr := formalizeQuery(parsedQuery.String())
 
 	// STEP1: Compare the parsed query with the original query for an exact match.
-	if !strings.EqualFold(queryStr, parsedQueryStr) {
-		if cfg.ValidationMode() == ValidationModeStrict {
-			if cfg.SkipErrors() {
-				t.Skipf("[P] %s\n", parsedQueryStr)
-			} else {
-				t.Errorf("[P] %s\n", parsedQueryStr)
-			}
-			return
-		}
 
-		// STEP2: Compare the parsed query with the original query for semantic match.
-		reParsedQueries, err := parser.ParseString(parsedQueryStr)
-		if err == nil && len(reParsedQueries) == 1 {
-			reParsedQuery := reParsedQueries[0]
-			reParsedQueryStr := formalizeQuery(reParsedQuery.String())
-			if !strings.EqualFold(parsedQueryStr, reParsedQueryStr) {
-				if cfg.SkipErrors() {
-					t.Skipf("[P] %s\n", parsedQueryStr)
-				} else {
-					t.Errorf("[P] %s\n", parsedQueryStr)
-				}
-				return
-			}
-		} else {
-			if cfg.SkipErrors() {
-				t.Skipf("[P] %s\n", parsedQueryStr)
-			} else {
-				t.Errorf("[P] %s\n", parsedQueryStr)
-			}
-			return
-		}
+	if strings.EqualFold(queryStr, parsedQueryStr) {
+		t.Logf("[P] %s\n", parsedQueryStr)
+		return
 	}
+
+	if cfg.ValidationMode() == ValidationModeStrict {
+		if cfg.SkipErrors() {
+			t.Skipf("[P] %s\n", parsedQueryStr)
+		} else {
+			t.Errorf("[P] %s\n", parsedQueryStr)
+		}
+		return
+	}
+
+	// STEP2: Compare the parsed query with the original query for semantic match.
+
+	parser = sql.NewParser()
+	reParsedQueries, err := parser.ParseString(parsedQueryStr)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(reParsedQueries) != 1 {
+		t.Errorf("%s\n", parsedQueryStr)
+		for _, query := range reParsedQueries {
+			t.Errorf("%s\n", query.String())
+		}
+		return
+	}
+
+	reParsedQuery := reParsedQueries[0]
+	reParsedQueryStr := formalizeQuery(reParsedQuery.String())
+	if !strings.EqualFold(parsedQueryStr, reParsedQueryStr) {
+		if cfg.SkipErrors() {
+			t.Skipf("[P] %s\n", parsedQueryStr)
+		} else {
+			t.Errorf("[P] %s\n", parsedQueryStr)
+		}
+		return
+	}
+
 	t.Logf("[P] %s\n", parsedQueryStr)
 }
