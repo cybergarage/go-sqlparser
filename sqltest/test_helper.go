@@ -23,8 +23,6 @@ import (
 
 // TestQueryString tests a query string.
 func TestQueryString(t *testing.T, queryStr string, opts ...any) {
-	//　Setup options.
-
 	cfg := NewDefaultConfig()
 	for _, opt := range opts {
 		switch opt := opt.(type) {
@@ -33,7 +31,9 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 		}
 	}
 
-	// Create a new parser.
+	t.Logf("[S] %s\n", queryStr)
+
+	// STEP1: Compare the parsed query with the original query for an exact match.
 
 	parser := sql.NewParser()
 	parsedQueries, err := parser.ParseString(queryStr)
@@ -52,10 +52,7 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 
 	parsedQuery := parsedQueries[0]
 	queryStr = formalizeQuery(queryStr)
-	t.Logf("[S] %s\n", queryStr)
 	parsedQueryStr := formalizeQuery(parsedQuery.String())
-
-	// STEP1: Compare the parsed query with the original query for an exact match.
 
 	if strings.EqualFold(queryStr, parsedQueryStr) {
 		t.Logf("[P] %s\n", parsedQueryStr)
