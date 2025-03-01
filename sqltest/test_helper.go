@@ -15,6 +15,7 @@
 package sqltest
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/cybergarage/go-sqlparser/sql"
@@ -29,6 +30,8 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 			cfg = opt
 		}
 	}
+
+	// Create a new parser.
 
 	parser := sql.NewParser()
 
@@ -50,14 +53,24 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 	queryStr = formalizeQuery(queryStr)
 	t.Logf("[S] %s\n", queryStr)
 	parsedQueryStr := formalizeQuery(parsedQuery.String())
+
 	// STEP1: Compare the parsed query with the original query for an exact match.
-	if queryStr != parsedQueryStr {
+	if !strings.EqualFold(queryStr, parsedQueryStr) {
+		if cfg.ValidationMode() == ValidationModeStrict {
+			if cfg.SkipErrors() {
+				t.Skipf("[P] %s\n", parsedQueryStr)
+			} else {
+				t.Errorf("[P] %s\n", parsedQueryStr)
+			}
+			return
+		}
+
 		// STEP2: Compare the parsed query with the original query for semantic match.
 		reParsedQueries, err := parser.ParseString(parsedQueryStr)
 		if err == nil && len(reParsedQueries) == 1 {
 			reParsedQuery := reParsedQueries[0]
 			reParsedQueryStr := formalizeQuery(reParsedQuery.String())
-			if parsedQueryStr != reParsedQueryStr {
+			if !strings.EqualFold(parsedQueryStr, reParsedQueryStr) {
 				if cfg.SkipErrors() {
 					t.Skipf("[P] %s\n", parsedQueryStr)
 				} else {

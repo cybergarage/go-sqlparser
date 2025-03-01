@@ -17,9 +17,20 @@ package sqltest
 // ConfigOption represents a configuration option.
 type ConfigOption func(*Config)
 
+// ValidationMode represents a validation mode.
+type ValidationMode int
+
+const (
+	// ValidationModeNone represents the none validation mode.
+	ValidationModeNone ValidationMode = iota
+	// ValidationModeStrict represents the strict validation mode.
+	ValidationModeStrict
+)
+
 // Config represents a configuration.
 type Config struct {
 	skipErrors bool
+	mode       ValidationMode
 }
 
 // NewConfig returns a new Config instance.
@@ -34,10 +45,18 @@ func WithConfigSkipErrors(skipErrors bool) ConfigOption {
 	}
 }
 
+// WithConfigValidationMode sets the validation mode.
+func WithConfigValidationMode(mode ValidationMode) ConfigOption {
+	return func(c *Config) {
+		c.mode = mode
+	}
+}
+
 // NewDefaultConfig returns a new Config instance with default options.
 func NewDefaultConfig(opts ...ConfigOption) *Config {
 	cfg := &Config{
 		skipErrors: false,
+		mode:       ValidationModeNone,
 	}
 	for _, opt := range opts {
 		opt(cfg)
@@ -48,4 +67,9 @@ func NewDefaultConfig(opts ...ConfigOption) *Config {
 // SkipErrors returns the skip errors option.
 func (c *Config) SkipErrors() bool {
 	return c.skipErrors
+}
+
+// ValidationMode returns the validation mode.
+func (c *Config) ValidationMode() ValidationMode {
+	return c.mode
 }
