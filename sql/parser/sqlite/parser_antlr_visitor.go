@@ -282,7 +282,14 @@ func newColumnWith(ctx antlr.IColumn_defContext) query.Column {
 		query.WithColumnName(ctx.Column_name().GetText()),
 	}
 	if typ := ctx.Type_name(); typ != nil {
-		t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typ.GetText()))
+		var typName string
+		for n, name := range typ.AllName() {
+			switch n {
+			case 0:
+				typName = name.GetText()
+			}
+		}
+		t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
 		if err != nil {
 			t = query.NewUnknownDataDef()
 		}
