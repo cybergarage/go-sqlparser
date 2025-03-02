@@ -16,6 +16,9 @@ package query
 
 import (
 	"fmt"
+	"strconv"
+
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
 // ColumnDef represents a data definition interface.
@@ -55,13 +58,31 @@ func NewUnknownDataDef() ColumnDef {
 	}
 }
 
-// NewDataDefWith returns the data type of the specified string.
-func NewDataDefWith(s string, l int) (ColumnDef, error) {
+// NewDataDefFrom returns the data type of the specified string.
+func NewDataDefFrom(s string, l int) (ColumnDef, error) {
 	dt, err := NewDataTypeFrom(s)
 	if err != nil {
 		return nil, err
 	}
 	return NewDataDef(dt, l), nil
+}
+
+func NewDataDefFromStrings(strs []string) (ColumnDef, error) {
+	if len(strs) < 1 {
+		return nil, newErrInvaidDataDef(strings.JoinWithSpace(strs))
+	}
+	dt := strs[0]
+	dl := -1
+	if 4 <= len(strs) {
+		if strs[1] == "(" || strs[3] == ")" {
+			v, err := strconv.Atoi(strs[2])
+			if err != nil {
+				return nil, newErrInvaidDataDef(strings.JoinWithSpace(strs))
+			}
+			dl = v
+		}
+	}
+	return NewDataDefFrom(dt, dl)
 }
 
 // Constraint returns the column constrains.

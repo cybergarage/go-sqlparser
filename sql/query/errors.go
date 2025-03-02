@@ -52,6 +52,10 @@ func newErrInvalidFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
 
-func newErrInvalidDataType(name any) error {
-	return fmt.Errorf("data type (%s) %w", name, ErrInvalid)
+func newErrInvalidDataType(s any) error {
+	return fmt.Errorf("data type (%s) %w", s, ErrInvalid)
+}
+
+func newErrInvaidDataDef(s any) error {
+	return fmt.Errorf("data def (%s) %w", s, ErrInvalid)
 }
