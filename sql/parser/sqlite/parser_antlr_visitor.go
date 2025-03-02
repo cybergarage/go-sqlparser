@@ -283,24 +283,31 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 }
 
 func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
+	typ := ctx.Type_name()
+	if typ == nil {
+		return nil, false
+	}
+
+	typNames := []string{}
+	for _, name := range typ.AllName() {
+		typNames = append(typNames, name.GetText())
+	}
+
+	if len(typNames) == 0 {
+		return nil, false
+	}
+
+	typName := typNames[0]
+	t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
+	if err != nil {
+		t = query.NewUnknownDataDef()
+	}
+
 	opts := []query.ColumnOption{
 		query.WithColumnName(ctx.Column_name().GetText()),
+		query.WithColumnData(t),
 	}
-	if typ := ctx.Type_name(); typ != nil {
-		typNames := []string{}
-		for _, name := range typ.AllName() {
-			typNames = append(typNames, name.GetText())
-		}
-		var typName string
-		if 0 < len(typNames) {
-			typName = typNames[0]
-		}
-		t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
-		if err != nil {
-			t = query.NewUnknownDataDef()
-		}
-		opts = append(opts, query.WithColumnData(t))
-	}
+
 	return query.NewColumnWithOptions(opts...), true
 }
 
