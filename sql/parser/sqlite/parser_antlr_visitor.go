@@ -206,8 +206,10 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) query.AlterTable {
 		opts = append(opts, query.WithAlterTableRenameColumn(fromColumn, toColumn))
 	}
 	if ctx := ctx.Add_table_column(); ctx != nil {
-		column := newColumnWith(ctx.Column_def())
-		opts = append(opts, query.WithAlterTableAddColumn(column))
+		column, ok := newColumnWith(ctx.Column_def())
+		if ok {
+			opts = append(opts, query.WithAlterTableAddColumn(column))
+		}
 	}
 	if ctx := ctx.Add_table_index(); ctx != nil {
 		index := newAddIndexSchemaWith(ctx)
@@ -241,7 +243,10 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	for _, columDef := range ctx.AllColumn_def() {
-		column := newColumnWith(columDef)
+		column, ok := newColumnWith(columDef)
+		if !ok {
+			continue
+		}
 		columns = append(columns, column)
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
@@ -277,17 +282,18 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
-func newColumnWith(ctx antlr.IColumn_defContext) query.Column {
+func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 	opts := []query.ColumnOption{
 		query.WithColumnName(ctx.Column_name().GetText()),
 	}
 	if typ := ctx.Type_name(); typ != nil {
+		typNames := []string{}
+		for _, name := range typ.AllName() {
+			typNames = append(typNames, name.GetText())
+		}
 		var typName string
-		for n, name := range typ.AllName() {
-			switch n {
-			case 0:
-				typName = name.GetText()
-			}
+		if 0 < len(typNames) {
+			typName = typNames[0]
 		}
 		t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
 		if err != nil {
@@ -295,7 +301,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) query.Column {
 		}
 		opts = append(opts, query.WithColumnData(t))
 	}
-	return query.NewColumnWithOptions(opts...)
+	return query.NewColumnWithOptions(opts...), true
 }
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
