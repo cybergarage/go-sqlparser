@@ -55,8 +55,8 @@ func NewUnknownDataDef() ColumnDef {
 	}
 }
 
-// NewDataDefFrom returns the data type of the specified string.
-func NewDataDefFrom(s string, l int) (ColumnDef, error) {
+// NewDataDefWith returns the data type of the specified string.
+func NewDataDefWith(s string, l int) (ColumnDef, error) {
 	dt, err := NewDataTypeFrom(s)
 	if err != nil {
 		return nil, err

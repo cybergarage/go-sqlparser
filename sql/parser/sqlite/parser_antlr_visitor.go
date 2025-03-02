@@ -318,7 +318,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 	}
 
 	typName := strings.JoinWithSpace(typNames)
-	t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
+	t, err := query.NewDataDefWith(strings.SplitDataTypeString(typName))
 	if err != nil {
 		t = query.NewUnknownDataDef()
 	}
@@ -335,7 +335,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
 	name := ctx.Column_name().GetText()
-	t, err := query.NewDataDefFrom("", -1) // FIXME
+	t, err := query.NewDataDefWith("", -1) // FIXME
 	if err != nil {
 		t = query.NewUnknownDataDef()
 	}
