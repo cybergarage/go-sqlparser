@@ -317,7 +317,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 		return nil, false
 	}
 
-	typName := typNames[0]
+	typName := strings.JoinWithSpace(typNames)
 	t, err := query.NewDataDefFrom(strings.SplitDataTypeString(typName))
 	if err != nil {
 		t = query.NewUnknownDataDef()
