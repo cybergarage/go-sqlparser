@@ -16,7 +16,6 @@ package strings
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -46,29 +45,4 @@ func EscapeString(s string) string {
 // Equal returns true whether the specified strings are equal.
 func Equal(s, t string) bool {
 	return strings.Compare(s, t) == 0
-}
-
-// SplitDataTypeString returns a data type and a size from the specified string.
-func SplitDataTypeString(s string) (string, int) {
-	sep := " "
-	reps := []string{"(", ")"}
-	for _, rep := range reps {
-		s = strings.ReplaceAll(s, rep, sep)
-	}
-	elems := strings.Split(s, sep)
-	if len(elems) == 0 {
-		return "", 0
-	}
-	dataType := elems[0]
-	dataSize := -1
-	if 2 <= len(elems) {
-		elem := elems[1]
-		i, err := strconv.Atoi(elem)
-		if err == nil {
-			dataSize = i
-		} else {
-			dataType += sep + elem
-		}
-	}
-	return dataType, dataSize
 }

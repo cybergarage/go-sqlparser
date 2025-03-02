@@ -88,26 +88,3 @@ func TestEscapeStrings(t *testing.T) {
 		}
 	}
 }
-
-func TestSplitDataTypeString(t *testing.T) {
-	testCases := []struct {
-		inputDataTypeString string
-		expectedDataType    string
-		expectedSize        int
-	}{
-		{"", "", -1},
-		{"abc", "abc", -1},
-		{"abc(10)", "abc", 10},
-		{"abc abc", "abc abc", -1},
-	}
-
-	for _, testCase := range testCases {
-		actualDataType, actualSize := SplitDataTypeString(testCase.inputDataTypeString)
-		if actualDataType != testCase.expectedDataType {
-			t.Errorf("actual (%v) != expected (%v)", actualDataType, testCase.expectedDataType)
-		}
-		if actualSize != testCase.expectedSize {
-			t.Errorf("actual (%v) != expected (%v)", actualSize, testCase.expectedSize)
-		}
-	}
-}
