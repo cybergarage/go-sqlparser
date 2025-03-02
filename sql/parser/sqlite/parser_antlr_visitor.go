@@ -283,6 +283,26 @@ func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 }
 
 func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
+	keywords := []string{
+		"PRIMARY",
+		"KEY",
+		"UNIQUE",
+		"INDEX",
+		"CONSTRAINT",
+	}
+
+	// Column name
+
+	name := ctx.Column_name().GetText()
+
+	for _, keyword := range keywords {
+		if strings.Equal(name, keyword) {
+			return nil, false
+		}
+	}
+
+	// Column type
+
 	typ := ctx.Type_name()
 	if typ == nil {
 		return nil, false
@@ -303,8 +323,10 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 		t = query.NewUnknownDataDef()
 	}
 
+	// Create column
+
 	opts := []query.ColumnOption{
-		query.WithColumnName(ctx.Column_name().GetText()),
+		query.WithColumnName(name),
 		query.WithColumnData(t),
 	}
 
