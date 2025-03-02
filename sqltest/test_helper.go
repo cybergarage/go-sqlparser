@@ -28,6 +28,8 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 		switch opt := opt.(type) {
 		case *Config:
 			cfg = opt
+		case ConfigOption:
+			opt(cfg)
 		}
 	}
 

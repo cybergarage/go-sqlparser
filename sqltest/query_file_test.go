@@ -91,6 +91,6 @@ func TestSysbenchQueries(t *testing.T) {
 		"sysbench.*\\.sql",
 	}
 	for _, re := range res {
-		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re)
+		TestQueryDirectoryWithRegex(t, sqlTestResourceQueriesDirectory, re, WithConfigValidationMode(ValidationModeStrict))
 	}
 }
