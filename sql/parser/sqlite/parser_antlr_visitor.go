@@ -261,10 +261,9 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 			case "PRIMARY", "KEY", "INDEX":
 				columnName := indexDefs[n+1]
 				column, err := columns.LookupColumn(columnName)
-				if err != nil {
-					return nil, false
+				if err == nil {
+					return column, true
 				}
-				return column, true
 			}
 		}
 		return nil, false
@@ -277,15 +276,14 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 	// Column definitions.
 	for _, columDef := range ctx.AllColumn_def() {
 		column, ok := newColumnWith(columDef)
-		if !ok {
-			continue
-		}
-		columns = append(columns, column)
-		// Primary key definition for column constraint.
-		for _, columnConst := range columDef.AllColumn_constraint() {
-			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
-				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(column)))
+		if ok {
+			// Primary key definition for column constraint.
+			for _, columnConst := range columDef.AllColumn_constraint() {
+				if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
+					indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(column)))
+				}
 			}
+			columns = append(columns, column)
 		}
 		// Index definition for column constraint (for MySQL compatibility).
 		// MySQL :: MySQL 8.0 Reference Manual :: 15.1.20 CREATE TABLE Statement
