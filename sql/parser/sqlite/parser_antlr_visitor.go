@@ -239,21 +239,71 @@ func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
 }
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
+	indexDefs := func(ctx antlr.IColumn_defContext) []string {
+		typNames := []string{
+			ctx.Column_name().GetText(),
+		}
+		typ := ctx.Type_name()
+		if typ == nil {
+			return typNames
+		}
+		for _, name := range typ.AllName() {
+			typNames = append(typNames, name.GetText())
+		}
+		return typNames
+	}
+
+	indexColum := func(ctx antlr.IColumn_defContext, columns query.Columns) (query.Column, bool) {
+		indexDefs := indexDefs(ctx)
+		for n := 0; n < (len(indexDefs) - 1); n++ {
+			v := indexDefs[n]
+			switch v {
+			case "PRIMARY", "KEY", "INDEX":
+				columnName := indexDefs[n+1]
+				column, err := columns.LookupColumn(columnName)
+				if err != nil {
+					return nil, false
+				}
+				return column, true
+			}
+		}
+		return nil, false
+	}
+
 	tblName := ctx.Table_name().GetText()
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
+
+	// Column definitions.
 	for _, columDef := range ctx.AllColumn_def() {
 		column, ok := newColumnWith(columDef)
 		if !ok {
 			continue
 		}
 		columns = append(columns, column)
+		// Primary key definition for column constraint.
 		for _, columnConst := range columDef.AllColumn_constraint() {
 			if isPrimary := columnConst.Primary_key_constraint(); isPrimary != nil {
 				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(column)))
 			}
 		}
+		// Index definition for column constraint (for MySQL compatibility).
+		// MySQL :: MySQL 8.0 Reference Manual :: 15.1.20 CREATE TABLE Statement
+		// https://dev.mysql.com/doc/refman/8.0/en/create-table.html
+		switch columDef.Column_name().GetText() {
+		case "PRIMARY":
+			idxColumn, ok := indexColum(columDef, columns)
+			if ok {
+				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(idxColumn)))
+			}
+		case "KEY", "INDEX":
+			idxColumn, ok := indexColum(columDef, columns)
+			if ok {
+				indexes = append(indexes, query.NewSecondaryIndexWith("", query.NewColumnsWith(idxColumn)))
+			}
+		}
 	}
+	// Index definitions.
 	for _, tblConst := range ctx.AllTable_constraint() {
 		if primaryDef := tblConst.Primary_key_def(); primaryDef != nil {
 			indexColums := query.NewColumns()
@@ -264,6 +314,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 			indexes = append(indexes, query.NewPrimaryIndexWith(indexColums))
 		}
 	}
+	// Return schema.
 	return query.NewSchemaWith(tblName, query.WithSchemaColumns(columns), query.WithSchemaIndexes(indexes))
 }
 
