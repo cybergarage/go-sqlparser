@@ -16,6 +16,7 @@ package sqlite
 
 import (
 	"strconv"
+	std_strings "strings"
 
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
@@ -253,20 +254,48 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 		return typNames
 	}
 
-	indexColum := func(ctx antlr.IColumn_defContext, columns query.Columns) (query.Column, bool) {
+	indexColum := func(ctx antlr.IColumn_defContext, columns query.Columns) (string, query.Column, bool) {
+		stripColumnName := func(columnName string) string {
+			stripStrs := []string{
+				"'",
+				"`",
+				"(",
+				")",
+			}
+			for _, stripStr := range stripStrs {
+				columnName = std_strings.ReplaceAll(columnName, stripStr, "")
+			}
+			return columnName
+		}
+
 		indexDefs := indexDefs(ctx)
-		for n := 0; n < (len(indexDefs) - 1); n++ {
-			v := indexDefs[n]
+		for i := 0; i < (len(indexDefs) - 1); i++ {
+			v := indexDefs[i]
 			switch v {
-			case "PRIMARY", "KEY", "INDEX":
-				columnName := indexDefs[n+1]
-				column, err := columns.LookupColumn(columnName)
-				if err == nil {
-					return column, true
+			case "PRIMARY":
+				for j := (i + 1); j < (len(indexDefs) - 1); j++ {
+					v := indexDefs[j]
+					switch v {
+					case "KEY":
+						columnName := stripColumnName(indexDefs[j+1])
+						column, err := columns.LookupColumn(columnName)
+						if err == nil {
+							return "", column, true
+						}
+					}
+				}
+			case "KEY", "INDEX":
+				if (i + 2) < len(indexDefs) {
+					idxName := indexDefs[i+1]
+					columnName := stripColumnName(indexDefs[i+2])
+					column, err := columns.LookupColumn(columnName)
+					if err == nil {
+						return idxName, column, true
+					}
 				}
 			}
 		}
-		return nil, false
+		return "", nil, false
 	}
 
 	tblName := ctx.Table_name().GetText()
@@ -290,14 +319,14 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 		// https://dev.mysql.com/doc/refman/8.0/en/create-table.html
 		switch columDef.Column_name().GetText() {
 		case "PRIMARY":
-			idxColumn, ok := indexColum(columDef, columns)
+			_, idxColumn, ok := indexColum(columDef, columns)
 			if ok {
 				indexes = append(indexes, query.NewPrimaryIndexWith(query.NewColumnsWith(idxColumn)))
 			}
 		case "KEY", "INDEX":
-			idxColumn, ok := indexColum(columDef, columns)
+			idxName, idxColumn, ok := indexColum(columDef, columns)
 			if ok {
-				indexes = append(indexes, query.NewSecondaryIndexWith("", query.NewColumnsWith(idxColumn)))
+				indexes = append(indexes, query.NewSecondaryIndexWith(idxName, query.NewColumnsWith(idxColumn)))
 			}
 		}
 	}
