@@ -85,6 +85,10 @@ func (idx *index) String() string {
 // DefinitionString returns the index definition string representation.
 func (idx *index) DefinitionString() string {
 	s := idx.typ.String()
+	switch idx.typ {
+	case SecondaryIndex:
+		s += " " + idx.name
+	}
 	s += " ("
 	s += strings.Join(idx.Columns().Names(), ", ")
 	s += ")"
