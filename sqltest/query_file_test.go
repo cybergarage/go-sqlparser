@@ -94,7 +94,7 @@ func TestSysbenchQueries(t *testing.T) {
 		TestQueryDirectoryWithRegex(t,
 			sqlTestResourceQueriesDirectory,
 			re,
-			WithConfigValidationMode(ParseOnlyValidation),
+			// WithConfigValidationMode(ParseOnlyValidation),
 		)
 	}
 }
