@@ -60,7 +60,7 @@ build: lint
 	go build -v ${PKG}
 
 test: lint
-	go test -v -p 1 -timeout 10m -cover -coverpkg=${PKG}/... -coverprofile=${PKG_COVER}.out ${PKG}/... ${TEST_PKG}/...
+	go test -v -p 10 -timeout 10m -cover -coverpkg=${PKG}/... -coverprofile=${PKG_COVER}.out ${PKG}/... ${TEST_PKG}/...
 
 watchvet:
 	fswatch -o . -e ".*" -i "\\.go$$" | xargs -n1 -I{} make vet
