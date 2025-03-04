@@ -163,7 +163,8 @@ func newDropTableWith(ctx antlr.IDrop_table_stmtContext) query.DropTable {
 	}
 	tbls := query.NewTables()
 	for _, tbl := range ctx.AllTable_name() {
-		tbls = append(tbls, query.NewTableWith(tbl.GetText()))
+		tblName := strings.UnEscapeNameString(tbl.GetText())
+		tbls = append(tbls, query.NewTableWith(tblName))
 	}
 	return query.NewDropTableWith(tbls, ifExists)
 }
@@ -171,9 +172,9 @@ func newDropTableWith(ctx antlr.IDrop_table_stmtContext) query.DropTable {
 func newDropIndexWith(ctx antlr.IDrop_index_stmtContext) query.DropIndex {
 	schemaName := ""
 	if ctx.Schema_name() != nil {
-		schemaName = ctx.Schema_name().GetText()
+		schemaName = strings.UnEscapeNameString(ctx.Schema_name().GetText())
 	}
-	idxName := ctx.Index_name().GetText()
+	idxName := strings.UnEscapeNameString(ctx.Index_name().GetText())
 	ifExists := query.NewIfExistsWith(false)
 	if ctx.If_exists() != nil {
 		ifExists = query.NewIfExistsWith(true)
@@ -193,11 +194,11 @@ func newAlterDatabaseWith(ctx antlr.IAlter_database_stmtContext) query.AlterData
 func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) query.AlterTable {
 	opts := []query.AlterTableOption{}
 	if ctx := ctx.Schema_name(); ctx != nil {
-		schemaName := ctx.GetText()
+		schemaName := strings.UnEscapeNameString(ctx.GetText())
 		opts = append(opts, query.WithAlterTableSchema(schemaName))
 	}
 	if ctx := ctx.Rename_table_to(); ctx != nil {
-		tblName := ctx.Table_name().GetText()
+		tblName := strings.UnEscapeNameString(ctx.Table_name().GetText())
 		opts = append(opts, query.WithAlterTableRenameTo(query.NewTableWith(tblName)))
 	}
 	if ctx := ctx.Rename_table_colum(); ctx != nil {
@@ -284,7 +285,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 		return "", nil, false
 	}
 
-	tblName := ctx.Table_name().GetText()
+	tblName := strings.UnEscapeNameString(ctx.Table_name().GetText())
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 
@@ -333,7 +334,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
 	idxName := strings.UnEscapeNameString(ctx.Index_name().GetText())
-	tblName := ctx.Table_name().GetText()
+	tblName := strings.UnEscapeNameString(ctx.Table_name().GetText())
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	indexColumns := query.NewColumns()
@@ -376,6 +377,15 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 	for _, name := range typ.AllName() {
 		typNames = append(typNames, name.GetText())
 	}
+	if typ.OPEN_PAR() != nil && typ.CLOSE_PAR() != nil {
+		nums := []string{}
+		for _, num := range typ.AllSigned_number() {
+			nums = append(nums, num.GetText())
+		}
+		typNames = append(typNames, "(")
+		typNames = append(typNames, strings.JoinWithComma(nums))
+		typNames = append(typNames, ")")
+	}
 
 	if len(typNames) == 0 {
 		return nil, false
@@ -406,7 +416,8 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
 }
 
 func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
-	tbl := query.NewTableWith(ctx.Table_name().GetText())
+	tblName := strings.UnEscapeNameString(ctx.Table_name().GetText())
+	tbl := query.NewTableWith(tblName)
 	columns := query.NewColumns()
 	names := []string{}
 	for _, name := range ctx.AllColumn_name() {
