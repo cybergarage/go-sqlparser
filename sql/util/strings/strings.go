@@ -46,3 +46,8 @@ func EscapeString(s string) string {
 func Equal(s, t string) bool {
 	return strings.Compare(s, t) == 0
 }
+
+// EqualFold returns true whether the specified strings are equal.
+func EqualFold(s, t string) bool {
+	return strings.EqualFold(s, t)
+}
