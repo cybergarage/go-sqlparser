@@ -53,3 +53,8 @@ func EqualFold(s, t string) bool {
 func UnEscapeNameString(s string) string {
 	return strings.Trim(s, "'`()")
 }
+
+// EscapeNameString returns an escaped column name string.
+func EscapeNameString(s string) string {
+	return fmt.Sprintf("`%v`", s)
+}
