@@ -66,5 +66,5 @@ func (indexes Indexes) DefinitionString() string {
 	for n, index := range indexes {
 		elems[n] = index.DefinitionString()
 	}
-	return strings.Join(elems, ",")
+	return strings.Join(elems, ", ")
 }
