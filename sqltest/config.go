@@ -21,10 +21,12 @@ type ConfigOption func(*Config)
 type ValidationMode int
 
 const (
-	// ValidationModeDefault represents the default validation mode.
-	ValidationModeDefault ValidationMode = iota
-	// ValidationModeStrict represents the strict validation mode.
-	ValidationModeStrict
+	// DefaultValidation represents the default validation mode.
+	DefaultValidation ValidationMode = iota
+	// StrictValidation represents the strict validation mode.
+	StrictValidation
+	// ParseOnlyValidation represents the parsing validation mode.
+	ParseOnlyValidation
 )
 
 // Config represents a configuration.
@@ -56,7 +58,7 @@ func WithConfigValidationMode(mode ValidationMode) ConfigOption {
 func NewDefaultConfig(opts ...ConfigOption) *Config {
 	cfg := &Config{
 		skipErrors: false,
-		mode:       ValidationModeDefault,
+		mode:       DefaultValidation,
 	}
 	for _, opt := range opts {
 		opt(cfg)

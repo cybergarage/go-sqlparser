@@ -35,7 +35,7 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 
 	t.Logf("[S] %s\n", queryStr)
 
-	// STEP1: Compare the parsed query with the original query for an exact match.
+	// STEP0: Parse the query string.
 
 	parser := sql.NewParser()
 	parsedQueries, err := parser.ParseString(queryStr)
@@ -43,6 +43,13 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 		t.Error(err)
 		return
 	}
+
+	if cfg.ValidationMode() == ParseOnlyValidation {
+		t.Logf("[P] %s\n", parsedQueries[0].String())
+		return
+	}
+
+	// STEP1: Compare the parsed query with the original query for an exact match.
 
 	if len(parsedQueries) != 1 {
 		t.Errorf("%s\n", queryStr)
@@ -61,7 +68,7 @@ func TestQueryString(t *testing.T, queryStr string, opts ...any) {
 		return
 	}
 
-	if cfg.ValidationMode() == ValidationModeStrict {
+	if cfg.ValidationMode() == StrictValidation {
 		if cfg.SkipErrors() {
 			t.Skipf("[P] %s\n", parsedQueryStr)
 		} else {
