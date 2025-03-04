@@ -16,7 +16,6 @@ package sqlite
 
 import (
 	"strconv"
-	std_strings "strings"
 
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
@@ -233,7 +232,7 @@ func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
 	}
 	columns := query.NewColumns()
 	for _, columName := range ctx.AllColumn_name() {
-		column := query.NewColumnWithName(columName.GetText())
+		column := query.NewColumnWithName(strings.UnEscapeNameString(columName.GetText()))
 		columns = append(columns, column)
 	}
 	return query.NewIndexWith("", indexType, columns)
@@ -242,7 +241,7 @@ func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 	indexDefs := func(ctx antlr.IColumn_defContext) []string {
 		typNames := []string{
-			ctx.Column_name().GetText(),
+			strings.UnEscapeNameString(ctx.Column_name().GetText()),
 		}
 		typ := ctx.Type_name()
 		if typ == nil {
@@ -255,19 +254,6 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 	}
 
 	indexColum := func(ctx antlr.IColumn_defContext, columns query.Columns) (string, query.Column, bool) {
-		stripColumnName := func(columnName string) string {
-			stripStrs := []string{
-				"'",
-				"`",
-				"(",
-				")",
-			}
-			for _, stripStr := range stripStrs {
-				columnName = std_strings.ReplaceAll(columnName, stripStr, "")
-			}
-			return columnName
-		}
-
 		indexDefs := indexDefs(ctx)
 		for i := 0; i < (len(indexDefs) - 1); i++ {
 			v := indexDefs[i]
@@ -277,7 +263,7 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 					v := indexDefs[j]
 					switch v {
 					case "KEY":
-						columnName := stripColumnName(indexDefs[j+1])
+						columnName := strings.UnEscapeNameString(indexDefs[j+1])
 						column, err := columns.LookupColumn(columnName)
 						if err == nil {
 							return "", column, true
@@ -286,8 +272,8 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 				}
 			case "KEY", "INDEX":
 				if (i + 2) < len(indexDefs) {
-					idxName := indexDefs[i+1]
-					columnName := stripColumnName(indexDefs[i+2])
+					idxName := strings.UnEscapeNameString(indexDefs[i+1])
+					columnName := strings.UnEscapeNameString(indexDefs[i+2])
 					column, err := columns.LookupColumn(columnName)
 					if err == nil {
 						return idxName, column, true
@@ -346,13 +332,13 @@ func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {
 }
 
 func newIndexSchemaWith(ctx antlr.ICreate_index_stmtContext) query.Schema {
-	idxName := ctx.Index_name().GetText()
+	idxName := strings.UnEscapeNameString(ctx.Index_name().GetText())
 	tblName := ctx.Table_name().GetText()
 	columns := query.NewColumns()
 	indexes := query.NewIndexes()
 	indexColumns := query.NewColumns()
 	for _, columDef := range ctx.AllIndexed_column() {
-		columDef := columDef.Column_name().GetText()
+		columDef := strings.UnEscapeNameString(columDef.Column_name().GetText())
 		indexColumn := query.NewColumnWithName(columDef)
 		indexColumns = append(indexColumns, indexColumn)
 	}
@@ -371,7 +357,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 
 	// Column name
 
-	name := ctx.Column_name().GetText()
+	name := strings.UnEscapeNameString(ctx.Column_name().GetText())
 
 	for _, keyword := range keywords {
 		if strings.Equal(name, keyword) {
@@ -411,7 +397,7 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 }
 
 func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
-	name := ctx.Column_name().GetText()
+	name := strings.UnEscapeNameString(ctx.Column_name().GetText())
 	t, err := query.NewDataDefFrom("", -1) // FIXME
 	if err != nil {
 		t = query.NewUnknownDataDef()

@@ -29,12 +29,9 @@ func JoinWithComma(elems []string) string {
 	return strings.Join(elems, ", ")
 }
 
-// stringLiteralTrimSet represents a string literal trim set.
-const stringLiteralTrimSet = "'\""
-
 // UnEscapeString returns an unescaped string.
 func UnEscapeString(s string) string {
-	return strings.Trim(s, stringLiteralTrimSet)
+	return strings.Trim(s, "'\"")
 }
 
 // EscapeString returns an escaped string.
@@ -50,4 +47,9 @@ func Equal(s, t string) bool {
 // EqualFold returns true whether the specified strings are equal.
 func EqualFold(s, t string) bool {
 	return strings.EqualFold(s, t)
+}
+
+// UnEscapeNameString returns an unescaped column name string.
+func UnEscapeNameString(s string) string {
+	return strings.Trim(s, "'`()")
 }

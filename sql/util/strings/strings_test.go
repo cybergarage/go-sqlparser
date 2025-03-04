@@ -88,3 +88,26 @@ func TestEscapeStrings(t *testing.T) {
 		}
 	}
 }
+
+func TestUnEscapeNameStrings(t *testing.T) {
+	testCases := []struct {
+		input    string
+		expected string
+	}{
+		{"", ""},
+		{"abc", "abc"},
+		{"'abc'", "abc"},
+		{"(abc)", "abc"},
+		{"`abc`", "abc"},
+		{"`(abc)`", "abc"},
+		{"'(abc)'", "abc"},
+		{"'`(abc)`'", "abc"},
+	}
+
+	for _, testCase := range testCases {
+		actual := UnEscapeNameString(testCase.input)
+		if actual != testCase.expected {
+			t.Errorf("actual (%v) != expected (%v)", actual, testCase.expected)
+		}
+	}
+}
