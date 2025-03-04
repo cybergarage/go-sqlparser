@@ -8,6 +8,7 @@
 
 ## v1.5.1 (2025-03-XX)
 - Support MySQL table options in CREATE TABLE statement
+  - PRIMARY KEY, INDEX, KEY, ENGINE
 
 ## v1.5.0 (2025-02-21)
 ### New Features
