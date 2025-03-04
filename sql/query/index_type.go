@@ -29,7 +29,7 @@ func (t IndexType) String() string {
 	case PrimaryIndex:
 		return "PRIMARY KEY"
 	case SecondaryIndex:
-		return "SECONDARY KEY"
+		return "INDEX"
 	default:
 		return "UNKNOWN KEY"
 	}
