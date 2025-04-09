@@ -1,7 +1,7 @@
-*** SQLiteLexer.g4.new	Fri Feb 28 00:48:10 2025
---- SQLiteLexer.g4	Fri Feb 28 00:49:32 2025
+*** SQLiteLexer.g4.new	Thu Apr 10 00:19:36 2025
+--- SQLiteLexer.g4	Thu Apr 10 00:20:16 2025
 ***************
-*** 27,236 ****
+*** 27,240 ****
   
   lexer grammar SQLiteLexer;
   
@@ -212,7 +212,11 @@
   
   NUMERIC_LITERAL: ((DIGIT+ ('.' DIGIT*)?) | ('.' DIGIT+)) ('E' [-+]? DIGIT+)? | '0x' HEX_DIGIT+;
   
---- 27,229 ----
+! BIND_PARAMETER: [?$] DIGIT* | [:@$] IDENTIFIER;
+  
+  STRING_LITERAL: '\'' ( ~'\'' | '\'\'')* '\'';
+  
+--- 27,233 ----
   
   lexer grammar SQLiteLexer;
   
@@ -415,6 +419,10 @@
 ! ;
   
   NUMERIC_LITERAL: ((DIGIT+ ('.' DIGIT*)?) | ('.' DIGIT+)) ('E' [-+]? DIGIT+)? | '0x' HEX_DIGIT+;
+  
+! BIND_PARAMETER: '?' DIGIT* | [:@$] IDENTIFIER;
+  
+  STRING_LITERAL: '\'' ( ~'\'' | '\'\'')* '\'';
   
 ***************
 *** 248,252 ****

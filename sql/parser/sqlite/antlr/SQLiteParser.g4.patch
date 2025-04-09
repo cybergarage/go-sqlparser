@@ -1,5 +1,5 @@
 *** SQLiteParser.g4.new	Fri Feb 28 00:48:57 2025
---- SQLiteParser.g4	Fri Feb 28 00:49:33 2025
+--- SQLiteParser.g4	Thu Apr 10 00:20:16 2025
 ***************
 *** 34,54 ****
       tokenVocab = SQLiteLexer;
