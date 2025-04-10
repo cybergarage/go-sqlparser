@@ -1,5 +1,5 @@
-*** SQLiteLexer.g4.new	Thu Apr 10 00:19:36 2025
---- SQLiteLexer.g4	Thu Apr 10 00:20:16 2025
+*** SQLiteLexer.g4.new	Thu Apr 10 01:03:34 2025
+--- SQLiteLexer.g4	Thu Apr 10 22:54:46 2025
 ***************
 *** 27,240 ****
   

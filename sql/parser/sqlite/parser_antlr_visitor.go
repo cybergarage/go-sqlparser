@@ -225,10 +225,15 @@ func newAlterTableWith(ctx antlr.IAlter_table_stmtContext) query.AlterTable {
 }
 
 func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
-	indexType := query.SecondaryIndex
+	var indexName string
+	indexType := query.UnknownIndex
 	if ctx := ctx.Column_constraint(); ctx != nil {
 		if ctx.Primary_key_constraint() != nil {
 			indexType = query.PrimaryIndex
+		}
+		if ctx := ctx.Index_constraint(); ctx != nil {
+			indexType = query.SecondaryIndex
+			indexName = strings.UnEscapeNameString(ctx.Index_name().GetText())
 		}
 	}
 	columns := query.NewColumns()
@@ -236,7 +241,7 @@ func newAddIndexSchemaWith(ctx antlr.IAdd_table_indexContext) query.Index {
 		column := query.NewColumnWithName(strings.UnEscapeNameString(columName.GetText()))
 		columns = append(columns, column)
 	}
-	return query.NewIndexWith("", indexType, columns)
+	return query.NewIndexWith(indexName, indexType, columns)
 }
 
 func newTableSchemaWith(ctx antlr.ICreate_table_stmtContext) query.Schema {

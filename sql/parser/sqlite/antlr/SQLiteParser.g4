@@ -199,6 +199,7 @@ type_name:
 
 column_constraint: (CONSTRAINT_ name)? (
         primary_key_constraint
+        | index_constraint
         | (NOT_? NULL_ | UNIQUE_) conflict_clause?
         | CHECK_ OPEN_PAR expr CLOSE_PAR
         | DEFAULT_ (signed_number | literal_value | OPEN_PAR expr CLOSE_PAR)
@@ -213,6 +214,10 @@ column_constraint: (CONSTRAINT_ name)? (
 
 primary_key_constraint:
     (PRIMARY_ KEY_ asc_desc? conflict_clause? AUTOINCREMENT_?)
+;
+
+index_constraint:
+    INDEX_ index_name
 ;
 
 signed_number: (PLUS | MINUS)? NUMERIC_LITERAL

@@ -97,6 +97,9 @@ type SQLiteParserListener interface {
 	// EnterPrimary_key_constraint is called when entering the primary_key_constraint production.
 	EnterPrimary_key_constraint(c *Primary_key_constraintContext)
 
+	// EnterIndex_constraint is called when entering the index_constraint production.
+	EnterIndex_constraint(c *Index_constraintContext)
+
 	// EnterSigned_number is called when entering the signed_number production.
 	EnterSigned_number(c *Signed_numberContext)
 
@@ -558,6 +561,9 @@ type SQLiteParserListener interface {
 
 	// ExitPrimary_key_constraint is called when exiting the primary_key_constraint production.
 	ExitPrimary_key_constraint(c *Primary_key_constraintContext)
+
+	// ExitIndex_constraint is called when exiting the index_constraint production.
+	ExitIndex_constraint(c *Index_constraintContext)
 
 	// ExitSigned_number is called when exiting the signed_number production.
 	ExitSigned_number(c *Signed_numberContext)

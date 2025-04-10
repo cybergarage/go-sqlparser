@@ -127,6 +127,10 @@ func (v *BaseSQLiteParserVisitor) VisitPrimary_key_constraint(ctx *Primary_key_c
 	return v.VisitChildren(ctx)
 }
 
+func (v *BaseSQLiteParserVisitor) VisitIndex_constraint(ctx *Index_constraintContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BaseSQLiteParserVisitor) VisitSigned_number(ctx *Signed_numberContext) interface{} {
 	return v.VisitChildren(ctx)
 }
