@@ -20,7 +20,7 @@ import "strings"
 type DataType uint8
 
 const (
-	UnknownData = iota
+	UnknownData DataType = iota
 	BigIntType
 	BinaryType
 	BitType
@@ -56,6 +56,11 @@ const (
 	VarCharType
 	VarCharacterType
 	YearType
+	// PostgreSQL
+	// https://www.postgresql.org/docs/current/datatype.html
+	SerialType
+	BigSerialType
+	SmallSerialType
 )
 
 var dataTypeStrings = map[DataType]string{
@@ -94,6 +99,9 @@ var dataTypeStrings = map[DataType]string{
 	VarCharType:         "VARCHAR",
 	VarCharacterType:    "VARCHARACTER",
 	YearType:            "YEAR",
+	SerialType:          "SERIAL",
+	BigSerialType:       "BIGSERIAL",
+	SmallSerialType:     "SMALLSERIAL",
 }
 
 // NewDataTypeFrom create a data type from the specified value.
