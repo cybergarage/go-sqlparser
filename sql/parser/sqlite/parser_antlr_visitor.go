@@ -373,25 +373,25 @@ func newColumnWith(ctx antlr.IColumn_defContext) (query.Column, bool) {
 		return nil, false
 	}
 
-	typNames := []string{}
+	dataDefs := []string{}
 	for _, name := range typ.AllName() {
-		typNames = append(typNames, name.GetText())
+		dataDefs = append(dataDefs, name.GetText())
 	}
 	if typ.OPEN_PAR() != nil && typ.CLOSE_PAR() != nil {
 		nums := []string{}
 		for _, num := range typ.AllSigned_number() {
 			nums = append(nums, num.GetText())
 		}
-		typNames = append(typNames, "(")
-		typNames = append(typNames, strings.JoinWithComma(nums))
-		typNames = append(typNames, ")")
+		dataDefs = append(dataDefs, "(")
+		dataDefs = append(dataDefs, strings.JoinWithComma(nums))
+		dataDefs = append(dataDefs, ")")
 	}
 
-	if len(typNames) == 0 {
+	if len(dataDefs) == 0 {
 		return nil, false
 	}
 
-	t, err := query.NewDataDefFromStrings(typNames)
+	t, err := query.NewDataDefFromStrings(dataDefs)
 	if err != nil {
 		t = query.NewUnknownDataDef()
 	}
