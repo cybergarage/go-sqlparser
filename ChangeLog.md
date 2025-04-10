@@ -10,7 +10,7 @@
 - Support MySQL table options in CREATE TABLE statement
   - PRIMARY KEY, INDEX, KEY, ENGINE
 - Support PostgreSQL DDL types
-  - SERIAL
+  - SERIAL, BIGSERIAL, SMALLSERIAL
 - Support Constraint options
   - NOT NULL
 
