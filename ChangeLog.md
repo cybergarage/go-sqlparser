@@ -6,11 +6,13 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.5.1 (2025-03-XX)
+## v1.5.1 (2025-04-XX)
 - Support MySQL table options in CREATE TABLE statement
   - PRIMARY KEY, INDEX, KEY, ENGINE
 - Support PostgreSQL DDL types
   - SERIAL
+- Support Constraint options
+  - NOT NULL
 
 ## v1.5.0 (2025-02-21)
 ### New Features
