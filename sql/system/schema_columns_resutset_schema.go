@@ -36,11 +36,11 @@ func NewSchemaColumnsResultSetSchema() (resultset.Schema, error) {
 		name     string
 		dataType resultset.DataType
 	}{
-		{SchemaColumnsCatalog, query.TextData},
-		{SchemaColumnsSchema, query.TextData},
-		{SchemaColumnsTableName, query.TextData},
-		{SchemaColumnsColumnName, query.TextData},
-		{SchemaColumnsDataType, query.TextData},
+		{SchemaColumnsCatalog, query.TextType},
+		{SchemaColumnsSchema, query.TextType},
+		{SchemaColumnsTableName, query.TextType},
+		{SchemaColumnsColumnName, query.TextType},
+		{SchemaColumnsDataType, query.TextType},
 	}
 
 	colums := []resultset.Column{}

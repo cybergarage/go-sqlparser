@@ -24,14 +24,14 @@ func TestNewDataDefFromStrings(t *testing.T) {
 		expectedDataType DataType
 		expectedSize     int
 	}{
-		{[]string{"TEXT"}, TextData, -1},
-		{[]string{"VARCHAR", "(", "10", ")"}, VarCharData, 10},
-		{[]string{"INT"}, IntData, -1},
-		{[]string{"CHAR", "(", "5", ")"}, CharData, 5},
-		{[]string{"FLOAT"}, FloatData, -1},
-		{[]string{"DECIMAL", "(", "10", ")"}, DecimalData, 10},
-		{[]string{"BOOLEAN"}, BooleanData, -1},
-		{[]string{"DATE"}, DateData, -1},
+		{[]string{"TEXT"}, TextType, -1},
+		{[]string{"VARCHAR", "(", "10", ")"}, VarCharType, 10},
+		{[]string{"INT"}, IntType, -1},
+		{[]string{"CHAR", "(", "5", ")"}, CharType, 5},
+		{[]string{"FLOAT"}, FloatType, -1},
+		{[]string{"DECIMAL", "(", "10", ")"}, DecimalType, 10},
+		{[]string{"BOOLEAN"}, BooleanType, -1},
+		{[]string{"DATE"}, DateType, -1},
 	}
 
 	for _, test := range tests {

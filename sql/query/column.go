@@ -184,43 +184,43 @@ func (col *column) SetDefinition(dataDef ColumnDef) error {
 	}
 
 	switch dataDef.DataType() {
-	case TinyIntData:
+	case TinyIntType:
 		var v int8
 		if err := safecast.ToInt8(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case SmallIntData:
+	case SmallIntType:
 		var v int16
 		if err := safecast.ToInt16(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case IntData, IntegerData:
+	case IntType, IntegerType:
 		var v int32
 		if err := safecast.ToInt32(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case BigIntData:
+	case BigIntType:
 		var v int64
 		if err := safecast.ToInt64(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case FloatData:
+	case FloatType:
 		var v float32
 		if err := safecast.ToFloat32(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case DoubleData:
+	case DoubleType:
 		var v float64
 		if err := safecast.ToFloat64(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
-	case BooleanData:
+	case BooleanType:
 		var v bool
 		if err := safecast.ToBool(col.Literal.v, &v); err != nil {
 			return err

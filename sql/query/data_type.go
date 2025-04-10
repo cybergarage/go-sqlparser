@@ -21,79 +21,79 @@ type DataType uint8
 
 const (
 	UnknownData = iota
-	BigIntData
-	BinaryData
-	BitData
-	BlobData
-	BooleanData
-	CharData
-	CharacterData
-	ClobData
-	DateData
-	DateTimeData
-	DecimalData
-	DoubleData
-	DoublePrecision
-	FloatData
-	IntData
-	IntegerData
-	LongBlobData
-	LongTextData
-	MediumBlobData
-	MediumIntData
-	MediumTextData
-	NumericData
-	RealData
-	SetData
-	SmallIntData
-	TextData
-	TimeData
-	TimeStampData
-	TinyBlobData
-	TinyIntData
-	TinyTextData
-	VarBinaryData
-	VarCharData
-	VarCharacterData
-	YearData
+	BigIntType
+	BinaryType
+	BitType
+	BlobType
+	BooleanType
+	CharType
+	CharacterType
+	ClobType
+	DateType
+	DateTimeType
+	DecimalType
+	DoubleType
+	DoublePrecisionType
+	FloatType
+	IntType
+	IntegerType
+	LongBlobType
+	LongTextType
+	MediumBlobType
+	MediumIntType
+	MediumTextType
+	NumericType
+	RealType
+	SetType
+	SmallIntType
+	TextType
+	TimeType
+	TimeStampType
+	TinyBlobType
+	TinyIntType
+	TinyTextType
+	VarBinaryType
+	VarCharType
+	VarCharacterType
+	YearType
 )
 
 var dataTypeStrings = map[DataType]string{
-	BigIntData:       "BIGINT",
-	BinaryData:       "BINARY",
-	BitData:          "BIT",
-	BlobData:         "BLOB",
-	BooleanData:      "BOOLEAN",
-	CharData:         "CHAR",
-	CharacterData:    "CHARACTER",
-	ClobData:         "CLOB",
-	DateData:         "DATE",
-	DateTimeData:     "DATETIME",
-	DecimalData:      "DECIMAL",
-	DoubleData:       "DOUBLE",
-	DoublePrecision:  "DOUBLE PRECISION",
-	FloatData:        "FLOAT",
-	IntData:          "INT",
-	IntegerData:      "INTEGER",
-	LongBlobData:     "LONGBLOB",
-	LongTextData:     "LONGTEXT",
-	MediumBlobData:   "MEDIUMBLOB",
-	MediumIntData:    "MEDIUMINT",
-	MediumTextData:   "MEDIUMTEXT",
-	NumericData:      "NUMERIC",
-	RealData:         "REAL",
-	SetData:          "SET",
-	SmallIntData:     "SMALLINT",
-	TextData:         "TEXT",
-	TimeData:         "TIME",
-	TimeStampData:    "TIMESTAMP",
-	TinyBlobData:     "TINYBLOB",
-	TinyIntData:      "TINYINT",
-	TinyTextData:     "TINYTEXT",
-	VarBinaryData:    "VARBINARY",
-	VarCharData:      "VARCHAR",
-	VarCharacterData: "VARCHARACTER",
-	YearData:         "YEAR",
+	BigIntType:          "BIGINT",
+	BinaryType:          "BINARY",
+	BitType:             "BIT",
+	BlobType:            "BLOB",
+	BooleanType:         "BOOLEAN",
+	CharType:            "CHAR",
+	CharacterType:       "CHARACTER",
+	ClobType:            "CLOB",
+	DateType:            "DATE",
+	DateTimeType:        "DATETIME",
+	DecimalType:         "DECIMAL",
+	DoubleType:          "DOUBLE",
+	DoublePrecisionType: "DOUBLE PRECISION",
+	FloatType:           "FLOAT",
+	IntType:             "INT",
+	IntegerType:         "INTEGER",
+	LongBlobType:        "LONGBLOB",
+	LongTextType:        "LONGTEXT",
+	MediumBlobType:      "MEDIUMBLOB",
+	MediumIntType:       "MEDIUMINT",
+	MediumTextType:      "MEDIUMTEXT",
+	NumericType:         "NUMERIC",
+	RealType:            "REAL",
+	SetType:             "SET",
+	SmallIntType:        "SMALLINT",
+	TextType:            "TEXT",
+	TimeType:            "TIME",
+	TimeStampType:       "TIMESTAMP",
+	TinyBlobType:        "TINYBLOB",
+	TinyIntType:         "TINYINT",
+	TinyTextType:        "TINYTEXT",
+	VarBinaryType:       "VARBINARY",
+	VarCharType:         "VARCHAR",
+	VarCharacterType:    "VARCHARACTER",
+	YearType:            "YEAR",
 }
 
 // NewDataTypeFrom create a data type from the specified value.
