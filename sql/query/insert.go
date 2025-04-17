@@ -18,13 +18,15 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// Insert represents a "INSERT" statement interface.
+// Insert represents an "INSERT" statement interface.
 type Insert interface {
 	Statement
-	// TableName returns the table name.
+	// TableName returns the name of the target table.
 	TableName() string
-	// Columns returns the columns.
+	// Columns returns the columns for a single row of values.
 	Columns() Columns
+	// Values returns the columns for multiple rows of values.
+	Values() []Columns
 }
 
 // insertStmt is a "INSERT" statement.
@@ -46,9 +48,14 @@ func (stmt *insertStmt) StatementType() StatementType {
 	return InsertStatement
 }
 
-// Columns returns the columns.
+// Columns returns the columns for a single row of values.
 func (stmt *insertStmt) Columns() Columns {
 	return stmt.columns
+}
+
+// Values returns the columns for multiple rows of values.
+func (stmt *insertStmt) Values() []Columns {
+	return []Columns{stmt.columns}
 }
 
 // String returns the statement string representation.
@@ -59,7 +66,11 @@ func (stmt *insertStmt) String() string {
 		stmt.Table.FullTableName(),
 		"(" + stmt.Columns().NameString() + ")",
 		"VALUES",
-		"(" + stmt.Columns().ValueString() + ")",
 	}
+	var valuesStrs []string
+	for _, values := range stmt.Values() {
+		valuesStrs = append(valuesStrs, "("+values.ValueString()+")")
+	}
+	strs = append(strs, strings.JoinWithComma(valuesStrs))
 	return strings.JoinWithSpace(strs)
 }
