@@ -452,7 +452,7 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
 			}
 		}
 	}
-	return query.NewInsertWith(tbl, columns)
+	return query.NewInsertWith(tbl, []query.Columns{columns})
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {

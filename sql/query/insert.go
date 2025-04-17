@@ -23,7 +23,7 @@ type Insert interface {
 	Statement
 	// TableName returns the name of the target table.
 	TableName() string
-	// Columns returns the columns for a single row of values.
+	// Deprecated: Columns returns the columns for a single row of values.
 	Columns() Columns
 	// Values returns the columns for multiple rows of values.
 	Values() []Columns
@@ -32,14 +32,14 @@ type Insert interface {
 // insertStmt is a "INSERT" statement.
 type insertStmt struct {
 	Table
-	columns Columns
+	values []Columns
 }
 
 // NewInsertWith returns a new insert statement instance with the specified parameters.
-func NewInsertWith(tbl Table, columns Columns) Insert {
+func NewInsertWith(tbl Table, values []Columns) Insert {
 	return &insertStmt{
-		Table:   tbl,
-		columns: columns,
+		Table:  tbl,
+		values: values,
 	}
 }
 
@@ -50,12 +50,15 @@ func (stmt *insertStmt) StatementType() StatementType {
 
 // Columns returns the columns for a single row of values.
 func (stmt *insertStmt) Columns() Columns {
-	return stmt.columns
+	if len(stmt.values) == 0 {
+		return Columns{}
+	}
+	return stmt.values[0]
 }
 
 // Values returns the columns for multiple rows of values.
 func (stmt *insertStmt) Values() []Columns {
-	return []Columns{stmt.columns}
+	return stmt.values
 }
 
 // String returns the statement string representation.
