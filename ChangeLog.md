@@ -13,6 +13,8 @@
   - SERIAL, BIGSERIAL, SMALLSERIAL
 - Support Constraint options
   - NOT NULL
+- Support SQL:2003 
+  - Multiple VALUES clauses in INSERT statement
 
 ## v1.5.0 (2025-02-21)
 ### New Features
