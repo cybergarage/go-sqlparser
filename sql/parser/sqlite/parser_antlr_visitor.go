@@ -423,13 +423,14 @@ func newIndexedColumnWith(ctx antlr.IIndexed_columnContext) query.Column {
 func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
 	tblName := strings.UnEscapeNameString(ctx.Table_name().GetText())
 	tbl := query.NewTableWith(tblName)
-	columns := query.NewColumns()
 	names := []string{}
 	for _, name := range ctx.AllColumn_name() {
 		names = append(names, name.GetText())
 	}
-	valueIdx := 0
+	values := []query.Columns{}
 	for _, row := range ctx.Values_clause().AllValue_row() {
+		columns := query.NewColumns()
+		valueIdx := 0
 		for _, expr := range row.AllExpr() {
 			if v := expr.Comparison_expr(); v != nil {
 				columns = append(columns,
@@ -451,8 +452,9 @@ func newInsertWith(ctx antlr.IInsert_stmtContext) query.Insert {
 				}
 			}
 		}
+		values = append(values, columns)
 	}
-	return query.NewInsertWith(tbl, []query.Columns{columns})
+	return query.NewInsertWith(tbl, values)
 }
 
 func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
