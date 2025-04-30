@@ -15,6 +15,7 @@
 package sqltest
 
 import (
+	"math/rand"
 	"testing"
 	"time"
 
@@ -23,32 +24,68 @@ import (
 
 func TestParallelParsing(t *testing.T) {
 	queries := []string{
-		"SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'foo' AND TABLE_NAME = 'bar'",
+		"SELECT id, name FROM users WHERE age > 30",
+		"INSERT INTO orders (id, user_id, total) VALUES (1, 42, 99.99)",
+		"UPDATE products SET price = price * 1.1 WHERE category = 'electronics'",
+		"CREATE TABLE logs (id INT PRIMARY KEY, message TEXT, created_at TIMESTAMP)",
+		"DROP TABLE IF EXISTS temp_data",
+		"ALTER TABLE users ADD COLUMN last_login TIMESTAMP",
 	}
 
 	parseQuery := func(query string) {
 		parser := sql.NewParser()
-		_, err := parser.ParseString(query)
+		stmts, err := parser.ParseString(query)
 		if err != nil {
 			t.Error(err)
 			return
 		}
 		time.Sleep(time.Millisecond * 100)
+		if len(stmts) != 1 {
+			t.Errorf("Expected 1 statement, got %d", len(stmts))
+			return
+		}
 	}
 
-	for _, query := range queries {
-		t.Run(query, func(t *testing.T) {
-			t.Parallel()
-			done := make(chan struct{}, 100)
-			for range 100 {
-				go func() {
-					defer func() { done <- struct{}{} }()
-					parseQuery(query)
-				}()
-			}
-			for range 100 {
-				<-done
-			}
-		})
+	done := make(chan struct{}, 100)
+	for range 100 {
+		go func() {
+			defer func() { done <- struct{}{} }()
+			query := queries[rand.Intn(len(queries))]
+			parseQuery(query)
+		}()
+	}
+	for range 100 {
+		<-done
+	}
+
+}
+
+func TestNestedParsing(t *testing.T) {
+	queries := []string{
+		"SELECT id, name FROM users WHERE age > 30",
+		"INSERT INTO orders (id, user_id, total) VALUES (1, 42, 99.99)",
+	}
+
+	parser01 := sql.NewParser()
+	stmts01, err := parser01.ParseString(queries[0])
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	parser02 := sql.NewParser()
+	stmts02, err := parser02.ParseString(queries[1])
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if len(stmts02) != 1 {
+		t.Errorf("Expected 1 statement, got %d", len(stmts02))
+		return
+	}
+
+	if len(stmts01) != 1 {
+		t.Errorf("Expected 1 statement, got %d", len(stmts01))
+		return
 	}
 }
