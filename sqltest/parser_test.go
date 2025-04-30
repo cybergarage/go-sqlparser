@@ -16,11 +16,12 @@ package sqltest
 
 import (
 	"testing"
+	"time"
 
 	"github.com/cybergarage/go-sqlparser/sql"
 )
 
-func TestParallelParse(t *testing.T) {
+func TestParallelParsing(t *testing.T) {
 	queries := []string{
 		"SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'foo' AND TABLE_NAME = 'bar'",
 	}
@@ -32,6 +33,7 @@ func TestParallelParse(t *testing.T) {
 			t.Error(err)
 			return
 		}
+		time.Sleep(time.Millisecond * 100)
 	}
 
 	for _, query := range queries {
