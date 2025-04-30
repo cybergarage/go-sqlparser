@@ -128,7 +128,7 @@ attach_stmt:
 
 begin_stmt:
     BEGIN_ (DEFERRED_ | IMMEDIATE_ | EXCLUSIVE_)? (
-        TRANSACTION_? transaction_name?
+        TRANSACTION_ transaction_name?
     )?
 ;
 
