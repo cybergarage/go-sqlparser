@@ -25,11 +25,24 @@ import (
 
 // Parser represents a FQL parser based on ANTLR.
 type Parser struct {
+	inputStream   *go_antlr.InputStream
+	lexer         *antlr.SQLiteLexer
+	tokenStream   *go_antlr.CommonTokenStream
+	parser        *antlr.SQLiteParser
+	stmts         query.StatementList
+	errorListener *antlrParserErrorListener
 }
 
 // NewParser returns a new parser.
 func NewParser() *Parser {
-	parser := &Parser{}
+	parser := &Parser{
+		inputStream:   nil,
+		lexer:         nil,
+		tokenStream:   nil,
+		parser:        nil,
+		stmts:         nil,
+		errorListener: newANTLRParserErrorListener(),
+	}
 	return parser
 }
 
@@ -49,20 +62,24 @@ func (parser *Parser) ParseString(queryString string) ([]query.Statement, error)
 		return nil, errors.ErrEmptyQuery
 	}
 
-	input := go_antlr.NewInputStream(queryString)
-	lexer := antlr.NewSQLiteLexer(input)
-	stream := go_antlr.NewCommonTokenStream(lexer, 0)
-	p := antlr.NewSQLiteParser(stream)
-	el := newANTLRParserErrorListener()
-	p.AddErrorListener(el)
-	p.BuildParseTrees = true
-	tree := p.Parse()
+	parser.inputStream = go_antlr.NewInputStream(queryString)
+	parser.lexer = antlr.NewSQLiteLexer(parser.inputStream)
+	parser.tokenStream = go_antlr.NewCommonTokenStream(parser.lexer, 0)
+	parser.parser = antlr.NewSQLiteParser(parser.tokenStream)
+	parser.parser.AddErrorListener(parser.errorListener)
+	parser.parser.BuildParseTrees = true
+	tree := parser.parser.Parse()
 
-	if !el.IsSuccess() {
-		return nil, fmt.Errorf("%s (%s)", queryString, el.GetError().Error())
+	if !parser.errorListener.IsSuccess() {
+		return nil, fmt.Errorf("%s (%w)", queryString, parser.errorListener.GetError())
 	}
 
 	v := tree.Accept(newANTLRVisitor())
-	stmtList, _ := v.(query.StatementList)
-	return stmtList, nil
+	stmtList, ok := v.(query.StatementList)
+	if !ok {
+		return nil, fmt.Errorf("failed to parse query: %s", queryString)
+	}
+	parser.stmts = stmtList
+
+	return parser.stmts, nil
 }
