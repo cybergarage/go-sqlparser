@@ -1,7 +1,11 @@
 github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYWrPrQ=
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
+github.com/cybergarage/go-safecast v0.0.0-20250505141721-792b7ef47a42 h1:/K2eXM/QS6hVwUTbsPp4xmkZdgw5q5CzxgRbPZtdRZQ=
+github.com/cybergarage/go-safecast v0.0.0-20250505141721-792b7ef47a42/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
 github.com/cybergarage/go-safecast v1.2.5 h1:ZDiKmdsE15RTKETRXKAKbYTDIhAzNONwJEfCaxmhkvU=
 github.com/cybergarage/go-safecast v1.2.5/go.mod h1:fw2lE/5DIOjmyPj5kx0aYZSAL2bSFoh/Zith5TWVTz8=
+github.com/cybergarage/go-safecast v1.2.6 h1:K12rvkueB2YRMDcV8JPoNL7M2dpVRy+3T5+4E37D3YU=
+github.com/cybergarage/go-safecast v1.2.6/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
 github.com/cybergarage/go-tracing v1.1.4 h1:J/9U1fDB0uGfRx1O4MQl8qgBDCZzNIFoPKYbhRPRoIo=
 github.com/cybergarage/go-tracing v1.1.4/go.mod h1:nG0apSs80pTvlBgYHvGIKpGyoM6mHHxfzkqcb9/vHZ8=
 github.com/cybergarage/go-tracing v1.1.5 h1:woJLmGqTcRVpRQlOB3GqOwhujdZYUoIRr+XmdN3vhKg=
