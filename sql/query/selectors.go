@@ -202,10 +202,12 @@ func (selectors Selectors) HasAggregateFunction() bool {
 func (selectors Selectors) SelectorString() string {
 	strs := make([]string, len(selectors))
 	for n, col := range selectors {
-		sel, ok := col.(columnSelectorStringer)
-		if ok {
-			strs[n] = sel.SelectorString()
-		} else {
+		switch t := col.(type) {
+		case columnSelectorStringer:
+			strs[n] = t.SelectorString()
+		case Function:
+			strs[n] = t.String()
+		default:
 			strs[n] = col.Name()
 		}
 	}
