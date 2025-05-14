@@ -14,6 +14,10 @@
 
 package resultset
 
+import (
+	"fmt"
+)
+
 type column struct {
 	name string
 	t    DataType
@@ -70,4 +74,14 @@ func (col *column) DataType() DataType {
 // Constraint returns the column constraint.
 func (col *column) Constraint() Constraint {
 	return col.c
+}
+
+// String returns the string representation of the column.
+func (col *column) String() string {
+	str := fmt.Sprintf("%s %s", col.name, col.t.String())
+	constStrs := col.c.String()
+	if 0 < len(constStrs) {
+		str += " " + constStrs
+	}
+	return str
 }

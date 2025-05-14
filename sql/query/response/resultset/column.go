@@ -32,4 +32,6 @@ type Column interface {
 	DataType() DataType
 	// Constraint returns the column constraint.
 	Constraint() Constraint
+	// String returns the string representation of the column.
+	String() string
 }
