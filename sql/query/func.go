@@ -45,6 +45,10 @@ type Function interface {
 	Name() string
 	// IsName returns true whether the function name is the specified one.
 	IsName(string) bool
+	// Type returns the function type.
+	Type() FunctionType
+	// IsType returns true whether the function type is the specified one.
+	IsType(FunctionType) bool
 	// Arguments returns the argument list.
 	Arguments() ArgumentList
 	// IsAsterisk returns true if the argument list is "*".
@@ -127,6 +131,16 @@ func (fn *function) IsAsterisk() bool {
 		return true
 	}
 	return false
+}
+
+// Type returns the function type.
+func (fn *function) Type() FunctionType {
+	return fn.executor.Type()
+}
+
+// IsType returns true whether the function type is the specified one.
+func (fn *function) IsType(t FunctionType) bool {
+	return fn.executor.Type() == t
 }
 
 // Executor returns the executor of the function.
