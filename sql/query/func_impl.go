@@ -21,6 +21,7 @@ import (
 
 // function represents a function interface.
 type function struct {
+	typ      FunctionType
 	name     string
 	executor FunctionExecutor
 	ArgumentList
@@ -32,6 +33,7 @@ type FunctionOption = func(*function)
 // NewFunctionWith returns a function instance.
 func NewFunctionWith(opts ...FunctionOption) Function {
 	fn := &function{
+		typ:          UnknownFunctionType,
 		name:         "",
 		executor:     nil,
 		ArgumentList: NewArguments(),
@@ -40,6 +42,13 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 		opt(fn)
 	}
 	return fn
+}
+
+// WithFunctionType sets the function type.
+func WithFunctionType(t FunctionType) FunctionOption {
+	return func(fn *function) {
+		fn.typ = t
+	}
 }
 
 // WithFunctionName sets the function name.
@@ -59,7 +68,8 @@ func WithFunctionArguments(args ...Argument) FunctionOption {
 // WithFunctionExecutor sets the function executor.
 func WithFunctionExecutor(executor FunctionExecutor) FunctionOption {
 	return func(fn *function) {
-		fn.SetName(executor.Name())
+		fn.name = executor.Name()
+		fn.typ = executor.Type()
 		fn.executor = executor
 	}
 }
@@ -93,12 +103,12 @@ func (fn *function) IsAsterisk() bool {
 
 // Type returns the function type.
 func (fn *function) Type() FunctionType {
-	return fn.executor.Type()
+	return fn.typ
 }
 
 // IsType returns true whether the function type is the specified one.
 func (fn *function) IsType(t FunctionType) bool {
-	return fn.executor.Type() == t
+	return fn.typ == t
 }
 
 // Executor returns the executor of the function.
