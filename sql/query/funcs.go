@@ -47,7 +47,7 @@ func GetFunctionExecutor(name string) (FunctionExecutor, error) {
 	case CeilFunctionName:
 		return NewCeilFunction(), nil
 	}
-	return nil, newErrInvalidFunction(name)
+	return nil, newErrNotSupportedFunction(name)
 }
 
 // ExecuteFunction returns the executed value with the specified arguments.

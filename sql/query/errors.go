@@ -58,7 +58,7 @@ func newErrNotFoundFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotFound)
 }
 
-func newErrInvalidFunction(name string) error {
+func newErrNotSupportedFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
 
