@@ -28,6 +28,16 @@ var ErrNotFound = errors.New("not found")
 // ErrNotSupported is returned when the function is not supported.
 var ErrNotSupported = errors.New("not supported")
 
+// NewErrStatementInvalid  returns a new error for invalid statements.
+func NewErrStatementInvalid(stmt Statement) error {
+	return fmt.Errorf("statement (%s) %w", stmt, ErrInvalid)
+}
+
+// NewErrStatementNotSupported returns a new error for unsupported statements.
+func NewErrStatementNotSupported(stmt Statement) error {
+	return fmt.Errorf("statement (%s) %w", stmt, ErrNotSupported)
+}
+
 func newErrColumnNotFound(name string) error {
 	return fmt.Errorf("column (%s) %w", name, ErrNotFound)
 }
