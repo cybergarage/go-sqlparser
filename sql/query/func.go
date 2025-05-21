@@ -18,7 +18,8 @@ package query
 type FunctionType int
 
 const (
-	MathFunctionType FunctionType = iota
+	UnknownFunctionType FunctionType = iota
+	MathFunctionType
 	AggregateFunctionType
 	CastFunctionType
 	ArithFunctionType
