@@ -44,6 +44,18 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 	return fn
 }
 
+// WithFunctionName sets the function name.
+func WithFunctionName(name string) FunctionOption {
+	return func(fn *function) {
+		fn.SetName(name)
+		executor, err := GetFunctionExecutor(name)
+		if err == nil {
+			fn.executor = executor
+			fn.typ = executor.Type()
+		}
+	}
+}
+
 // WithFunctionType sets the function type.
 func WithFunctionType(t FunctionType) FunctionOption {
 	return func(fn *function) {
@@ -51,10 +63,12 @@ func WithFunctionType(t FunctionType) FunctionOption {
 	}
 }
 
-// WithFunctionName sets the function name.
-func WithFunctionName(name string) FunctionOption {
+// WithFunctionExecutor sets the function executor.
+func WithFunctionExecutor(executor FunctionExecutor) FunctionOption {
 	return func(fn *function) {
-		fn.SetName(name)
+		fn.executor = executor
+		fn.name = executor.Name()
+		fn.typ = executor.Type()
 	}
 }
 
@@ -62,15 +76,6 @@ func WithFunctionName(name string) FunctionOption {
 func WithFunctionArguments(args ...Argument) FunctionOption {
 	return func(fn *function) {
 		fn.ArgumentList = NewArgumentsWith(args...)
-	}
-}
-
-// WithFunctionExecutor sets the function executor.
-func WithFunctionExecutor(executor FunctionExecutor) FunctionOption {
-	return func(fn *function) {
-		fn.name = executor.Name()
-		fn.typ = executor.Type()
-		fn.executor = executor
 	}
 }
 
