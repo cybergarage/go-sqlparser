@@ -18,28 +18,28 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
-// ArgumentList represens an argument array in a function.
-type ArgumentList []Argument
+// Arguments represens an argument array in a function.
+type Arguments []Argument
 
 // NewArguments returns an empty argument array instance.
-func NewArguments() ArgumentList {
-	return make(ArgumentList, 0)
+func NewArguments() Arguments {
+	return make(Arguments, 0)
 }
 
 // NewArgumentsWith returns an argument array instance with the specified arguments.
-func NewArgumentsWith(args ...Argument) ArgumentList {
-	list := make(ArgumentList, len(args))
+func NewArgumentsWith(args ...Argument) Arguments {
+	list := make(Arguments, len(args))
 	copy(list, args)
 	return list
 }
 
 // Argument returns an argument array.
-func (arguments ArgumentList) Arguments() ArgumentList {
+func (arguments Arguments) Arguments() Arguments {
 	return arguments
 }
 
 // String returns a string representation of the the argument list.
-func (arguments ArgumentList) String() string {
+func (arguments Arguments) String() string {
 	strs := make([]string, len(arguments))
 	for n, str := range arguments {
 		strs[n] = string(str)

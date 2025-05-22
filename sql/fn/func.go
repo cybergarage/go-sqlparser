@@ -36,7 +36,7 @@ type Function interface {
 	// IsType returns true whether the function type is the specified one.
 	IsType(FunctionType) bool
 	// Arguments returns the argument list.
-	Arguments() ArgumentList
+	Arguments() Arguments
 	// IsAsterisk returns true if the argument list is "*".
 	IsAsterisk() bool
 	// Executor returns the executor of the function.

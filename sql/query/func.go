@@ -23,5 +23,5 @@ type FunctionExecutor = fn.Executor
 type FunctionType = fn.FunctionType
 type Function = fn.Function
 type Argument = fn.Argument
-type Arguments = fn.ArgumentList
+type Arguments = fn.Arguments
 type Aggregator = fn.Aggregator

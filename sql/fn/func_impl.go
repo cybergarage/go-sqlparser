@@ -24,7 +24,7 @@ type function struct {
 	typ      FunctionType
 	name     string
 	executor Executor
-	ArgumentList
+	args     Arguments
 }
 
 // FunctionOption represents a function option function.
@@ -33,10 +33,10 @@ type FunctionOption = func(*function)
 // NewFunctionWith returns a function instance.
 func NewFunctionWith(opts ...FunctionOption) Function {
 	fn := &function{
-		typ:          UnknownFunctionType,
-		name:         "",
-		executor:     nil,
-		ArgumentList: NewArguments(),
+		typ:      UnknownFunctionType,
+		name:     "",
+		executor: nil,
+		args:     NewArguments(),
 	}
 	for _, opt := range opts {
 		opt(fn)
@@ -75,7 +75,7 @@ func WithFunctionExecutor(executor Executor) FunctionOption {
 // WithFunctionArguments sets the function arguments.
 func WithFunctionArguments(args ...Argument) FunctionOption {
 	return func(fn *function) {
-		fn.ArgumentList = NewArgumentsWith(args...)
+		fn.args = NewArgumentsWith(args...)
 	}
 }
 
@@ -96,10 +96,10 @@ func (fn *function) IsName(name string) bool {
 
 // IsAsterisk returns true if the argument list is "*".
 func (fn *function) IsAsterisk() bool {
-	l := len(fn.ArgumentList)
+	l := len(fn.args)
 	switch {
 	case l == 1:
-		return fn.ArgumentList[0].IsAsterisk()
+		return fn.args[0].IsAsterisk()
 	case l == 0:
 		return true
 	}
@@ -114,6 +114,11 @@ func (fn *function) Type() FunctionType {
 // IsType returns true whether the function type is the specified one.
 func (fn *function) IsType(t FunctionType) bool {
 	return fn.typ == t
+}
+
+// Arguments returns the argument list.
+func (fn *function) Arguments() Arguments {
+	return fn.args
 }
 
 // IsAggregator returns true if the function is an aggregator function.
@@ -167,5 +172,5 @@ func (fn *function) Execute(args []any, row map[string]any) (any, error) {
 
 // String returns a string representation of the function.
 func (fn *function) String() string {
-	return fn.name + "(" + fn.ArgumentList.String() + ")"
+	return fn.name + "(" + fn.args.String() + ")"
 }
