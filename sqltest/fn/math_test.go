@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sqltest
+package fn_test
 
 import (
 	"testing"
@@ -20,42 +20,7 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
-func TestAggregateFunctions(t *testing.T) {
-	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 15}
-
-	groupKey := ""
-	tests := []struct {
-		fn     *fn.AggregateFunction
-		result int
-	}{
-		{fn.NewAvgFunction(), 6},
-		{fn.NewCountFunction(), len(values)},
-		{fn.NewMaxFunction(), 15},
-		{fn.NewMinFunction(), 1},
-		{fn.NewSumFunction(), 60},
-	}
-
-	for _, test := range tests {
-		for _, value := range values {
-			_, err := test.fn.Execute(groupKey, value)
-			if err != nil {
-				t.Error(err)
-				return
-			}
-		}
-		rs := test.fn.ResultSet()
-		r, ok := rs[groupKey]
-		if !ok {
-			t.Errorf("The %s result is not found", test.fn.Name())
-			return
-		}
-		if int(r) != test.result {
-			t.Errorf("The %s value (%d) is not (%d)", test.fn.Name(), int(r), test.result)
-		}
-	}
-}
-
-func TestMathFunctions(t *testing.T) {
+func TestMathExecutors(t *testing.T) {
 	tests := []struct {
 		fn     *fn.MathFunction
 		arg    any
