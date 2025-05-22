@@ -45,6 +45,8 @@ type Function interface {
 	Type() FunctionType
 	// IsType returns true whether the function type is the specified one.
 	IsType(FunctionType) bool
+	// IsAggregator returns true if the function is an aggregator function.
+	IsAggregator() bool
 	// Arguments returns the argument list.
 	Arguments() ArgumentList
 	// IsAsterisk returns true if the argument list is "*".
