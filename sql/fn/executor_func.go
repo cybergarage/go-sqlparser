@@ -19,12 +19,6 @@ const (
 	AbsFunctionName   = "ABS"
 	CeilFunctionName  = "CEIL"
 	FloorFunctionName = "FLOOR"
-	// Aggregator.
-	MaxFunctionName   = "MAX"
-	MinFunctionName   = "MIN"
-	SumFunctionName   = "SUM"
-	AvgFunctionName   = "AVG"
-	CountFunctionName = "COUNT"
 )
 
 // NewExecutorForName returns a function executor with the specified name.

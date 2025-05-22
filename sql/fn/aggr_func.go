@@ -19,6 +19,14 @@ import (
 	"strings"
 )
 
+const (
+	MaxFunctionName   = "MAX"
+	MinFunctionName   = "MIN"
+	SumFunctionName   = "SUM"
+	AvgFunctionName   = "AVG"
+	CountFunctionName = "COUNT"
+)
+
 // AggregatorOption is a function that configures the Aggregator.
 type AggregatorOption = aggrOption
 
@@ -30,15 +38,15 @@ func WithAggregatorGroupBy(group string) AggregatorOption {
 // NewAggregator creates a new Aggregator with the given options.
 func NewAggregatorForName(name string, opts ...aggrOption) (Aggregator, error) {
 	switch strings.ToUpper(name) {
-	case "SUM":
+	case SumFunctionName:
 		return NewSum(opts...)
-	case "AVG":
+	case AvgFunctionName:
 		return NewAvg(opts...)
-	case "MIN":
+	case MinFunctionName:
 		return NewMin(opts...)
-	case "MAX":
+	case MaxFunctionName:
 		return NewMax(opts...)
-	case "COUNT":
+	case CountFunctionName:
 		return NewCount(opts...)
 	}
 	return nil, fmt.Errorf("%w aggregator: %s", ErrNotSupported, name)
