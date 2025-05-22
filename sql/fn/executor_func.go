@@ -27,8 +27,8 @@ const (
 	CountFunctionName = "COUNT"
 )
 
-// NewFunctionExecutorForName returns a function executor with the specified name.
-func NewFunctionExecutorForName(name string) (Executor, error) {
+// NewExecutorForName returns a function executor with the specified name.
+func NewExecutorForName(name string) (Executor, error) {
 	switch name {
 	case AbsFunctionName:
 		return NewAbsFunction(), nil
@@ -42,7 +42,7 @@ func NewFunctionExecutorForName(name string) (Executor, error) {
 
 // ExecuteFunction returns the executed value with the specified arguments.
 func ExecuteFunction(name string, args ...any) (any, error) {
-	fn, err := NewFunctionExecutorForName(name)
+	fn, err := NewExecutorForName(name)
 	if err != nil {
 		return nil, err
 	}

@@ -183,7 +183,7 @@ func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 		if !ok {
 			continue
 		}
-		executor, err := fn.NewFunctionExecutorForName(fx.Name())
+		executor, err := fn.NewExecutorForName(fx.Name())
 		if err != nil {
 			continue
 		}

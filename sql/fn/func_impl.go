@@ -48,7 +48,7 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
 		fn.SetName(name)
-		executor, err := NewFunctionExecutorForName(name)
+		executor, err := NewExecutorForName(name)
 		if err == nil {
 			fn.executor = executor
 			fn.typ = executor.Type()
@@ -126,7 +126,7 @@ func (fn *function) Executor() (Executor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}
-	return NewFunctionExecutorForName(fn.name)
+	return NewExecutorForName(fn.name)
 }
 
 // ExecuteUpdator executes the executor with the specified row.
