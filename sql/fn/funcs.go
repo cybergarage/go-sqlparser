@@ -28,7 +28,7 @@ const (
 )
 
 // NewFunctionExecutorForName returns a function executor with the specified name.
-func NewFunctionExecutorForName(name string) (FunctionExecutor, error) {
+func NewFunctionExecutorForName(name string) (Executor, error) {
 	switch name {
 	case AbsFunctionName:
 		return NewAbsFunction(), nil

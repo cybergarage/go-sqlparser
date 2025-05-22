@@ -23,7 +23,7 @@ import (
 type function struct {
 	typ      FunctionType
 	name     string
-	executor FunctionExecutor
+	executor Executor
 	ArgumentList
 }
 
@@ -64,7 +64,7 @@ func WithFunctionType(t FunctionType) FunctionOption {
 }
 
 // WithFunctionExecutor sets the function executor.
-func WithFunctionExecutor(executor FunctionExecutor) FunctionOption {
+func WithFunctionExecutor(executor Executor) FunctionOption {
 	return func(fn *function) {
 		fn.executor = executor
 		fn.name = executor.Name()
@@ -122,7 +122,7 @@ func (fn *function) IsAggregator() bool {
 }
 
 // Executor returns the executor of the function.
-func (fn *function) Executor() (FunctionExecutor, error) {
+func (fn *function) Executor() (Executor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}

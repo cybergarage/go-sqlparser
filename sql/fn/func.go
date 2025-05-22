@@ -25,16 +25,6 @@ const (
 	ArithFunctionType
 )
 
-// FunctionExecutor represents a function executor interface.
-type FunctionExecutor interface {
-	// Name returns the name of the function.
-	Name() string
-	// Type returns the type of the function.
-	Type() FunctionType
-	// Execute returns the executed value with the specified arguments.
-	Execute(...any) (any, error)
-}
-
 // Function represents a .
 type Function interface {
 	// Name returns the function name.
@@ -52,7 +42,7 @@ type Function interface {
 	// IsAsterisk returns true if the argument list is "*".
 	IsAsterisk() bool
 	// Executor returns the executor of the function.
-	Executor() (FunctionExecutor, error)
+	Executor() (Executor, error)
 	// Execute executes the executor with the specified row.
 	Execute(args []any, row map[string]any) (any, error)
 	// String returns a string representation of the function.

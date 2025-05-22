@@ -12,16 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package fn
 
-import (
-	"github.com/cybergarage/go-sqlparser/sql/fn"
-)
-
-// Type aliases for the fn package.
-type FunctionExecutor = fn.Executor
-type FunctionType = fn.FunctionType
-type Function = fn.Function
-type Argument = fn.Argument
-type Arguments = fn.ArgumentList
-type Aggregator = fn.Aggregator
+// Executor represents a function executor interface.
+type Executor interface {
+	// Name returns the name of the function.
+	Name() string
+	// Type returns the type of the function.
+	Type() FunctionType
+	// Execute returns the executed value with the specified arguments.
+	Execute(...any) (any, error)
+}
