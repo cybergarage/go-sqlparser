@@ -21,15 +21,15 @@ import (
 // CastFunc returns the latest aggregated value.
 type CastFunc = func(any) (any, error)
 
-// CastFunction represents a base cast function.
-type CastFunction struct {
+// castFunction represents a base cast function.
+type castFunction struct {
 	name string
 	cast CastFunc
 }
 
 // NewCastFunctionWith returns a new base cast function with the specified name and cast.
-func NewCastFunctionWith(name string, cast CastFunc) *CastFunction {
-	fn := &CastFunction{
+func NewCastFunctionWith(name string, cast CastFunc) Executor {
+	fn := &castFunction{
 		name: strings.ToUpper(name),
 		cast: cast,
 	}
@@ -37,17 +37,17 @@ func NewCastFunctionWith(name string, cast CastFunc) *CastFunction {
 }
 
 // Name returns the name of the function.
-func (fn *CastFunction) Name() string {
+func (fn *castFunction) Name() string {
 	return fn.name
 }
 
 // Type returns the type of the function.
-func (fn *CastFunction) Type() FunctionType {
-	return CastFunctionType
+func (fn *castFunction) Type() FunctionType {
+	return CastFunction
 }
 
 // Execute returns the executed value with the specified arguments.
-func (fn *CastFunction) Execute(args ...any) (any, error) {
+func (fn *castFunction) Execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}

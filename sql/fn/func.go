@@ -21,7 +21,7 @@ const (
 	UnknownFunctionType FunctionType = iota
 	MathFunction
 	AggregateFunction
-	CastFunctionType
+	CastFunction
 	ArithFunctionType
 )
 
