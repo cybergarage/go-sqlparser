@@ -19,8 +19,8 @@ type FunctionType int
 
 const (
 	UnknownFunctionType FunctionType = iota
-	MathFunctionType
-	AggregateFunctionType
+	MathFunction
+	AggregateFunction
 	CastFunctionType
 	ArithFunctionType
 )

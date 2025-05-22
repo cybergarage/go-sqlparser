@@ -150,7 +150,7 @@ func (selectors Selectors) FunctionExecutorsForType(t FunctionType) ([]FunctionE
 
 // AggregateFunctions returns an aggregate function array.
 func (selectors Selectors) AggregateFunctions() ([]FunctionExecutor, error) {
-	return selectors.FunctionExecutorsForType(fn.AggregateFunctionType)
+	return selectors.FunctionExecutorsForType(fn.AggregateFunction)
 }
 
 // IsAsterisk returns true if the selector list is "*".
@@ -196,7 +196,7 @@ func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 
 // HasAggregateFunction returns true if the selector list has an aggregate function.
 func (selectors Selectors) HasAggregateFunction() bool {
-	return selectors.HasFunctionWithType(fn.AggregateFunctionType)
+	return selectors.HasFunctionWithType(fn.AggregateFunction)
 }
 
 // SelectorString returns a string representation of the selector array.

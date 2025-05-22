@@ -22,7 +22,7 @@ import (
 
 func TestMathExecutors(t *testing.T) {
 	tests := []struct {
-		fn     *fn.MathFunction
+		fn     fn.Executor
 		arg    any
 		result any
 	}{

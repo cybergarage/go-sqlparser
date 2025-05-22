@@ -118,7 +118,7 @@ func (fn *function) IsType(t FunctionType) bool {
 
 // IsAggregator returns true if the function is an aggregator function.
 func (fn *function) IsAggregator() bool {
-	return fn.typ == AggregateFunctionType
+	return fn.typ == AggregateFunction
 }
 
 // Executor returns the executor of the function.

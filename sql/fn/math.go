@@ -27,32 +27,32 @@ type MathFunc func(any) (any, error)
 // MathResultSet represents a result set of an math function.
 type MathResultSet map[any]float64
 
-// MathFunction represents a base math function.
-type MathFunction struct {
+// mathFunction represents a base math function.
+type mathFunction struct {
 	name string
 	math MathFunc
 }
 
 // NewMathFunctionWith returns a new base math function with the specified name and math.
-func NewMathFunctionWith(name string, fn MathFunc) *MathFunction {
-	return &MathFunction{
+func NewMathFunctionWith(name string, fn MathFunc) Executor {
+	return &mathFunction{
 		name: strings.ToUpper(name),
 		math: fn,
 	}
 }
 
 // Name returns the name of the function.
-func (fn *MathFunction) Name() string {
+func (fn *mathFunction) Name() string {
 	return fn.name
 }
 
 // Type returns the type of the function.
-func (fn *MathFunction) Type() FunctionType {
-	return MathFunctionType
+func (fn *mathFunction) Type() FunctionType {
+	return MathFunction
 }
 
 // Execute returns the executed value with the specified arguments.
-func (fn *MathFunction) Execute(args ...any) (any, error) {
+func (fn *mathFunction) Execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
@@ -61,7 +61,7 @@ func (fn *MathFunction) Execute(args ...any) (any, error) {
 }
 
 // NewAbsFunction returns a new abs function.
-func NewAbsFunction() *MathFunction {
+func NewAbsFunction() Executor {
 	return NewMathFunctionWith(
 		AbsFunctionName,
 		func(v any) (any, error) {
@@ -76,7 +76,7 @@ func NewAbsFunction() *MathFunction {
 }
 
 // NewFloorFunction returns a new floor function.
-func NewFloorFunction() *MathFunction {
+func NewFloorFunction() Executor {
 	return NewMathFunctionWith(
 		FloorFunctionName,
 		func(v any) (any, error) {
@@ -91,7 +91,7 @@ func NewFloorFunction() *MathFunction {
 }
 
 // NewCeilFunction returns a new ceil function.
-func NewCeilFunction() *MathFunction {
+func NewCeilFunction() Executor {
 	return NewMathFunctionWith(
 		CeilFunctionName,
 		func(v any) (any, error) {
