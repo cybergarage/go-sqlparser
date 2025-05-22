@@ -15,6 +15,7 @@
 package sql
 
 import (
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
@@ -42,10 +43,10 @@ type Function = query.Function
 type FunctionExecutor = query.FunctionExecutor
 
 // AggregateFunction represents an aggregate function.
-type AggregateFunction = query.AggregateFunction
+type AggregateFunction = fn.AggregateFunction
 
 // AggregateResultSet represents an aggregate result set.
-type AggregateResultSet = query.AggregateResultSet
+type AggregateResultSet = fn.AggregateResultSet
 
 // Schema represents a schema.
 type Schema = query.Schema

@@ -15,6 +15,7 @@
 package query
 
 import (
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
@@ -149,7 +150,7 @@ func (selectors Selectors) FunctionExecutorsForType(t FunctionType) ([]FunctionE
 
 // AggregateFunctions returns an aggregate function array.
 func (selectors Selectors) AggregateFunctions() ([]FunctionExecutor, error) {
-	return selectors.FunctionExecutorsForType(AggregateFunctionType)
+	return selectors.FunctionExecutorsForType(fn.AggregateFunctionType)
 }
 
 // IsAsterisk returns true if the selector list is "*".
@@ -178,11 +179,11 @@ func (selectors Selectors) HasFunction() bool {
 // HasFunctionWithType returns true if the selector list has a function with the specified type.
 func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fx, ok := selector.(Function)
 		if !ok {
 			continue
 		}
-		executor, err := GetFunctionExecutor(fn.Name())
+		executor, err := fn.NewFunctionExecutorForName(fx.Name())
 		if err != nil {
 			continue
 		}
@@ -195,7 +196,7 @@ func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 
 // HasAggregateFunction returns true if the selector list has an aggregate function.
 func (selectors Selectors) HasAggregateFunction() bool {
-	return selectors.HasFunctionWithType(AggregateFunctionType)
+	return selectors.HasFunctionWithType(fn.AggregateFunctionType)
 }
 
 // SelectorString returns a string representation of the selector array.

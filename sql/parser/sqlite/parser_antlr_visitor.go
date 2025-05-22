@@ -17,6 +17,7 @@ package sqlite
 import (
 	"strconv"
 
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
@@ -474,15 +475,15 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 			ope := v.GetOpe().GetText()
 			switch ope {
 			case "+":
-				executor = query.NewAddFunction(ope)
+				executor = fn.NewAddFunction(ope)
 			case "-":
-				executor = query.NewSubFunction(ope)
+				executor = fn.NewSubFunction(ope)
 			case "*":
-				executor = query.NewMulFunction(ope)
+				executor = fn.NewMulFunction(ope)
 			case "/":
-				executor = query.NewDivFunction(ope)
+				executor = fn.NewDivFunction(ope)
 			case "%":
-				executor = query.NewModFunction(ope)
+				executor = fn.NewModFunction(ope)
 			}
 			if executor != nil {
 				opts = append(opts, query.WithColumnFunction(executor))
@@ -582,18 +583,18 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
 	expr := ctx.Expr()
 	if expr != nil {
-		if fn := expr.Function(); fn != nil {
-			args := query.NewArguments()
-			if star := fn.STAR(); star != nil {
-				args = append(args, query.NewArgumentWith(star.GetText()))
+		if fx := expr.Function(); fx != nil {
+			args := fn.NewArguments()
+			if star := fx.STAR(); star != nil {
+				args = append(args, fn.NewArgumentWith(star.GetText()))
 			} else {
-				for _, arg := range fn.AllExpr() {
-					args = append(args, query.NewArgumentWith(arg.GetText()))
+				for _, arg := range fx.AllExpr() {
+					args = append(args, fn.NewArgumentWith(arg.GetText()))
 				}
 			}
-			return query.NewFunctionWith(
-				query.WithFunctionName(fn.Function_name().GetText()),
-				query.WithFunctionArguments(args...),
+			return fn.NewFunctionWith(
+				fn.WithFunctionName(fx.Function_name().GetText()),
+				fn.WithFunctionArguments(args...),
 			), nil
 		}
 	}

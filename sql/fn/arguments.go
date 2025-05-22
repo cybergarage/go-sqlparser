@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package fn
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"

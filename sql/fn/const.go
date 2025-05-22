@@ -12,15 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package fn
 
-import (
-	"github.com/cybergarage/go-sqlparser/sql/fn"
+const (
+	// Asterisk is a asterisk string.
+	Asterisk = "*"
 )
-
-// Type aliases for the fn package.
-type FunctionExecutor = fn.FunctionExecutor
-type FunctionType = fn.FunctionType
-type Function = fn.Function
-type Argument = fn.Argument
-type Arguments = fn.ArgumentList

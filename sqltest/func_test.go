@@ -17,7 +17,7 @@ package sqltest
 import (
 	"testing"
 
-	"github.com/cybergarage/go-sqlparser/sql/query"
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
 func TestAggregateFunctions(t *testing.T) {
@@ -25,14 +25,14 @@ func TestAggregateFunctions(t *testing.T) {
 
 	groupKey := ""
 	tests := []struct {
-		fn     *query.AggregateFunction
+		fn     *fn.AggregateFunction
 		result int
 	}{
-		{query.NewAvgFunction(), 6},
-		{query.NewCountFunction(), len(values)},
-		{query.NewMaxFunction(), 15},
-		{query.NewMinFunction(), 1},
-		{query.NewSumFunction(), 60},
+		{fn.NewAvgFunction(), 6},
+		{fn.NewCountFunction(), len(values)},
+		{fn.NewMaxFunction(), 15},
+		{fn.NewMinFunction(), 1},
+		{fn.NewSumFunction(), 60},
 	}
 
 	for _, test := range tests {
@@ -57,13 +57,13 @@ func TestAggregateFunctions(t *testing.T) {
 
 func TestMathFunctions(t *testing.T) {
 	tests := []struct {
-		fn     *query.MathFunction
+		fn     *fn.MathFunction
 		arg    any
 		result any
 	}{
-		{query.NewAbsFunction(), float64(-1), float64(1)},
-		{query.NewFloorFunction(), float64(5.95), int64(5)},
-		{query.NewCeilFunction(), float64(5.95), int64(6)},
+		{fn.NewAbsFunction(), float64(-1), float64(1)},
+		{fn.NewFloorFunction(), float64(5.95), int64(5)},
+		{fn.NewCeilFunction(), float64(5.95), int64(6)},
 	}
 
 	for _, test := range tests {

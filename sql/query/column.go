@@ -19,6 +19,7 @@ import (
 	"strings"
 
 	"github.com/cybergarage/go-safecast/safecast"
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
 // ColumnOption represents a column option function.
@@ -146,8 +147,8 @@ func (col *column) IsFunction() (Function, bool) {
 	if col.FunctionExecutor == nil {
 		return nil, false
 	}
-	return NewFunctionWith(
-		WithFunctionExecutor(col.FunctionExecutor),
+	return fn.NewFunctionWith(
+		fn.WithFunctionExecutor(col.FunctionExecutor),
 	), true
 }
 

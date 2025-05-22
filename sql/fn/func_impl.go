@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package fn
 
 import (
 	"fmt"
@@ -48,7 +48,7 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
 		fn.SetName(name)
-		executor, err := GetFunctionExecutor(name)
+		executor, err := NewFunctionExecutorForName(name)
 		if err == nil {
 			fn.executor = executor
 			fn.typ = executor.Type()
@@ -121,13 +121,13 @@ func (fn *function) Executor() (FunctionExecutor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}
-	return GetFunctionExecutor(fn.name)
+	return NewFunctionExecutorForName(fn.name)
 }
 
 // ExecuteUpdator executes the executor with the specified row.
-func (fn *function) Execute(col Column, row map[string]any) (any, error) {
-	newErrInvalidArgs := func(fn Function, col Column, row map[string]any) error {
-		return fmt.Errorf("%v is %w arguments (%s:%s)", fn.String(), ErrInvalid, col.String(), row)
+func (fn *function) Execute(args []any, row map[string]any) (any, error) {
+	newErrInvalidArgs := func(fn Function, args []any, row map[string]any) error {
+		return fmt.Errorf("%v is %w arguments (%s:%s)", fn.String(), ErrInvalid, args, row)
 	}
 
 	executor, err := fn.Executor()
@@ -135,17 +135,16 @@ func (fn *function) Execute(col Column, row map[string]any) (any, error) {
 		return nil, err
 	}
 
-	args := col.Arguments()
 	if len(args) < 2 {
-		return nil, newErrInvalidArgs(fn, col, row)
+		return nil, newErrInvalidArgs(fn, args, row)
 	}
 	leftExprName, ok := args[0].(string)
 	if !ok {
-		return nil, newErrInvalidArgs(fn, col, row)
+		return nil, newErrInvalidArgs(fn, args, row)
 	}
 	v, ok := row[leftExprName]
 	if !ok {
-		return nil, newErrInvalidArgs(fn, col, row)
+		return nil, newErrInvalidArgs(fn, args, row)
 	}
 	args[0] = v
 	rv, err := executor.Execute(args...)

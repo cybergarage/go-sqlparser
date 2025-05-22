@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package fn
 
 const (
 	// Math.
@@ -27,8 +27,8 @@ const (
 	CountFunctionName = "COUNT"
 )
 
-// GetFunctionExecutor returns a function executor with the specified name.
-func GetFunctionExecutor(name string) (FunctionExecutor, error) {
+// NewFunctionExecutorForName returns a function executor with the specified name.
+func NewFunctionExecutorForName(name string) (FunctionExecutor, error) {
 	switch name {
 	case MaxFunctionName:
 		return NewMaxFunction(), nil
@@ -52,7 +52,7 @@ func GetFunctionExecutor(name string) (FunctionExecutor, error) {
 
 // ExecuteFunction returns the executed value with the specified arguments.
 func ExecuteFunction(name string, args ...any) (any, error) {
-	fn, err := GetFunctionExecutor(name)
+	fn, err := NewFunctionExecutorForName(name)
 	if err != nil {
 		return nil, err
 	}

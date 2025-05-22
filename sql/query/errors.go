@@ -50,16 +50,8 @@ func newErrColumnIndexOutOfRange(n int) error {
 	return fmt.Errorf("column index (%d) %w", n, ErrNotFound)
 }
 
-func newErrInvalidArguments(name string, args ...any) error {
-	return fmt.Errorf("%w arguments %s(%v)", ErrInvalid, name, args)
-}
-
 func newErrNotFoundFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotFound)
-}
-
-func newErrNotSupportedFunction(name string) error {
-	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
 
 func newErrInvalidDataType(s any) error {
