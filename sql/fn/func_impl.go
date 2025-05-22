@@ -94,18 +94,6 @@ func (fn *function) IsName(name string) bool {
 	return fn.name == name
 }
 
-// IsAsterisk returns true if the argument list is "*".
-func (fn *function) IsAsterisk() bool {
-	l := len(fn.args)
-	switch {
-	case l == 1:
-		return fn.args[0].IsAsterisk()
-	case l == 0:
-		return true
-	}
-	return false
-}
-
 // Type returns the function type.
 func (fn *function) Type() FunctionType {
 	return fn.typ

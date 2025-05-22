@@ -33,15 +33,22 @@ func NewArgumentsWith(args ...Argument) Arguments {
 	return list
 }
 
-// Argument returns an argument array.
-func (arguments Arguments) Arguments() Arguments {
-	return arguments
+// IsAsterisk returns true if the argument list is an asterisk.
+func (args Arguments) IsAsterisk() bool {
+	l := len(args)
+	switch {
+	case l == 1:
+		return args[0].IsAsterisk()
+	case l == 0:
+		return true
+	}
+	return false
 }
 
 // String returns a string representation of the the argument list.
-func (arguments Arguments) String() string {
-	strs := make([]string, len(arguments))
-	for n, str := range arguments {
+func (args Arguments) String() string {
+	strs := make([]string, len(args))
+	for n, str := range args {
 		strs[n] = string(str)
 	}
 	return strings.JoinWithComma(strs)

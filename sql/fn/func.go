@@ -37,8 +37,6 @@ type Function interface {
 	IsType(FunctionType) bool
 	// Arguments returns the argument list.
 	Arguments() Arguments
-	// IsAsterisk returns true if the argument list is "*".
-	IsAsterisk() bool
 	// Executor returns the executor of the function.
 	Executor() (Executor, error)
 	// Execute executes the executor with the specified row.
