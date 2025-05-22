@@ -22,7 +22,7 @@ const (
 	MathFunction
 	AggregateFunction
 	CastFunction
-	ArithFunctionType
+	ArithFunction
 )
 
 // Function represents a .

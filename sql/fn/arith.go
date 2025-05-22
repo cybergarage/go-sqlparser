@@ -23,32 +23,32 @@ import (
 // ArithFunc represents an arithmetic function.
 type ArithFunc func(any, any) (any, error)
 
-// ArithFunction represents a base arithmetic function.
-type ArithFunction struct {
+// arithFunction represents a base arithmetic function.
+type arithFunction struct {
 	name     string
 	operator ArithFunc
 }
 
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
-func NewArithFunctionWith(name string, fn ArithFunc) *ArithFunction {
-	return &ArithFunction{
+func NewArithFunctionWith(name string, fn ArithFunc) Executor {
+	return &arithFunction{
 		name:     strings.ToUpper(name),
 		operator: fn,
 	}
 }
 
 // Name returns the name of the function.
-func (fn *ArithFunction) Name() string {
+func (fn *arithFunction) Name() string {
 	return fn.name
 }
 
 // Type returns the type of the function.
-func (fn *ArithFunction) Type() FunctionType {
-	return ArithFunctionType
+func (fn *arithFunction) Type() FunctionType {
+	return ArithFunction
 }
 
 // Execute returns the executed value with the specified arguments.
-func (fn *ArithFunction) Execute(args ...any) (any, error) {
+func (fn *arithFunction) Execute(args ...any) (any, error) {
 	if len(args) != 2 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
@@ -56,7 +56,7 @@ func (fn *ArithFunction) Execute(args ...any) (any, error) {
 }
 
 // NewAddFunction returns a new add function.
-func NewAddFunction(name string) *ArithFunction {
+func NewAddFunction(name string) Executor {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
@@ -70,7 +70,7 @@ func NewAddFunction(name string) *ArithFunction {
 }
 
 // NewSubFunction returns a new sub function.
-func NewSubFunction(name string) *ArithFunction {
+func NewSubFunction(name string) Executor {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
@@ -84,7 +84,7 @@ func NewSubFunction(name string) *ArithFunction {
 }
 
 // NewMulFunction returns a new multiple function.
-func NewMulFunction(name string) *ArithFunction {
+func NewMulFunction(name string) Executor {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
@@ -98,7 +98,7 @@ func NewMulFunction(name string) *ArithFunction {
 }
 
 // NewDivFunction returns a new division function.
-func NewDivFunction(name string) *ArithFunction {
+func NewDivFunction(name string) Executor {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
@@ -112,7 +112,7 @@ func NewDivFunction(name string) *ArithFunction {
 }
 
 // NewModFunction returns a new mod function.
-func NewModFunction(name string) *ArithFunction {
+func NewModFunction(name string) Executor {
 	return NewArithFunctionWith(
 		name,
 		func(v1, v2 any) (any, error) {
