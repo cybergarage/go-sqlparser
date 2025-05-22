@@ -25,8 +25,14 @@ var ErrInvalid = errors.New("invalid")
 // ErrNotFound is returned when the data type is invalid.
 var ErrNotFound = errors.New("not found")
 
+// ErrNoData is returned when there is no data.
+var ErrNoData = errors.New("no data")
+
 // ErrNotSupported is returned when the function is not supported.
 var ErrNotSupported = errors.New("not supported")
+
+// ErrNotImplemented is returned when the function is not implemented.
+var ErrNotImplemented = errors.New("not implemented")
 
 func newErrInvalidArguments(name string, args ...any) error {
 	return fmt.Errorf("%w arguments %s(%v)", ErrInvalid, name, args)

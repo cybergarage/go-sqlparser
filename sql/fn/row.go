@@ -14,14 +14,15 @@
 
 package fn
 
-// Aggregator is an interface for aggregating data.
-type Aggregator interface {
-	// Name returns the name of the aggregator.
-	Name() string
-	// Reset resets the aggregator to its initial state.
-	Reset() error
-	// Aggregate aggregates a row of data.
-	Aggregate(row Row) error
-	// Finalize finalizes the aggregation and returns the result.
-	Finalize() (ResultSet, error)
+// Row represents a row of data to be aggregated.
+type Row []any
+
+// NewRow creates a new Row with the given values.
+func NewRow(values ...any) Row {
+	return Row(values)
+}
+
+// Append appends values to the row.
+func (r Row) Append(values ...any) Row {
+	return append(r, values...)
 }

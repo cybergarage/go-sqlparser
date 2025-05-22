@@ -30,16 +30,6 @@ const (
 // NewFunctionExecutorForName returns a function executor with the specified name.
 func NewFunctionExecutorForName(name string) (FunctionExecutor, error) {
 	switch name {
-	case MaxFunctionName:
-		return NewMaxFunction(), nil
-	case MinFunctionName:
-		return NewMinFunction(), nil
-	case SumFunctionName:
-		return NewSumFunction(), nil
-	case AvgFunctionName:
-		return NewAvgFunction(), nil
-	case CountFunctionName:
-		return NewCountFunction(), nil
 	case AbsFunctionName:
 		return NewAbsFunction(), nil
 	case FloorFunctionName:
