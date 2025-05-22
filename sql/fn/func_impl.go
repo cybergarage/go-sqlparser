@@ -129,6 +129,11 @@ func (fn *function) Executor() (Executor, error) {
 	return NewExecutorForName(fn.name)
 }
 
+// Aggregator returns the aggregator of the function.
+func (fn *function) Aggregator() (Aggregator, error) {
+	return NewAggregatorForName(fn.name)
+}
+
 // ExecuteUpdator executes the executor with the specified row.
 func (fn *function) Execute(args []any, row map[string]any) (any, error) {
 	newErrInvalidArgs := func(fn Function, args []any, row map[string]any) error {
