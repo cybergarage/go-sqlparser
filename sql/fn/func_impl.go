@@ -21,11 +21,10 @@ import (
 
 // function represents a function interface.
 type function struct {
-	typ        FunctionType
-	name       string
-	executor   Executor
-	aggregator Aggregator
-	args       Arguments
+	typ      FunctionType
+	name     string
+	executor Executor
+	args     Arguments
 }
 
 // FunctionOption represents a function option function.
@@ -34,11 +33,10 @@ type FunctionOption = func(*function)
 // NewFunctionWith returns a function instance.
 func NewFunctionWith(opts ...FunctionOption) Function {
 	fn := &function{
-		typ:        UnknownFunctionType,
-		name:       "",
-		executor:   nil,
-		aggregator: nil,
-		args:       NewArguments(),
+		typ:      UnknownFunctionType,
+		name:     "",
+		executor: nil,
+		args:     NewArguments(),
 	}
 	for _, opt := range opts {
 		opt(fn)
@@ -56,9 +54,8 @@ func WithFunctionName(name string) FunctionOption {
 			fn.typ = executor.Type()
 			return
 		}
-		aggregator, err := NewAggregatorForName(name)
+		_, err = NewAggregatorForName(name)
 		if err == nil {
-			fn.aggregator = aggregator
 			fn.typ = AggregateFunction
 			return
 		}
@@ -84,7 +81,6 @@ func WithFunctionExecutor(executor Executor) FunctionOption {
 // WithFunctionAggregator sets the function aggregator.
 func WithFunctionAggregator(aggregator Aggregator) FunctionOption {
 	return func(fn *function) {
-		fn.aggregator = aggregator
 		fn.name = aggregator.Name()
 		fn.typ = AggregateFunction
 	}
@@ -141,11 +137,8 @@ func (fn *function) Executor() (Executor, error) {
 }
 
 // Aggregator returns the aggregator of the function.
-func (fn *function) Aggregator() (Aggregator, error) {
-	if fn.aggregator != nil {
-		return fn.aggregator, nil
-	}
-	return NewAggregatorForName(fn.name)
+func (fn *function) Aggregator(opts ...AggregatorOption) (Aggregator, error) {
+	return NewAggregatorForName(fn.name, opts...)
 }
 
 // ExecuteUpdator executes the executor with the specified row.
