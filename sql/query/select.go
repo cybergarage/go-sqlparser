@@ -14,7 +14,9 @@
 
 package query
 
-import "github.com/cybergarage/go-sqlparser/sql/util/strings"
+import (
+	"github.com/cybergarage/go-sqlparser/sql/util/strings"
+)
 
 // SelectOption represents a select option function.
 type SelectOption = func(*selectStmt)
@@ -22,8 +24,7 @@ type SelectOption = func(*selectStmt)
 // Select represents a "SELECT" statement interface.
 type Select interface {
 	Statement
-	// IsAsterisk returns true if the statement is a "SELECT *".
-	IsAsterisk() bool
+	SelectHelper
 	// Selectors returns the selectors.
 	Selectors() Selectors
 	// From returns the source table list.
@@ -88,11 +89,6 @@ func WithSelectGroupBy(name string) func(*selectStmt) {
 // StatementType returns the statement type.
 func (stmt *selectStmt) StatementType() StatementType {
 	return SelectStatement
-}
-
-// IsAsterisk returns true if the statement is a "SELECT *".
-func (stmt *selectStmt) IsAsterisk() bool {
-	return stmt.selectors.IsAsterisk()
 }
 
 // Selectors returns the selectors.
