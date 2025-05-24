@@ -14,6 +14,8 @@
 
 package fn
 
+import "strings"
+
 const (
 	// Math.
 	AbsFunctionName   = "ABS"
@@ -36,13 +38,14 @@ func WithExecutorArguments(args []string) ExecutorOption {
 
 // NewExecutorForName returns a function executor with the specified name.
 func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
+	upperName := strings.ToUpper(name)
 	var ex Executor
-	switch name {
-	case AbsFunctionName:
+	switch {
+	case strings.HasPrefix(upperName, AbsFunctionName):
 		ex = NewAbsFunction()
-	case FloorFunctionName:
+	case strings.HasPrefix(upperName, FloorFunctionName):
 		ex = NewFloorFunction()
-	case CeilFunctionName:
+	case strings.HasPrefix(upperName, CeilFunctionName):
 		ex = NewCeilFunction()
 	default:
 		return nil, newErrNotSupportedFunction(name)
