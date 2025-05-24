@@ -16,7 +16,6 @@ package fn
 
 import (
 	"math"
-	"strings"
 
 	"github.com/cybergarage/go-safecast/safecast"
 )
@@ -29,26 +28,16 @@ type MathResultSet map[any]float64
 
 // mathFunction represents a base math function.
 type mathFunction struct {
-	name string
+	*execImpl
 	math MathFunc
 }
 
 // NewMathFunctionWith returns a new base math function with the specified name and math.
 func NewMathFunctionWith(name string, fn MathFunc) Executor {
 	return &mathFunction{
-		name: strings.ToUpper(name),
-		math: fn,
+		execImpl: newExecWith(name, MathFunction),
+		math:     fn,
 	}
-}
-
-// Name returns the name of the function.
-func (fn *mathFunction) Name() string {
-	return fn.name
-}
-
-// Type returns the type of the function.
-func (fn *mathFunction) Type() FunctionType {
-	return MathFunction
 }
 
 // Execute returns the executed value with the specified arguments.

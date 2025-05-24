@@ -15,8 +15,6 @@
 package fn
 
 import (
-	"strings"
-
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
@@ -25,26 +23,16 @@ type ArithFunc func(any, any) (any, error)
 
 // arithFunction represents a base arithmetic function.
 type arithFunction struct {
-	name     string
+	*execImpl
 	operator ArithFunc
 }
 
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
 func NewArithFunctionWith(name string, fn ArithFunc) Executor {
 	return &arithFunction{
-		name:     strings.ToUpper(name),
+		execImpl: newExecWith(name, ArithFunction),
 		operator: fn,
 	}
-}
-
-// Name returns the name of the function.
-func (fn *arithFunction) Name() string {
-	return fn.name
-}
-
-// Type returns the type of the function.
-func (fn *arithFunction) Type() FunctionType {
-	return ArithFunction
 }
 
 // Execute returns the executed value with the specified arguments.

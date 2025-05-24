@@ -14,36 +14,22 @@
 
 package fn
 
-import (
-	"strings"
-)
-
 // CastFunc returns the latest aggregated value.
 type CastFunc = func(any) (any, error)
 
 // castFunction represents a base cast function.
 type castFunction struct {
-	name string
+	*execImpl
 	cast CastFunc
 }
 
 // NewCastFunctionWith returns a new base cast function with the specified name and cast.
 func NewCastFunctionWith(name string, cast CastFunc) Executor {
 	fn := &castFunction{
-		name: strings.ToUpper(name),
-		cast: cast,
+		execImpl: newExecWith(name, CastFunction),
+		cast:     cast,
 	}
 	return fn
-}
-
-// Name returns the name of the function.
-func (fn *castFunction) Name() string {
-	return fn.name
-}
-
-// Type returns the type of the function.
-func (fn *castFunction) Type() FunctionType {
-	return CastFunction
 }
 
 // Execute returns the executed value with the specified arguments.
