@@ -18,9 +18,11 @@ package fn
 type Aggregator interface {
 	// Name returns the name of the aggregator.
 	Name() string
+	// GroupBy returns the group by column name and whether it is a group by column.
+	GroupBy() (string, bool)
 	// Reset resets the aggregator to its initial state.
 	Reset(opts ...AggregatorOption) error
-	// Aggregate aggregates a row of data.
+	// Aggregate aggregates a row of data. If group is true, row must havea group value at the first column.
 	Aggregate(row Row) error
 	// Finalize finalizes the aggregation and returns the result.
 	Finalize() (ResultSet, error)
