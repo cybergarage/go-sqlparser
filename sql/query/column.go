@@ -66,7 +66,8 @@ type DefinitionStringer interface {
 	DefinitionString() string
 }
 
-type columnUpdatorStringer interface {
+// UpdatorStringer represents a updator stringer interface.
+type UpdatorStringer interface {
 	UpdatorString() string
 }
 
