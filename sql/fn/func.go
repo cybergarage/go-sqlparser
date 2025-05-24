@@ -39,8 +39,6 @@ type Function interface {
 	Arguments() Arguments
 	// Executor returns the executor of the function.
 	Executor() (Executor, error)
-	// Execute executes the executor with the specified row.
-	Execute(args []any, row map[string]any) (any, error)
 	// IsAggregator returns true if the function is an aggregator function.
 	IsAggregator() bool
 	// Aggregator returns the aggregator of the function.

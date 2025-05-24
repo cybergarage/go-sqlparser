@@ -21,5 +21,5 @@ type Executor interface {
 	// Type returns the type of the function.
 	Type() FunctionType
 	// Execute returns the executed value with the specified arguments.
-	Execute(...any) (any, error)
+	Execute(any) (any, error)
 }

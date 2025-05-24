@@ -35,10 +35,10 @@ func NewExecutorForName(name string) (Executor, error) {
 }
 
 // ExecuteFunction returns the executed value with the specified arguments.
-func ExecuteFunction(name string, args ...any) (any, error) {
+func ExecuteFunction(name string, v any) (any, error) {
 	fn, err := NewExecutorForName(name)
 	if err != nil {
 		return nil, err
 	}
-	return fn.Execute(args...)
+	return fn.Execute(v)
 }

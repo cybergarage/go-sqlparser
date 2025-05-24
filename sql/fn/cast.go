@@ -24,16 +24,17 @@ type castFunction struct {
 }
 
 // NewCastFunctionWith returns a new base cast function with the specified name and cast.
-func NewCastFunctionWith(name string, cast CastFunc) Executor {
+func NewCastFunctionWith(name string, castFn CastFunc) Executor {
 	fn := &castFunction{
 		execImpl: newExecWith(name, CastFunction),
-		cast:     cast,
+		cast:     castFn,
 	}
+	fn.execImpl.fn = fn.execute
 	return fn
 }
 
-// Execute returns the executed value with the specified arguments.
-func (fn *castFunction) Execute(args ...any) (any, error) {
+// execute returns the executed value with the specified arguments.
+func (fn *castFunction) execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}

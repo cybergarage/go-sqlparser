@@ -32,7 +32,7 @@ type AggrFinalizeFunc func(aggr *aggrImpl, accumulatedValue float64, accumulated
 type aggrImpl struct {
 	name        string
 	args        []string
-	colums      []string
+	columns     []string
 	aggrs       []float64
 	counts      int
 	groupBy     string
@@ -51,7 +51,7 @@ func newAggr() *aggrImpl {
 	aggr := &aggrImpl{
 		name:        "",
 		args:        make([]string, 0),
-		colums:      make([]string, 0),
+		columns:     make([]string, 0),
 		groupBy:     "",
 		aggrs:       make([]float64, 0),
 		counts:      0,
@@ -146,23 +146,23 @@ func (aggr *aggrImpl) Reset(opts ...aggrOption) error {
 	}
 
 	// Validate the aggregator name
-	aggr.colums = []string{}
+	aggr.columns = []string{}
 	if groupBy, ok := aggr.GroupBy(); ok {
-		aggr.colums = append(aggr.colums, groupBy)
+		aggr.columns = append(aggr.columns, groupBy)
 	}
 	for _, arg := range aggr.args {
-		aggr.colums = append(aggr.colums, fmt.Sprintf("%s(%s)", aggr.Name(), arg))
+		aggr.columns = append(aggr.columns, fmt.Sprintf("%s(%s)", aggr.Name(), arg))
 	}
 
 	// Validate the arguments
 
-	if len(aggr.colums) == 0 {
+	if len(aggr.columns) == 0 {
 		return fmt.Errorf("no argument %w", ErrNotSupported)
 	}
 
 	// Reset aggregator variables
 
-	aggr.aggrs = make([]float64, len(aggr.colums))
+	aggr.aggrs = make([]float64, len(aggr.columns))
 	for n := range aggr.aggrs {
 		nv, err := aggr.resetFunc(aggr)
 		if err != nil {
@@ -182,14 +182,14 @@ func (aggr *aggrImpl) Reset(opts ...aggrOption) error {
 // AggregateRow aggregates a row of data using the aggregator.
 // The row is expected to be an array where the first element is the group value (if grouping is enabled),
 func (aggr *aggrImpl) AggregateRow(row []any) error {
-	if len(aggr.colums) != len(row) {
-		return fmt.Errorf("%w column count (%d != %d)", ErrInvalid, len(aggr.colums), len(row))
+	if len(aggr.columns) != len(row) {
+		return fmt.Errorf("%w column count (%d != %d)", ErrInvalid, len(aggr.columns), len(row))
 	}
 
 	if _, ok := aggr.GroupBy(); ok {
 		group := row[0]
 		if _, ok := aggr.groupAggrs[group]; !ok {
-			aggr.groupAggrs[group] = make([]float64, (len(aggr.colums) - 1))
+			aggr.groupAggrs[group] = make([]float64, (len(aggr.columns) - 1))
 			for n := range aggr.groupAggrs[group] {
 				nv, err := aggr.resetFunc(aggr)
 				if err != nil {
@@ -231,11 +231,11 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 
 // AggregateMap aggregates a map of data using the aggregator.
 func (aggr *aggrImpl) AggregateMap(m map[string]any) error {
-	row := make([]any, 0, len(aggr.colums))
-	for _, colum := range aggr.colums {
-		value, ok := m[colum]
+	row := make([]any, 0, len(aggr.columns))
+	for _, column := range aggr.columns {
+		value, ok := m[column]
 		if !ok {
-			return fmt.Errorf("%w column %s not found in map", ErrNotFound, colum)
+			return fmt.Errorf("%w column %s not found in map", ErrNotFound, column)
 		}
 		row = append(row, value)
 	}
@@ -288,6 +288,6 @@ func (aggr *aggrImpl) Finalize() (ResultSet, error) {
 	}
 	return NewResultSet(
 		WithRows(rows),
-		WithColumns(aggr.colums),
+		WithColumns(aggr.columns),
 	), nil
 }

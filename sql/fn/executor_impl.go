@@ -24,9 +24,10 @@ type executorFunc func(...any) (any, error)
 
 // execImpl represents a base math function.
 type execImpl struct {
-	name string
-	t    FunctionType
-	fn   executorFunc
+	name    string
+	columns []string
+	t       FunctionType
+	fn      executorFunc
 }
 
 // NewMathFunctionWith returns a new base math function with the specified name and math.
@@ -50,7 +51,29 @@ func (ex *execImpl) Type() FunctionType {
 	return ex.t
 }
 
-// Execute returns the executed value with the specified arguments.
-func (ex *execImpl) Execute(args ...any) (any, error) {
+func (ex *execImpl) ExecuteRow(args ...any) (any, error) {
 	return ex.fn(args...)
+}
+
+func (ex *execImpl) ExecuteMap(m map[string]any) (any, error) {
+	row := make([]any, 0, len(ex.columns))
+	for _, colum := range ex.columns {
+		value, ok := m[colum]
+		if !ok {
+			return nil, fmt.Errorf("%w column %s not found in map", ErrNotFound, colum)
+		}
+		row = append(row, value)
+	}
+	return ex.ExecuteRow(row...)
+}
+
+func (ex *execImpl) Execute(v any) (any, error) {
+	switch v := v.(type) {
+	case []any:
+		return ex.ExecuteRow(v)
+	case map[string]any:
+		return ex.ExecuteMap(v)
+	default:
+		return ex.ExecuteRow(v)
+	}
 }

@@ -31,15 +31,17 @@ type mathFunction struct {
 }
 
 // NewMathFunctionWith returns a new base math function with the specified name and math.
-func NewMathFunctionWith(name string, fn MathFunc) Executor {
-	return &mathFunction{
+func NewMathFunctionWith(name string, mathFn MathFunc) Executor {
+	fn := &mathFunction{
 		execImpl: newExecWith(name, MathFunction),
-		math:     fn,
+		math:     mathFn,
 	}
+	fn.execImpl.fn = fn.execute
+	return fn
 }
 
-// Execute returns the executed value with the specified arguments.
-func (fn *mathFunction) Execute(args ...any) (any, error) {
+// execute returns the executed value with the specified arguments.
+func (fn *mathFunction) execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}

@@ -15,7 +15,6 @@
 package fn
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -141,37 +140,6 @@ func (fn *function) Executor() (Executor, error) {
 	}
 	fn.executor = executor
 	return fn.executor, nil
-}
-
-// ExecuteUpdator executes the executor with the specified row.
-func (fn *function) Execute(args []any, row map[string]any) (any, error) {
-	newErrInvalidArgs := func(fn Function, args []any, row map[string]any) error {
-		return fmt.Errorf("%v is %w arguments (%s:%s)", fn.String(), ErrInvalid, args, row)
-	}
-
-	executor, err := fn.Executor()
-	if err != nil {
-		return nil, err
-	}
-
-	if len(args) < 2 {
-		return nil, newErrInvalidArgs(fn, args, row)
-	}
-	leftExprName, ok := args[0].(string)
-	if !ok {
-		return nil, newErrInvalidArgs(fn, args, row)
-	}
-	v, ok := row[leftExprName]
-	if !ok {
-		return nil, newErrInvalidArgs(fn, args, row)
-	}
-	args[0] = v
-	rv, err := executor.Execute(args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return rv, nil
 }
 
 // Aggregator returns the aggregator of the function.

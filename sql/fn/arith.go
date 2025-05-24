@@ -28,15 +28,17 @@ type arithFunction struct {
 }
 
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
-func NewArithFunctionWith(name string, fn ArithFunc) Executor {
-	return &arithFunction{
+func NewArithFunctionWith(name string, arithFn ArithFunc) Executor {
+	fn := &arithFunction{
 		execImpl: newExecWith(name, ArithFunction),
-		operator: fn,
+		operator: arithFn,
 	}
+	fn.execImpl.fn = fn.execute
+	return fn
 }
 
-// Execute returns the executed value with the specified arguments.
-func (fn *arithFunction) Execute(args ...any) (any, error) {
+// execute returns the executed value with the specified arguments.
+func (fn *arithFunction) execute(args ...any) (any, error) {
 	if len(args) != 2 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
