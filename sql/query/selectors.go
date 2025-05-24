@@ -15,7 +15,6 @@
 package query
 
 import (
-	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
@@ -73,130 +72,6 @@ func (selectors Selectors) SelectorNames() []string {
 // Len returns the length of the selector array.
 func (selectors Selectors) Len() int {
 	return len(selectors)
-}
-
-// Functions returns a function array.
-func (selectors Selectors) Functions() []Function {
-	fns := make([]Function, 0)
-	for _, selector := range selectors {
-		fn, ok := selector.(Function)
-		if !ok {
-			continue
-		}
-		fns = append(fns, fn)
-	}
-	return fns
-}
-
-// LookupFunction returns a function with the specified name.
-func (selectors Selectors) LookupFunction(name string) (Function, error) {
-	for _, selector := range selectors {
-		fn, ok := selector.(Function)
-		if !ok {
-			continue
-		}
-		if fn.IsName(name) {
-			return fn, nil
-		}
-	}
-	return nil, newErrNotFoundFunction(name)
-}
-
-// FunctionExecutors returns a function executor array.
-func (selectors Selectors) FunctionExecutors() ([]FunctionExecutor, error) {
-	executors := make([]FunctionExecutor, 0)
-	for _, selector := range selectors {
-		fn, ok := selector.(Function)
-		if !ok {
-			continue
-		}
-		executor, err := fn.Executor()
-		if err != nil {
-			return nil, err
-		}
-		executors = append(executors, executor)
-	}
-	return executors, nil
-}
-
-// LookupFunctionExecutor returns a function executor with the specified name.
-func (selectors Selectors) LookupFunctionExecutor(name string) (FunctionExecutor, error) {
-	fn, err := selectors.LookupFunction(name)
-	if err != nil {
-		return nil, err
-	}
-	return fn.Executor()
-}
-
-// FunctionExecutorsForType returns a function executor array with the specified type.
-func (selectors Selectors) FunctionExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
-	executors := make([]FunctionExecutor, 0)
-	for _, selector := range selectors {
-		fn, ok := selector.(Function)
-		if !ok {
-			continue
-		}
-		executor, err := fn.Executor()
-		if err != nil {
-			return nil, err
-		}
-		if executor.Type() != t {
-			continue
-		}
-		executors = append(executors, executor)
-	}
-	return executors, nil
-}
-
-// AggregateFunctions returns an aggregate function array.
-func (selectors Selectors) AggregateFunctions() ([]FunctionExecutor, error) {
-	return selectors.FunctionExecutorsForType(fn.AggregateFunction)
-}
-
-// IsAsterisk returns true if the selector list is "*".
-func (selectors Selectors) IsAsterisk() bool {
-	l := len(selectors)
-	switch {
-	case l == 1:
-		return selectors[0].Name() == Asterisk
-	case l == 0:
-		return true
-	}
-	return false
-}
-
-// HasFunction returns true if the selector list has a function.
-func (selectors Selectors) HasFunction() bool {
-	for _, selector := range selectors {
-		_, ok := selector.(Function)
-		if ok {
-			return true
-		}
-	}
-	return false
-}
-
-// HasFunctionWithType returns true if the selector list has a function with the specified type.
-func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
-	for _, selector := range selectors {
-		fx, ok := selector.(Function)
-		if !ok {
-			continue
-		}
-		executor, err := fn.NewExecutorForName(fx.Name())
-		if err != nil {
-			continue
-		}
-		if executor.Type() == t {
-			return true
-		}
-	}
-	return false
-}
-
-// HasAggregateFunction returns true if the selector list has an aggregate function.
-func (selectors Selectors) HasAggregateFunction() bool {
-	return selectors.HasFunctionWithType(fn.AggregateFunction)
 }
 
 // SelectorString returns a string representation of the selector array.
