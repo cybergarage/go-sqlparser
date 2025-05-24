@@ -181,6 +181,12 @@ func TestAggregators(t *testing.T) {
 
 				t.Run(testAggr.Name(), func(t *testing.T) {
 
+					err := testAggr.Reset(fn.GroupBy(test.orderBy))
+					if err != nil {
+						t.Errorf("Error resetting %s: %v", testAggr.Name(), err)
+						return
+					}
+
 					for _, row := range test.rows {
 						if err := testAggr.Aggregate(row); err != nil {
 							t.Errorf("Error adding row: %v", err)

@@ -14,6 +14,9 @@
 
 package fn
 
+// GroupBy represents a group by column name.
+type GroupBy string
+
 // Aggregator is an interface for aggregating data.
 type Aggregator interface {
 	// Name returns the name of the aggregator.
@@ -23,7 +26,7 @@ type Aggregator interface {
 	// GroupBy returns the group by column name and whether it is a group by column.
 	GroupBy() (string, bool)
 	// Reset resets the aggregator to its initial state.
-	Reset(opts ...AggregatorOption) error
+	Reset(opts ...any) error
 	// Aggregate aggregates a map or an array. The map represents a row of data, and the array is a
 	// list of rows. If grouping is enabled, the array row must have a group value as the first element.
 	Aggregate(v any) error

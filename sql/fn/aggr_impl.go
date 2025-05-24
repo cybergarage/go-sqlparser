@@ -137,11 +137,18 @@ func (aggr *aggrImpl) GroupBy() (string, bool) {
 }
 
 // Reset resets the aggregator to its initial state.
-func (aggr *aggrImpl) Reset(opts ...aggrOption) error {
+func (aggr *aggrImpl) Reset(opts ...any) error {
 	// Apply options to the aggregator
 	for _, opt := range opts {
-		if err := opt(aggr); err != nil {
-			return err
+		switch opt := opt.(type) {
+		case aggrOption:
+			if err := opt(aggr); err != nil {
+				return fmt.Errorf("failed to apply option: %w", err)
+			}
+		case GroupBy:
+			aggr.groupBy = string(opt)
+		default:
+			return fmt.Errorf("%w option type %T is not supported", ErrInvalid, opt)
 		}
 	}
 

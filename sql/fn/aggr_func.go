@@ -35,6 +35,7 @@ func WithAggregatorGroupBy(group string) AggregatorOption {
 	return withAggrGroupBy(group)
 }
 
+// WithaggregatorArguments is an option to set the arguments for the aggregator.
 func WithAggregatorArguments(args []string) AggregatorOption {
 	return withAggrArguments(args)
 }

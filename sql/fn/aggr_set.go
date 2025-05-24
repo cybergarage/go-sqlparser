@@ -47,9 +47,9 @@ func (aggrSet *AggregatorSet) Names() []string {
 }
 
 // Reset resets all aggregators in the set.
-func (aggrSet *AggregatorSet) Reset() error {
+func (aggrSet *AggregatorSet) Reset(opts ...any) error {
 	for _, aggr := range *aggrSet {
-		if err := aggr.Reset(); err != nil {
+		if err := aggr.Reset(opts...); err != nil {
 			return err
 		}
 	}
