@@ -26,6 +26,16 @@ type Max struct {
 // MaxOption is a function that configures the Max aggregator.
 type MaxOption = aggrOption
 
+// WithMaxArguments sets the arguments for the Max aggregator.
+func WithMaxArguments(args []string) MaxOption {
+	return withAggrArguments(args)
+}
+
+// WithMaxGroupBy sets the group by column for the Max aggregator.
+func WithMaxGroupBy(group string) MaxOption {
+	return withAggrGroupBy(group)
+}
+
 // NewMax creates a new Max aggregator with the given options.
 func NewMax(opts ...MaxOption) (*Max, error) {
 	aggr := &Max{
@@ -65,14 +75,4 @@ func NewMax(opts ...MaxOption) (*Max, error) {
 	}
 
 	return aggr, nil
-}
-
-// WithMaxArguments sets the arguments for the Max aggregator.
-func WithMaxArguments(args ...string) MaxOption {
-	return withAggrArguments(args...)
-}
-
-// WithMaxGroupBy sets the group by column for the Max aggregator.
-func WithMaxGroupBy(group string) MaxOption {
-	return withAggrGroupBy(group)
 }

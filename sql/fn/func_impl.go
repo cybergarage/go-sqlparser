@@ -134,7 +134,9 @@ func (fn *function) Executor() (Executor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}
-	executor, err := NewExecutorForName(fn.name)
+	executor, err := NewExecutorForName(
+		fn.name,
+		WithExecutorArguments(fn.args.Names()))
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +149,9 @@ func (fn *function) Aggregator() (Aggregator, error) {
 	if fn.aggregator != nil {
 		return fn.aggregator, nil
 	}
-	aggregator, err := NewAggregatorForName(fn.name)
+	aggregator, err := NewAggregatorForName(
+		fn.name,
+		WithAggregatorArguments(fn.args.Names()))
 	if err != nil {
 		return nil, err
 	}

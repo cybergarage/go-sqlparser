@@ -22,6 +22,16 @@ type Sum struct {
 // SumOption is a function that configures the Sum aggregator.
 type SumOption = aggrOption
 
+// WithSumArguments sets the arguments for the Sum aggregator.
+func WithSumArguments(args []string) SumOption {
+	return withAggrArguments(args)
+}
+
+// WithSumGroupBy sets the group by column for the Sum aggregator.
+func WithSumGroupBy(group string) SumOption {
+	return withAggrGroupBy(group)
+}
+
 // NewSum creates a new Sum aggregator with the given options.
 func NewSum(opts ...SumOption) (*Sum, error) {
 	aggr := &Sum{
@@ -58,14 +68,4 @@ func NewSum(opts ...SumOption) (*Sum, error) {
 	}
 
 	return aggr, nil
-}
-
-// WithSumArguments sets the arguments for the Sum aggregator.
-func WithSumArguments(args ...string) SumOption {
-	return withAggrArguments(args...)
-}
-
-// WithSumGroupBy sets the group by column for the Sum aggregator.
-func WithSumGroupBy(group string) SumOption {
-	return withAggrGroupBy(group)
 }

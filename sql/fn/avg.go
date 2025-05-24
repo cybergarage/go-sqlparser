@@ -22,6 +22,16 @@ type Avg struct {
 // AvgOption is a function that configures the Avg aggregator.
 type AvgOption = aggrOption
 
+// WithAvgArguments sets the arguments for the Avg aggregator.
+func WithAvgArguments(args []string) AvgOption {
+	return withAggrArguments(args)
+}
+
+// WithAvgGroupBy sets the group by column for the Avg aggregator.
+func WithAvgGroupBy(group string) AvgOption {
+	return withAggrGroupBy(group)
+}
+
 // NewAvg creates a new Avg aggregator with the given options.
 func NewAvg(opts ...AvgOption) (*Avg, error) {
 	aggr := &Avg{
@@ -61,14 +71,4 @@ func NewAvg(opts ...AvgOption) (*Avg, error) {
 	}
 
 	return aggr, nil
-}
-
-// WithAvgArguments sets the arguments for the Avg aggregator.
-func WithAvgArguments(args ...string) AvgOption {
-	return withAggrArguments(args...)
-}
-
-// WithAvgGroupBy sets the group by column for the Avg aggregator.
-func WithAvgGroupBy(group string) AvgOption {
-	return withAggrGroupBy(group)
 }

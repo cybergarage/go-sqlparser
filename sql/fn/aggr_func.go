@@ -35,6 +35,10 @@ func WithAggregatorGroupBy(group string) AggregatorOption {
 	return withAggrGroupBy(group)
 }
 
+func WithAggregatorArguments(args []string) AggregatorOption {
+	return withAggrArguments(args)
+}
+
 // NewAggregator creates a new Aggregator with the given options.
 func NewAggregatorForName(name string, opts ...aggrOption) (Aggregator, error) {
 	switch strings.ToUpper(name) {

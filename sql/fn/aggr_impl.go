@@ -73,7 +73,7 @@ func withAggrName(name string) aggrOption {
 }
 
 // withAggrArguments sets the arguments for the Aggr aggregator.
-func withAggrArguments(args ...string) aggrOption {
+func withAggrArguments(args []string) aggrOption {
 	return func(aggr *aggrImpl) error {
 		if 1 < len(aggr.args) {
 			return fmt.Errorf("multiple argument %w : %v", ErrNotSupported, aggr.args)

@@ -140,31 +140,31 @@ func TestAggregators(t *testing.T) {
 				func() (fn.Aggregator, error) {
 					return fn.NewSum(
 						fn.WithSumGroupBy(test.orderBy),
-						fn.WithSumArguments(test.args...),
+						fn.WithSumArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewAvg(
 						fn.WithAvgGroupBy(test.orderBy),
-						fn.WithAvgArguments(test.args...),
+						fn.WithAvgArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewMin(
 						fn.WithMinGroupBy(test.orderBy),
-						fn.WithMinArguments(test.args...),
+						fn.WithMinArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewMax(
 						fn.WithMaxGroupBy(test.orderBy),
-						fn.WithMaxArguments(test.args...),
+						fn.WithMaxArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewCount(
 						fn.WithCountGroupBy(test.orderBy),
-						fn.WithCountArguments(test.args...),
+						fn.WithCountArguments(test.args),
 					)
 				},
 			}

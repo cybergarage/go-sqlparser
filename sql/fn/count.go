@@ -22,6 +22,16 @@ type Count struct {
 // CountOption is a function that configures the Count aggregator.
 type CountOption = aggrOption
 
+// WithCountArguments sets the arguments for the Count aggregator.
+func WithCountArguments(args []string) CountOption {
+	return withAggrArguments(args)
+}
+
+// WithCountGroupBy sets the group by column for the Count aggregator.
+func WithCountGroupBy(group string) CountOption {
+	return withAggrGroupBy(group)
+}
+
 // NewCount creates a new Count aggregator with the given options.
 func NewCount(opts ...CountOption) (*Count, error) {
 	aggr := &Count{
@@ -58,14 +68,4 @@ func NewCount(opts ...CountOption) (*Count, error) {
 	}
 
 	return aggr, nil
-}
-
-// WithCountArguments sets the arguments for the Count aggregator.
-func WithCountArguments(args ...string) CountOption {
-	return withAggrArguments(args...)
-}
-
-// WithCountGroupBy sets the group by column for the Count aggregator.
-func WithCountGroupBy(group string) CountOption {
-	return withAggrGroupBy(group)
 }

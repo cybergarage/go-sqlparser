@@ -26,6 +26,16 @@ type Min struct {
 // MinOption is a function that configures the Min aggregator.
 type MinOption = aggrOption
 
+// WithMinArguments sets the arguments for the Min aggregator.
+func WithMinArguments(args []string) MinOption {
+	return withAggrArguments(args)
+}
+
+// WithMinGroupBy sets the group by column for the Min aggregator.
+func WithMinGroupBy(group string) MinOption {
+	return withAggrGroupBy(group)
+}
+
 // NewMin creates a new Min aggregator with the given options.
 func NewMin(opts ...MinOption) (*Min, error) {
 	aggr := &Min{
@@ -65,14 +75,4 @@ func NewMin(opts ...MinOption) (*Min, error) {
 	}
 
 	return aggr, nil
-}
-
-// WithMinArguments sets the arguments for the Min aggregator.
-func WithMinArguments(args ...string) MinOption {
-	return withAggrArguments(args...)
-}
-
-// WithMinGroupBy sets the group by column for the Min aggregator.
-func WithMinGroupBy(group string) MinOption {
-	return withAggrGroupBy(group)
 }
