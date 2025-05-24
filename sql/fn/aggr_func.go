@@ -30,7 +30,7 @@ const (
 // AggregatorOption is a function that configures the Aggregator.
 type AggregatorOption = aggrOption
 
-// Aggregator is an interface that defines the methods for an aggregator.
+// WithAggregatorGroupBy is an option to set the group by clause for the aggregator.
 func WithAggregatorGroupBy(group string) AggregatorOption {
 	return withAggrGroupBy(group)
 }
