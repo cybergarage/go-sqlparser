@@ -47,16 +47,17 @@ func WithAggregatorGroupBy(group string) AggregatorOption {
 
 // NewAggregator creates a new Aggregator with the given options.
 func NewAggregatorForName(name string, opts ...AggregatorOption) (Aggregator, error) {
-	switch strings.ToUpper(name) {
-	case SumFunctionName:
+	upperName := strings.ToUpper(name)
+	switch {
+	case strings.HasPrefix(upperName, SumFunctionName):
 		return NewSum(opts...)
-	case AvgFunctionName:
+	case strings.HasPrefix(upperName, AvgFunctionName):
 		return NewAvg(opts...)
-	case MinFunctionName:
+	case strings.HasPrefix(upperName, MinFunctionName):
 		return NewMin(opts...)
-	case MaxFunctionName:
+	case strings.HasPrefix(upperName, MaxFunctionName):
 		return NewMax(opts...)
-	case CountFunctionName:
+	case strings.HasPrefix(upperName, CountFunctionName):
 		return NewCount(opts...)
 	}
 	return nil, fmt.Errorf("%w aggregator: %s", ErrNotSupported, name)
