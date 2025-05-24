@@ -33,6 +33,13 @@ type execImpl struct {
 	fn   execFunc
 }
 
+// withExecName sets the name for the execImpl.
+func withExecName(name string) execOption {
+	return func(ex *execImpl) {
+		ex.name = name
+	}
+}
+
 // withExecArguments sets the arguments for the execImpl.
 func withExecArguments(args []string) execOption {
 	return func(ex *execImpl) {
