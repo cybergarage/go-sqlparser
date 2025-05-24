@@ -81,7 +81,7 @@ func (selectors Selectors) Len() int {
 	return len(selectors)
 }
 
-// SelectorString returns a string representation of the selector array.
-func (selectors Selectors) SelectorString() string {
+// String returns a string representation of the selector array.
+func (selectors Selectors) String() string {
 	return strings.JoinWithComma(selectors.Names())
 }

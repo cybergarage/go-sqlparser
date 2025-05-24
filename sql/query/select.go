@@ -125,7 +125,7 @@ func (stmt *selectStmt) GroupBy() GroupBy {
 func (stmt *selectStmt) String() string {
 	selectorStr := "*"
 	if 0 < len(stmt.selectors) {
-		selectorStr = stmt.selectors.SelectorString()
+		selectorStr = stmt.selectors.String()
 	}
 	strs := []string{
 		"SELECT",
