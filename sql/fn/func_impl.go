@@ -135,12 +135,12 @@ func (fn *function) Executor() (Executor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}
-	return NewExecutorForName(fn.name)
-}
-
-// Aggregator returns the aggregator of the function.
-func (fn *function) Aggregator() (Aggregator, error) {
-	return NewAggregatorForName(fn.name)
+	executor, err := NewExecutorForName(fn.name)
+	if err != nil {
+		return nil, err
+	}
+	fn.executor = executor
+	return fn.executor, nil
 }
 
 // ExecuteUpdator executes the executor with the specified row.
@@ -172,6 +172,19 @@ func (fn *function) Execute(args []any, row map[string]any) (any, error) {
 	}
 
 	return rv, nil
+}
+
+// Aggregator returns the aggregator of the function.
+func (fn *function) Aggregator() (Aggregator, error) {
+	if fn.aggregator != nil {
+		return fn.aggregator, nil
+	}
+	aggregator, err := NewAggregatorForName(fn.name)
+	if err != nil {
+		return nil, err
+	}
+	fn.aggregator = aggregator
+	return fn.aggregator, nil
 }
 
 // String returns a string representation of the function.
