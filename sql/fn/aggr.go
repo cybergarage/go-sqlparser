@@ -18,12 +18,15 @@ package fn
 type Aggregator interface {
 	// Name returns the name of the aggregator.
 	Name() string
+	// Argmuents returns the arguments of the aggregator.
+	Arguments() []string
 	// GroupBy returns the group by column name and whether it is a group by column.
 	GroupBy() (string, bool)
 	// Reset resets the aggregator to its initial state.
 	Reset(opts ...AggregatorOption) error
-	// Aggregate aggregates a row of data. If group is true, row must havea group value at the first column.
-	Aggregate(row Row) error
+	// Aggregate aggregates a map or an array. The map represents a row of data, and the array is a
+	// list of rows. If grouping is enabled, the array row must have a group value as the first element.
+	Aggregate(v any) error
 	// Finalize finalizes the aggregation and returns the result.
 	Finalize() (ResultSet, error)
 }

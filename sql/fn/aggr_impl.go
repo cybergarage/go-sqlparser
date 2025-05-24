@@ -123,6 +123,11 @@ func (aggr *aggrImpl) Name() string {
 	return aggr.name
 }
 
+// Arguments returns the arguments of the aggregator.
+func (aggr *aggrImpl) Arguments() []string {
+	return aggr.args
+}
+
 // GroupBy returns the group by column name and a boolean indicating if it is set.
 func (aggr *aggrImpl) GroupBy() (string, bool) {
 	if len(aggr.groupBy) == 0 {
@@ -174,8 +179,9 @@ func (aggr *aggrImpl) Reset(opts ...aggrOption) error {
 	return nil
 }
 
-// Aggregate aggregates a row of data.
-func (aggr *aggrImpl) Aggregate(row Row) error {
+// AggregateRow aggregates a row of data using the aggregator.
+// The row is expected to be an array where the first element is the group value (if grouping is enabled),
+func (aggr *aggrImpl) AggregateRow(row []any) error {
 	if len(aggr.colums) != len(row) {
 		return fmt.Errorf("%w column count (%d != %d)", ErrInvalid, len(aggr.colums), len(row))
 	}
@@ -221,6 +227,32 @@ func (aggr *aggrImpl) Aggregate(row Row) error {
 	}
 
 	return nil
+}
+
+// AggregateMap aggregates a map of data using the aggregator.
+func (aggr *aggrImpl) AggregateMap(m map[string]any) error {
+	row := make([]any, 0, len(aggr.colums))
+	for _, colum := range aggr.colums {
+		value, ok := m[colum]
+		if !ok {
+			return fmt.Errorf("%w column %s not found in map", ErrNotFound, colum)
+		}
+		row = append(row, value)
+	}
+	return aggr.AggregateRow(row)
+}
+
+// Aggregate aggregates a map or an array. The map represents a row of data, and the array is a
+// list of rows. If grouping is enabled, the array row must have a group value as the first element.
+func (aggr *aggrImpl) Aggregate(v any) error {
+	switch v := v.(type) {
+	case []any:
+		return aggr.AggregateRow(v)
+	case map[string]any:
+		return aggr.AggregateMap(v)
+	default:
+		return fmt.Errorf("%w type %T is not supported for aggregation", ErrInvalid, v)
+	}
 }
 
 // Finalize finalizes the aggregation and returns the result.

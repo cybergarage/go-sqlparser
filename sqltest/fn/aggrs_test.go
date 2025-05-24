@@ -31,7 +31,7 @@ func TestAggregators(t *testing.T) {
 	tests := []struct {
 		orderBy           string
 		args              []string
-		rows              []fn.Row
+		rows              [][]any
 		expectedSumRows   [][]float64
 		expectedAvgRows   [][]float64
 		expectedMinRows   [][]float64
@@ -42,7 +42,7 @@ func TestAggregators(t *testing.T) {
 		{
 			orderBy: "",
 			args:    []string{"foo"},
-			rows: []fn.Row{
+			rows: [][]any{
 				{1},
 				{2},
 				{3},
@@ -57,7 +57,7 @@ func TestAggregators(t *testing.T) {
 		{
 			orderBy: "",
 			args:    []string{"foo"},
-			rows: []fn.Row{
+			rows: [][]any{
 				{1},
 				{2},
 				{3},
@@ -73,7 +73,7 @@ func TestAggregators(t *testing.T) {
 		{
 			orderBy: "bar",
 			args:    []string{"foo"},
-			rows: []fn.Row{
+			rows: [][]any{
 				{1, 1},
 				{2, 2},
 				{3, 3},
@@ -89,7 +89,7 @@ func TestAggregators(t *testing.T) {
 		{
 			orderBy: "bar",
 			args:    []string{"foo"},
-			rows: []fn.Row{
+			rows: [][]any{
 				{1, 1},
 				{2, 2},
 				{3, 3},
@@ -109,7 +109,7 @@ func TestAggregators(t *testing.T) {
 		{
 			orderBy: "bar",
 			args:    []string{"foo"},
-			rows: []fn.Row{
+			rows: [][]any{
 				{1, 1},
 				{2, 2},
 				{3, 3},
@@ -194,7 +194,7 @@ func TestAggregators(t *testing.T) {
 						return
 					}
 
-					rsRows := []fn.Row{}
+					rsRows := [][]any{}
 					for rs.Next() {
 						row, err := rs.Row()
 						if err != nil {
