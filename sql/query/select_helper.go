@@ -16,15 +16,8 @@ package query
 
 // SelectHelper is an interface for "SELECT" statement helpers.
 type SelectHelper interface {
-	// IsAsterisk returns true if the statement is a "SELECT *".
-	IsAsterisk() bool
 	// HasAggregator returns true if the statement has an aggregate function.
 	HasAggregator() bool
-}
-
-// IsAsterisk returns true if the statement is a "SELECT *".
-func (stmt *selectStmt) IsAsterisk() bool {
-	return stmt.selectors.IsAsterisk()
 }
 
 // HasAggregator returns true if the statement has an aggregate function.
