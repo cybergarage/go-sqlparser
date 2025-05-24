@@ -14,6 +14,12 @@
 
 package query
 
+import (
+	"fmt"
+
+	"github.com/cybergarage/go-sqlparser/sql/fn"
+)
+
 // SelectHelper is an interface for "SELECT" statement helpers.
 type SelectHelper interface {
 	// HasAggregator returns true if the statement has an aggregate function.
@@ -23,4 +29,27 @@ type SelectHelper interface {
 // HasAggregator returns true if the statement has an aggregate function.
 func (stmt *selectStmt) HasAggregator() bool {
 	return stmt.selectors.HasAggregator()
+}
+
+// Aggregators returns the set of aggregators for the select statement.
+func (stmt *selectStmt) Aggregators() (fn.AggregatorSet, error) {
+	aggrs, err := stmt.selectors.Aggregators()
+	if err != nil {
+		return nil, err
+	}
+
+	resetOpts := []any{}
+	groupBy := stmt.GroupBy()
+	if groupBy != nil {
+		resetOpts = append(resetOpts, fn.GroupBy(groupBy.ColumnName()))
+	}
+
+	for _, aggr := range aggrs {
+		err := aggr.Reset(resetOpts...)
+		if err != nil {
+			return nil, fmt.Errorf("failed to reset aggregator %s: %w", aggr.Name(), err)
+		}
+	}
+
+	return aggrs, nil
 }
