@@ -30,14 +30,19 @@ const (
 // AggregatorOption is a function that configures the Aggregator.
 type AggregatorOption = aggrOption
 
-// WithAggregatorGroupBy is an option to set the group by clause for the aggregator.
-func WithAggregatorGroupBy(group string) AggregatorOption {
-	return withAggrGroupBy(group)
+// WithAggregatorName is an option to set the name of the aggregator.
+func WithAggregatorName(name string) AggregatorOption {
+	return withAggrName(name)
 }
 
 // WithaggregatorArguments is an option to set the arguments for the aggregator.
 func WithAggregatorArguments(args []string) AggregatorOption {
 	return withAggrArguments(args)
+}
+
+// WithAggregatorGroupBy is an option to set the group by clause for the aggregator.
+func WithAggregatorGroupBy(group string) AggregatorOption {
+	return withAggrGroupBy(group)
 }
 
 // NewAggregator creates a new Aggregator with the given options.
