@@ -42,13 +42,13 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 	for _, opt := range opts {
 		opt(fn)
 	}
+	fn.name = fn.String()
 	return fn
 }
 
 // WithFunctionName sets the function name.
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
-		fn.SetName(name)
 		executor, err := NewExecutorForName(name)
 		if err == nil {
 			fn.executor = executor
