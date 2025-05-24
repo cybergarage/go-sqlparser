@@ -14,14 +14,15 @@
 
 package fn
 
+// AggregatorSet is a collection of Aggregators.
+// It provides methods to manage and operate on multiple aggregators.
 type AggregatorSet []Aggregator
 
-// AggregatorSetOption is an option for configuring the aggregator set.
-type AggregatorSetOption = aggrOption
-
-// WithAggregatorSetGroupBy is an option to set the group by clause for the aggregator.
-func WithAggregatorSetGroupBy(group string) AggregatorOption {
-	return withAggrGroupBy(group)
+// NewAggregatorSet creates a new AggregatorSet with the given aggregators.
+func NewAggregatorSetWith(aggrs []Aggregator) AggregatorSet {
+	aggrSet := make(AggregatorSet, len(aggrs))
+	copy(aggrSet, aggrs)
+	return aggrSet
 }
 
 // NewAggregatorSetForNames creates a new AggregatorSet for the given names.
@@ -35,15 +36,6 @@ func NewAggregatorSetForNames(names []string, opts ...aggrOption) (AggregatorSet
 		aggrSet[i] = aggr
 	}
 	return aggrSet, nil
-}
-
-// Names returns the names of the aggregators in the set.
-func (aggrSet *AggregatorSet) Names() []string {
-	names := make([]string, len(*aggrSet))
-	for i, aggr := range *aggrSet {
-		names[i] = aggr.Name()
-	}
-	return names
 }
 
 // Reset resets all aggregators in the set.

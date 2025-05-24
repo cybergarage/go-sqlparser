@@ -25,4 +25,5 @@ type Function = fn.Function
 type Argument = fn.Argument
 type Arguments = fn.Arguments
 type Aggregator = fn.Aggregator
+type AggregatorSet = fn.AggregatorSet
 type AggregatorResultSet = fn.ResultSet

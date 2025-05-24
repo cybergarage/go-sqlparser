@@ -15,8 +15,6 @@
 package query
 
 import (
-	"fmt"
-
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
@@ -32,24 +30,15 @@ func (stmt *selectStmt) HasAggregator() bool {
 }
 
 // Aggregators returns the set of aggregators for the select statement.
-func (stmt *selectStmt) Aggregators() (fn.AggregatorSet, error) {
-	aggrs, err := stmt.selectors.Aggregators()
+func (stmt *selectStmt) Aggregators() (AggregatorSet, error) {
+	aggrSet, err := stmt.selectors.Aggregators()
 	if err != nil {
 		return nil, err
 	}
-
 	resetOpts := []any{}
 	groupBy := stmt.GroupBy()
 	if groupBy != nil {
 		resetOpts = append(resetOpts, fn.GroupBy(groupBy.ColumnName()))
 	}
-
-	for _, aggr := range aggrs {
-		err := aggr.Reset(resetOpts...)
-		if err != nil {
-			return nil, fmt.Errorf("failed to reset aggregator %s: %w", aggr.Name(), err)
-		}
-	}
-
-	return aggrs, nil
+	return aggrSet, aggrSet.Reset(resetOpts...)
 }

@@ -134,8 +134,8 @@ func (selectors Selectors) ExecutorsForType(t FunctionType) ([]FunctionExecutor,
 }
 
 // AggregateFunctions returns an aggregate function array.
-func (selectors Selectors) Aggregators() ([]Aggregator, error) {
-	aggregators := make([]Aggregator, 0)
+func (selectors Selectors) Aggregators() (AggregatorSet, error) {
+	aggregators := make([]fn.Aggregator, 0)
 	for _, selector := range selectors {
 		fn, ok := selector.(Function)
 		if !ok {
@@ -147,5 +147,5 @@ func (selectors Selectors) Aggregators() ([]Aggregator, error) {
 		}
 		aggregators = append(aggregators, aggregator)
 	}
-	return aggregators, nil
+	return fn.NewAggregatorSetWith(aggregators), nil
 }
