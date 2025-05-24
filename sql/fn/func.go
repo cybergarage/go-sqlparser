@@ -38,11 +38,11 @@ type Function interface {
 	// Arguments returns the argument list.
 	Arguments() Arguments
 	// Executor returns the executor of the function.
-	Executor() (Executor, error)
+	Executor(opts ...ExecutorOption) (Executor, error)
 	// IsAggregator returns true if the function is an aggregator function.
 	IsAggregator() bool
 	// Aggregator returns the aggregator of the function.
-	Aggregator() (Aggregator, error)
+	Aggregator(opts ...AggregatorOption) (Aggregator, error)
 	// String returns a string representation of the function.
 	String() string
 }

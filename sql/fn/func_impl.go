@@ -130,13 +130,12 @@ func (fn *function) IsAggregator() bool {
 }
 
 // Executor returns the executor of the function.
-func (fn *function) Executor() (Executor, error) {
+func (fn *function) Executor(opts ...ExecutorOption) (Executor, error) {
 	if fn.executor != nil {
 		return fn.executor, nil
 	}
-	executor, err := NewExecutorForName(
-		fn.name,
-		WithExecutorArguments(fn.args.Names()))
+	opts = append(opts, WithExecutorArguments(fn.args.Names()))
+	executor, err := NewExecutorForName(fn.name, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +144,12 @@ func (fn *function) Executor() (Executor, error) {
 }
 
 // Aggregator returns the aggregator of the function.
-func (fn *function) Aggregator() (Aggregator, error) {
+func (fn *function) Aggregator(opts ...AggregatorOption) (Aggregator, error) {
 	if fn.aggregator != nil {
 		return fn.aggregator, nil
 	}
-	aggregator, err := NewAggregatorForName(
-		fn.name,
-		WithAggregatorArguments(fn.args.Names()))
+	opts = append(opts, WithAggregatorArguments(fn.args.Names()))
+	aggregator, err := NewAggregatorForName(fn.name, opts...)
 	if err != nil {
 		return nil, err
 	}

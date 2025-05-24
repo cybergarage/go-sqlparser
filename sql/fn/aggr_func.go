@@ -46,7 +46,7 @@ func WithAggregatorGroupBy(group string) AggregatorOption {
 }
 
 // NewAggregator creates a new Aggregator with the given options.
-func NewAggregatorForName(name string, opts ...aggrOption) (Aggregator, error) {
+func NewAggregatorForName(name string, opts ...AggregatorOption) (Aggregator, error) {
 	switch strings.ToUpper(name) {
 	case SumFunctionName:
 		return NewSum(opts...)
