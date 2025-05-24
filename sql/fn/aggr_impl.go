@@ -132,7 +132,15 @@ func (aggr *aggrImpl) GroupBy() (string, bool) {
 }
 
 // Reset resets the aggregator to its initial state.
-func (aggr *aggrImpl) Reset() error {
+func (aggr *aggrImpl) Reset(opts ...aggrOption) error {
+	// Apply options to the aggregator
+	for _, opt := range opts {
+		if err := opt(aggr); err != nil {
+			return err
+		}
+	}
+
+	// Validate the aggregator name
 	aggr.colums = []string{}
 	if groupBy, ok := aggr.GroupBy(); ok {
 		aggr.colums = append(aggr.colums, groupBy)

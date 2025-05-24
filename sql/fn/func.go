@@ -44,7 +44,7 @@ type Function interface {
 	// IsAggregator returns true if the function is an aggregator function.
 	IsAggregator() bool
 	// Aggregator returns the aggregator of the function.
-	Aggregator(opts ...AggregatorOption) (Aggregator, error)
+	Aggregator() (Aggregator, error)
 	// String returns a string representation of the function.
 	String() string
 }

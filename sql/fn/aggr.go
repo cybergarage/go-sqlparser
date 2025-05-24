@@ -19,7 +19,7 @@ type Aggregator interface {
 	// Name returns the name of the aggregator.
 	Name() string
 	// Reset resets the aggregator to its initial state.
-	Reset() error
+	Reset(opts ...AggregatorOption) error
 	// Aggregate aggregates a row of data.
 	Aggregate(row Row) error
 	// Finalize finalizes the aggregation and returns the result.
