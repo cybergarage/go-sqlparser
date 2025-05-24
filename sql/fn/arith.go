@@ -19,7 +19,7 @@ import (
 )
 
 // ArithFunc represents an arithmetic function.
-type ArithFunc func(any, any) (any, error)
+type ArithFunc func(float64, float64) (float64, error)
 
 // arithFunction represents a base arithmetic function.
 type arithFunction struct {
@@ -40,89 +40,15 @@ func (fn *arithFunction) Execute(args ...any) (any, error) {
 	if len(args) != 2 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
-	return fn.operator(args[0], args[1])
-}
-
-// NewAddFunction returns a new add function.
-func NewAddFunction(name string) Executor {
-	return NewArithFunctionWith(
-		name,
-		func(v1, v2 any) (any, error) {
-			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
-			if err != nil {
-				return nil, err
-			}
-			return (fv1 + fv2), nil
-		},
-	)
-}
-
-// NewSubFunction returns a new sub function.
-func NewSubFunction(name string) Executor {
-	return NewArithFunctionWith(
-		name,
-		func(v1, v2 any) (any, error) {
-			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
-			if err != nil {
-				return nil, err
-			}
-			return (fv1 - fv2), nil
-		},
-	)
-}
-
-// NewMulFunction returns a new multiple function.
-func NewMulFunction(name string) Executor {
-	return NewArithFunctionWith(
-		name,
-		func(v1, v2 any) (any, error) {
-			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
-			if err != nil {
-				return nil, err
-			}
-			return (fv1 * fv2), nil
-		},
-	)
-}
-
-// NewDivFunction returns a new division function.
-func NewDivFunction(name string) Executor {
-	return NewArithFunctionWith(
-		name,
-		func(v1, v2 any) (any, error) {
-			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
-			if err != nil {
-				return nil, err
-			}
-			return (fv1 / fv2), nil
-		},
-	)
-}
-
-// NewModFunction returns a new mod function.
-func NewModFunction(name string) Executor {
-	return NewArithFunctionWith(
-		name,
-		func(v1, v2 any) (any, error) {
-			fv1, fv2, err := newArithNumericArgsFrom(v1, v2)
-			if err != nil {
-				return nil, err
-			}
-			return (float64(int(fv1) % int(fv2))), nil
-		},
-	)
-}
-
-func newArithNumericArgsFrom(v1, v2 any) (float64, float64, error) {
 	var fv1 float64
-	err := safecast.ToFloat64(v1, &fv1)
+	err := safecast.ToFloat64(args[0], &fv1)
 	if err != nil {
-		return 0.0, 0.0, err
+		return nil, err
 	}
 	var fv2 float64
-	err = safecast.ToFloat64(v2, &fv2)
+	err = safecast.ToFloat64(args[1], &fv2)
 	if err != nil {
-		return 0.0, 0.0, err
+		return nil, err
 	}
-	return fv1, fv2, err
+	return fn.operator(fv1, fv2)
 }
