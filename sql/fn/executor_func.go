@@ -21,17 +21,31 @@ const (
 	FloorFunctionName = "FLOOR"
 )
 
+// ExecutorOption is an option for the function executor.
+type ExecutorOption = execOption
+
+// WithExecutorArguments returns an option to set the arguments for the executor.
+func WithExecutorArguments(args []string) ExecutorOption {
+	return withExecArguments(args)
+}
+
 // NewExecutorForName returns a function executor with the specified name.
-func NewExecutorForName(name string) (Executor, error) {
+func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
+	var ex Executor
 	switch name {
 	case AbsFunctionName:
-		return NewAbsFunction(), nil
+		ex = NewAbsFunction()
 	case FloorFunctionName:
-		return NewFloorFunction(), nil
+		ex = NewFloorFunction()
 	case CeilFunctionName:
-		return NewCeilFunction(), nil
+		ex = NewCeilFunction()
+	default:
+		return nil, newErrNotSupportedFunction(name)
 	}
-	return nil, newErrNotSupportedFunction(name)
+	for _, opt := range opts {
+		opt(ex.(*execImpl))
+	}
+	return ex, nil
 }
 
 // ExecuteFunction returns the executed value with the specified arguments.

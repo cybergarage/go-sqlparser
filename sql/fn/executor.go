@@ -20,6 +20,8 @@ type Executor interface {
 	Name() string
 	// Type returns the type of the function.
 	Type() FunctionType
+	// Arguments returns the arguments of the executor.
+	Arguments() []string
 	// Execute returns the executed value with the specified arguments.
 	Execute(any) (any, error)
 }
