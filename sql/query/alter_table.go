@@ -210,7 +210,7 @@ func (stmt *alterTableStmt) String() string {
 		if c.Constraint() != ConstraintNone {
 			elems = append(elems, c.Constraint().String())
 		}
-		def, ok := c.(columnDefStringer)
+		def, ok := c.(DefinitionStringer)
 		if ok {
 			elems = append(elems, def.DefinitionString())
 		} else {

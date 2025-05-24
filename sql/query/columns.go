@@ -137,7 +137,7 @@ func (columns Columns) SetSchema(schema Schema) error {
 func (columns Columns) DefinitionString() string {
 	strs := make([]string, len(columns))
 	for n, col := range columns {
-		def, ok := col.(columnDefStringer)
+		def, ok := col.(DefinitionStringer)
 		if ok {
 			strs[n] = def.DefinitionString()
 		} else {

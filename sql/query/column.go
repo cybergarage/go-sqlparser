@@ -61,7 +61,8 @@ type Column interface {
 	String() string
 }
 
-type columnDefStringer interface {
+// DefinitionStringer represents a definition stringer interface.
+type DefinitionStringer interface {
 	DefinitionString() string
 }
 
