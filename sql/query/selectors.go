@@ -60,11 +60,18 @@ func (selectors Selectors) Columns() []Column {
 	return cols
 }
 
-// SelectorNames returns a name array.
-func (selectors Selectors) SelectorNames() []string {
+// Names returns a name array.
+func (selectors Selectors) Names() []string {
 	names := make([]string, 0)
 	for _, selector := range selectors {
-		names = append(names, selector.Name())
+		switch t := selector.(type) {
+		case columnSelectorStringer:
+			names = append(names, t.SelectorString())
+		case Function:
+			names = append(names, t.String())
+		default:
+			names = append(names, t.Name())
+		}
 	}
 	return names
 }
@@ -76,16 +83,5 @@ func (selectors Selectors) Len() int {
 
 // SelectorString returns a string representation of the selector array.
 func (selectors Selectors) SelectorString() string {
-	strs := make([]string, len(selectors))
-	for n, col := range selectors {
-		switch t := col.(type) {
-		case columnSelectorStringer:
-			strs[n] = t.SelectorString()
-		case Function:
-			strs[n] = t.String()
-		default:
-			strs[n] = col.Name()
-		}
-	}
-	return strings.JoinWithComma(strs)
+	return strings.JoinWithComma(selectors.Names())
 }
