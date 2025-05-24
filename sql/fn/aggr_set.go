@@ -49,9 +49,9 @@ func (aggrSet *AggregatorSet) Reset(opts ...any) error {
 }
 
 // Aggregate aggregates a row of data using all aggregators in the set.
-func (aggrSet *AggregatorSet) Aggregate(row Row) error {
+func (aggrSet *AggregatorSet) Aggregate(v any) error {
 	for _, aggr := range *aggrSet {
-		if err := aggr.Aggregate(row); err != nil {
+		if err := aggr.Aggregate(v); err != nil {
 			return err
 		}
 	}
