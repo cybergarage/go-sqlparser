@@ -61,10 +61,6 @@ type Column interface {
 	String() string
 }
 
-type columnSelectorStringer interface {
-	SelectorString() string
-}
-
 type columnDefStringer interface {
 	DefinitionString() string
 }
@@ -256,11 +252,6 @@ func (col *column) DefinitionString() string {
 // Definition returns the column definition.
 func (col *column) Definition() ColumnDef {
 	return col.ColumnDef
-}
-
-// SelectorString returns the selector string representation.
-func (col *column) SelectorString() string {
-	return col.name
 }
 
 // UpdatorString returns the updator string representation.

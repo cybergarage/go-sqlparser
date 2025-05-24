@@ -65,8 +65,6 @@ func (selectors Selectors) Names() []string {
 	names := make([]string, 0)
 	for _, selector := range selectors {
 		switch t := selector.(type) {
-		case columnSelectorStringer:
-			names = append(names, t.SelectorString())
 		case Function:
 			names = append(names, t.String())
 		default:
