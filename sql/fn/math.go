@@ -15,13 +15,11 @@
 package fn
 
 import (
-	"math"
-
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
 // MathFunc represents an math function.
-type MathFunc func(any) (any, error)
+type MathFunc func(float64) (any, error)
 
 // MathResultSet represents a result set of an math function.
 type MathResultSet map[any]float64
@@ -45,51 +43,10 @@ func (fn *mathFunction) Execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
-
-	return fn.math(args[0])
-}
-
-// NewAbsFunction returns a new abs function.
-func NewAbsFunction() Executor {
-	return NewMathFunctionWith(
-		AbsFunctionName,
-		func(v any) (any, error) {
-			var value float64
-			err := safecast.ToFloat64(v, &value)
-			if err != nil {
-				return nil, err
-			}
-			return float64(math.Abs(value)), nil
-		},
-	)
-}
-
-// NewFloorFunction returns a new floor function.
-func NewFloorFunction() Executor {
-	return NewMathFunctionWith(
-		FloorFunctionName,
-		func(v any) (any, error) {
-			var value float64
-			err := safecast.ToFloat64(v, &value)
-			if err != nil {
-				return nil, err
-			}
-			return int64(math.Floor(value)), nil
-		},
-	)
-}
-
-// NewCeilFunction returns a new ceil function.
-func NewCeilFunction() Executor {
-	return NewMathFunctionWith(
-		CeilFunctionName,
-		func(v any) (any, error) {
-			var value float64
-			err := safecast.ToFloat64(v, &value)
-			if err != nil {
-				return nil, err
-			}
-			return int64(math.Ceil(value)), nil
-		},
-	)
+	var fv float64
+	err := safecast.ToFloat64(args[0], &fv)
+	if err != nil {
+		return nil, err
+	}
+	return fn.math(fv)
 }

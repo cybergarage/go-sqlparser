@@ -12,33 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fn_test
+package fn
 
 import (
-	"testing"
-
-	"github.com/cybergarage/go-sqlparser/sql/fn"
+	"math"
 )
 
-func TestMathExecutors(t *testing.T) {
-	tests := []struct {
-		fn     fn.Executor
-		arg    any
-		result any
-	}{
-		{fn.NewAbsFunction(), float64(-1), float64(1)},
-		{fn.NewFloorFunction(), float64(5.95), int(5)},
-		{fn.NewCeilFunction(), float64(5.95), int(6)},
-	}
+// NewAbsFunction returns a new abs function.
+func NewAbsFunction() Executor {
+	return NewMathFunctionWith(
+		AbsFunctionName,
+		func(v float64) (any, error) {
+			return math.Abs(v), nil
+		},
+	)
+}
 
-	for _, test := range tests {
-		r, err := test.fn.Execute(test.arg)
-		if err != nil {
-			t.Error(err)
-			return
-		}
-		if r != test.result {
-			t.Errorf("The %s value (%v) is not (%v)", test.fn.Name(), r, test.result)
-		}
-	}
+// NewFloorFunction returns a new floor function.
+func NewFloorFunction() Executor {
+	return NewMathFunctionWith(
+		FloorFunctionName,
+		func(v float64) (any, error) {
+			return int(math.Floor(v)), nil
+		},
+	)
+}
+
+// NewCeilFunction returns a new ceil function.
+func NewCeilFunction() Executor {
+	return NewMathFunctionWith(
+		CeilFunctionName,
+		func(v float64) (any, error) {
+			return int(math.Ceil(v)), nil
+		},
+	)
 }
