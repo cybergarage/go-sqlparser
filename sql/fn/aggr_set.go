@@ -14,6 +14,10 @@
 
 package fn
 
+import (
+	"fmt"
+)
+
 // AggregatorSet is a collection of Aggregators.
 // It provides methods to manage and operate on multiple aggregators.
 type AggregatorSet []Aggregator
@@ -59,14 +63,58 @@ func (aggrSet *AggregatorSet) Aggregate(v any) error {
 }
 
 // Finalize finalizes the aggregation and returns the result set.
-func (aggrSet *AggregatorSet) Finalize() ([]ResultSet, error) {
-	resultSet := make([]ResultSet, len(*aggrSet))
-	for i, aggr := range *aggrSet {
+func (aggrSet *AggregatorSet) Finalize() (ResultSet, error) {
+	reseltSets := []ResultSet{}
+	for _, aggr := range *aggrSet {
 		result, err := aggr.Finalize()
 		if err != nil {
 			return nil, err
 		}
-		resultSet[i] = result
+		reseltSets = append(reseltSets, result)
 	}
-	return resultSet, nil
+
+	columns := []string{}
+	for n, resultSet := range reseltSets {
+		switch n {
+		case 0:
+			columns = append(columns, resultSet.Columns()...)
+		default:
+			// Skip the first column as it is already included
+			columns = append(columns, resultSet.Columns()[1:]...)
+		}
+	}
+
+	rows := []Row{}
+	for resultSetNo, resultSet := range reseltSets {
+		rowNo := 0
+		for resultSet.Next() {
+			row, err := resultSet.Row()
+			if err != nil {
+				return nil, err
+			}
+			switch resultSetNo {
+			case 0:
+				// For the first result set, we take the entire row
+				rows = append(rows, row)
+			default:
+				if len(rows) <= rowNo {
+					return nil, fmt.Errorf("row %d not found in result set %d", rowNo, resultSetNo)
+				}
+				switch len(row) {
+				case 0:
+					return nil, fmt.Errorf("row %d is empty in result set %d", rowNo, resultSetNo)
+				case 1:
+					rows[rowNo] = append(rows[rowNo], row[0])
+				default:
+					rows[rowNo] = append(rows[rowNo], row[1:]...) // Skip the first grouping column
+				}
+			}
+			rowNo++
+		}
+	}
+
+	return NewResultSet(
+		WithRows(rows),
+		WithColumns(columns),
+	), nil
 }
