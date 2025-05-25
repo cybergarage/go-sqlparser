@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
-	github.com/cybergarage/go-safecast v1.2.7
+	github.com/cybergarage/go-safecast v1.2.8-0.20250525134601-08d5b410d6f5
 	github.com/cybergarage/go-tracing v1.1.5
 	github.com/google/uuid v1.6.0
 )
