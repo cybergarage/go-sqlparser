@@ -24,7 +24,6 @@ type SelectOption = func(*selectStmt)
 // Select represents a "SELECT" statement interface.
 type Select interface {
 	Statement
-	SelectHelper
 	// Selectors returns the selectors.
 	Selectors() Selectors
 	// From returns the source table list.
@@ -37,6 +36,8 @@ type Select interface {
 	OrderBy() OrderBy
 	// Where returns the condition.
 	Where() Condition
+	// SelectHelper is an interface for "SELECT" statement helpers.
+	SelectHelper
 }
 
 // selectStmt is a "SELECT" statement.
