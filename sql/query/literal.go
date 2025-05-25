@@ -17,6 +17,7 @@ package query
 import (
 	"fmt"
 
+	"github.com/cybergarage/go-safecast/safecast"
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
 
@@ -72,16 +73,30 @@ func (lit *Literal) HasValue() bool {
 	return lit != nil
 }
 
-// IsPlaceHolder returns true whether the literal is a place holder.
-func (lit *Literal) IsPlaceHolder() bool {
+// Equal returns true whether the literal value is equal to the specified value.
+func (lit *Literal) Equal(ev any) bool {
 	if lit == nil || lit.v == nil {
 		return false
 	}
 	switch v := lit.v.(type) {
 	case string:
-		return strings.Equal(v, "?")
+		var lv string
+		if err := safecast.ToString(ev, &lv); err != nil {
+			return false
+		}
+		return strings.Equal(v, lv)
 	}
 	return false
+}
+
+// IsAsterisk returns true whether the literal is an asterisk.
+func (lit *Literal) IsAsterisk() bool {
+	return lit.Equal("*")
+}
+
+// IsPlaceHolder returns true whether the literal is a place holder.
+func (lit *Literal) IsPlaceHolder() bool {
+	return lit.Equal("?")
 }
 
 // SetValue sets a value.

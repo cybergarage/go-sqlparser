@@ -47,18 +47,12 @@ type Column interface {
 	Value() any
 	// ValueType returns the column value type.
 	ValueType() LiteralType
-	// ValueString returns the column value string.
-	ValueString() string
-	// IsPlaceHolder returns true whether the column is a place holder.
-	IsPlaceHolder() bool
-	// IsFunction returns true whether the column is a function.
-	IsFunction() (Function, bool)
-	// Arguments returns the executor arguments.
-	Arguments() []any
 	// Copy returns a copy of the column.
 	Copy() Column
 	// String returns the string representation.
 	String() string
+	// ColumnHelper provides additional methods for columns in a query.
+	ColumnHelper
 }
 
 // DefinitionStringer represents a definition stringer interface.
