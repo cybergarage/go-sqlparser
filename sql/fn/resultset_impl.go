@@ -65,8 +65,17 @@ func (rs *resultSet) Next() bool {
 
 // Row returns the current row of the result set.
 func (rs *resultSet) Row() (Row, error) {
-	if rs.index < 0 || rs.index >= len(rs.rows) {
+	if rs.index < 0 || len(rs.rows) <= rs.index {
 		return nil, ErrNoData
 	}
 	return rs.rows[rs.index], nil
+}
+
+// Map returns the current row as a Map, mapping column names to values.
+func (rs *resultSet) Map() (Map, error) {
+	row, err := rs.Row()
+	if err != nil {
+		return nil, err
+	}
+	return NewMapFromRow(rs.columns, row), nil
 }

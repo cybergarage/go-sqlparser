@@ -22,4 +22,6 @@ type ResultSet interface {
 	Next() bool
 	// Row returns the current row.
 	Row() (Row, error)
+	// Map returns the current row as a Map.
+	Map() (Map, error)
 }
