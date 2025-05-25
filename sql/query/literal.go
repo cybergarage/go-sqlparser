@@ -74,19 +74,11 @@ func (lit *Literal) HasValue() bool {
 }
 
 // Equal returns true whether the literal value is equal to the specified value.
-func (lit *Literal) Equal(ev any) bool {
+func (lit *Literal) Equal(v any) bool {
 	if lit == nil || lit.v == nil {
 		return false
 	}
-	switch v := lit.v.(type) {
-	case string:
-		var lv string
-		if err := safecast.ToString(ev, &lv); err != nil {
-			return false
-		}
-		return strings.Equal(v, lv)
-	}
-	return false
+	return safecast.Equal(lit.v, v)
 }
 
 // IsAsterisk returns true whether the literal is an asterisk.
