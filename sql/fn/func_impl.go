@@ -49,6 +49,7 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 // WithFunctionName sets the function name.
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
+		fn.SetName(name)
 		executor, err := NewExecutorForName(name)
 		if err == nil {
 			fn.executor = executor
