@@ -14,12 +14,8 @@
 
 package query
 
-// Selector represents a selector in a select query.
-type Selector interface {
-	// Name returns the name of the selector.
-	Name() string
-	// String returns the string representation of the selector.
-	String() string
-	// SelectorHelper provides additional methods for selectors.
-	SelectorHelper
+// SelectorHelper provides additional methods for selectors.
+type SelectorHelper interface {
+	// IsAsterisk returns true if the selector is an asterisk.
+	IsAsterisk() bool
 }
