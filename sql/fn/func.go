@@ -45,4 +45,12 @@ type Function interface {
 	Aggregator(opts ...AggregatorOption) (Aggregator, error)
 	// String returns a string representation of the function.
 	String() string
+	// SelectorHelper provides additional methods for selectors.
+	SelectorHelper
+}
+
+// SelectorHelper provides additional methods for selectors.
+type SelectorHelper interface {
+	// IsAsterisk returns true if the selector is an asterisk.
+	IsAsterisk() bool
 }

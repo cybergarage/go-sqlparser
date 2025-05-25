@@ -76,6 +76,11 @@ func (col *column) Constraint() Constraint {
 	return col.c
 }
 
+// IsAsterisk returns true if the column is an asterisk.
+func (col *column) IsAsterisk() bool {
+	return col.name == "*"
+}
+
 // String returns the string representation of the column.
 func (col *column) String() string {
 	str := fmt.Sprintf("%s %s", col.name, col.t.String())

@@ -34,4 +34,6 @@ type Column interface {
 	Constraint() Constraint
 	// String returns the string representation of the column.
 	String() string
+	// ColumnHelper provides additional methods for columns in a query.
+	ColumnHelper
 }

@@ -53,6 +53,8 @@ type Column interface {
 	String() string
 	// ColumnHelper provides additional methods for columns in a query.
 	ColumnHelper
+	// SelectorHelper provides additional methods for selectors.
+	SelectorHelper
 }
 
 // DefinitionStringer represents a definition stringer interface.

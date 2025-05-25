@@ -119,6 +119,16 @@ func (fn *function) IsType(t FunctionType) bool {
 	return fn.typ == t
 }
 
+// IsAsterisk returns true whether the literal is an asterisk.
+func (fn *function) IsAsterisk() bool {
+	return false
+}
+
+// IsPlaceHolder returns true whether the literal is a place holder.
+func (fn *function) IsPlaceHolder() bool {
+	return false
+}
+
 // Arguments returns the argument list.
 func (fn *function) Arguments() Arguments {
 	return fn.args
