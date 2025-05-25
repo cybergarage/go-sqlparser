@@ -42,7 +42,6 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 	for _, opt := range opts {
 		opt(fn)
 	}
-	fn.name = fn.String()
 	return fn
 }
 
