@@ -18,4 +18,6 @@ package resultset
 type ColumnHelper interface {
 	// IsAsterisk returns true if the column is an asterisk.
 	IsAsterisk() bool
+	// IsFunction returns true if the column is a function.
+	IsFunction() bool
 }

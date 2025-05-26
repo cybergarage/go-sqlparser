@@ -72,18 +72,18 @@ type column struct {
 	name string
 	ColumnDef
 	*Literal
-	FunctionExecutor
+	fn   Function
 	args []any
 }
 
 // NewColumn returns a column instance.
 func NewColumnWithOptions(opts ...ColumnOption) Column {
 	col := &column{
-		name:             "",
-		ColumnDef:        nil,
-		Literal:          nil,
-		FunctionExecutor: nil,
-		args:             []any{},
+		name:      "",
+		ColumnDef: nil,
+		Literal:   nil,
+		fn:        nil,
+		args:      []any{},
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -113,9 +113,18 @@ func WithColumnLiteral(l *Literal) func(*column) {
 }
 
 // WithColumnFunction sets a column function.
-func WithColumnFunction(fn FunctionExecutor) func(*column) {
+func WithColumnFunction(fn Function) func(*column) {
 	return func(col *column) {
-		col.FunctionExecutor = fn
+		col.fn = fn
+	}
+}
+
+// WithColumnFunctionExecutor sets a column function.
+func WithColumnFunctionExecutor(executor FunctionExecutor) func(*column) {
+	return func(col *column) {
+		col.fn = fn.NewFunctionWith(
+			fn.WithFunctionExecutor(executor),
+		)
 	}
 }
 
@@ -137,21 +146,19 @@ func (col *column) Name() string {
 }
 
 // IsFunction returns true whether the column is a function.
-func (col *column) IsFunction() (Function, bool) {
-	if col.FunctionExecutor == nil {
-		return nil, false
+func (col *column) IsFunction() bool {
+	if col.fn == nil {
+		return false
 	}
-	return fn.NewFunctionWith(
-		fn.WithFunctionExecutor(col.FunctionExecutor),
-	), true
+	return true
 }
 
 // Executor returns the executor.
-func (col *column) Executor() (FunctionExecutor, bool) {
-	if col.FunctionExecutor == nil {
+func (col *column) Function() (Function, bool) {
+	if col.fn == nil {
 		return nil, false
 	}
-	return col.FunctionExecutor, true
+	return col.fn, true
 }
 
 // Arguments returns the executor arguments.
@@ -254,15 +261,17 @@ func (col *column) Definition() ColumnDef {
 
 // UpdatorString returns the updator string representation.
 func (col *column) UpdatorString() string {
-	if executor, ok := col.Executor(); ok {
-		strs := []string{}
-		for n, arg := range col.args {
-			strs = append(strs, fmt.Sprintf("%v", arg))
-			if n == 0 {
-				strs = append(strs, executor.Name())
+	if fn, ok := col.Function(); ok {
+		if executor, err := fn.Executor(); err == nil {
+			strs := []string{}
+			for n, arg := range col.args {
+				strs = append(strs, fmt.Sprintf("%v", arg))
+				if n == 0 {
+					strs = append(strs, executor.Name())
+				}
 			}
+			return strings.Join(strs, " ")
 		}
-		return strings.Join(strs, " ")
 	}
 	if col.Literal != nil {
 		return col.Literal.String()

@@ -14,13 +14,8 @@
 
 package fn
 
-import "strings"
-
-const (
-	// Math.
-	AbsFunctionName   = "ABS"
-	CeilFunctionName  = "CEIL"
-	FloorFunctionName = "FLOOR"
+import (
+	"strings"
 )
 
 // ExecutorOption is an option for the function executor.

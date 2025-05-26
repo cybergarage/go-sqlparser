@@ -18,4 +18,6 @@ package query
 type SelectorHelper interface {
 	// IsAsterisk returns true if the selector is an asterisk.
 	IsAsterisk() bool
+	// IsFunction returns true if the selector is a function.
+	IsFunction() bool
 }

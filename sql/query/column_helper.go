@@ -23,7 +23,9 @@ type ColumnHelper interface {
 	// IsPlaceHolder returns true whether the column is a place holder.
 	IsPlaceHolder() bool
 	// IsFunction returns true whether the column is a function.
-	IsFunction() (Function, bool)
+	IsFunction() bool
+	// Function returns the function if the column is a function.
+	Function() (Function, bool)
 	// Arguments returns the executor arguments.
 	Arguments() []any
 }

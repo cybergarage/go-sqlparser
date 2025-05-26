@@ -14,17 +14,6 @@
 
 package fn
 
-// FunctionType represents a function type.
-type FunctionType int
-
-const (
-	UnknownFunctionType FunctionType = iota
-	MathFunction
-	AggregateFunction
-	CastFunction
-	ArithFunction
-)
-
 // Function represents a .
 type Function interface {
 	// Name returns the function name.
@@ -51,6 +40,8 @@ type Function interface {
 
 // SelectorHelper provides additional methods for selectors.
 type SelectorHelper interface {
-	// IsAsterisk returns true if the selector is an asterisk.
+	// IsAsterisk returns true wheher the selector is an asterisk.
 	IsAsterisk() bool
+	// IsFunction returns true whether the selector is a function.
+	IsFunction() bool
 }

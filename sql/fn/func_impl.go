@@ -124,9 +124,9 @@ func (fn *function) IsAsterisk() bool {
 	return false
 }
 
-// IsPlaceHolder returns true whether the literal is a place holder.
-func (fn *function) IsPlaceHolder() bool {
-	return false
+// IsFunction returns true whether the literal is a function.
+func (fn *function) IsFunction() bool {
+	return true
 }
 
 // Arguments returns the argument list.

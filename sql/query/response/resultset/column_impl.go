@@ -16,6 +16,11 @@ package resultset
 
 import (
 	"fmt"
+	"regexp"
+)
+
+var funcColumnNameRegex = regexp.MustCompile(
+	`^([a-zA-Z_][a-zA-Z0-9_]*)(\((.*)\))?$`,
 )
 
 type column struct {
@@ -79,6 +84,14 @@ func (col *column) Constraint() Constraint {
 // IsAsterisk returns true if the column is an asterisk.
 func (col *column) IsAsterisk() bool {
 	return col.name == "*"
+}
+
+// IsFunction returns true if the column is a function.
+func (col *column) IsFunction() bool {
+	if funcColumnNameRegex.Match([]byte(col.name)) {
+		return true
+	}
+	return true
 }
 
 // String returns the string representation of the column.
