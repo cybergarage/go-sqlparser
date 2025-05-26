@@ -19,14 +19,6 @@ import (
 	"strings"
 )
 
-const (
-	MaxFunctionName   = "MAX"
-	MinFunctionName   = "MIN"
-	SumFunctionName   = "SUM"
-	AvgFunctionName   = "AVG"
-	CountFunctionName = "COUNT"
-)
-
 // AggregatorOption is a function that configures the Aggregator.
 type AggregatorOption = aggrOption
 

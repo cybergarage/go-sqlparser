@@ -471,22 +471,9 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 		} else if v := set.Expr().Bind_param(); v != nil {
 			opts = append(opts, query.WithColumnLiteral(newBindParamWith(v)))
 		} else if v := set.Expr().Arithmetic_expr(); v != nil {
-			var executor query.FunctionExecutor
 			ope := v.GetOpe().GetText()
-			switch ope {
-			case "+":
-				executor = fn.NewAddFunction(ope)
-			case "-":
-				executor = fn.NewSubFunction(ope)
-			case "*":
-				executor = fn.NewMulFunction(ope)
-			case "/":
-				executor = fn.NewDivFunction(ope)
-			case "%":
-				executor = fn.NewModFunction(ope)
-			}
-			if executor != nil {
-				opts = append(opts, query.WithColumnFunction(executor))
+			if executor, _ := fn.NewArithFunctionFor(ope); executor != nil {
+				opts = append(opts, query.WithColumnFunctionExecutor(executor))
 				args := []any{
 					v.Column_name().GetText(),
 					v.Expr().GetText(),

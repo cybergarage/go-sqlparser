@@ -14,10 +14,32 @@
 
 package fn
 
+import (
+	"fmt"
+)
+
+// NewArithFunctionWith returns a new arithmetic function with the given operator and implementation.
+func NewArithFunctionFor(ope string) (Executor, error) {
+	switch ope {
+	case AddFunctionID:
+		return NewAddFunction(), nil
+	case SubFunctionID:
+		return NewSubFunction(), nil
+	case MulFunctionID:
+		return NewMulFunction(), nil
+	case DivFunctionID:
+		return NewDivFunction(), nil
+	case ModFunctionID:
+		return NewModFunction(), nil
+	default:
+		return nil, fmt.Errorf("unknown arithmetic operator: %s", ope)
+	}
+}
+
 // NewAddFunction returns a new add function.
-func NewAddFunction(name string) Executor {
+func NewAddFunction() Executor {
 	return NewArithFunctionWith(
-		name,
+		AddFunctionID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 + v2), nil
 		},
@@ -25,9 +47,9 @@ func NewAddFunction(name string) Executor {
 }
 
 // NewSubFunction returns a new sub function.
-func NewSubFunction(name string) Executor {
+func NewSubFunction() Executor {
 	return NewArithFunctionWith(
-		name,
+		SubFunctionID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 - v2), nil
 		},
@@ -35,9 +57,9 @@ func NewSubFunction(name string) Executor {
 }
 
 // NewMulFunction returns a new multiple function.
-func NewMulFunction(name string) Executor {
+func NewMulFunction() Executor {
 	return NewArithFunctionWith(
-		name,
+		MulFunctionID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 * v2), nil
 		},
@@ -45,9 +67,9 @@ func NewMulFunction(name string) Executor {
 }
 
 // NewDivFunction returns a new division function.
-func NewDivFunction(name string) Executor {
+func NewDivFunction() Executor {
 	return NewArithFunctionWith(
-		name,
+		DivFunctionID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 / v2), nil
 		},
@@ -55,9 +77,9 @@ func NewDivFunction(name string) Executor {
 }
 
 // NewModFunction returns a new mod function.
-func NewModFunction(name string) Executor {
+func NewModFunction() Executor {
 	return NewArithFunctionWith(
-		name,
+		ModFunctionID,
 		func(v1, v2 float64) (float64, error) {
 			return (float64(int(v1) % int(v2))), nil
 		},
