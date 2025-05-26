@@ -49,17 +49,6 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
 		fn.SetName(name)
-		executor, err := NewExecutorForName(name)
-		if err == nil {
-			fn.executor = executor
-			fn.typ = executor.Type()
-			return
-		}
-		_, err = NewAggregatorForName(name)
-		if err == nil {
-			fn.typ = AggregateFunction
-			return
-		}
 	}
 }
 
