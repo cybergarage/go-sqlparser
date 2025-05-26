@@ -29,3 +29,12 @@ func NewMapWithRow(columns []string, row Row) Map {
 	}
 	return m
 }
+
+// NewMapWithMap creates a new Map from an existing map.
+func NewMapWithMap(m map[string]any) Map {
+	newMap := Map{}
+	for k, v := range m {
+		newMap[k] = v
+	}
+	return newMap
+}
