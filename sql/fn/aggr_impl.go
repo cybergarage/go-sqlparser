@@ -152,7 +152,7 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 		}
 	}
 
-	// Validate the aggregator name
+	// Set the column names
 	aggr.columns = []string{}
 	if groupBy, ok := aggr.GroupBy(); ok {
 		aggr.columns = append(aggr.columns, groupBy)
