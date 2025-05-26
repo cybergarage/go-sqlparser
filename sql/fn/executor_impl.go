@@ -84,21 +84,26 @@ func (ex *execImpl) ExecuteArgs(args ...any) (any, error) {
 
 func (ex *execImpl) ExecuteMap(m map[string]any) (any, error) {
 	row := make([]any, 0, len(ex.args))
-	for _, colum := range ex.args {
-		value, ok := m[colum]
+	for _, arg := range ex.args {
+		value, ok := m[arg]
 		if !ok {
-			return nil, fmt.Errorf("%w column %s not found in map", ErrNotFound, colum)
+			return nil, fmt.Errorf("%w column %s not found in map", ErrNotFound, arg)
 		}
 		row = append(row, value)
 	}
 	return ex.ExecuteArgs(row...)
 }
 
+// Execute executes the function with the provided value.
 func (ex *execImpl) Execute(v any) (any, error) {
 	switch v := v.(type) {
 	case []any:
 		return ex.ExecuteArgs(v)
 	case map[string]any:
+		return ex.ExecuteMap(v)
+	case Row:
+		return ex.ExecuteArgs(v)
+	case Map:
 		return ex.ExecuteMap(v)
 	default:
 		return ex.ExecuteArgs(v)
