@@ -22,11 +22,18 @@ import (
 type SelectHelper interface {
 	// HasAggregator returns true if the statement has an aggregate function.
 	HasAggregator() bool
+	// HasExecutor returns true if the statement has an executor.
+	HasExecutor() bool
 }
 
 // HasAggregator returns true if the statement has an aggregate function.
 func (stmt *selectStmt) HasAggregator() bool {
 	return stmt.selectors.HasAggregator()
+}
+
+// HasExecutor returns true if the statement has an executor.
+func (stmt *selectStmt) HasExecutor() bool {
+	return stmt.selectors.HasExecutor()
 }
 
 // Aggregators returns the set of aggregators for the select statement.

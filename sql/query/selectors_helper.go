@@ -60,6 +60,15 @@ func (selectors Selectors) HasAggregator() bool {
 	return selectors.HasFunctionWithType(fn.AggregateFunction)
 }
 
+// HasExecutor returns true if the selector list has a function executor.
+func (selectors Selectors) HasExecutor() bool {
+	executors, _ := selectors.Executors()
+	if len(executors) == 0 {
+		return false
+	}
+	return 0 < len(executors)
+}
+
 // Functions returns a function array.
 func (selectors Selectors) Functions() []Function {
 	fns := make([]Function, 0)
