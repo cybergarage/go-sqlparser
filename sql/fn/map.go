@@ -18,7 +18,7 @@ package fn
 type Map map[string]any
 
 // NewMap creates a new Map with the given key-value pairs.
-func NewMapFromRow(columns []string, row Row) Map {
+func NewMapWithRow(columns []string, row Row) Map {
 	m := make(Map, len(columns))
 	for i, column := range columns {
 		if i < len(row) {

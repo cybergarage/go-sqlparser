@@ -77,5 +77,5 @@ func (rs *resultSet) Map() (Map, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewMapFromRow(rs.columns, row), nil
+	return NewMapWithRow(rs.columns, row), nil
 }
