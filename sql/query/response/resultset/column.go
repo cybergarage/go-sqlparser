@@ -24,6 +24,12 @@ type DataType = query.DataType
 // Constraint represents a column constraint.
 type Constraint = query.Constraint
 
+// Function represents a function in a column.
+type Function = query.Function
+
+// Arguments represents the executor arguments.
+type Arguments = query.Arguments
+
 // Column represents a column interface in a resultset.
 type Column interface {
 	// Name returns the column name.
@@ -32,6 +38,12 @@ type Column interface {
 	DataType() DataType
 	// Constraint returns the column constraint.
 	Constraint() Constraint
+	// IsFunction returns true whether the column is a function.
+	IsFunction() bool
+	// Function returns the function if the column is a function.
+	Function() (Function, bool)
+	// Arguments returns the executor arguments.
+	Arguments() Arguments
 	// String returns the string representation of the column.
 	String() string
 	// ColumnHelper provides additional methods for columns in a query.

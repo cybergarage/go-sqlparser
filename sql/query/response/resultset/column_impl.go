@@ -17,6 +17,8 @@ package resultset
 import (
 	"fmt"
 	"regexp"
+
+	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
 var funcColumnNameRegex = regexp.MustCompile(
@@ -27,6 +29,7 @@ type column struct {
 	name string
 	t    DataType
 	c    Constraint
+	fn   Function
 }
 
 // ResultSetColumnOptions represents a functional option for resultsetColumn.
@@ -53,12 +56,20 @@ func WithColumnConstraint(c Constraint) ColumnOption {
 	}
 }
 
+// WithColumnFunction returns a functional option for resultsetColumn.
+func WithColumnFunction(fn Function) ColumnOption {
+	return func(col *column) {
+		col.fn = fn
+	}
+}
+
 // ResultSetColumn represents a resultset column interface.
 func NewColumn(opts ...ColumnOption) Column {
 	col := &column{
 		name: "",
 		t:    0,
 		c:    0,
+		fn:   nil,
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -92,6 +103,22 @@ func (col *column) IsFunction() bool {
 		return true
 	}
 	return true
+}
+
+// Function returns the function associated with the column.
+func (col *column) Function() (Function, bool) {
+	if col.fn != nil {
+		return col.fn, true
+	}
+	return nil, false
+}
+
+// Arguments returns the arguments of the column function.
+func (col *column) Arguments() fn.Arguments {
+	if col.fn != nil {
+		return col.fn.Arguments()
+	}
+	return fn.NewArguments()
 }
 
 // String returns the string representation of the column.

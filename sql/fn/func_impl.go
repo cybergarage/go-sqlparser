@@ -119,14 +119,19 @@ func (fn *function) IsType(t FunctionType) bool {
 	return fn.typ == t
 }
 
-// IsAsterisk returns true whether the literal is an asterisk.
+// IsAsterisk returns true whether the function is an asterisk.
 func (fn *function) IsAsterisk() bool {
 	return false
 }
 
-// IsFunction returns true whether the literal is a function.
+// IsFunction returns true whether the function is a function.
 func (fn *function) IsFunction() bool {
 	return true
+}
+
+// Function returns the function if the function is a function.
+func (fn *function) Function() (Function, bool) {
+	return fn, true
 }
 
 // Arguments returns the argument list.

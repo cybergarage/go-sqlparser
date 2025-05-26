@@ -47,14 +47,18 @@ type Column interface {
 	Value() any
 	// ValueType returns the column value type.
 	ValueType() LiteralType
+	// IsFunction returns true whether the column is a function.
+	IsFunction() bool
+	// Function returns the function if the column is a function.
+	Function() (Function, bool)
+	// Arguments returns the executor arguments.
+	Arguments() Arguments
 	// Copy returns a copy of the column.
 	Copy() Column
 	// String returns the string representation.
 	String() string
 	// ColumnHelper provides additional methods for columns in a query.
 	ColumnHelper
-	// SelectorHelper provides additional methods for selectors.
-	SelectorHelper
 }
 
 // DefinitionStringer represents a definition stringer interface.
@@ -73,7 +77,7 @@ type column struct {
 	ColumnDef
 	*Literal
 	fn   Function
-	args []any
+	args Arguments
 }
 
 // NewColumn returns a column instance.
@@ -83,7 +87,7 @@ func NewColumnWithOptions(opts ...ColumnOption) Column {
 		ColumnDef: nil,
 		Literal:   nil,
 		fn:        nil,
-		args:      []any{},
+		args:      fn.NewArguments(),
 	}
 	for _, opt := range opts {
 		opt(col)
@@ -129,9 +133,9 @@ func WithColumnFunctionExecutor(executor FunctionExecutor) func(*column) {
 }
 
 // WithColumnArguments sets column arguments.
-func WithColumnArguments(args []any) func(*column) {
+func WithColumnArguments(args []string) func(*column) {
 	return func(col *column) {
-		col.args = args
+		col.args = fn.NewArgumentStrings(args...)
 	}
 }
 
@@ -162,7 +166,7 @@ func (col *column) Function() (Function, bool) {
 }
 
 // Arguments returns the executor arguments.
-func (col *column) Arguments() []any {
+func (col *column) Arguments() Arguments {
 	return col.args
 }
 

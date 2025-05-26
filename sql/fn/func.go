@@ -24,6 +24,10 @@ type Function interface {
 	Type() FunctionType
 	// IsType returns true whether the function type is the specified one.
 	IsType(FunctionType) bool
+	// IsFunction returns true whether the function is a function.
+	IsFunction() bool
+	// Function returns the function if the function is a function.
+	Function() (Function, bool)
 	// Arguments returns the argument list.
 	Arguments() Arguments
 	// Executor returns the executor of the function.

@@ -474,7 +474,7 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 			ope := v.GetOpe().GetText()
 			if executor, _ := fn.NewArithFunctionFor(ope); executor != nil {
 				opts = append(opts, query.WithColumnFunctionExecutor(executor))
-				args := []any{
+				args := []string{
 					v.Column_name().GetText(),
 					v.Expr().GetText(),
 				}
