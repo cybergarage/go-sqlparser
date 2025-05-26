@@ -33,6 +33,15 @@ func NewArgumentsWith(args ...Argument) Arguments {
 	return list
 }
 
+// NewArgumentStrings returns an argument array instance with the specified string arguments.
+func NewArgumentStrings(strs ...string) Arguments {
+	args := make(Arguments, len(strs))
+	for n, arg := range strs {
+		args[n] = NewArgumentWith(arg)
+	}
+	return args
+}
+
 // IsAsterisk returns true if the argument list is an asterisk.
 func (args Arguments) IsAsterisk() bool {
 	l := len(args)
