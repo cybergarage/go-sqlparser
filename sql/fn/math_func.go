@@ -19,27 +19,30 @@ import (
 )
 
 // NewAbsFunction returns a new abs function.
-func NewAbsFunction() Executor {
-	return NewMathFunctionWith(
+func NewAbsFunction(opts ...ExecutorOption) Executor {
+	ex := NewMathFunctionWith(
 		AbsFunctionName,
 		func(v float64) (any, error) {
 			return math.Abs(v), nil
 		},
+		opts...,
 	)
+	return ex
 }
 
 // NewFloorFunction returns a new floor function.
-func NewFloorFunction() Executor {
+func NewFloorFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		FloorFunctionName,
 		func(v float64) (any, error) {
 			return int(math.Floor(v)), nil
 		},
+		opts...,
 	)
 }
 
 // NewCeilFunction returns a new ceil function.
-func NewCeilFunction() Executor {
+func NewCeilFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		CeilFunctionName,
 		func(v float64) (any, error) {

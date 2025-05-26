@@ -37,16 +37,13 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 	var ex Executor
 	switch {
 	case strings.HasPrefix(upperName, AbsFunctionName):
-		ex = NewAbsFunction()
+		ex = NewAbsFunction(opts...)
 	case strings.HasPrefix(upperName, FloorFunctionName):
-		ex = NewFloorFunction()
+		ex = NewFloorFunction(opts...)
 	case strings.HasPrefix(upperName, CeilFunctionName):
-		ex = NewCeilFunction()
+		ex = NewCeilFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
-	}
-	for _, opt := range opts {
-		opt(ex.(*execImpl))
 	}
 	return ex, nil
 }
