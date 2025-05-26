@@ -104,6 +104,9 @@ func (selectors Selectors) Executors() ([]FunctionExecutor, error) {
 		if !ok {
 			continue
 		}
+		if fn.IsAggregator() {
+			continue
+		}
 		executor, err := fn.Executor()
 		if err != nil {
 			return nil, err
