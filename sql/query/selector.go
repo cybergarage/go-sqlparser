@@ -18,14 +18,14 @@ package query
 type Selector interface {
 	// Name returns the name of the selector.
 	Name() string
-	// String returns the string representation of the selector.
-	String() string
 	// IsFunction returns true whether the column is a function.
 	IsFunction() bool
 	// Function returns the function if the column is a function.
 	Function() (Function, bool)
 	// Arguments returns the executor arguments.
 	Arguments() Arguments
+	// String returns the string representation of the selector.
+	String() string
 	// SelectorHelper provides additional methods for selectors.
 	SelectorHelper
 }
