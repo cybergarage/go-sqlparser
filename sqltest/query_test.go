@@ -24,6 +24,7 @@ import (
 func TestQueries(t *testing.T) {
 	queries := []string{
 		// Add testing queries here
+		"select count(*) from pgbench_branches;",
 	}
 	for _, query := range queries {
 		t.Run(query, func(t *testing.T) {

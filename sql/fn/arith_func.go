@@ -21,15 +21,15 @@ import (
 // NewArithFunctionWith returns a new arithmetic function with the given operator and implementation.
 func NewArithFunctionFor(ope string) (Executor, error) {
 	switch ope {
-	case AddFunctionID:
+	case AddOperatorID:
 		return NewAddFunction(), nil
-	case SubFunctionID:
+	case SubOperatorID:
 		return NewSubFunction(), nil
-	case MulFunctionID:
+	case MulOperatorID:
 		return NewMulFunction(), nil
-	case DivFunctionID:
+	case DivOperatorID:
 		return NewDivFunction(), nil
-	case ModFunctionID:
+	case ModOperatorID:
 		return NewModFunction(), nil
 	default:
 		return nil, fmt.Errorf("unknown arithmetic operator: %s", ope)
@@ -39,7 +39,7 @@ func NewArithFunctionFor(ope string) (Executor, error) {
 // NewAddFunction returns a new add function.
 func NewAddFunction() Executor {
 	return NewArithFunctionWith(
-		AddFunctionID,
+		AddOperatorID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 + v2), nil
 		},
@@ -49,7 +49,7 @@ func NewAddFunction() Executor {
 // NewSubFunction returns a new sub function.
 func NewSubFunction() Executor {
 	return NewArithFunctionWith(
-		SubFunctionID,
+		SubOperatorID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 - v2), nil
 		},
@@ -59,7 +59,7 @@ func NewSubFunction() Executor {
 // NewMulFunction returns a new multiple function.
 func NewMulFunction() Executor {
 	return NewArithFunctionWith(
-		MulFunctionID,
+		MulOperatorID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 * v2), nil
 		},
@@ -69,7 +69,7 @@ func NewMulFunction() Executor {
 // NewDivFunction returns a new division function.
 func NewDivFunction() Executor {
 	return NewArithFunctionWith(
-		DivFunctionID,
+		DivOperatorID,
 		func(v1, v2 float64) (float64, error) {
 			return (v1 / v2), nil
 		},
@@ -79,7 +79,7 @@ func NewDivFunction() Executor {
 // NewModFunction returns a new mod function.
 func NewModFunction() Executor {
 	return NewArithFunctionWith(
-		ModFunctionID,
+		ModOperatorID,
 		func(v1, v2 float64) (float64, error) {
 			return (float64(int(v1) % int(v2))), nil
 		},

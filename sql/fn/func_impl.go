@@ -49,6 +49,10 @@ func NewFunctionWith(opts ...FunctionOption) Function {
 func WithFunctionName(name string) FunctionOption {
 	return func(fn *function) {
 		fn.SetName(name)
+		t, err := NewFunctionTypeForName(name)
+		if err == nil {
+			fn.typ = t
+		}
 	}
 }
 
@@ -144,6 +148,7 @@ func (fn *function) Executor(opts ...ExecutorOption) (Executor, error) {
 		return nil, err
 	}
 	fn.executor = executor
+	fn.typ = executor.Type()
 	return fn.executor, nil
 }
 
@@ -158,6 +163,7 @@ func (fn *function) Aggregator(opts ...AggregatorOption) (Aggregator, error) {
 		return nil, err
 	}
 	fn.aggregator = aggregator
+	fn.typ = AggregateFunction
 	return fn.aggregator, nil
 }
 

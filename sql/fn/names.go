@@ -23,6 +23,8 @@ const (
 	AbsFunctionName   = "ABS"
 	CeilFunctionName  = "CEIL"
 	FloorFunctionName = "FLOOR"
+	RoundFunctionName = "ROUND"
+	SqrtFunctionName  = "SQRT"
 	// Aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
@@ -30,27 +32,29 @@ const (
 	AvgFunctionName   = "AVG"
 	CountFunctionName = "COUNT"
 	// Airthmetic.
-	AddFunctionID = "+"
-	SubFunctionID = "-"
-	MulFunctionID = "*"
-	DivFunctionID = "/"
-	ModFunctionID = "%"
+	AddOperatorID = "+"
+	SubOperatorID = "-"
+	MulOperatorID = "*"
+	DivOperatorID = "/"
+	ModOperatorID = "%"
 )
 
 var registeredFunctionNames = []string{
 	AbsFunctionName,
 	CeilFunctionName,
 	FloorFunctionName,
+	RoundFunctionName,
+	SqrtFunctionName,
 	MaxFunctionName,
 	MinFunctionName,
 	SumFunctionName,
 	AvgFunctionName,
 	CountFunctionName,
-	AddFunctionID,
-	SubFunctionID,
-	MulFunctionID,
-	DivFunctionID,
-	ModFunctionID,
+	AddOperatorID,
+	SubOperatorID,
+	MulOperatorID,
+	DivOperatorID,
+	ModOperatorID,
 }
 
 // RegisteredFunctionNames returns a list of all registered function names.

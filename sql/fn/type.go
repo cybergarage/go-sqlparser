@@ -14,6 +14,8 @@
 
 package fn
 
+import "fmt"
+
 // FunctionType represents a function type.
 type FunctionType int
 
@@ -24,3 +26,17 @@ const (
 	CastFunction
 	ArithFunction
 )
+
+// NewFunctionTypeForName returns a FunctionType based on the function name.
+func NewFunctionTypeForName(name string) (FunctionType, error) {
+	switch name {
+	case AbsFunctionName, FloorFunctionName, CeilFunctionName, RoundFunctionName, SqrtFunctionName:
+		return MathFunction, nil
+	case SumFunctionName, AvgFunctionName, CountFunctionName, MaxFunctionName, MinFunctionName:
+		return AggregateFunction, nil
+	case AddOperatorID, SubOperatorID, MulOperatorID, DivOperatorID, ModOperatorID:
+		return ArithFunction, nil
+	default:
+		return UnknownFunctionType, fmt.Errorf("unknown function type: %s", name)
+	}
+}
