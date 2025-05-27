@@ -14,7 +14,11 @@
 
 package query
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/cybergarage/go-sqlparser/sql/fn"
+)
 
 // DataType represents a data type.
 type DataType uint8
@@ -112,6 +116,8 @@ func NewDataTypeFrom(a any) (DataType, error) {
 		s = v
 	case []byte:
 		s = string(v)
+	case fn.Function:
+		return NewDataTypeForFunction(v)
 	default:
 		return UnknownData, newErrInvalidDataType(a)
 	}
@@ -126,6 +132,25 @@ func NewDataTypeFrom(a any) (DataType, error) {
 		}
 	}
 	return UnknownData, newErrInvalidDataType(a)
+}
+
+// NewDataTypeForFunction creates a data type for the specified function.
+func NewDataTypeForFunction(fx Function) (DataType, error) {
+	if fx == nil {
+		return UnknownData, newErrInvalidDataType(fx)
+	}
+	switch fx.Type() {
+	case fn.MathFunction:
+		return FloatType, nil
+	case fn.AggregateFunction:
+		return FloatType, nil
+	case fn.CastFunction:
+		return FloatType, nil
+	case fn.ArithFunction:
+		return FloatType, nil
+	default:
+		return UnknownData, newErrInvalidDataType(fx)
+	}
 }
 
 // String returns the string representation.
