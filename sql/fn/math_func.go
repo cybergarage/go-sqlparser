@@ -48,5 +48,6 @@ func NewCeilFunction(opts ...ExecutorOption) Executor {
 		func(v float64) (any, error) {
 			return int(math.Ceil(v)), nil
 		},
+		opts...,
 	)
 }
