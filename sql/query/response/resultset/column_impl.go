@@ -121,12 +121,17 @@ func (col *column) Arguments() fn.Arguments {
 	return fn.NewArguments()
 }
 
-// String returns the string representation of the column.
-func (col *column) String() string {
+// DefinitionString returns the definition string representation.
+func (col *column) DefinitionString() string {
 	str := fmt.Sprintf("%s %s", col.name, col.t.String())
 	constStrs := col.c.String()
 	if 0 < len(constStrs) {
 		str += " " + constStrs
 	}
 	return str
+}
+
+// String returns the string representation of the column.
+func (col *column) String() string {
+	return col.name
 }

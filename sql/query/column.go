@@ -55,6 +55,8 @@ type Column interface {
 	Arguments() Arguments
 	// Copy returns a copy of the column.
 	Copy() Column
+	// DefinitionString returns the definition string representation.
+	DefinitionString() string
 	// String returns the string representation.
 	String() string
 	// ColumnHelper provides additional methods for columns in a query.

@@ -44,6 +44,8 @@ type Column interface {
 	Function() (Function, bool)
 	// Arguments returns the executor arguments.
 	Arguments() Arguments
+	// DefinitionString returns the definition string representation.
+	DefinitionString() string
 	// String returns the string representation of the column.
 	String() string
 	// ColumnHelper provides additional methods for columns in a query.
