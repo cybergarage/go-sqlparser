@@ -21,6 +21,8 @@ type GroupBy string
 type Aggregator interface {
 	// Name returns the name of the aggregator.
 	Name() string
+	// Type returns the type of the aggregator.
+	Type() FunctionType
 	// Argmuents returns the arguments of the aggregator.
 	Arguments() []string
 	// GroupBy returns the group by column name and whether it is a group by column.

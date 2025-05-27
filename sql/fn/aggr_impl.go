@@ -123,6 +123,11 @@ func (aggr *aggrImpl) Name() string {
 	return aggr.name
 }
 
+// Type returns the type of the aggregator.
+func (aggrImpl *aggrImpl) Type() FunctionType {
+	return AggregateFunction
+}
+
 // Arguments returns the arguments of the aggregator.
 func (aggr *aggrImpl) Arguments() []string {
 	return aggr.args
