@@ -24,18 +24,18 @@ const (
 	MathFunction
 	AggregateFunction
 	CastFunction
-	ArithFunction
+	ArithOperator
 )
 
 // NewFunctionTypeForName returns a FunctionType based on the function name.
 func NewFunctionTypeForName(name string) (FunctionType, error) {
 	switch name {
-	case AbsFunctionName, FloorFunctionName, CeilFunctionName, RoundFunctionName, SqrtFunctionName, LogFunctionName, Log10FunctionName, ExpFunctionName, PowerFunctionName, SinFunctionName, CosFunctionName, TanFunctionName:
+	case AbsFunctionName, FloorFunctionName, CeilFunctionName, RoundFunctionName, SqrtFunctionName, LogFunctionName, Log10FunctionName, ExpFunctionName, PowerFunctionName, ModFunctionName, SinFunctionName, CosFunctionName, TanFunctionName:
 		return MathFunction, nil
 	case SumFunctionName, AvgFunctionName, CountFunctionName, MaxFunctionName, MinFunctionName:
 		return AggregateFunction, nil
 	case AddOperatorID, SubOperatorID, MulOperatorID, DivOperatorID, ModOperatorID:
-		return ArithFunction, nil
+		return ArithOperator, nil
 	default:
 		return UnknownFunctionType, fmt.Errorf("unknown function type: %s", name)
 	}

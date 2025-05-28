@@ -161,7 +161,26 @@ func NewPowerFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// ExecuteMathFunction executes the specified math function with the given arguments.
+// NewModFunction returns a new mod function.
+func NewModFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		ModFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 2 {
+				return nil, newErrInvalidArguments(ModFunctionName, args)
+			}
+			a := args[0]
+			b := args[1]
+			if b == 0 {
+				return nil, newErrInvalidArguments(ModFunctionName, args)
+			}
+			return math.Mod(a, b), nil
+		},
+		opts...,
+	)
+}
+
+// NewSinFunction returns a new sin function.
 func NewSinFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		SinFunctionName,

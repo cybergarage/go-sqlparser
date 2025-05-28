@@ -54,6 +54,8 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewExpFunction(opts...)
 	case strings.HasPrefix(upperName, PowerFunctionName):
 		ex = NewPowerFunction(opts...)
+	case strings.HasPrefix(upperName, ModFunctionName):
+		ex = NewModFunction(opts...)
 	case strings.HasPrefix(upperName, SinFunctionName):
 		ex = NewSinFunction(opts...)
 	case strings.HasPrefix(upperName, CosFunctionName):

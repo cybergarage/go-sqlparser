@@ -36,6 +36,7 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewSqrtFunction(), []any{float64(16)}, math.Sqrt(float64(16))},
 		{fn.NewExpFunction(), []any{float64(1)}, math.Exp(float64(1))},
 		{fn.NewPowerFunction(), []any{float64(2), float64(3)}, float64(8)},
+		{fn.NewModFunction(), []any{float64(10), float64(3)}, float64(1)},
 		{fn.NewSinFunction(), []any{math.Pi}, math.Sin(math.Pi)},
 		{fn.NewCosFunction(), []any{math.Pi}, math.Cos(math.Pi)},
 		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},

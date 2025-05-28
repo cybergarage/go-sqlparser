@@ -29,6 +29,7 @@ const (
 	Log10FunctionName = "LOG10"
 	ExpFunctionName   = "EXP"
 	PowerFunctionName = "POWER"
+	ModFunctionName   = "MOD"
 	SinFunctionName   = "SIN"
 	CosFunctionName   = "COS"
 	TanFunctionName   = "TAN"
@@ -57,6 +58,7 @@ var registeredFunctionNames = []string{
 	Log10FunctionName,
 	ExpFunctionName,
 	PowerFunctionName,
+	ModFunctionName,
 	SinFunctionName,
 	CosFunctionName,
 	TanFunctionName,
