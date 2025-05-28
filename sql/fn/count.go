@@ -51,7 +51,7 @@ func NewCount(opts ...CountOption) (*Count, error) {
 			},
 		),
 		withAggrFinalizeFunc(
-			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (float64, error) {
+			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (any, error) {
 				return float64(accumulatedCount), nil
 			},
 		),

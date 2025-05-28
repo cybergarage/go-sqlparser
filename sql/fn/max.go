@@ -58,7 +58,10 @@ func NewMax(opts ...MaxOption) (*Max, error) {
 			},
 		),
 		withAggrFinalizeFunc(
-			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (float64, error) {
+			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (any, error) {
+				if accumulatedCount == 0 {
+					return nil, nil
+				}
 				return accumulatedValue, nil
 			},
 		),

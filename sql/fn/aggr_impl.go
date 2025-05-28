@@ -27,7 +27,7 @@ type AggrResetFunc func(aggr *aggrImpl) (float64, error)
 type AggrAggregateFunc func(aggr *aggrImpl, accumulatedValue float64, inputValue float64) (float64, error)
 
 // AggrFinalizeFunc is a function that finalizes the aggregation and returns the result.
-type AggrFinalizeFunc func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (float64, error)
+type AggrFinalizeFunc func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (any, error)
 
 type aggrImpl struct {
 	name        string

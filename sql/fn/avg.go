@@ -51,9 +51,9 @@ func NewAvg(opts ...AvgOption) (*Avg, error) {
 			},
 		),
 		withAggrFinalizeFunc(
-			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (float64, error) {
+			func(aggr *aggrImpl, accumulatedValue float64, accumulatedCount int) (any, error) {
 				if accumulatedCount == 0 {
-					return 0, nil
+					return nil, nil
 				}
 				return accumulatedValue / float64(accumulatedCount), nil
 			},
