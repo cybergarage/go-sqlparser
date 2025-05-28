@@ -66,6 +66,20 @@ func NewSchema(opts ...SchemaOption) Schema {
 	return schema
 }
 
+func NewSchemaFrom(opts ...SchemaOption) (Schema, error) {
+	schema := &schema{
+		databaeName: "",
+		tableName:   "",
+		columns:     []Column{},
+	}
+	for _, opt := range opts {
+		if err := opt(schema); err != nil {
+			return nil, err
+		}
+	}
+	return schema, nil
+}
+
 // DatabaseName returns the database name.
 func (schema *schema) DatabaseName() string {
 	return schema.databaeName

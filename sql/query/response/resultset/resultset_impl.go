@@ -54,26 +54,25 @@ func WithResultSetRows(rows []Row) ResultSetOption {
 
 // NewResultSet returns a new ResultSet.
 func NewResultSet(opts ...ResultSetOption) ResultSet {
-	rs := &resultset{
-		schema:       nil,
-		rows:         []Row{},
-		rowsAffected: 0,
-		rowCursor:    0,
-	}
+	rs := newResultSet()
 	for _, opt := range opts {
 		opt(rs)
 	}
 	return rs
 }
 
-// NewResultSetFrom creates a new ResultSet from the given options.
-func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
-	rs := &resultset{
+func newResultSet() *resultset {
+	return &resultset{
 		schema:       nil,
 		rows:         []Row{},
 		rowsAffected: 0,
 		rowCursor:    0,
 	}
+}
+
+// NewResultSetFrom creates a new ResultSet from the given options.
+func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
+	rs := newResultSet()
 	for _, opt := range opts {
 		if err := opt(rs); err != nil {
 			return nil, err
