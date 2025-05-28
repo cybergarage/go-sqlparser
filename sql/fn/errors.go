@@ -34,10 +34,17 @@ var ErrNotSupported = errors.New("not supported")
 // ErrNotImplemented is returned when the function is not implemented.
 var ErrNotImplemented = errors.New("not implemented")
 
+// ErrNegativeValue is returned when the value is negative.
+var ErrNegativeValue = errors.New("negative value")
+
 func newErrInvalidArguments(name string, args ...any) error {
 	return fmt.Errorf("%w arguments %s(%v)", ErrInvalid, name, args)
 }
 
 func newErrNotSupportedFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
+}
+
+func newErrNegativeValue(v any) error {
+	return fmt.Errorf("%w: %v", ErrNegativeValue, v)
 }

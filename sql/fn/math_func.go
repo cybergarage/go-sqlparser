@@ -51,3 +51,80 @@ func NewCeilFunction(opts ...ExecutorOption) Executor {
 		opts...,
 	)
 }
+
+func NewRoundFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		RoundFunctionName,
+		func(v float64) (any, error) {
+			return int(math.Round(v)), nil
+		},
+		opts...,
+	)
+}
+
+// NewSqrtFunction returns a new sqrt function.
+func NewSqrtFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		SqrtFunctionName,
+		func(v float64) (any, error) {
+			if v < 0 {
+				return nil, newErrNegativeValue(v)
+			}
+			return math.Sqrt(v), nil
+		},
+		opts...,
+	)
+}
+
+// NewLogFunction returns a new log function.
+func NewLogFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		LogFunctionName,
+		func(v float64) (any, error) {
+			if v <= 0 {
+				return nil, newErrNegativeValue(v)
+			}
+			return math.Log(v), nil
+		},
+		opts...,
+	)
+}
+
+// NewLog10Function returns a new log10 function.
+func NewLog10Function(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		Log10FunctionName,
+		func(v float64) (any, error) {
+			if v <= 0 {
+				return nil, newErrNegativeValue(v)
+			}
+			return math.Log10(v), nil
+		},
+		opts...,
+	)
+}
+
+// NewExpFunction returns a new exp function.
+func NewExpFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		ExpFunctionName,
+		func(v float64) (any, error) {
+			return math.Exp(v), nil
+		},
+		opts...,
+	)
+}
+
+// NewPowerFunction returns a new power function.
+// func NewPowerFunction(opts ...ExecutorOption) Executor {
+// 	return NewMathFunctionWith(
+// 		PowerFunctionName,
+// 		func(v float64, p float64) (any, error) {
+// 			if v < 0 && p != math.Trunc(p) {
+// 				return nil, ErrNegativePower
+// 			}
+// 			return math.Pow(v, p), nil
+// 		},
+// 		opts...,
+// 	)
+// }

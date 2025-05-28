@@ -25,6 +25,10 @@ const (
 	FloorFunctionName = "FLOOR"
 	RoundFunctionName = "ROUND"
 	SqrtFunctionName  = "SQRT"
+	LogFunctionName   = "LOG"
+	Log10FunctionName = "LOG10"
+	ExpFunctionName   = "EXP"
+	PowerFunctionName = "POWER"
 	// Aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
