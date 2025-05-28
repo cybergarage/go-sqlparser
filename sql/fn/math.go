@@ -45,9 +45,6 @@ func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) E
 
 // execute returns the executed value with the specified arguments.
 func (fn *mathFunction) execute(args ...any) (any, error) {
-	if len(args) != 1 {
-		return nil, newErrInvalidArguments(fn.name, args)
-	}
 	fargs := make([]float64, 0, len(args))
 	for _, arg := range args {
 		var fv float64
