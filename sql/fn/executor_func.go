@@ -42,6 +42,18 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewFloorFunction(opts...)
 	case strings.HasPrefix(upperName, CeilFunctionName):
 		ex = NewCeilFunction(opts...)
+	case strings.HasPrefix(upperName, RoundFunctionName):
+		ex = NewRoundFunction(opts...)
+	case strings.HasPrefix(upperName, SqrtFunctionName):
+		ex = NewSqrtFunction(opts...)
+	case strings.HasPrefix(upperName, LogFunctionName):
+		ex = NewLogFunction(opts...)
+	case strings.HasPrefix(upperName, Log10FunctionName):
+		ex = NewLog10Function(opts...)
+	case strings.HasPrefix(upperName, ExpFunctionName):
+		ex = NewExpFunction(opts...)
+	case strings.HasPrefix(upperName, PowerFunctionName):
+		ex = NewPowerFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}

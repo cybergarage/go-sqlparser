@@ -141,3 +141,22 @@ func NewExpFunction(opts ...ExecutorOption) Executor {
 		opts...,
 	)
 }
+
+// NewPowerFunction returns a new power function.
+func NewPowerFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		PowerFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 2 {
+				return nil, newErrInvalidArguments(PowerFunctionName, args)
+			}
+			base := args[0]
+			exp := args[1]
+			if base < 0 && exp != float64(int(exp)) {
+				return nil, newErrNegativeValue(args)
+			}
+			return math.Pow(base, exp), nil
+		},
+		opts...,
+	)
+}

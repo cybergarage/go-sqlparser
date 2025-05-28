@@ -34,6 +34,7 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewLog10Function(), []any{float64(100)}, float64(2)},
 		{fn.NewSqrtFunction(), []any{float64(16)}, float64(4)},
 		{fn.NewExpFunction(), []any{float64(1)}, float64(2.718281828459045)},
+		{fn.NewPowerFunction(), []any{float64(2), float64(3)}, float64(8)},
 	}
 
 	for _, test := range tests {
