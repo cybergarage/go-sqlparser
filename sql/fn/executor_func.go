@@ -66,6 +66,10 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewRandFunction(opts...)
 	case strings.HasPrefix(upperName, PiFunctionName):
 		ex = NewPiFunction(opts...)
+	case strings.HasPrefix(upperName, CurrentTimestampFunctionName):
+		ex = NewCurrentTimestampFunction(opts...)
+	case strings.HasPrefix(upperName, NowFunctionName):
+		ex = NewNowFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}

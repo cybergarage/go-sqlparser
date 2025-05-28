@@ -35,6 +35,9 @@ const (
 	TanFunctionName   = "TAN"
 	RandFunctionName  = "RAND"
 	PiFunctionName    = "PI"
+	// Time.
+	CurrentTimestampFunctionName = "CURRENT_TIMESTAMP"
+	NowFunctionName              = "NOW"
 	// Aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
@@ -66,6 +69,9 @@ var registeredFunctionNames = []string{
 	TanFunctionName,
 	RandFunctionName,
 	PiFunctionName,
+	// Time.
+	CurrentTimestampFunctionName,
+	NowFunctionName,
 	// Aggregate.
 	MaxFunctionName,
 	MinFunctionName,

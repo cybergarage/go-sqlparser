@@ -14,27 +14,20 @@
 
 package fn
 
-import (
-	"github.com/cybergarage/go-safecast/safecast"
-)
+import "github.com/cybergarage/go-safecast/safecast"
 
-// MathFunc represents an math function.
-type MathFunc func([]float64) (any, error)
+type TimeFunc func([]string) (any, error)
 
-// MathResultSet represents a result set of an math function.
-type MathResultSet map[any]float64
-
-// mathFunction represents a base math function.
-type mathFunction struct {
+type timeFunction struct {
 	*execImpl
-	executor MathFunc
+	executor TimeFunc
 }
 
-// NewMathFunctionWith returns a new base math function with the specified name and math.
-func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) Executor {
-	fn := &mathFunction{
-		execImpl: newExecWith(name, MathFunction),
-		executor: mathFn,
+// NewTimeFunctionWith returns a new time function with the specified name and executor.
+func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeFunction {
+	fn := &timeFunction{
+		execImpl: newExecWith(name, TimeFunction),
+		executor: t,
 	}
 	fn.execImpl.fn = fn.execute
 	for _, opt := range opts {
@@ -44,15 +37,15 @@ func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) E
 }
 
 // execute returns the executed value with the specified arguments.
-func (fn *mathFunction) execute(args ...any) (any, error) {
-	fargs := make([]float64, 0, len(args))
+func (fn *timeFunction) execute(args ...any) (any, error) {
+	fargs := make([]string, 0, len(args))
 	for _, arg := range args {
-		var fv float64
-		err := safecast.ToFloat64(arg, &fv)
+		var str string
+		err := safecast.ToString(arg, &str)
 		if err != nil {
 			return nil, newErrInvalidArguments(fn.name, args...)
 		}
-		fargs = append(fargs, fv)
+		fargs = append(fargs, str)
 	}
 	return fn.executor(fargs)
 }

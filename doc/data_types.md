@@ -1,5 +1,7 @@
 # Data Types
 
+`go-sqlparser` supports a variety of data types that can be used in SQL queries. Below is a list of the supported data types along with their descriptions.
+
 <table style="width:100%;">
 <colgroup>
 <col style="width: 16%" />

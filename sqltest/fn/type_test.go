@@ -29,7 +29,7 @@ func TestRegisteredFunctionTypes(t *testing.T) {
 				t.Errorf("Failed to create function type for %s: %v", name, err)
 			}
 			switch ft {
-			case fn.MathFunction:
+			case fn.MathFunction, fn.TimeFunction:
 				_, err := fn.NewExecutorForName(name)
 				if err != nil {
 					t.Errorf("Failed to create executor for math function %s: %v", name, err)

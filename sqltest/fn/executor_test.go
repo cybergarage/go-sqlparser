@@ -42,6 +42,8 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},
 		{fn.NewRandFunction(), nil, nil}, // Random function does not have a fixed result
 		{fn.NewPiFunction(), nil, math.Pi},
+		{fn.NewCurrentTimestampFunction(), nil, nil}, // Current timestamp does not have a fixed result
+		{fn.NewNowFunction(), nil, nil},              // Now function does not have a fixed result
 	}
 
 	for _, test := range tests {

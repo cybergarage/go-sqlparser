@@ -347,9 +347,49 @@
 <td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"><p>Numeric Functions</p></td>
+<td style="text-align: left;"><p>RAND</p></td>
+<td style="text-align: left;"><p>O</p></td>
+<td style="text-align: left;"><p>No direct standard</p></td>
+<td style="text-align: left;"><p>DBMS_RANDOM.VALUE</p></td>
+<td style="text-align: left;"><p>RAND() / RAND(seed)</p></td>
+<td style="text-align: left;"><p>RANDOM()</p></td>
+<td style="text-align: left;"><p>RAND() / NEWID()</p></td>
+<td style="text-align: left;"><p>Generates a pseudo-random number. Seed functionality varies. NEWID() in SQL Server generates a GUID which can be used for random-like distribution.</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><p>Numeric Functions</p></td>
+<td style="text-align: left;"><p>PI</p></td>
+<td style="text-align: left;"><p>O</p></td>
+<td style="text-align: left;"><p>No direct standard</p></td>
+<td style="text-align: left;"><p>ACOS(-1)</p></td>
+<td style="text-align: left;"><p>PI()</p></td>
+<td style="text-align: left;"><p>PI()</p></td>
+<td style="text-align: left;"><p>PI()</p></td>
+<td style="text-align: left;"><p>Returns the value of PI.</p></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>Date/Time Functions</p></td>
 <td style="text-align: left;"><p>CURRENT_DATE</p></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
 <td style="text-align: left;"><p>CURRENT_DATE</p></td>
 <td style="text-align: left;"><p>SYSDATE (date + time)</p></td>
 <td style="text-align: left;"><p>CURDATE()</p></td>
@@ -389,7 +429,7 @@
 <tr>
 <td style="text-align: left;"><p>Date/Time Functions</p></td>
 <td style="text-align: left;"><p>CURRENT_TIMESTAMP</p></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><p>O</p></td>
 <td style="text-align: left;"><p>CURRENT_TIMESTAMP</p></td>
 <td style="text-align: left;"><p>SYSTIMESTAMP / LOCALTIMESTAMP</p></td>
 <td style="text-align: left;"><p>NOW() / CURRENT_TIMESTAMP</p></td>
@@ -408,6 +448,15 @@
 </tr>
 <tr>
 <td style="text-align: left;"><p>Date/Time Functions</p></td>
+<td style="text-align: left;"><p>NOW</p></td>
+<td style="text-align: left;"><p>O</p></td>
+<td style="text-align: left;"><p>No direct standard</p></td>
+<td style="text-align: left;"><p>SYSTIMESTAMP / LOCALTIMESTAMP (similar)</p></td>
+<td style="text-align: left;"><p>NOW()</p></td>
+<td style="text-align: left;"><p>NOW()</p></td>
+<td style="text-align: left;"><p>GETDATE() / SYSDATETIME() (similar)</p></td>
+<td style="text-align: left;"><p>Returns current date and time. Often a synonym for CURRENT_TIMESTAMP in some dialects.</p></td>
+<td style="text-align: left;"><p>Date/Time Functions</p></td>
 <td style="text-align: left;"><p>EXTRACT</p></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><p>EXTRACT(part FROM datetime)</p></td>
@@ -416,6 +465,8 @@
 <td style="text-align: left;"><p>MONTH()</p></td>
 <td style="text-align: left;"><p>DAY()</p></td>
 <td style="text-align: left;"><p>etc.</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>EXTRACT(part FROM datetime)</p></td>
 <td style="text-align: left;"><p>DATEPART(part</p></td>
 <td style="text-align: left;"><p>date) / YEAR()</p></td>
@@ -425,8 +476,6 @@
 <td style="text-align: left;"><p>Used to extract parts like year</p></td>
 <td style="text-align: left;"><p>month</p></td>
 <td style="text-align: left;"><p>day.</p></td>
-</tr>
-<tr>
 <td style="text-align: left;"><p>Date/Time Functions</p></td>
 <td style="text-align: left;"><p>DATE_ADD / INTERVAL</p></td>
 <td style="text-align: left;"></td>
@@ -436,6 +485,8 @@
 <td style="text-align: left;"><p>INTERVAL value unit)</p></td>
 <td style="text-align: left;"><p>date + INTERVAL value unit</p></td>
 <td style="text-align: left;"><p>DATEADD(unit</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>value</p></td>
 <td style="text-align: left;"><p>date)</p></td>
 <td style="text-align: left;"><p>Adds/subtracts time intervals.</p></td>
@@ -445,8 +496,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-</tr>
-<tr>
 <td style="text-align: left;"><p>Date/Time Functions</p></td>
 <td style="text-align: left;"><p>DATE_DIFF</p></td>
 <td style="text-align: left;"></td>
@@ -456,6 +505,8 @@
 <td style="text-align: left;"><p>expr2)</p></td>
 <td style="text-align: left;"><p>AGE(timestamp1</p></td>
 <td style="text-align: left;"><p>timestamp2)</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>DATEDIFF(unit</p></td>
 <td style="text-align: left;"><p>startdate</p></td>
 <td style="text-align: left;"><p>enddate)</p></td>
@@ -465,8 +516,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-</tr>
-<tr>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>COUNT</p></td>
 <td style="text-align: left;"><p>O</p></td>
@@ -476,17 +525,17 @@
 <td style="text-align: left;"><p>COUNT(*) / COUNT(column)</p></td>
 <td style="text-align: left;"><p>COUNT(*) / COUNT(column)</p></td>
 <td style="text-align: left;"><p>Counts rows or non-NULL values.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>SUM</p></td>
 <td style="text-align: left;"><p>O</p></td>
@@ -496,17 +545,17 @@
 <td style="text-align: left;"><p>SUM(column)</p></td>
 <td style="text-align: left;"><p>SUM(column)</p></td>
 <td style="text-align: left;"><p>Calculates sum of values.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>AVG</p></td>
 <td style="text-align: left;"><p>O</p></td>
@@ -516,17 +565,17 @@
 <td style="text-align: left;"><p>AVG(column)</p></td>
 <td style="text-align: left;"><p>AVG(column)</p></td>
 <td style="text-align: left;"><p>Calculates average of values.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>MIN</p></td>
 <td style="text-align: left;"><p>O</p></td>
@@ -536,17 +585,17 @@
 <td style="text-align: left;"><p>MIN(column)</p></td>
 <td style="text-align: left;"><p>MIN(column)</p></td>
 <td style="text-align: left;"><p>Finds minimum value.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>MAX</p></td>
 <td style="text-align: left;"><p>O</p></td>
@@ -556,17 +605,17 @@
 <td style="text-align: left;"><p>MAX(column)</p></td>
 <td style="text-align: left;"><p>MAX(column)</p></td>
 <td style="text-align: left;"><p>Finds maximum value.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Aggregate Functions</p></td>
 <td style="text-align: left;"><p>GROUP_CONCAT</p></td>
 <td style="text-align: left;"></td>
@@ -576,6 +625,8 @@
 <td style="text-align: left;"><p>STRING_AGG(expression</p></td>
 <td style="text-align: left;"><p>delimiter)</p></td>
 <td style="text-align: left;"><p>STRING_AGG(expression</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>delimiter) (SQL Server 2017+)</p></td>
 <td style="text-align: left;"><p>Concatenates strings within a group.</p></td>
 <td style="text-align: left;"></td>
@@ -585,8 +636,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-</tr>
-<tr>
 <td style="text-align: left;"><p>Conditional Expressions</p></td>
 <td style="text-align: left;"><p>CASE</p></td>
 <td style="text-align: left;"></td>
@@ -596,17 +645,17 @@
 <td style="text-align: left;"><p>CASE WHEN condition THEN result [ELSE result] END</p></td>
 <td style="text-align: left;"><p>CASE WHEN condition THEN result [ELSE result] END</p></td>
 <td style="text-align: left;"><p>Standard conditional logic.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Type Conversion</p></td>
 <td style="text-align: left;"><p>CAST</p></td>
 <td style="text-align: left;"></td>
@@ -616,6 +665,8 @@
 <td style="text-align: left;"><p>TO_NUMBER</p></td>
 <td style="text-align: left;"><p>CAST(expression AS type) / CONVERT</p></td>
 <td style="text-align: left;"><p>CAST(expression AS type) / to_char</p></td>
+</tr>
+<tr>
 <td style="text-align: left;"><p>to_date</p></td>
 <td style="text-align: left;"><p>to_number</p></td>
 <td style="text-align: left;"><p>CAST(expression AS type) / CONVERT(type</p></td>
@@ -625,8 +676,6 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
-</tr>
-<tr>
 <td style="text-align: left;"><p>Ranking Functions</p></td>
 <td style="text-align: left;"><p>ROW_NUMBER</p></td>
 <td style="text-align: left;"></td>
@@ -636,17 +685,17 @@
 <td style="text-align: left;"><p>ROW_NUMBER() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>ROW_NUMBER() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>Assigns a unique row number within a partition.</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Ranking Functions</p></td>
 <td style="text-align: left;"><p>RANK</p></td>
 <td style="text-align: left;"></td>
@@ -656,17 +705,17 @@
 <td style="text-align: left;"><p>RANK() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>RANK() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>Assigns a rank within a partition (with gaps for ties).</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Ranking Functions</p></td>
 <td style="text-align: left;"><p>DENSE_RANK</p></td>
 <td style="text-align: left;"></td>
@@ -676,17 +725,17 @@
 <td style="text-align: left;"><p>DENSE_RANK() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>DENSE_RANK() OVER (PARTITION BY …​ ORDER BY …​)</p></td>
 <td style="text-align: left;"><p>Assigns a rank within a partition (without gaps for ties).</p></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 </tr>
 <tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"><p>Window Functions</p></td>
 <td style="text-align: left;"><p>LEAD / LAG</p></td>
 <td style="text-align: left;"></td>
@@ -696,15 +745,6 @@
 <td style="text-align: left;"><p>LEAD(column</p></td>
 <td style="text-align: left;"><p>offset</p></td>
 <td style="text-align: left;"><p>default) OVER (…​)</p></td>
-<td style="text-align: left;"><p>No direct equivalent (can be simulated)</p></td>
-<td style="text-align: left;"><p>LEAD(column</p></td>
-<td style="text-align: left;"><p>offset</p></td>
-<td style="text-align: left;"><p>default) OVER (…​)</p></td>
-<td style="text-align: left;"><p>LEAD(column</p></td>
-<td style="text-align: left;"><p>offset</p></td>
-<td style="text-align: left;"><p>default) OVER (…​)</p></td>
-<td style="text-align: left;"><p>Accesses a row at a given physical offset after/before the current row.</p></td>
-<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
