@@ -53,31 +53,32 @@ func WithSchemaColumns(columns []Column) SchemaOption {
 	}
 }
 
-// NewSchema returns a new resultsetSchema.
+// NewSchema returns a new Schema with the specified options.
 func NewSchema(opts ...SchemaOption) Schema {
-	schema := &schema{
-		databaeName: "",
-		tableName:   "",
-		columns:     []Column{},
-	}
+	schema := newSchema()
 	for _, opt := range opts {
 		opt(schema)
 	}
 	return schema
 }
 
+// NewSchemaFrom returns a new Schema from the specified options.
 func NewSchemaFrom(opts ...SchemaOption) (Schema, error) {
-	schema := &schema{
-		databaeName: "",
-		tableName:   "",
-		columns:     []Column{},
-	}
+	schema := newSchema()
 	for _, opt := range opts {
 		if err := opt(schema); err != nil {
 			return nil, err
 		}
 	}
 	return schema, nil
+}
+
+func newSchema() *schema {
+	return &schema{
+		databaeName: "",
+		tableName:   "",
+		columns:     []Column{},
+	}
 }
 
 // DatabaseName returns the database name.
