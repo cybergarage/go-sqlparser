@@ -237,3 +237,17 @@ func NewRandFunction(opts ...ExecutorOption) Executor {
 		opts...,
 	)
 }
+
+// NewPiFunction returns a new pi function that returns the value of π (pi).
+func NewPiFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		PiFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 0 {
+				return nil, newErrInvalidArguments(PiFunctionName, args)
+			}
+			return math.Pi, nil
+		},
+		opts...,
+	)
+}

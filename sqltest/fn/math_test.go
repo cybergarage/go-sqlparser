@@ -41,6 +41,7 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewCosFunction(), []any{math.Pi}, math.Cos(math.Pi)},
 		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},
 		{fn.NewRandFunction(), nil, nil}, // Random function does not have a fixed result
+		{fn.NewPiFunction(), nil, math.Pi},
 	}
 
 	for _, test := range tests {

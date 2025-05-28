@@ -64,6 +64,8 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewTanFunction(opts...)
 	case strings.HasPrefix(upperName, RandFunctionName):
 		ex = NewRandFunction(opts...)
+	case strings.HasPrefix(upperName, PiFunctionName):
+		ex = NewPiFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}
