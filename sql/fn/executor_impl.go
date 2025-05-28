@@ -78,7 +78,7 @@ func (ex *execImpl) Arguments() []string {
 	return ex.args
 }
 
-func (ex *execImpl) ExecuteArgs(args ...any) (any, error) {
+func (ex *execImpl) ExecuteArgs(args []any) (any, error) {
 	return ex.fn(args...)
 }
 
@@ -91,7 +91,7 @@ func (ex *execImpl) ExecuteMap(m map[string]any) (any, error) {
 		}
 		row = append(row, value)
 	}
-	return ex.ExecuteArgs(row...)
+	return ex.ExecuteArgs(row)
 }
 
 // Execute executes the function with the provided value.
@@ -106,6 +106,6 @@ func (ex *execImpl) Execute(v any) (any, error) {
 	case Map:
 		return ex.ExecuteMap(v)
 	default:
-		return ex.ExecuteArgs(v)
+		return ex.fn(v)
 	}
 }
