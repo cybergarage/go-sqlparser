@@ -85,11 +85,11 @@ func (ex *execImpl) ExecuteArgs(args []any) (any, error) {
 func (ex *execImpl) ExecuteMap(m map[string]any) (any, error) {
 	row := make([]any, 0, len(ex.args))
 	for _, arg := range ex.args {
-		value, ok := m[arg]
+		v, ok := m[arg]
 		if !ok {
-			return nil, fmt.Errorf("%w column %s not found in map", ErrNotFound, arg)
+			v = arg
 		}
-		row = append(row, value)
+		row = append(row, v)
 	}
 	return ex.ExecuteArgs(row)
 }
