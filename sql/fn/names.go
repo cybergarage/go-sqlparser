@@ -35,6 +35,10 @@ const (
 	TanFunctionName   = "TAN"
 	RandFunctionName  = "RAND"
 	PiFunctionName    = "PI"
+	// String.
+	UpperFunctionName = "UPPER"
+	LowerFunctionName = "LOWER"
+	TrimFunctionName  = "TRIM"
 	// Time.
 	CurrentTimestampFunctionName = "CURRENT_TIMESTAMP"
 	NowFunctionName              = "NOW"
@@ -69,6 +73,10 @@ var registeredFunctionNames = []string{
 	TanFunctionName,
 	RandFunctionName,
 	PiFunctionName,
+	// String.
+	UpperFunctionName,
+	LowerFunctionName,
+	TrimFunctionName,
 	// Time.
 	CurrentTimestampFunctionName,
 	NowFunctionName,

@@ -18,17 +18,17 @@ import (
 	"github.com/cybergarage/go-safecast/safecast"
 )
 
-type TimeFunc func([]string) (any, error)
+type StringFunc func([]string) (any, error)
 
-type timeFunction struct {
+type stringFunction struct {
 	*execImpl
-	executor TimeFunc
+	executor StringFunc
 }
 
-// NewTimeFunctionWith returns a new time function with the specified name and executor.
-func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeFunction {
-	fn := &timeFunction{
-		execImpl: newExecWith(name, TimeFunction),
+// NewStringFunctionWith returns a new string function with the specified name and executor.
+func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *stringFunction {
+	fn := &stringFunction{
+		execImpl: newExecWith(name, StringFunction),
 		executor: t,
 	}
 	fn.execImpl.fn = fn.execute
@@ -39,7 +39,7 @@ func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeF
 }
 
 // execute returns the executed value with the specified arguments.
-func (fn *timeFunction) execute(args ...any) (any, error) {
+func (fn *stringFunction) execute(args ...any) (any, error) {
 	fargs := make([]string, 0, len(args))
 	for _, arg := range args {
 		var str string

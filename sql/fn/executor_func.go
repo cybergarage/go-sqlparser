@@ -70,6 +70,12 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewCurrentTimestampFunction(opts...)
 	case strings.HasPrefix(upperName, NowFunctionName):
 		ex = NewNowFunction(opts...)
+	case strings.HasPrefix(upperName, UpperFunctionName):
+		ex = NewUpperFunction(opts...)
+	case strings.HasPrefix(upperName, LowerFunctionName):
+		ex = NewLowerFunction(opts...)
+	case strings.HasPrefix(upperName, TrimFunctionName):
+		ex = NewTrimFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}

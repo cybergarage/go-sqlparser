@@ -26,6 +26,7 @@ const (
 	CastFunction
 	ArithOperator
 	TimeFunction
+	StringFunction
 )
 
 // NewFunctionTypeForName returns a FunctionType based on the function name.
@@ -39,6 +40,8 @@ func NewFunctionTypeForName(name string) (FunctionType, error) {
 		return ArithOperator, nil
 	case CurrentTimestampFunctionName, NowFunctionName:
 		return TimeFunction, nil
+	case UpperFunctionName, LowerFunctionName, TrimFunctionName:
+		return StringFunction, nil
 	default:
 		return UnknownFunctionType, fmt.Errorf("unknown function type: %s", name)
 	}

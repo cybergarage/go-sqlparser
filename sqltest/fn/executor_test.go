@@ -21,7 +21,7 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
-func TestMathExecutors(t *testing.T) {
+func TestExecutors(t *testing.T) {
 	tests := []struct {
 		fn     fn.Executor
 		arg    []any
@@ -44,19 +44,24 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewPiFunction(), nil, math.Pi},
 		{fn.NewCurrentTimestampFunction(), nil, nil}, // Current timestamp does not have a fixed result
 		{fn.NewNowFunction(), nil, nil},              // Now function does not have a fixed result
+		{fn.NewUpperFunction(), []any{"hello"}, "HELLO"},
+		{fn.NewLowerFunction(), []any{"HELLO"}, "hello"},
+		{fn.NewTrimFunction(), []any{"  hello  "}, "hello"},
 	}
 
 	for _, test := range tests {
-		r, err := test.fn.Execute(test.arg)
-		if err != nil {
-			t.Error(err)
-			return
-		}
-		if test.result == nil {
-			continue // Skip comparison for random function
-		}
-		if r != test.result {
-			t.Errorf("The %s value (%v) is not (%v)", test.fn.Name(), r, test.result)
-		}
+		t.Run(test.fn.Name(), func(t *testing.T) {
+			r, err := test.fn.Execute(test.arg)
+			if err != nil {
+				t.Error(err)
+				return
+			}
+			if test.result == nil {
+				return // Skip comparison for random function
+			}
+			if r != test.result {
+				t.Errorf("The %s value (%v) is not (%v)", test.fn.Name(), r, test.result)
+			}
+		})
 	}
 }
