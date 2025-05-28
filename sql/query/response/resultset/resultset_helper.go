@@ -14,8 +14,28 @@
 
 package resultset
 
-func WithResultSetRowsOf(rows []Row) ResultSetOption {
+import (
+	"fmt"
+)
+
+// WithResultSetRowsOf returns a resultset option to set the rows from a given value.
+func WithResultSetRowsOf(v any) ResultSetOption {
 	return func(r *resultset) error {
+		var rows []Row
+		switch v := v.(type) {
+		case []Row:
+			rows = v
+		case []map[string]any:
+			rows = make([]Row, len(v))
+			for i, row := range v {
+				rows[i] = NewRow(
+					WithRowObject(row),
+					WithRowSchema(r.schema),
+				)
+			}
+		default:
+			return fmt.Errorf("unsupported type for rows: %T", v)
+		}
 		r.rows = rows
 		return nil
 	}
