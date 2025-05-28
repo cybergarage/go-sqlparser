@@ -43,7 +43,11 @@ func TestRegisteredFunctionTypes(t *testing.T) {
 					t.Errorf("Failed to create aggregator for function %s: %v", name, err)
 				}
 			case fn.ArithOperator:
-				_, err := fn.NewArithOperatorFor(name)
+				_, err := fn.NewExecutorForName(name)
+				if err != nil {
+					t.Errorf("Failed to create executor for math function %s: %v", name, err)
+				}
+				_, err = fn.NewArithOperatorFor(name)
 				if err != nil {
 					t.Errorf("Failed to create arith operator for function %s: %v", name, err)
 				}
