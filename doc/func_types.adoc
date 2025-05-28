@@ -1,0 +1,8 @@
+= Function Types
+
+`go-sqparser` supports a variety of function types that can be used in SQL queries in the `fn` package. Below is a list of the supported function types along with their descriptions.
+
+[format="csv", options="header, autowidth"]
+|====
+include::csv/func_types.csv[]
+|====

@@ -1,5 +1,7 @@
 = Data Types
 
+`go-sqlparser` supports a variety of data types that can be used in SQL queries. Below is a list of the supported data types along with their descriptions.
+
 [format="csv", options="header, autowidth"]
 |====
 include::csv/data_types.csv[]

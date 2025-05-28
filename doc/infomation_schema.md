@@ -105,12 +105,12 @@
 </tbody>
 </table>
 
--   [Information Schema - PostgreSQL](https://www.postgresql.org/docs/current/information-schema.html)
+- [Information Schema - PostgreSQL](https://www.postgresql.org/docs/current/information-schema.html)
 
--   [The INFORMATION\_SCHEMA TABLES Table - MySQL](https://dev.mysql.com/doc/refman/8.0/en/information-schema.html)
+- [The INFORMATION\_SCHEMA TABLES Table - MySQL](https://dev.mysql.com/doc/refman/8.0/en/information-schema.html)
 
--   [Information Schema TABLES Table - MariaDB Knowledge Base](https://mariadb.com/kb/en/information-schema-tables-table/)
+- [Information Schema TABLES Table - MariaDB Knowledge Base](https://mariadb.com/kb/en/information-schema-tables-table/)
 
--   [System Information Schema Views (Transact-SQL) - SQL Server | Microsoft Learn](https://learn.microsoft.com/en-us/sql/relational-databases/system-information-schema-views/system-information-schema-views-transact-sql?view=sql-server-ver16)
+- [System Information Schema Views (Transact-SQL) - SQL Server | Microsoft Learn](https://learn.microsoft.com/en-us/sql/relational-databases/system-information-schema-views/system-information-schema-views-transact-sql?view=sql-server-ver16)
 
--   [Introduction to INFORMATION\_SCHEMA | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/information-schema-intro)
+- [Introduction to INFORMATION\_SCHEMA | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/information-schema-intro)
