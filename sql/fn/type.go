@@ -30,7 +30,7 @@ const (
 // NewFunctionTypeForName returns a FunctionType based on the function name.
 func NewFunctionTypeForName(name string) (FunctionType, error) {
 	switch name {
-	case AbsFunctionName, FloorFunctionName, CeilFunctionName, RoundFunctionName, SqrtFunctionName, LogFunctionName, Log10FunctionName, ExpFunctionName:
+	case AbsFunctionName, FloorFunctionName, CeilFunctionName, RoundFunctionName, SqrtFunctionName, LogFunctionName, Log10FunctionName, ExpFunctionName, PowerFunctionName, SinFunctionName, CosFunctionName, TanFunctionName:
 		return MathFunction, nil
 	case SumFunctionName, AvgFunctionName, CountFunctionName, MaxFunctionName, MinFunctionName:
 		return AggregateFunction, nil

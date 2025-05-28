@@ -23,17 +23,17 @@ import (
 func TestMathExecutors(t *testing.T) {
 	tests := []struct {
 		fn     fn.Executor
-		arg    any
+		arg    []any
 		result any
 	}{
-		{fn.NewAbsFunction(), float64(-1), float64(1)},
-		{fn.NewFloorFunction(), float64(5.95), int(5)},
-		{fn.NewCeilFunction(), float64(5.95), int(6)},
-		{fn.NewRoundFunction(), float64(5.95), int(6)},
-		{fn.NewLogFunction(), float64(100), float64(4.605170185988092)},
-		{fn.NewLog10Function(), float64(100), float64(2)},
-		{fn.NewSqrtFunction(), float64(16), float64(4)},
-		{fn.NewExpFunction(), float64(1), float64(2.718281828459045)},
+		{fn.NewAbsFunction(), []any{float64(-1)}, float64(1)},
+		{fn.NewFloorFunction(), []any{float64(5.95)}, int(5)},
+		{fn.NewCeilFunction(), []any{float64(5.95)}, int(6)},
+		{fn.NewRoundFunction(), []any{float64(5.95)}, int(6)},
+		{fn.NewLogFunction(), []any{float64(100)}, float64(4.605170185988092)},
+		{fn.NewLog10Function(), []any{float64(100)}, float64(2)},
+		{fn.NewSqrtFunction(), []any{float64(16)}, float64(4)},
+		{fn.NewExpFunction(), []any{float64(1)}, float64(2.718281828459045)},
 	}
 
 	for _, test := range tests {

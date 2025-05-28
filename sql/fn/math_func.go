@@ -22,8 +22,11 @@ import (
 func NewAbsFunction(opts ...ExecutorOption) Executor {
 	ex := NewMathFunctionWith(
 		AbsFunctionName,
-		func(v float64) (any, error) {
-			return math.Abs(v), nil
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(AbsFunctionName, args)
+			}
+			return math.Abs(args[0]), nil
 		},
 		opts...,
 	)
@@ -34,8 +37,11 @@ func NewAbsFunction(opts ...ExecutorOption) Executor {
 func NewFloorFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		FloorFunctionName,
-		func(v float64) (any, error) {
-			return int(math.Floor(v)), nil
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(FloorFunctionName, args)
+			}
+			return int(math.Floor(args[0])), nil
 		},
 		opts...,
 	)
@@ -45,8 +51,11 @@ func NewFloorFunction(opts ...ExecutorOption) Executor {
 func NewCeilFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		CeilFunctionName,
-		func(v float64) (any, error) {
-			return int(math.Ceil(v)), nil
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(CeilFunctionName, args)
+			}
+			return int(math.Ceil(args[0])), nil
 		},
 		opts...,
 	)
@@ -55,8 +64,11 @@ func NewCeilFunction(opts ...ExecutorOption) Executor {
 func NewRoundFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		RoundFunctionName,
-		func(v float64) (any, error) {
-			return int(math.Round(v)), nil
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(RoundFunctionName, args)
+			}
+			return int(math.Round(args[0])), nil
 		},
 		opts...,
 	)
@@ -66,9 +78,13 @@ func NewRoundFunction(opts ...ExecutorOption) Executor {
 func NewSqrtFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		SqrtFunctionName,
-		func(v float64) (any, error) {
-			if v < 0 {
-				return nil, newErrNegativeValue(v)
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(SqrtFunctionName, args)
+			}
+			v := args[0]
+			if v <= 0 {
+				return nil, newErrNegativeValue(args)
 			}
 			return math.Sqrt(v), nil
 		},
@@ -80,9 +96,13 @@ func NewSqrtFunction(opts ...ExecutorOption) Executor {
 func NewLogFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		LogFunctionName,
-		func(v float64) (any, error) {
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(LogFunctionName, args)
+			}
+			v := args[0]
 			if v <= 0 {
-				return nil, newErrNegativeValue(v)
+				return nil, newErrNegativeValue(args)
 			}
 			return math.Log(v), nil
 		},
@@ -94,9 +114,13 @@ func NewLogFunction(opts ...ExecutorOption) Executor {
 func NewLog10Function(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		Log10FunctionName,
-		func(v float64) (any, error) {
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(Log10FunctionName, args)
+			}
+			v := args[0]
 			if v <= 0 {
-				return nil, newErrNegativeValue(v)
+				return nil, newErrNegativeValue(args)
 			}
 			return math.Log10(v), nil
 		},
@@ -108,23 +132,12 @@ func NewLog10Function(opts ...ExecutorOption) Executor {
 func NewExpFunction(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		ExpFunctionName,
-		func(v float64) (any, error) {
-			return math.Exp(v), nil
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(ExpFunctionName, args)
+			}
+			return math.Exp(args[0]), nil
 		},
 		opts...,
 	)
 }
-
-// NewPowerFunction returns a new power function.
-// func NewPowerFunction(opts ...ExecutorOption) Executor {
-// 	return NewMathFunctionWith(
-// 		PowerFunctionName,
-// 		func(v float64, p float64) (any, error) {
-// 			if v < 0 && p != math.Trunc(p) {
-// 				return nil, ErrNegativePower
-// 			}
-// 			return math.Pow(v, p), nil
-// 		},
-// 		opts...,
-// 	)
-// }

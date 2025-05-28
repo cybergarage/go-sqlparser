@@ -19,7 +19,7 @@ import (
 )
 
 // MathFunc represents an math function.
-type MathFunc func(float64) (any, error)
+type MathFunc func([]float64) (any, error)
 
 // MathResultSet represents a result set of an math function.
 type MathResultSet map[any]float64
@@ -48,10 +48,14 @@ func (fn *mathFunction) execute(args ...any) (any, error) {
 	if len(args) != 1 {
 		return nil, newErrInvalidArguments(fn.name, args)
 	}
-	var fv float64
-	err := safecast.ToFloat64(args[0], &fv)
-	if err != nil {
-		return nil, err
+	fargs := make([]float64, 0, len(args))
+	for _, arg := range args {
+		var fv float64
+		err := safecast.ToFloat64(arg, &fv)
+		if err != nil {
+			return nil, newErrInvalidArguments(fn.name, args...)
+		}
+		fargs = append(fargs, fv)
 	}
-	return fn.math(fv)
+	return fn.math(fargs)
 }

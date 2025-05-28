@@ -29,6 +29,9 @@ const (
 	Log10FunctionName = "LOG10"
 	ExpFunctionName   = "EXP"
 	PowerFunctionName = "POWER"
+	SinFunctionName   = "SIN"
+	CosFunctionName   = "COS"
+	TanFunctionName   = "TAN"
 	// Aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
@@ -44,16 +47,26 @@ const (
 )
 
 var registeredFunctionNames = []string{
+	// Math.
 	AbsFunctionName,
 	CeilFunctionName,
 	FloorFunctionName,
 	RoundFunctionName,
 	SqrtFunctionName,
+	LogFunctionName,
+	Log10FunctionName,
+	ExpFunctionName,
+	PowerFunctionName,
+	SinFunctionName,
+	CosFunctionName,
+	TanFunctionName,
+	// Aggregate.
 	MaxFunctionName,
 	MinFunctionName,
 	SumFunctionName,
 	AvgFunctionName,
 	CountFunctionName,
+	// Airthmetic.
 	AddOperatorID,
 	SubOperatorID,
 	MulOperatorID,
