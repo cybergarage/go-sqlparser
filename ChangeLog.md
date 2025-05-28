@@ -6,7 +6,13 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.5.1 (2025-05-XX)
+### New Features
+- Suport new math functions
+  - ROUD, SQRT, LOG, LOG10, EXP, POWER
+
 ## v1.5.1 (2025-05-12)
+### New Features
 - Support MySQL table options in CREATE TABLE statement
   - PRIMARY KEY, INDEX, KEY, ENGINE
 - Support PostgreSQL DDL types
