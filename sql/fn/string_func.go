@@ -19,7 +19,7 @@ import (
 )
 
 // NewUpperFunctionWith returns a new string function with the specified name and executor.
-func NewUpperFunction(opts ...ExecutorOption) Executor {
+func NewUpper(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		UpperFunctionName,
 		func(args []string) (any, error) {
@@ -33,7 +33,7 @@ func NewUpperFunction(opts ...ExecutorOption) Executor {
 }
 
 // NewLowerFunctionWith returns a new string function with the specified name and executor.
-func NewLowerFunction(opts ...ExecutorOption) Executor {
+func NewLower(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		LowerFunctionName,
 		func(args []string) (any, error) {
@@ -47,7 +47,7 @@ func NewLowerFunction(opts ...ExecutorOption) Executor {
 }
 
 // NewTrimFunctionWith returns a new string function with the specified name and executor.
-func NewTrimFunction(opts ...ExecutorOption) Executor {
+func NewTrim(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		TrimFunctionName,
 		func(args []string) (any, error) {

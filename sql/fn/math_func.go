@@ -19,8 +19,8 @@ import (
 	"math/rand"
 )
 
-// NewAbsFunction returns a new abs function.
-func NewAbsFunction(opts ...ExecutorOption) Executor {
+// NewAbs returns a new abs function.
+func NewAbs(opts ...ExecutorOption) Executor {
 	ex := NewMathFunctionWith(
 		AbsFunctionName,
 		func(args []float64) (any, error) {
@@ -34,8 +34,8 @@ func NewAbsFunction(opts ...ExecutorOption) Executor {
 	return ex
 }
 
-// NewFloorFunction returns a new floor function.
-func NewFloorFunction(opts ...ExecutorOption) Executor {
+// NewFloor returns a new floor function.
+func NewFloor(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		FloorFunctionName,
 		func(args []float64) (any, error) {
@@ -48,8 +48,8 @@ func NewFloorFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewCeilFunction returns a new ceil function.
-func NewCeilFunction(opts ...ExecutorOption) Executor {
+// NewCeil returns a new ceil function.
+func NewCeil(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		CeilFunctionName,
 		func(args []float64) (any, error) {
@@ -62,7 +62,8 @@ func NewCeilFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-func NewRoundFunction(opts ...ExecutorOption) Executor {
+// NewRound returns a new round function.
+func NewRound(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		RoundFunctionName,
 		func(args []float64) (any, error) {
@@ -75,8 +76,8 @@ func NewRoundFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewSqrtFunction returns a new sqrt function.
-func NewSqrtFunction(opts ...ExecutorOption) Executor {
+// NewSqrt returns a new sqrt function.
+func NewSqrt(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		SqrtFunctionName,
 		func(args []float64) (any, error) {
@@ -93,8 +94,8 @@ func NewSqrtFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewLogFunction returns a new log function.
-func NewLogFunction(opts ...ExecutorOption) Executor {
+// NewLog returns a new log function.
+func NewLog(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		LogFunctionName,
 		func(args []float64) (any, error) {
@@ -111,8 +112,8 @@ func NewLogFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewLog10Function returns a new log10 function.
-func NewLog10Function(opts ...ExecutorOption) Executor {
+// NewLog10 returns a new log10 function.
+func NewLog10(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		Log10FunctionName,
 		func(args []float64) (any, error) {
@@ -129,8 +130,8 @@ func NewLog10Function(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewExpFunction returns a new exp function.
-func NewExpFunction(opts ...ExecutorOption) Executor {
+// NewExp returns a new exp function.
+func NewExp(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		ExpFunctionName,
 		func(args []float64) (any, error) {
@@ -143,8 +144,8 @@ func NewExpFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewPowerFunction returns a new power function.
-func NewPowerFunction(opts ...ExecutorOption) Executor {
+// NewPower returns a new power function.
+func NewPower(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		PowerFunctionName,
 		func(args []float64) (any, error) {
@@ -162,8 +163,8 @@ func NewPowerFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewModFunction returns a new mod function.
-func NewModFunction(opts ...ExecutorOption) Executor {
+// NewMod returns a new mod function.
+func NewMod(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		ModFunctionName,
 		func(args []float64) (any, error) {
@@ -181,8 +182,8 @@ func NewModFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewSinFunction returns a new sin function.
-func NewSinFunction(opts ...ExecutorOption) Executor {
+// NewSin returns a new sin function.
+func NewSin(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		SinFunctionName,
 		func(args []float64) (any, error) {
@@ -195,8 +196,8 @@ func NewSinFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewCosFunction returns a new cos function.
-func NewCosFunction(opts ...ExecutorOption) Executor {
+// NewCos returns a new cos function.
+func NewCos(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		CosFunctionName,
 		func(args []float64) (any, error) {
@@ -209,8 +210,8 @@ func NewCosFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewTanFunction returns a new tan function.
-func NewTanFunction(opts ...ExecutorOption) Executor {
+// NewTan returns a new tan function.
+func NewTan(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		TanFunctionName,
 		func(args []float64) (any, error) {
@@ -223,8 +224,8 @@ func NewTanFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewRandFunction returns a new rand function that generates a random float64 in [0.0, 1.0).
-func NewRandFunction(opts ...ExecutorOption) Executor {
+// NewRand returns a new rand function that generates a random float64 in [0.0, 1.0).
+func NewRand(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		RandFunctionName,
 		func(args []float64) (any, error) {
@@ -238,8 +239,8 @@ func NewRandFunction(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewPiFunction returns a new pi function that returns the value of π (pi).
-func NewPiFunction(opts ...ExecutorOption) Executor {
+// NewPI returns a new pi function that returns the value of π (pi).
+func NewPI(opts ...ExecutorOption) Executor {
 	return NewMathFunctionWith(
 		PiFunctionName,
 		func(args []float64) (any, error) {

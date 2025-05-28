@@ -37,45 +37,45 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 	var ex Executor
 	switch {
 	case strings.HasPrefix(upperName, AbsFunctionName):
-		ex = NewAbsFunction(opts...)
+		ex = NewAbs(opts...)
 	case strings.HasPrefix(upperName, FloorFunctionName):
-		ex = NewFloorFunction(opts...)
+		ex = NewFloor(opts...)
 	case strings.HasPrefix(upperName, CeilFunctionName):
-		ex = NewCeilFunction(opts...)
+		ex = NewCeil(opts...)
 	case strings.HasPrefix(upperName, RoundFunctionName):
-		ex = NewRoundFunction(opts...)
+		ex = NewRound(opts...)
 	case strings.HasPrefix(upperName, SqrtFunctionName):
-		ex = NewSqrtFunction(opts...)
+		ex = NewSqrt(opts...)
 	case strings.HasPrefix(upperName, LogFunctionName):
-		ex = NewLogFunction(opts...)
+		ex = NewLog(opts...)
 	case strings.HasPrefix(upperName, Log10FunctionName):
-		ex = NewLog10Function(opts...)
+		ex = NewLog10(opts...)
 	case strings.HasPrefix(upperName, ExpFunctionName):
-		ex = NewExpFunction(opts...)
+		ex = NewExp(opts...)
 	case strings.HasPrefix(upperName, PowerFunctionName):
-		ex = NewPowerFunction(opts...)
+		ex = NewPower(opts...)
 	case strings.HasPrefix(upperName, ModFunctionName):
-		ex = NewModFunction(opts...)
+		ex = NewMod(opts...)
 	case strings.HasPrefix(upperName, SinFunctionName):
-		ex = NewSinFunction(opts...)
+		ex = NewSin(opts...)
 	case strings.HasPrefix(upperName, CosFunctionName):
-		ex = NewCosFunction(opts...)
+		ex = NewCos(opts...)
 	case strings.HasPrefix(upperName, TanFunctionName):
-		ex = NewTanFunction(opts...)
+		ex = NewTan(opts...)
 	case strings.HasPrefix(upperName, RandFunctionName):
-		ex = NewRandFunction(opts...)
+		ex = NewRand(opts...)
 	case strings.HasPrefix(upperName, PiFunctionName):
-		ex = NewPiFunction(opts...)
+		ex = NewPI(opts...)
 	case strings.HasPrefix(upperName, CurrentTimestampFunctionName):
-		ex = NewCurrentTimestampFunction(opts...)
+		ex = NewCurrentTimestamp(opts...)
 	case strings.HasPrefix(upperName, NowFunctionName):
-		ex = NewNowFunction(opts...)
+		ex = NewNow(opts...)
 	case strings.HasPrefix(upperName, UpperFunctionName):
-		ex = NewUpperFunction(opts...)
+		ex = NewUpper(opts...)
 	case strings.HasPrefix(upperName, LowerFunctionName):
-		ex = NewLowerFunction(opts...)
+		ex = NewLower(opts...)
 	case strings.HasPrefix(upperName, TrimFunctionName):
-		ex = NewTrimFunction(opts...)
+		ex = NewTrim(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}

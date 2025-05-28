@@ -27,26 +27,26 @@ func TestExecutors(t *testing.T) {
 		arg    []any
 		result any
 	}{
-		{fn.NewAbsFunction(), []any{float64(-1)}, float64(1)},
-		{fn.NewFloorFunction(), []any{float64(5.95)}, int(5)},
-		{fn.NewCeilFunction(), []any{float64(5.95)}, int(6)},
-		{fn.NewRoundFunction(), []any{float64(5.95)}, int(6)},
-		{fn.NewLogFunction(), []any{float64(100)}, math.Log(float64(100))},
-		{fn.NewLog10Function(), []any{float64(100)}, math.Log10(float64(100))},
-		{fn.NewSqrtFunction(), []any{float64(16)}, math.Sqrt(float64(16))},
-		{fn.NewExpFunction(), []any{float64(1)}, math.Exp(float64(1))},
-		{fn.NewPowerFunction(), []any{float64(2), float64(3)}, float64(8)},
-		{fn.NewModFunction(), []any{float64(10), float64(3)}, float64(1)},
-		{fn.NewSinFunction(), []any{math.Pi}, math.Sin(math.Pi)},
-		{fn.NewCosFunction(), []any{math.Pi}, math.Cos(math.Pi)},
-		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},
-		{fn.NewRandFunction(), nil, nil}, // Random function does not have a fixed result
-		{fn.NewPiFunction(), nil, math.Pi},
-		{fn.NewCurrentTimestampFunction(), nil, nil}, // Current timestamp does not have a fixed result
-		{fn.NewNowFunction(), nil, nil},              // Now function does not have a fixed result
-		{fn.NewUpperFunction(), []any{"hello"}, "HELLO"},
-		{fn.NewLowerFunction(), []any{"HELLO"}, "hello"},
-		{fn.NewTrimFunction(), []any{"  hello  "}, "hello"},
+		{fn.NewAbs(), []any{float64(-1)}, float64(1)},
+		{fn.NewFloor(), []any{float64(5.95)}, int(5)},
+		{fn.NewCeil(), []any{float64(5.95)}, int(6)},
+		{fn.NewRound(), []any{float64(5.95)}, int(6)},
+		{fn.NewLog(), []any{float64(100)}, math.Log(float64(100))},
+		{fn.NewLog10(), []any{float64(100)}, math.Log10(float64(100))},
+		{fn.NewSqrt(), []any{float64(16)}, math.Sqrt(float64(16))},
+		{fn.NewExp(), []any{float64(1)}, math.Exp(float64(1))},
+		{fn.NewPower(), []any{float64(2), float64(3)}, float64(8)},
+		{fn.NewMod(), []any{float64(10), float64(3)}, float64(1)},
+		{fn.NewSin(), []any{math.Pi}, math.Sin(math.Pi)},
+		{fn.NewCos(), []any{math.Pi}, math.Cos(math.Pi)},
+		{fn.NewTan(), []any{math.Pi}, math.Tan(math.Pi)},
+		{fn.NewRand(), nil, nil}, // Random function does not have a fixed result
+		{fn.NewPI(), nil, math.Pi},
+		{fn.NewCurrentTimestamp(), nil, nil}, // Current timestamp does not have a fixed result
+		{fn.NewNow(), nil, nil},              // Now function does not have a fixed result
+		{fn.NewUpper(), []any{"hello"}, "HELLO"},
+		{fn.NewLower(), []any{"HELLO"}, "hello"},
+		{fn.NewTrim(), []any{"  hello  "}, "hello"},
 	}
 
 	for _, test := range tests {

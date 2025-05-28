@@ -18,8 +18,8 @@ import (
 	"time"
 )
 
-// NewCurrentTimestampFunction returns a new current timestamp function.
-func NewCurrentTimestampFunction(opts ...ExecutorOption) Executor {
+// NewCurrentTimestamp returns a new current timestamp function.
+func NewCurrentTimestamp(opts ...ExecutorOption) Executor {
 	return NewTimeFunctionWith(
 		CurrentTimestampFunctionName,
 		func(args []string) (any, error) {
@@ -30,7 +30,7 @@ func NewCurrentTimestampFunction(opts ...ExecutorOption) Executor {
 }
 
 // NewTimeFunctionWith returns a new time function with the specified name and executor.
-func NewNowFunction(opts ...ExecutorOption) Executor {
+func NewNow(opts ...ExecutorOption) Executor {
 	return NewTimeFunctionWith(
 		NowFunctionName,
 		func(args []string) (any, error) {
