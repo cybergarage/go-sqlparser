@@ -472,12 +472,12 @@ func newUpdateWith(ctx antlr.IUpdate_stmtContext) query.Update {
 			opts = append(opts, query.WithColumnLiteral(newBindParamWith(v)))
 		} else if v := set.Expr().Arithmetic_expr(); v != nil {
 			ope := v.GetOpe().GetText()
-			if executor, _ := fn.NewArithOperatorFor(ope); executor != nil {
+			args := []string{
+				v.Column_name().GetText(),
+				v.Expr().GetText(),
+			}
+			if executor, _ := fn.NewArithOperatorFor(ope, fn.WithExecutorArguments(args)); executor != nil {
 				opts = append(opts, query.WithColumnFunctionExecutor(executor))
-				args := []string{
-					v.Column_name().GetText(),
-					v.Expr().GetText(),
-				}
 				opts = append(opts, query.WithColumnArguments(args))
 			}
 		}
