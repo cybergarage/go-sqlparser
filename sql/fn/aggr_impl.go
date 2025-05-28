@@ -198,6 +198,19 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		return fmt.Errorf("%w column count (%d != %d)", ErrInvalid, len(aggr.columns), len(row))
 	}
 
+	toFloat64 := func(v any) (float64, error) {
+		switch v := v.(type) {
+		case nil:
+			return 0, nil
+		default:
+			var fv float64
+			if err := safecast.ToFloat64(v, &fv); err != nil {
+				return 0, fmt.Errorf("%w value %v : %s", ErrInvalid, v, err)
+			}
+			return fv, nil
+		}
+	}
+
 	if _, ok := aggr.GroupBy(); ok {
 		group := row[0]
 		if _, ok := aggr.groupAggrs[group]; !ok {
@@ -212,9 +225,9 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 			aggr.groupCounts[group] = 0
 		}
 		for n, rv := range row[1:] {
-			var fv float64
-			if err := safecast.ToFloat64(rv, &fv); err != nil {
-				return fmt.Errorf("[%d] %w row : %s", n, ErrInvalid, err)
+			fv, err := toFloat64(rv)
+			if err != nil {
+				return fmt.Errorf("[%d] %w row : %s", n+1, ErrInvalid, err)
 			}
 			nv, err := aggr.aggFunc(aggr, aggr.groupAggrs[group][n], fv)
 			if err != nil {
@@ -225,8 +238,8 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		aggr.groupCounts[group]++
 	} else {
 		for n, rv := range row {
-			var fv float64
-			if err := safecast.ToFloat64(rv, &fv); err != nil {
+			fv, err := toFloat64(rv)
+			if err != nil {
 				return fmt.Errorf("[%d] %w row : %s", n, ErrInvalid, err)
 			}
 			nv, err := aggr.aggFunc(aggr, aggr.aggrs[n], fv)
