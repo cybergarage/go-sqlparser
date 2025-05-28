@@ -160,3 +160,45 @@ func NewPowerFunction(opts ...ExecutorOption) Executor {
 		opts...,
 	)
 }
+
+// ExecuteMathFunction executes the specified math function with the given arguments.
+func NewSinFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		SinFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(SinFunctionName, args)
+			}
+			return math.Sin(args[0]), nil
+		},
+		opts...,
+	)
+}
+
+// NewCosFunction returns a new cos function.
+func NewCosFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		CosFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(CosFunctionName, args)
+			}
+			return math.Cos(args[0]), nil
+		},
+		opts...,
+	)
+}
+
+// NewTanFunction returns a new tan function.
+func NewTanFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		TanFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 1 {
+				return nil, newErrInvalidArguments(TanFunctionName, args)
+			}
+			return math.Tan(args[0]), nil
+		},
+		opts...,
+	)
+}

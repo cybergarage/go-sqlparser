@@ -15,6 +15,7 @@
 package fn_test
 
 import (
+	"math"
 	"testing"
 
 	"github.com/cybergarage/go-sqlparser/sql/fn"
@@ -30,11 +31,14 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewFloorFunction(), []any{float64(5.95)}, int(5)},
 		{fn.NewCeilFunction(), []any{float64(5.95)}, int(6)},
 		{fn.NewRoundFunction(), []any{float64(5.95)}, int(6)},
-		{fn.NewLogFunction(), []any{float64(100)}, float64(4.605170185988092)},
-		{fn.NewLog10Function(), []any{float64(100)}, float64(2)},
-		{fn.NewSqrtFunction(), []any{float64(16)}, float64(4)},
-		{fn.NewExpFunction(), []any{float64(1)}, float64(2.718281828459045)},
+		{fn.NewLogFunction(), []any{float64(100)}, math.Log(float64(100))},
+		{fn.NewLog10Function(), []any{float64(100)}, math.Log10(float64(100))},
+		{fn.NewSqrtFunction(), []any{float64(16)}, math.Sqrt(float64(16))},
+		{fn.NewExpFunction(), []any{float64(1)}, math.Exp(float64(1))},
 		{fn.NewPowerFunction(), []any{float64(2), float64(3)}, float64(8)},
+		{fn.NewSinFunction(), []any{math.Pi}, math.Sin(math.Pi)},
+		{fn.NewCosFunction(), []any{math.Pi}, math.Cos(math.Pi)},
+		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},
 	}
 
 	for _, test := range tests {

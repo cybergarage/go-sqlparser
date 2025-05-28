@@ -54,6 +54,12 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewExpFunction(opts...)
 	case strings.HasPrefix(upperName, PowerFunctionName):
 		ex = NewPowerFunction(opts...)
+	case strings.HasPrefix(upperName, SinFunctionName):
+		ex = NewSinFunction(opts...)
+	case strings.HasPrefix(upperName, CosFunctionName):
+		ex = NewCosFunction(opts...)
+	case strings.HasPrefix(upperName, TanFunctionName):
+		ex = NewTanFunction(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}
