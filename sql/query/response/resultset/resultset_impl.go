@@ -66,6 +66,22 @@ func NewResultSet(opts ...ResultSetOption) ResultSet {
 	return rs
 }
 
+// NewResultSetFrom creates a new ResultSet from the given options.
+func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
+	rs := &resultset{
+		schema:       nil,
+		rows:         []Row{},
+		rowsAffected: 0,
+		rowCursor:    0,
+	}
+	for _, opt := range opts {
+		if err := opt(rs); err != nil {
+			return nil, err
+		}
+	}
+	return rs, nil
+}
+
 // RowsAffected returns the number of rows affected.
 func (r *resultset) RowsAffected() uint64 {
 	return r.rowsAffected

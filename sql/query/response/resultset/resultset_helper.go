@@ -13,3 +13,10 @@
 // limitations under the License.
 
 package resultset
+
+func WithResultSetRowsOf(rows []Row) ResultSetOption {
+	return func(r *resultset) error {
+		r.rows = rows
+		return nil
+	}
+}
