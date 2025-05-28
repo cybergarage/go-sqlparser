@@ -6,10 +6,16 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.5.1 (2025-05-XX)
+## v1.6.0 (2025-05-XX)
+### Improvements
+- Refactor function package
+  - Move function executors to `fn` package
+  - Update function executor interface
 ### New Features
-- Suport new math functions
-  - ROUD, SQRT, LOG, LOG10, EXP, POWER
+- Suport new functions
+  - ROUD, SQRT, LOG, LOG10, EXP, POWER, RAND, PI
+  - UPPER, LOWER, TRIM
+  - CURRENT_TIMESTAMP, NOW
 
 ## v1.5.1 (2025-05-12)
 ### New Features
