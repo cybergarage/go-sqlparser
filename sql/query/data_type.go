@@ -146,7 +146,7 @@ func NewDataTypeForFunction(fx Function) (DataType, error) {
 		return FloatType, nil
 	case fn.CastFunction:
 		return FloatType, nil
-	case fn.ArithFunction:
+	case fn.ArithOperator:
 		return FloatType, nil
 	default:
 		return UnknownData, newErrInvalidDataType(fx)

@@ -18,26 +18,26 @@ import (
 	"fmt"
 )
 
-// NewArithFunctionWith returns a new arithmetic function with the given operator and implementation.
-func NewArithFunctionFor(ope string) (Executor, error) {
+// NewArithOperatorFor returns a new arithmetic function with the given operator and implementation.
+func NewArithOperatorFor(ope string) (Executor, error) {
 	switch ope {
 	case AddOperatorID:
-		return NewAddFunction(), nil
+		return NewAddOperator(), nil
 	case SubOperatorID:
-		return NewSubFunction(), nil
+		return NewSubOperator(), nil
 	case MulOperatorID:
-		return NewMulFunction(), nil
+		return NewMulOperator(), nil
 	case DivOperatorID:
-		return NewDivFunction(), nil
+		return NewDivOperator(), nil
 	case ModOperatorID:
-		return NewModFunction(), nil
+		return NewModOperator(), nil
 	default:
 		return nil, fmt.Errorf("unknown arithmetic operator: %s", ope)
 	}
 }
 
-// NewAddFunction returns a new add function.
-func NewAddFunction() Executor {
+// NewAddOperator returns a new add function.
+func NewAddOperator() Executor {
 	return NewArithFunctionWith(
 		AddOperatorID,
 		func(v1, v2 float64) (float64, error) {
@@ -46,8 +46,8 @@ func NewAddFunction() Executor {
 	)
 }
 
-// NewSubFunction returns a new sub function.
-func NewSubFunction() Executor {
+// NewSubOperator returns a new sub function.
+func NewSubOperator() Executor {
 	return NewArithFunctionWith(
 		SubOperatorID,
 		func(v1, v2 float64) (float64, error) {
@@ -56,8 +56,8 @@ func NewSubFunction() Executor {
 	)
 }
 
-// NewMulFunction returns a new multiple function.
-func NewMulFunction() Executor {
+// NewMulOperator returns a new multiple function.
+func NewMulOperator() Executor {
 	return NewArithFunctionWith(
 		MulOperatorID,
 		func(v1, v2 float64) (float64, error) {
@@ -66,8 +66,8 @@ func NewMulFunction() Executor {
 	)
 }
 
-// NewDivFunction returns a new division function.
-func NewDivFunction() Executor {
+// NewDivOperator returns a new division function.
+func NewDivOperator() Executor {
 	return NewArithFunctionWith(
 		DivOperatorID,
 		func(v1, v2 float64) (float64, error) {
@@ -76,8 +76,8 @@ func NewDivFunction() Executor {
 	)
 }
 
-// NewModFunction returns a new mod function.
-func NewModFunction() Executor {
+// NewModOperator returns a new mod function.
+func NewModOperator() Executor {
 	return NewArithFunctionWith(
 		ModOperatorID,
 		func(v1, v2 float64) (float64, error) {
