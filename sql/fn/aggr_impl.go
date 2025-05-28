@@ -262,6 +262,10 @@ func (aggr *aggrImpl) Aggregate(v any) error {
 		return aggr.AggregateRow(v)
 	case map[string]any:
 		return aggr.AggregateMap(v)
+	case Row:
+		return aggr.AggregateRow(v)
+	case Map:
+		return aggr.AggregateMap(v)
 	default:
 		return fmt.Errorf("%w type %T is not supported for aggregation", ErrInvalid, v)
 	}
