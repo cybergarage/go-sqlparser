@@ -244,12 +244,20 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 // AggregateMap aggregates a map of data using the aggregator.
 func (aggr *aggrImpl) AggregateMap(m map[string]any) error {
 	row := make([]any, 0, len(aggr.columns))
-	for _, column := range aggr.columns {
-		value, ok := m[column]
-		if !ok {
-			return fmt.Errorf("%w column %s not found in map", ErrNotFound, column)
+	for _, arg := range aggr.args {
+		var v any
+		ok := false
+		switch arg {
+		case "*":
+			ok = true
+			v = nil
+		default:
+			v, ok = m[arg]
 		}
-		row = append(row, value)
+		if !ok {
+			return fmt.Errorf("%w column %s not found in map", ErrNotFound, arg)
+		}
+		row = append(row, v)
 	}
 	return aggr.AggregateRow(row)
 }
