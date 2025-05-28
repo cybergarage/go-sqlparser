@@ -27,26 +27,29 @@ type schema struct {
 }
 
 // SchemaOption represents a functional option for resultsetSchema.
-type SchemaOption func(*schema)
+type SchemaOption func(*schema) error
 
 // WithSchemaDatabaseName returns a functional option for resultsetSchema.
 func WithSchemaDatabaseName(name string) SchemaOption {
-	return func(schema *schema) {
+	return func(schema *schema) error {
 		schema.databaeName = name
+		return nil
 	}
 }
 
 // WithSchemaTableName returns a functional option for resultsetSchema.
 func WithSchemaTableName(name string) SchemaOption {
-	return func(schema *schema) {
+	return func(schema *schema) error {
 		schema.tableName = name
+		return nil
 	}
 }
 
 // WithSchemaColumns returns a functional option for resultsetSchema.
 func WithSchemaColumns(columns []Column) SchemaOption {
-	return func(schema *schema) {
+	return func(schema *schema) error {
 		schema.columns = columns
+		return nil
 	}
 }
 
