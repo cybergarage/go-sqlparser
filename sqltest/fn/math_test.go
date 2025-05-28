@@ -40,6 +40,7 @@ func TestMathExecutors(t *testing.T) {
 		{fn.NewSinFunction(), []any{math.Pi}, math.Sin(math.Pi)},
 		{fn.NewCosFunction(), []any{math.Pi}, math.Cos(math.Pi)},
 		{fn.NewTanFunction(), []any{math.Pi}, math.Tan(math.Pi)},
+		{fn.NewRandFunction(), nil, nil}, // Random function does not have a fixed result
 	}
 
 	for _, test := range tests {
@@ -47,6 +48,9 @@ func TestMathExecutors(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 			return
+		}
+		if test.result == nil {
+			continue // Skip comparison for random function
 		}
 		if r != test.result {
 			t.Errorf("The %s value (%v) is not (%v)", test.fn.Name(), r, test.result)

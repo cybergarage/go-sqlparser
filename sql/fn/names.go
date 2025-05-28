@@ -33,6 +33,7 @@ const (
 	SinFunctionName   = "SIN"
 	CosFunctionName   = "COS"
 	TanFunctionName   = "TAN"
+	RandFunctionName  = "RAND"
 	// Aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
@@ -62,6 +63,7 @@ var registeredFunctionNames = []string{
 	SinFunctionName,
 	CosFunctionName,
 	TanFunctionName,
+	RandFunctionName,
 	// Aggregate.
 	MaxFunctionName,
 	MinFunctionName,

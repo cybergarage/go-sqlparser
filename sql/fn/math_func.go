@@ -16,6 +16,7 @@ package fn
 
 import (
 	"math"
+	"math/rand"
 )
 
 // NewAbsFunction returns a new abs function.
@@ -217,6 +218,21 @@ func NewTanFunction(opts ...ExecutorOption) Executor {
 				return nil, newErrInvalidArguments(TanFunctionName, args)
 			}
 			return math.Tan(args[0]), nil
+		},
+		opts...,
+	)
+}
+
+// NewRandFunction returns a new rand function that generates a random float64 in [0.0, 1.0).
+func NewRandFunction(opts ...ExecutorOption) Executor {
+	return NewMathFunctionWith(
+		RandFunctionName,
+		func(args []float64) (any, error) {
+			if len(args) != 0 {
+				return nil, newErrInvalidArguments(RandFunctionName, args)
+			}
+			// Returns a random float64 in [0.0, 1.0).
+			return math.Float64frombits(uint64(rand.Int63() & 0x7FFFFFFFFFFFFFFF)), nil
 		},
 		opts...,
 	)
