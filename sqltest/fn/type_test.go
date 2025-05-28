@@ -24,9 +24,24 @@ func TestRegisteredFunctionTypes(t *testing.T) {
 	names := fn.RegisteredFunctionNames()
 	for _, name := range names {
 		t.Run(name, func(t *testing.T) {
-			_, err := fn.NewFunctionTypeForName(name)
+			ft, err := fn.NewFunctionTypeForName(name)
 			if err != nil {
 				t.Errorf("Failed to create function type for %s: %v", name, err)
+			}
+			switch ft {
+			case fn.MathFunction:
+				_, err := fn.NewExecutorForName(name)
+				if err != nil {
+					t.Errorf("Failed to create executor for math function %s: %v", name, err)
+				}
+			case fn.AggregateFunction:
+				_, err := fn.NewAggregatorForName(
+					name,
+					fn.WithAggregatorArguments([]string{"column"}),
+				)
+				if err != nil {
+					t.Errorf("Failed to create aggregator for function %s: %v", name, err)
+				}
 			}
 		})
 	}
