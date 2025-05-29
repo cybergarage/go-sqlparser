@@ -15,7 +15,7 @@
 package query
 
 import (
-	"strconv"
+	"fmt"
 
 	"github.com/cybergarage/go-sqlparser/sql/util/strings"
 )
@@ -23,17 +23,17 @@ import (
 // Limit represents a LIMIT interface.
 type Limit interface {
 	// Offset returns the offset.
-	Offset() int
+	Offset() uint
 	// Limit returns the limit.
-	Limit() int
+	Limit() uint
 	// String returns the string representation.
 	String() string
 }
 
 // limitParam represents a LIMIT clause.
 type limitParam struct {
-	offset int
-	limit  int
+	offset uint
+	limit  uint
 }
 
 // NewLimit returns a new limit instance.
@@ -45,7 +45,7 @@ func NewLimit() Limit {
 }
 
 // NewLimitWith returns a new limitParam instance with the specified offset and limit.
-func NewLimitWith(offset int, limit int) *limitParam {
+func NewLimitWith(offset uint, limit uint) *limitParam {
 	return &limitParam{
 		offset: offset,
 		limit:  limit,
@@ -53,35 +53,35 @@ func NewLimitWith(offset int, limit int) *limitParam {
 }
 
 // SetLimit sets the limit.
-func (limit *limitParam) SetLimit(n int) *limitParam {
+func (limit *limitParam) SetLimit(n uint) *limitParam {
 	limit.limit = n
 	return limit
 }
 
 // SetOffset sets the offset.
-func (limit *limitParam) SetOffset(n int) *limitParam {
+func (limit *limitParam) SetOffset(n uint) *limitParam {
 	limit.offset = n
 	return limit
 }
 
 // Offset returns the offset.
-func (limit *limitParam) Offset() int {
+func (limit *limitParam) Offset() uint {
 	return limit.offset
 }
 
 // limitParam returns the limit.
-func (limit *limitParam) Limit() int {
-	return limit.limit
+func (limit *limitParam) Limit() uint {
+	return uint(limit.limit)
 }
 
 // String returns the string representation.
 func (limit *limitParam) String() string {
 	strs := []string{}
 	if 0 < limit.limit {
-		strs = append(strs, "LIMIT", strconv.Itoa(limit.limit))
+		strs = append(strs, "LIMIT", fmt.Sprintf("%d", limit.limit))
 	}
 	if 0 < limit.offset {
-		strs = append(strs, "OFFSET", strconv.Itoa(limit.offset))
+		strs = append(strs, "OFFSET", fmt.Sprintf("%d", limit.offset))
 	}
 	return strings.JoinWithSpace(strs)
 }

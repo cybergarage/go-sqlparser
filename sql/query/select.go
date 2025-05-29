@@ -74,7 +74,7 @@ func WithSelectOrderBy(orderBy OrderBy) func(*selectStmt) {
 }
 
 // WithSelectLimit sets order by options.
-func WithSelectLimit(offset int, limit int) func(*selectStmt) {
+func WithSelectLimit(offset uint, limit uint) func(*selectStmt) {
 	return func(stmt *selectStmt) {
 		stmt.limit = NewLimitWith(offset, limit)
 	}

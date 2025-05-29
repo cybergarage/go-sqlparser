@@ -15,8 +15,7 @@
 package sqlite
 
 import (
-	"strconv"
-
+	"github.com/cybergarage/go-safecast/safecast"
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/parser/sqlite/antlr"
 	"github.com/cybergarage/go-sqlparser/sql/query"
@@ -549,13 +548,14 @@ func newSelectWith(ctx antlr.ISelect_stmtContext) query.Select {
 	if ctx := ctx.Limit_stmt(); ctx != nil {
 		limits := ctx.AllExpr()
 		if 0 < len(limits) {
-			limit, err := strconv.Atoi(limits[0].GetText())
+			var limit uint
+			err := safecast.ToUint(limits[0].GetText(), &limit)
 			if err != nil {
 				limit = 0
 			}
-			offset := 0
+			var offset uint
 			if 1 < len(limits) {
-				offset, err = strconv.Atoi(limits[1].GetText())
+				err := safecast.ToUint(limits[1].GetText(), &offset)
 				if err != nil {
 					offset = 0
 				}
