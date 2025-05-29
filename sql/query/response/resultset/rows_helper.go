@@ -14,17 +14,51 @@
 
 package resultset
 
+import (
+	"fmt"
+
+	"github.com/cybergarage/go-sqlparser/sql/fn"
+	"github.com/cybergarage/go-sqlparser/sql/query"
+)
+
 type rows struct {
-	rows []Row
+	mapRows   []map[string]any
+	selectors query.Selectors
+	scheama   Schema
+	groupBy   string
 }
 
 // RowsOption represents a functional option for rows.
 type RowsOption func(*rows) error
 
-// WithRows sets the rows for the rows.
-func WithRows(v []Row) RowsOption {
+// WithRowsMapRows sets the rows from a slice of map[string]any.
+func WithRowsMapRows(v []map[string]any) RowsOption {
 	return func(r *rows) error {
-		r.rows = v
+		r.mapRows = v
+		return nil
+	}
+}
+
+// WithRowsSelector sets the selectors for the rows.
+func WithRowsSelectors(selectors query.Selectors) RowsOption {
+	return func(r *rows) error {
+		r.selectors = selectors
+		return nil
+	}
+}
+
+// WithRowsGroupBy sets the group by clause for the rows.
+func WithRowsGroupBy(groupBy string) RowsOption {
+	return func(r *rows) error {
+		r.groupBy = groupBy
+		return nil
+	}
+}
+
+// WithRowsSchema sets the schema for the rows.
+func WithRowsSchema(schema Schema) RowsOption {
+	return func(r *rows) error {
+		r.scheama = schema
 		return nil
 	}
 }
@@ -32,12 +66,105 @@ func WithRows(v []Row) RowsOption {
 // NewRows creates a new rows instance with the opt
 func NewRows(opts ...RowsOption) ([]Row, error) {
 	r := &rows{
-		rows: nil,
+		mapRows:   []map[string]any{},
+		selectors: nil,
 	}
 	for _, opt := range opts {
 		if err := opt(r); err != nil {
 			return nil, err
 		}
 	}
-	return r.rows, nil
+
+	// Validate required fields
+
+	if len(r.mapRows) == 0 {
+		return nil, fmt.Errorf("map rows %w", query.ErrNotSet)
+	}
+
+	if r.scheama == nil {
+		return nil, fmt.Errorf("schema %w", query.ErrNotSet)
+	}
+
+	if r.selectors == nil {
+		return nil, fmt.Errorf("selectors %w", query.ErrNotSet)
+	}
+
+	// Set seed map rows
+
+	mapRows := r.mapRows
+
+	// Aggregate new row maps if aggregators are present
+
+	if r.selectors.HasAggregator() {
+		aggrSet, err := r.selectors.Aggregators()
+		if err != nil {
+			return nil, err
+		}
+
+		resetOpts := []any{}
+		if r.groupBy != "" {
+			resetOpts = append(resetOpts, fn.GroupBy(r.groupBy))
+		}
+
+		err = aggrSet.Reset(resetOpts...)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, row := range mapRows {
+			err := aggrSet.Aggregate(row)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		resultSet, err := aggrSet.Finalize()
+		if err != nil {
+			return nil, err
+		}
+
+		mapRows = []map[string]any{}
+		for resultSet.Next() {
+			rowMap, err := resultSet.Map()
+			if err != nil {
+				return nil, err
+			}
+			mapRows = append(mapRows, rowMap)
+		}
+	}
+
+	// Generate rows from map rows
+
+	rsRows := []Row{}
+	for _, rowMap := range mapRows {
+		rowValues := []any{}
+		for _, selector := range r.selectors {
+			var rowValue any
+			rowValue = nil
+			if fx, ok := selector.Function(); ok {
+				if executor, err := fx.Executor(); err == nil {
+					rowValue, err = executor.Execute(fn.NewMapWithMap(rowMap))
+					if err != nil {
+						return nil, err
+					}
+				}
+			}
+			if rowValue == nil {
+				var ok bool
+				selectorName := selector.String()
+				rowValue, ok = rowMap[selectorName]
+				if !ok {
+					return nil, fmt.Errorf("selector %s not found in row map", selectorName)
+				}
+			}
+			rowValues = append(rowValues, rowValue)
+		}
+		rsRow := NewRow(
+			WithRowSchema(r.scheama),
+			WithRowValues(rowValues),
+		)
+		rsRows = append(rsRows, rsRow)
+	}
+
+	return rsRows, nil
 }
