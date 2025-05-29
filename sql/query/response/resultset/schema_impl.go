@@ -21,6 +21,7 @@ import (
 )
 
 type schema struct {
+	querySchema *query.Schema
 	databaeName string
 	tableName   string
 	columns     []Column
@@ -75,6 +76,7 @@ func NewSchemaFrom(opts ...SchemaOption) (Schema, error) {
 
 func newSchema() *schema {
 	return &schema{
+		querySchema: nil,
 		databaeName: "",
 		tableName:   "",
 		columns:     []Column{},
