@@ -21,10 +21,11 @@ import (
 )
 
 type schema struct {
-	querySchema *query.Schema
 	databaeName string
 	tableName   string
 	columns     []Column
+	// querySchema is a temporary variable used only with WithSchemaSelector()
+	querySchema query.Schema
 }
 
 // SchemaOption represents a functional option for resultsetSchema.

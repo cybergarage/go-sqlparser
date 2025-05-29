@@ -15,13 +15,58 @@
 package resultset
 
 import (
+	"fmt"
+
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// WithSchemaDatabaseName returns a functional option for resultsetSchema.
-func WithSchemaQuerySchema(querySchema *query.Schema) SchemaOption {
+// WithSchemaQuerySchema returns a functional option for WithSchemaSelector().
+func WithSchemaQuerySchema(querySchema query.Schema) SchemaOption {
 	return func(schema *schema) error {
 		schema.querySchema = querySchema
+		return nil
+	}
+}
+
+// WithSchemaSelector returns a functional option for resultsetSchema.
+func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
+	return func(schema *schema) error {
+		if schema.querySchema == nil {
+			return fmt.Errorf("query schema is nil; set it first using WithSchemaQuerySchema")
+		}
+
+		rsSchemaColums := []Column{}
+
+		for _, selector := range selectors {
+			var rsSchemaColumn Column
+			fx, ok := selector.Function()
+			if !ok {
+				selectorName := selector.Name()
+				shemaColumn, err := schema.querySchema.LookupColumn(selectorName)
+				if err != nil {
+					return err
+				}
+				rsSchemaColumn, err = NewColumnFrom(shemaColumn)
+				if err != nil {
+					return err
+				}
+			} else {
+				dataType, err := query.NewDataTypeForFunction(fx)
+				if err != nil {
+					return err
+				}
+				rsSchemaColumn = NewColumn(
+					WithColumnName(selector.String()),
+					WithColumnType(dataType),
+					WithColumnFunction(fx),
+				)
+
+			}
+			rsSchemaColums = append(rsSchemaColums, rsSchemaColumn)
+		}
+
+		schema.columns = rsSchemaColums
+
 		return nil
 	}
 }
