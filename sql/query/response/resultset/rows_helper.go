@@ -22,7 +22,7 @@ import (
 )
 
 type rows struct {
-	mapRows   []map[string]any
+	mapRows   MapRows
 	selectors query.Selectors
 	scheama   Schema
 	groupBy   string
@@ -32,7 +32,7 @@ type rows struct {
 type RowsOption func(*rows) error
 
 // WithRowsMapRows sets the rows from a slice of map[string]any.
-func WithRowsMapRows(v []map[string]any) RowsOption {
+func WithRowsMapRows(v MapRows) RowsOption {
 	return func(r *rows) error {
 		r.mapRows = v
 		return nil
@@ -66,7 +66,7 @@ func WithRowsSchema(schema Schema) RowsOption {
 // NewRows creates a new rows instance with the opt
 func NewRows(opts ...RowsOption) ([]Row, error) {
 	r := &rows{
-		mapRows:   []map[string]any{},
+		mapRows:   NewMapRows(),
 		selectors: nil,
 	}
 	for _, opt := range opts {
