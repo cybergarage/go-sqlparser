@@ -77,10 +77,6 @@ func NewRows(opts ...RowsOption) ([]Row, error) {
 
 	// Validate required fields
 
-	if len(r.mapRows) == 0 {
-		return nil, fmt.Errorf("map rows %w", query.ErrNotSet)
-	}
-
 	if r.scheama == nil {
 		return nil, fmt.Errorf("schema %w", query.ErrNotSet)
 	}
