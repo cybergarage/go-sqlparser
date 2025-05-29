@@ -36,6 +36,7 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 	upperName := strings.ToUpper(name)
 	var ex Executor
 	switch {
+	// Math.
 	case strings.HasPrefix(upperName, AbsFunctionName):
 		ex = NewAbs(opts...)
 	case strings.HasPrefix(upperName, FloorFunctionName):
@@ -66,16 +67,29 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 		ex = NewRand(opts...)
 	case strings.HasPrefix(upperName, PiFunctionName):
 		ex = NewPI(opts...)
-	case strings.HasPrefix(upperName, CurrentTimestampFunctionName):
-		ex = NewCurrentTimestamp(opts...)
-	case strings.HasPrefix(upperName, NowFunctionName):
-		ex = NewNow(opts...)
+	// String.
 	case strings.HasPrefix(upperName, UpperFunctionName):
 		ex = NewUpper(opts...)
 	case strings.HasPrefix(upperName, LowerFunctionName):
 		ex = NewLower(opts...)
 	case strings.HasPrefix(upperName, TrimFunctionName):
 		ex = NewTrim(opts...)
+	// Time.
+	case strings.HasPrefix(upperName, CurrentTimestampFunctionName):
+		ex = NewCurrentTimestamp(opts...)
+	case strings.HasPrefix(upperName, NowFunctionName):
+		ex = NewNow(opts...)
+	// Airthmetic.
+	case strings.EqualFold(upperName, AddOperatorID):
+		ex = NewAddOperator(opts...)
+	case strings.EqualFold(upperName, SubOperatorID):
+		ex = NewSubOperator(opts...)
+	case strings.EqualFold(upperName, MulOperatorID):
+		ex = NewMulOperator(opts...)
+	case strings.EqualFold(upperName, DivOperatorID):
+		ex = NewDivOperator(opts...)
+	case strings.EqualFold(upperName, ModOperatorID):
+		ex = NewModOperator(opts...)
 	default:
 		return nil, newErrNotSupportedFunction(name)
 	}
