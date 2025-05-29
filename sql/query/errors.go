@@ -28,6 +28,9 @@ var ErrNotFound = errors.New("not found")
 // ErrNotSupported is returned when the function is not supported.
 var ErrNotSupported = errors.New("not supported")
 
+// ErrNotSet is returned when the value is not set.
+var ErrNotSet = errors.New("not set")
+
 // NewErrStatementInvalid  returns a new error for invalid statements.
 func NewErrStatementInvalid(stmt Statement) error {
 	return fmt.Errorf("statement (%s) %w", stmt, ErrInvalid)
