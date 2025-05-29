@@ -14,10 +14,5 @@
 
 package resultset
 
-// MapRows is a slice of map[string]any.
-type MapRows = []map[string]any
-
-// NewMapRows creates a new MapRows instance.
-func NewMapRows() MapRows {
-	return MapRows{}
-}
+// MapRow represents a single row in a result set as a map.
+type MapRow = map[string]any
