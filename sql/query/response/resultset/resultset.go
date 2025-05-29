@@ -23,7 +23,7 @@ type ResultSet interface {
 	// Row returns the current row.
 	Row() (Row, error)
 	// RowsAffected returns the number of rows affected.
-	RowsAffected() uint64
+	RowsAffected() uint
 	// Close closes the resultset.
 	Close() error
 }

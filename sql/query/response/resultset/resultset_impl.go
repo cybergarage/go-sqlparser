@@ -21,15 +21,16 @@ import (
 type resultset struct {
 	schema       Schema
 	rows         []Row
-	rowsAffected uint64
+	rowsAffected uint
 	rowCursor    int
+	offset       uint
 }
 
 // ResultSet represents a response resultset interface.
 type ResultSetOption func(*resultset) error
 
 // WithResultSetRowsAffected returns a resultset option to set the rows affected.
-func WithResultSetRowsAffected(rowsAffected uint64) ResultSetOption {
+func WithResultSetRowsAffected(rowsAffected uint) ResultSetOption {
 	return func(r *resultset) error {
 		r.rowsAffected = rowsAffected
 		return nil
@@ -52,6 +53,14 @@ func WithResultSetRows(rows []Row) ResultSetOption {
 	}
 }
 
+// WithResultSetOffset returns a resultset option to set the offset.
+func WithResultSetOffset(offset uint) ResultSetOption {
+	return func(r *resultset) error {
+		r.offset = offset
+		return nil
+	}
+}
+
 // NewResultSet returns a new ResultSet.
 func NewResultSet(opts ...ResultSetOption) ResultSet {
 	rs := newResultSet()
@@ -65,6 +74,7 @@ func newResultSet() *resultset {
 	return &resultset{
 		schema:       nil,
 		rows:         []Row{},
+		offset:       0,
 		rowsAffected: 0,
 		rowCursor:    0,
 	}
@@ -82,12 +92,15 @@ func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
 }
 
 // RowsAffected returns the number of rows affected.
-func (r *resultset) RowsAffected() uint64 {
+func (r *resultset) RowsAffected() uint {
 	return r.rowsAffected
 }
 
 // Next returns the next row.
 func (r *resultset) Next() bool {
+	if r.rowCursor < int(r.offset) {
+		r.rowCursor = int(r.offset)
+	}
 	r.rowCursor++
 	return (r.rowCursor - 1) < len(r.rows)
 }
