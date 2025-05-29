@@ -22,8 +22,9 @@ type resultset struct {
 	schema       Schema
 	rows         []Row
 	rowsAffected uint
-	rowCursor    int
+	rowCursor    uint
 	offset       uint
+	limit        uint
 }
 
 // ResultSet represents a response resultset interface.
@@ -61,6 +62,14 @@ func WithResultSetOffset(offset uint) ResultSetOption {
 	}
 }
 
+// WithResultSetLimit returns a resultset option to set the limit.
+func WithResultSetLimit(limit uint) ResultSetOption {
+	return func(r *resultset) error {
+		r.limit = limit
+		return nil
+	}
+}
+
 // NewResultSet returns a new ResultSet.
 func NewResultSet(opts ...ResultSetOption) ResultSet {
 	rs := newResultSet()
@@ -75,6 +84,7 @@ func newResultSet() *resultset {
 		schema:       nil,
 		rows:         []Row{},
 		offset:       0,
+		limit:        0,
 		rowsAffected: 0,
 		rowCursor:    0,
 	}
@@ -98,16 +108,21 @@ func (r *resultset) RowsAffected() uint {
 
 // Next returns the next row.
 func (r *resultset) Next() bool {
-	if r.rowCursor < int(r.offset) {
-		r.rowCursor = int(r.offset)
+	if r.rowCursor < r.offset {
+		r.rowCursor = r.offset
 	}
 	r.rowCursor++
-	return (r.rowCursor - 1) < len(r.rows)
+	if 0 < r.limit {
+		if (r.offset + r.limit) < r.rowCursor {
+			return false
+		}
+	}
+	return r.rowCursor <= uint(len(r.rows))
 }
 
 // Row returns the current row.
 func (r *resultset) Row() (Row, error) {
-	if len(r.rows) < (r.rowCursor - 1) {
+	if (r.rowCursor == 0) || (uint(len(r.rows)) < r.rowCursor) {
 		return nil, errors.ErrNoRows
 	}
 	return r.rows[r.rowCursor-1], nil
