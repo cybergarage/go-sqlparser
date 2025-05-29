@@ -7,15 +7,17 @@
 - Add new ANTLR parser instead of SQLite3 parser
 
 ## v1.6.0 (2025-05-XX)
-### Improvements
+### New Features
 - Refactor function package
   - Move function executors to `fn` package
   - Update function executor interface
-### New Features
 - Suport new functions
   - ROUD, SQRT, LOG, LOG10, EXP, POWER, RAND, PI
   - UPPER, LOWER, TRIM
   - CURRENT_TIMESTAMP, NOW
+### Updates
+- SELECT
+  - Update Limit interface to return uint values instead of int
 
 ## v1.5.1 (2025-05-12)
 ### New Features
