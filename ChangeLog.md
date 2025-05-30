@@ -1,17 +1,17 @@
 # Changelog
 
-## v2.0.0 (2023-xx-xx)
+## v2.0.0 (2026-xx-xx)
 ### Updates
 - SELECT
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
-## v1.6.0 (2025-05-XX)
+## v1.6.0 (2025-05-30)
 ### New Features
 - Refactor function package
   - Move function executors to `fn` package
   - Update function executor interface
-- Suport new functions
+- Support new functions
   - ROUD, SQRT, LOG, LOG10, EXP, POWER, RAND, PI
   - UPPER, LOWER, TRIM
   - CURRENT_TIMESTAMP, NOW
