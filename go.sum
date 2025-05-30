@@ -14,6 +14,8 @@ github.com/cybergarage/go-safecast v1.3.0 h1:Lntv/UHYp2kCpoT+qR22GvtnmqZM+DmhTBc
 github.com/cybergarage/go-safecast v1.3.0/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
 github.com/cybergarage/go-safecast v1.3.1 h1:R3xePPuuIszIRhv6dB/Qznuj6Lx+EjFIsPJkLnAAF7I=
 github.com/cybergarage/go-safecast v1.3.1/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
+github.com/cybergarage/go-safecast v1.3.2 h1:M6F1jd3TuOPtTl9XS/++j4RFkCTybOIkVWagm++B6CA=
+github.com/cybergarage/go-safecast v1.3.2/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
 github.com/cybergarage/go-tracing v1.1.4 h1:J/9U1fDB0uGfRx1O4MQl8qgBDCZzNIFoPKYbhRPRoIo=
 github.com/cybergarage/go-tracing v1.1.4/go.mod h1:nG0apSs80pTvlBgYHvGIKpGyoM6mHHxfzkqcb9/vHZ8=
 github.com/cybergarage/go-tracing v1.1.5 h1:woJLmGqTcRVpRQlOB3GqOwhujdZYUoIRr+XmdN3vhKg=
