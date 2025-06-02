@@ -44,7 +44,7 @@ func (selectors Selectors) HasFunction() bool {
 // HasFunctionWithType returns true if the selector list has a function with the specified type.
 func (selectors Selectors) HasFunctionWithType(t FunctionType) bool {
 	for _, selector := range selectors {
-		fx, ok := selector.(Function)
+		fx, ok := selector.Function()
 		if !ok {
 			continue
 		}
