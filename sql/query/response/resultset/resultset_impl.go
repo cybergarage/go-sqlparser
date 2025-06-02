@@ -25,6 +25,7 @@ type resultset struct {
 	rowCursor    uint
 	offset       uint
 	limit        uint
+	groupBy      string
 }
 
 // ResultSet represents a response resultset interface.
@@ -70,6 +71,14 @@ func WithResultSetLimit(limit uint) ResultSetOption {
 	}
 }
 
+// WithResultSetGroupBy returns a resultset option to set the group by clause.
+func WithResultSetGroupBy(groupBy string) ResultSetOption {
+	return func(r *resultset) error {
+		r.groupBy = groupBy
+		return nil
+	}
+}
+
 // NewResultSet returns a new ResultSet.
 func NewResultSet(opts ...ResultSetOption) ResultSet {
 	rs := newResultSet()
@@ -85,6 +94,7 @@ func newResultSet() *resultset {
 		rows:         []Row{},
 		offset:       0,
 		limit:        0,
+		groupBy:      "",
 		rowsAffected: 0,
 		rowCursor:    0,
 	}
@@ -98,42 +108,61 @@ func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
 			return nil, err
 		}
 	}
+	// if !rs.schema.Selectors().HasAggregator() {
+	// 	return rs, nil
+	// }
+	// return rs.Aggregate()
 	return rs, nil
 }
 
 // RowsAffected returns the number of rows affected.
-func (r *resultset) RowsAffected() uint {
-	return r.rowsAffected
+func (rs *resultset) RowsAffected() uint {
+	return rs.rowsAffected
 }
 
 // Next returns the next row.
-func (r *resultset) Next() bool {
-	if r.rowCursor < r.offset {
-		r.rowCursor = r.offset
+func (rs *resultset) Next() bool {
+	if rs.rowCursor < rs.offset {
+		rs.rowCursor = rs.offset
 	}
-	r.rowCursor++
-	if 0 < r.limit {
-		if (r.offset + r.limit) < r.rowCursor {
+	rs.rowCursor++
+	if 0 < rs.limit {
+		if (rs.offset + rs.limit) < rs.rowCursor {
 			return false
 		}
 	}
-	return r.rowCursor <= uint(len(r.rows))
+	return rs.rowCursor <= uint(len(rs.rows))
 }
 
 // Row returns the current row.
-func (r *resultset) Row() (Row, error) {
-	if (r.rowCursor == 0) || (uint(len(r.rows)) < r.rowCursor) {
+func (rs *resultset) Row() (Row, error) {
+	if (rs.rowCursor == 0) || (uint(len(rs.rows)) < rs.rowCursor) {
 		return nil, errors.ErrNoRows
 	}
-	return r.rows[r.rowCursor-1], nil
+	return rs.rows[rs.rowCursor-1], nil
 }
 
 // Schema returns the schema.
-func (r *resultset) Schema() Schema {
-	return r.schema
+func (rs *resultset) Schema() Schema {
+	return rs.schema
+}
+
+// Offset returns the offset.
+func (rs *resultset) Offset() uint {
+	return rs.offset
+}
+
+// Limit returns the limit.
+func (rs *resultset) Limit() uint {
+	return rs.limit
+}
+
+// GroupBy returns the group by clause.
+func (rs *resultset) GroupBy() string {
+	return rs.groupBy
 }
 
 // Close closes the resultset.
-func (r *resultset) Close() error {
+func (rs *resultset) Close() error {
 	return nil
 }
