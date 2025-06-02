@@ -38,6 +38,6 @@ func NewRowFromObject(schema Schema, objMap map[string]any) (Row, error) {
 	}
 	return NewRow(
 		WithRowSchema(schema),
-		WithRowObject(objMap),
+		WithRowObject(rowObj),
 	), nil
 }
