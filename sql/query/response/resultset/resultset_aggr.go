@@ -33,7 +33,7 @@ func NewAggregatedResultSetFrom(rs ResultSet, opts ...any) (ResultSet, error) {
 	schema := rs.Schema()
 	selectors := schema.Selectors()
 
-	if selectors.HasAggregator() {
+	if !selectors.HasAggregator() {
 		return rs, nil
 	}
 
