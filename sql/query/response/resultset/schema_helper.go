@@ -23,6 +23,7 @@ import (
 // WithSchemaQuerySchema returns a functional option for WithSchemaSelector().
 func WithSchemaQuerySchema(querySchema query.Schema) SchemaOption {
 	return func(schema *schema) error {
+		schema.tableName = querySchema.TableName()
 		schema.querySchema = querySchema
 		return nil
 	}
