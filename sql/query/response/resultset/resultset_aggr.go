@@ -18,8 +18,18 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
-// Aggregate processes the result set to compute aggregations based on the selectors.
-func (rs *resultset) Aggregate() (ResultSet, error) {
+// GroupBy represents a function type for grouping rows in a result set.
+type GroupBy = fn.GroupBy
+
+// NewAggregatedResultSetFrom creates a new ResultSet with aggregated rows from the given ResultSet.
+func NewAggregatedResultSetFrom(rs ResultSet, opts ...any) (ResultSet, error) {
+	groupBy := ""
+	for _, opt := range opts {
+		if g, ok := opt.(GroupBy); ok {
+			groupBy = string(g)
+		}
+	}
+
 	schema := rs.Schema()
 	selectors := schema.Selectors()
 
@@ -33,7 +43,6 @@ func (rs *resultset) Aggregate() (ResultSet, error) {
 	}
 
 	resetOpts := []any{}
-	groupBy := rs.GroupBy()
 	if 0 < len(groupBy) {
 		resetOpts = append(resetOpts, fn.GroupBy(groupBy))
 	}
