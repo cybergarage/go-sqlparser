@@ -108,11 +108,10 @@ func NewResultSetFrom(opts ...ResultSetOption) (ResultSet, error) {
 			return nil, err
 		}
 	}
-	// if !rs.schema.Selectors().HasAggregator() {
-	// 	return rs, nil
-	// }
-	// return rs.Aggregate()
-	return rs, nil
+	if !rs.schema.Selectors().HasAggregator() {
+		return rs, nil
+	}
+	return rs.Aggregate()
 }
 
 // RowsAffected returns the number of rows affected.
