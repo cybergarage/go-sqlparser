@@ -33,8 +33,8 @@ func (selectors Selectors) IsAsterisk() bool {
 // HasFunction returns true if the selector list has a function.
 func (selectors Selectors) HasFunction() bool {
 	for _, selector := range selectors {
-		_, ok := selector.(Function)
-		if ok {
+		_, ok := selector.Function()
+		if !ok {
 			return true
 		}
 	}
@@ -73,7 +73,10 @@ func (selectors Selectors) HasExecutor() bool {
 func (selectors Selectors) Functions() []Function {
 	fns := make([]Function, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fn, ok := selector.Function()
+		if !ok {
+			continue
+		}
 		if !ok {
 			continue
 		}
@@ -85,7 +88,10 @@ func (selectors Selectors) Functions() []Function {
 // LookupFunction returns a function with the specified name.
 func (selectors Selectors) LookupFunction(name string) (Function, error) {
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fn, ok := selector.Function()
+		if !ok {
+			continue
+		}
 		if !ok {
 			continue
 		}
@@ -100,7 +106,7 @@ func (selectors Selectors) LookupFunction(name string) (Function, error) {
 func (selectors Selectors) Executors() ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fn, ok := selector.Function()
 		if !ok {
 			continue
 		}
@@ -129,7 +135,7 @@ func (selectors Selectors) LookupExecutor(name string) (FunctionExecutor, error)
 func (selectors Selectors) ExecutorsForType(t FunctionType) ([]FunctionExecutor, error) {
 	executors := make([]FunctionExecutor, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fn, ok := selector.Function()
 		if !ok {
 			continue
 		}
@@ -149,7 +155,7 @@ func (selectors Selectors) ExecutorsForType(t FunctionType) ([]FunctionExecutor,
 func (selectors Selectors) Aggregators() (AggregatorSet, error) {
 	aggregators := make([]fn.Aggregator, 0)
 	for _, selector := range selectors {
-		fn, ok := selector.(Function)
+		fn, ok := selector.Function()
 		if !ok {
 			continue
 		}
