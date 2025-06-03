@@ -20,11 +20,11 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// WithSchemaResultSetSchema returns a functional option for WithSchemaSelector().
-func WithSchemaResultSetSchema(scm Schema) SchemaOption {
+// WithSchemaTableSchema returns a functional option for WithSchemaSelector().
+func WithSchemaTableSchema(tblSchema query.Schema) SchemaOption {
 	return func(schema *schema) error {
-		schema.tableName = scm.TableName()
-		schema.baseSchema = scm
+		schema.tableName = tblSchema.TableName()
+		schema.tableSchema = tblSchema
 		return nil
 	}
 }
@@ -32,7 +32,7 @@ func WithSchemaResultSetSchema(scm Schema) SchemaOption {
 // WithSchemaSelector returns a functional option for resultsetSchema.
 func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 	return func(schema *schema) error {
-		if schema.baseSchema == nil {
+		if schema.tableSchema == nil {
 			return fmt.Errorf("base schema is nil; set it first using WithSchemaQuerySchema")
 		}
 
@@ -43,7 +43,7 @@ func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 			fx, ok := selector.Function()
 			if !ok {
 				selectorName := selector.Name()
-				schemaColumn, err := schema.baseSchema.LookupColumn(selectorName)
+				schemaColumn, err := schema.tableSchema.LookupColumn(selectorName)
 				if err != nil {
 					return err
 				}

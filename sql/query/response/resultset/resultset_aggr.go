@@ -23,17 +23,17 @@ import (
 type GroupBy = fn.GroupBy
 
 // NewAggregatedResultSetFrom creates a new ResultSet with aggregated rows from the given ResultSet.
-func NewAggregatedResultSetFrom(rs ResultSet, selectors query.Selectors, groupBy string) (ResultSet, error) {
+func NewAggregatedResultSetFrom(rs ResultSet, tableSchema query.Schema, selectors query.Selectors, groupBy string) (ResultSet, error) {
 	if !selectors.HasAggregator() {
 		return rs, nil
 	}
 
 	// Generate a new schema for the aggregated result set
 
-	schema := rs.Schema()
+	rsSchema := rs.Schema()
 	aggrSchema := NewSchema(
-		WithSchemaDatabaseName(schema.DatabaseName()),
-		WithSchemaResultSetSchema(schema),
+		WithSchemaDatabaseName(rsSchema.DatabaseName()),
+		WithSchemaTableSchema(tableSchema),
 		WithSchemaSelectors(selectors),
 	)
 
