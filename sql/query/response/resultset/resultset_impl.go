@@ -135,7 +135,8 @@ func (rs *resultset) Row() (Row, error) {
 	if (rs.rowCursor == 0) || (uint(len(rs.rows)) < rs.rowCursor) {
 		return nil, errors.ErrNoRows
 	}
-	return rs.rows[rs.rowCursor-1], nil
+	row := rs.rows[rs.rowCursor-1]
+	return NewRowFromObject(rs.schema, row.Object())
 }
 
 // Schema returns the schema.
