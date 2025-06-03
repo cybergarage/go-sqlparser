@@ -20,11 +20,11 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
-// WithSchemaQuerySchema returns a functional option for WithSchemaSelector().
-func WithSchemaQuerySchema(querySchema query.Schema) SchemaOption {
+// WithSchemaResultSetSchema returns a functional option for WithSchemaSelector().
+func WithSchemaResultSetSchema(scm Schema) SchemaOption {
 	return func(schema *schema) error {
-		schema.tableName = querySchema.TableName()
-		schema.querySchema = querySchema
+		schema.tableName = scm.TableName()
+		schema.baseSchema = scm
 		return nil
 	}
 }
@@ -32,25 +32,22 @@ func WithSchemaQuerySchema(querySchema query.Schema) SchemaOption {
 // WithSchemaSelector returns a functional option for resultsetSchema.
 func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 	return func(schema *schema) error {
-		if schema.querySchema == nil {
-			return fmt.Errorf("query schema is nil; set it first using WithSchemaQuerySchema")
+		if schema.baseSchema == nil {
+			return fmt.Errorf("base schema is nil; set it first using WithSchemaQuerySchema")
 		}
 
-		rsSchemaColums := []Column{}
+		rsSchemaColumns := []Column{}
 
 		for _, selector := range selectors {
 			var rsSchemaColumn Column
 			fx, ok := selector.Function()
 			if !ok {
 				selectorName := selector.Name()
-				shemaColumn, err := schema.querySchema.LookupColumn(selectorName)
+				schemaColumn, err := schema.baseSchema.LookupColumn(selectorName)
 				if err != nil {
 					return err
 				}
-				rsSchemaColumn, err = NewColumnFrom(shemaColumn)
-				if err != nil {
-					return err
-				}
+				rsSchemaColumn = schemaColumn
 			} else {
 				dataType, err := query.NewDataTypeForFunction(fx)
 				if err != nil {
@@ -61,12 +58,11 @@ func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 					WithColumnType(dataType),
 					WithColumnFunction(fx),
 				)
-
 			}
-			rsSchemaColums = append(rsSchemaColums, rsSchemaColumn)
+			rsSchemaColumns = append(rsSchemaColumns, rsSchemaColumn)
 		}
 
-		schema.columns = rsSchemaColums
+		schema.columns = rsSchemaColumns
 
 		return nil
 	}

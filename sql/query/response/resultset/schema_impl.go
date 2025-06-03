@@ -24,8 +24,8 @@ type schema struct {
 	databaeName string
 	tableName   string
 	columns     []Column
-	// querySchema is a temporary variable used only with WithSchemaSelector()
-	querySchema query.Schema
+	// baseSchema is a temporary variable used only with WithSchemaSelector()
+	baseSchema Schema
 }
 
 // SchemaOption represents a functional option for resultsetSchema.
@@ -77,7 +77,7 @@ func NewSchemaFrom(opts ...SchemaOption) (Schema, error) {
 
 func newSchema() *schema {
 	return &schema{
-		querySchema: nil,
+		baseSchema:  nil,
 		databaeName: "",
 		tableName:   "",
 		columns:     []Column{},
