@@ -16,26 +16,28 @@ package resultset
 
 import (
 	"github.com/cybergarage/go-sqlparser/sql/fn"
+	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 // GroupBy represents a function type for grouping rows in a result set.
 type GroupBy = fn.GroupBy
 
 // NewAggregatedResultSetFrom creates a new ResultSet with aggregated rows from the given ResultSet.
-func NewAggregatedResultSetFrom(rs ResultSet, opts ...any) (ResultSet, error) {
-	groupBy := ""
-	for _, opt := range opts {
-		if g, ok := opt.(GroupBy); ok {
-			groupBy = string(g)
-		}
-	}
-
-	schema := rs.Schema()
-	selectors := schema.Selectors()
-
+func NewAggregatedResultSetFrom(rs ResultSet, selectors query.Selectors, groupBy string) (ResultSet, error) {
 	if !selectors.HasAggregator() {
 		return rs, nil
 	}
+
+	// Generate a new schema for the aggregated result set
+
+	schema := rs.Schema()
+	aggrSchema := NewSchema(
+		WithSchemaDatabaseName(schema.DatabaseName()),
+		WithSchemaResultSetSchema(schema),
+		WithSchemaSelectors(selectors),
+	)
+
+	// Generate a new aggregated rows
 
 	aggrSet, err := selectors.Aggregators()
 	if err != nil {
@@ -57,7 +59,7 @@ func NewAggregatedResultSetFrom(rs ResultSet, opts ...any) (ResultSet, error) {
 		if err != nil {
 			return nil, err
 		}
-		err = aggrSet.Aggregate(row)
+		err = aggrSet.Aggregate(row.Object())
 		if err != nil {
 			return nil, err
 		}
@@ -76,12 +78,14 @@ func NewAggregatedResultSetFrom(rs ResultSet, opts ...any) (ResultSet, error) {
 		}
 		aggrRows = append(aggrRows,
 			NewRow(
-				WithRowSchema(schema),
+				WithRowSchema(aggrSchema),
 				WithRowObject(rowMap)))
 	}
 
+	// Return an aggregated result set
+
 	return NewResultSet(
-		WithResultSetSchema(schema),
+		WithResultSetSchema(aggrSchema),
 		WithResultSetRows(aggrRows),
 	), nil
 }
