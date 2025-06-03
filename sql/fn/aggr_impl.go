@@ -268,7 +268,7 @@ func (aggr *aggrImpl) AggregateMap(m map[string]any) error {
 			v, ok = m[arg]
 		}
 		if !ok {
-			return fmt.Errorf("%w column %s not found in map", ErrNotFound, arg)
+			return fmt.Errorf("column (%s) %w in map", arg, ErrNotFound)
 		}
 		row = append(row, v)
 	}
