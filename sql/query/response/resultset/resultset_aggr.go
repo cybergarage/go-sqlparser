@@ -15,25 +15,105 @@
 package resultset
 
 import (
+	"fmt"
+
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 // GroupBy represents a function type for grouping rows in a result set.
-type GroupBy = fn.GroupBy
+type GroupBy = query.GroupBy
+
+// AggregatedResultSetOptions represents a functional option for configuring an aggregated result set.
+type AggregatedResultSetOptions func(*aggrResultSet) error
+
+type aggrResultSet struct {
+	tblSchema query.Schema
+	selectors query.Selectors
+	srcRs     ResultSet
+	groupBy   GroupBy
+}
+
+// NewAggregatedResultSet creates a new ResultSet with aggregated rows based on the provided options.
+func WithAggregatedResultSetTableSchema(tblSchema query.Schema) AggregatedResultSetOptions {
+	return func(rs *aggrResultSet) error {
+		rs.tblSchema = tblSchema
+		return nil
+	}
+}
+
+// WithAggregatedResultSetSelectors sets the selectors for the aggregated result set.
+func WithAggregatedResultSetSelectors(selectors query.Selectors) AggregatedResultSetOptions {
+	return func(rs *aggrResultSet) error {
+		rs.selectors = selectors
+		return nil
+	}
+}
+
+// WithAggregatedResultSetSource sets the source ResultSet for the aggregated result set.
+func WithAggregatedResultSetSource(srcRs ResultSet) AggregatedResultSetOptions {
+	return func(rs *aggrResultSet) error {
+		rs.srcRs = srcRs
+		return nil
+	}
+}
+
+// WithAggregatedResultSetGroupBy sets the group by function for the aggregated result set.
+func WithAggregatedResultSetGroupBy(groupBy GroupBy) AggregatedResultSetOptions {
+	return func(rs *aggrResultSet) error {
+		rs.groupBy = groupBy
+		return nil
+	}
+}
 
 // NewAggregatedResultSetFrom creates a new ResultSet with aggregated rows from the given ResultSet.
-func NewAggregatedResultSetFrom(rs ResultSet, tableSchema query.Schema, selectors query.Selectors, groupBy string) (ResultSet, error) {
+func NewAggregatedResultSetFrom(opts ...AggregatedResultSetOptions) (ResultSet, error) {
+	// Set the specified options
+
+	aggrOpts := &aggrResultSet{
+		tblSchema: nil,
+		selectors: nil,
+		srcRs:     nil,
+		groupBy:   nil,
+	}
+
+	for _, opt := range opts {
+		if err := opt(aggrOpts); err != nil {
+			return nil, err
+		}
+	}
+
+	// Validate the options
+
+	tblSchema := aggrOpts.tblSchema
+	if tblSchema == nil {
+		return nil, fmt.Errorf("table schema is required for aggregated result set")
+	}
+
+	selectors := aggrOpts.selectors
+	if selectors == nil {
+		return nil, fmt.Errorf("selectors are required for aggregated result set")
+	}
+
+	srcRs := aggrOpts.srcRs
+	if srcRs == nil {
+		return nil, fmt.Errorf("source result set is required for aggregated result set")
+	}
+
+	groupBy := aggrOpts.groupBy
+
+	// Check if the selectors have aggregators
+
 	if !selectors.HasAggregator() {
-		return rs, nil
+		return srcRs, nil
 	}
 
 	// Generate a new schema for the aggregated result set
 
-	rsSchema := rs.Schema()
+	rsSchema := srcRs.Schema()
 	aggrSchema := NewSchema(
 		WithSchemaDatabaseName(rsSchema.DatabaseName()),
-		WithSchemaTableSchema(tableSchema),
+		WithSchemaTableSchema(tblSchema),
 		WithSchemaSelectors(selectors),
 	)
 
@@ -45,8 +125,8 @@ func NewAggregatedResultSetFrom(rs ResultSet, tableSchema query.Schema, selector
 	}
 
 	resetOpts := []any{}
-	if 0 < len(groupBy) {
-		resetOpts = append(resetOpts, fn.GroupBy(groupBy))
+	if groupBy != nil {
+		resetOpts = append(resetOpts, fn.GroupBy(groupBy.ColumnName()))
 	}
 
 	err = aggrSet.Reset(resetOpts...)
@@ -54,8 +134,8 @@ func NewAggregatedResultSetFrom(rs ResultSet, tableSchema query.Schema, selector
 		return nil, err
 	}
 
-	for rs.Next() {
-		row, err := rs.Row()
+	for srcRs.Next() {
+		row, err := srcRs.Row()
 		if err != nil {
 			return nil, err
 		}
