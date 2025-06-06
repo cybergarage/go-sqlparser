@@ -68,12 +68,12 @@ func (stmt *bindStmt) Statements() ([]Statement, error) {
 		if err != nil {
 			return nil, err
 		}
-		if 0 < strings.Index(s, stdPlaceholder) {
+		if 0 < strings.Index(q, stdPlaceholder) {
 			q = strings.Replace(q, stdPlaceholder, s, 1)
 			continue
 		}
 		placeHolder := fmt.Sprintf(pgPlaceholderFormat, n+1)
-		if 0 < strings.Index(s, placeHolder) {
+		if 0 < strings.Index(q, placeHolder) {
 			q = strings.Replace(q, placeHolder, s, 1)
 			continue
 		}
