@@ -15,9 +15,15 @@
 package stmt
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/cybergarage/go-sqlparser/sql"
+)
+
+const (
+	stdPlaceholder      = "?"
+	pgPlaceholderFormat = "$%d"
 )
 
 type bindStmt struct {
@@ -57,12 +63,21 @@ func NewBindStatement(opts ...BindStatementOption) BindStatement {
 // Statement returns the statement with the bound parameters.
 func (stmt *bindStmt) Statements() ([]Statement, error) {
 	q := stmt.query
-	for _, param := range stmt.params {
+	for n, param := range stmt.params {
 		s, err := param.String()
 		if err != nil {
 			return nil, err
 		}
-		q = strings.Replace(q, "?", s, 1)
+		if 0 < strings.Index(s, stdPlaceholder) {
+			q = strings.Replace(q, stdPlaceholder, s, 1)
+			continue
+		}
+		placeHolder := fmt.Sprintf(pgPlaceholderFormat, n+1)
+		if 0 < strings.Index(s, placeHolder) {
+			q = strings.Replace(q, placeHolder, s, 1)
+			continue
+		}
+		return nil, fmt.Errorf("placeholder (%s/%s) %w: %s", stdPlaceholder, placeHolder, ErrNotFound, s)
 	}
 	stmts, err := sql.NewParser().ParseString(q)
 	if err != nil {
