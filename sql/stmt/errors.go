@@ -16,12 +16,10 @@ package stmt
 
 import (
 	"errors"
-	"fmt"
 )
 
 // ErrInvalid is returned when the packet is invalid.
 var ErrInvalid = errors.New("invalid")
 
-func newInvalidStatement(q string) error {
-	return fmt.Errorf("%w statement : %s", ErrInvalid, q)
-}
+// ErrNotFound is returned when the requested item is not found.
+var ErrNotFound = errors.New("not found")
