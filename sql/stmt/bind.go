@@ -31,5 +31,5 @@ type BindParams []BindParam
 
 // BindStatement is a bind statement.
 type BindStatement interface {
-	Statement() (Statement, error)
+	Statements() ([]Statement, error)
 }

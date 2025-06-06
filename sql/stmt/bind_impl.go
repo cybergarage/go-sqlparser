@@ -18,7 +18,6 @@ import (
 	"strings"
 
 	"github.com/cybergarage/go-sqlparser/sql"
-	"github.com/cybergarage/go-sqlparser/sql/query"
 )
 
 type bindStmt struct {
@@ -55,8 +54,8 @@ func NewBindStatement(opts ...BindStatementOption) BindStatement {
 	return stmt
 }
 
-// Statement returns the statement.
-func (stmt *bindStmt) Statement() (Statement, error) {
+// Statement returns the statement with the bound parameters.
+func (stmt *bindStmt) Statements() ([]Statement, error) {
 	q := stmt.query
 	for _, param := range stmt.params {
 		s, err := param.String()
@@ -69,8 +68,5 @@ func (stmt *bindStmt) Statement() (Statement, error) {
 	if err != nil {
 		return nil, err
 	}
-	if len(stmts) != 1 {
-		return nil, newInvalidStatement(query.EQ.String())
-	}
-	return stmts[0], nil
+	return stmts, nil
 }
