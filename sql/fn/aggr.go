@@ -14,9 +14,6 @@
 
 package fn
 
-// GroupBy represents a group by column name.
-type GroupBy string
-
 // Aggregator is an interface for aggregating data.
 type Aggregator interface {
 	// Name returns the name of the aggregator.
