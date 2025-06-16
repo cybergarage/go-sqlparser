@@ -37,8 +37,9 @@ type aggrImpl struct {
 	counts      int
 	groupBys    []GroupBy
 	groupBySet  GroupBySet
-	groupAggrs  map[any][]float64
-	groupCounts map[any]int
+	groupKeys   map[GroupBySet][]any
+	groupAggrs  map[GroupBySet][]float64
+	groupCounts map[GroupBySet]int
 	resetFunc   AggrResetFunc
 	aggFunc     AggrAggregateFunc
 	finalFunc   AggrFinalizeFunc
@@ -57,8 +58,9 @@ func newAggr() *aggrImpl {
 		groupBySet:  GroupBySet(""),
 		aggrs:       make([]float64, 0),
 		counts:      0,
-		groupAggrs:  make(map[any][]float64),
-		groupCounts: make(map[any]int),
+		groupKeys:   make(map[GroupBySet][]any),
+		groupAggrs:  make(map[GroupBySet][]float64),
+		groupCounts: make(map[GroupBySet]int),
 		resetFunc:   nil,
 		aggFunc:     nil,
 		finalFunc:   nil,
@@ -163,8 +165,11 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 
 	// Set the column names
 	aggr.columns = []string{}
-	if groupBy, ok := aggr.GroupBy(); ok {
-		aggr.columns = append(aggr.columns, groupBy)
+	groupBys, isGrouping := aggr.GroupBys()
+	if isGrouping {
+		for _, groupBy := range groupBys {
+			aggr.columns = append(aggr.columns, string(groupBy))
+		}
 	}
 	for _, arg := range aggr.args {
 		aggr.columns = append(aggr.columns, fmt.Sprintf("%s(%s)", aggr.Name(), arg))
@@ -189,8 +194,8 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 
 	aggr.counts = 0
 
-	aggr.groupAggrs = make(map[any][]float64)
-	aggr.groupCounts = make(map[any]int)
+	aggr.groupAggrs = make(map[GroupBySet][]float64)
+	aggr.groupCounts = make(map[GroupBySet]int)
 
 	return nil
 }
@@ -215,31 +220,37 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		}
 	}
 
-	if _, ok := aggr.GroupBy(); ok {
-		group := row[0]
-		if _, ok := aggr.groupAggrs[group]; !ok {
-			aggr.groupAggrs[group] = make([]float64, (len(aggr.columns) - 1))
-			for n := range aggr.groupAggrs[group] {
+	groupBys, isGrouping := aggr.GroupBys()
+	if isGrouping {
+		groupKeysCnt := len(groupBys)
+		groupKeys := row[:groupKeysCnt]
+		groupSetKey, err := NewGroupBySetKey(groupBys, groupKeys)
+		if err != nil {
+			return err
+		}
+		if _, ok := aggr.groupAggrs[groupSetKey]; !ok {
+			aggr.groupAggrs[groupSetKey] = make([]float64, (len(aggr.columns) - groupKeysCnt))
+			for n := range aggr.groupAggrs[groupSetKey] {
 				nv, err := aggr.resetFunc(aggr)
 				if err != nil {
 					return err
 				}
-				aggr.groupAggrs[group][n] = nv
+				aggr.groupAggrs[groupSetKey][n] = nv
 			}
-			aggr.groupCounts[group] = 0
+			aggr.groupCounts[groupSetKey] = 0
 		}
-		for n, rv := range row[1:] {
+		for n, rv := range row[groupKeysCnt:] {
 			fv, err := toFloat64(rv)
 			if err != nil {
 				return fmt.Errorf("[%d] %w row : %s", n+1, ErrInvalid, err)
 			}
-			nv, err := aggr.aggFunc(aggr, aggr.groupAggrs[group][n], fv)
+			nv, err := aggr.aggFunc(aggr, aggr.groupAggrs[groupSetKey][n], fv)
 			if err != nil {
 				return err
 			}
-			aggr.groupAggrs[group][n] = nv
+			aggr.groupAggrs[groupSetKey][n] = nv
 		}
-		aggr.groupCounts[group]++
+		aggr.groupCounts[groupSetKey]++
 	} else {
 		for n, rv := range row {
 			fv, err := toFloat64(rv)
@@ -299,16 +310,21 @@ func (aggr *aggrImpl) Aggregate(v any) error {
 // Finalize finalizes the aggregation and returns the result.
 func (aggr *aggrImpl) Finalize() (ResultSet, error) {
 	rows := make([]Row, 0)
-	if _, ok := aggr.GroupBy(); ok {
-		for group, values := range aggr.groupAggrs {
-			groupCnt, ok := aggr.groupCounts[group]
+	_, isGrouping := aggr.GroupBys()
+	if isGrouping {
+		for groupSetKey, columnValues := range aggr.groupAggrs {
+			groupCnt, ok := aggr.groupCounts[groupSetKey]
 			if !ok {
-				return nil, fmt.Errorf("group count %w for group %v", ErrNotFound, group)
+				return nil, fmt.Errorf("group count %w for group %v", ErrNotFound, groupSetKey)
 			}
 			row := make([]any, 0)
-			row = append(row, group)
-			for _, value := range values {
-				fv, err := aggr.finalFunc(aggr, value, groupCnt)
+			groupSetKeys, ok := aggr.groupKeys[groupSetKey]
+			if !ok {
+				return nil, fmt.Errorf("group key %w for group %v", ErrNotFound, groupSetKey)
+			}
+			row = append(row, groupSetKeys...)
+			for _, columnValue := range columnValues {
+				fv, err := aggr.finalFunc(aggr, columnValue, groupCnt)
 				if err != nil {
 					return nil, err
 				}

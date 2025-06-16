@@ -14,7 +14,12 @@
 
 package fn
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/cybergarage/go-safecast/safecast"
+)
 
 const (
 	groupByDelimiter = ","
@@ -37,6 +42,23 @@ func NewGroupBySet(groupBys ...GroupBy) GroupBySet {
 		return ""
 	}
 	return GroupBySet(strings.Join(groupBys, groupByDelimiter))
+}
+
+// NewGroupBySetKey creates a GroupBySet from a slice of GroupBy and a slice of group keys.
+func NewGroupBySetKey(groupBys []GroupBy, groupKeys []any) (GroupBySet, error) {
+	if len(groupBys) != len(groupKeys) {
+		return "", fmt.Errorf("groupBys and groupKeys must have the same length: %d != %d", len(groupBys), len(groupKeys))
+	}
+	var groupBySet []GroupBy
+	for _, groupKey := range groupKeys {
+		var groupKeyStr string
+		err := safecast.ToString(groupKey, &groupKeyStr)
+		if err != nil {
+			return "", err
+		}
+		groupBySet = append(groupBySet, NewGroupBy(groupKeyStr))
+	}
+	return NewGroupBySet(groupBySet...), nil
 }
 
 // NewGroupBysFromGroupBySet converts a GroupBySet to a slice of GroupBy instances.
