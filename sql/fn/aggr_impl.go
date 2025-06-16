@@ -35,7 +35,8 @@ type aggrImpl struct {
 	columns     []string
 	aggrs       []float64
 	counts      int
-	groupBy     string
+	groupBys    []GroupBy
+	groupBySet  GroupBySet
 	groupAggrs  map[any][]float64
 	groupCounts map[any]int
 	resetFunc   AggrResetFunc
@@ -52,7 +53,8 @@ func newAggr() *aggrImpl {
 		name:        "",
 		args:        make([]string, 0),
 		columns:     make([]string, 0),
-		groupBy:     "",
+		groupBys:    []GroupBy{},
+		groupBySet:  GroupBySet(""),
 		aggrs:       make([]float64, 0),
 		counts:      0,
 		groupAggrs:  make(map[any][]float64),
@@ -107,13 +109,11 @@ func withAggrFinalizeFunc(finalFunc AggrFinalizeFunc) aggrOption {
 	}
 }
 
-// withAggrGroupBy sets the group by column for the Aggr aggregator.
-func withAggrGroupBy(group string) aggrOption {
+// withAggrGroupBys sets the group by column for the Aggr aggregator.
+func withAggrGroupBys(groups ...GroupBy) aggrOption {
 	return func(aggr *aggrImpl) error {
-		if len(group) == 0 {
-			return nil
-		}
-		aggr.groupBy = group
+		aggr.groupBys = groups
+		aggr.groupBySet = NewGroupBySet(groups...)
 		return nil
 	}
 }
@@ -133,12 +133,12 @@ func (aggr *aggrImpl) Arguments() []string {
 	return aggr.args
 }
 
-// GroupBy returns the group by column name and a boolean indicating if it is set.
-func (aggr *aggrImpl) GroupBy() (string, bool) {
-	if len(aggr.groupBy) == 0 {
-		return "", false
+// GroupBys returns the group by column names and a boolean indicating if it is set.
+func (aggr *aggrImpl) GroupBys() ([]GroupBy, bool) {
+	if len(aggr.groupBys) == 0 {
+		return []GroupBy{}, false
 	}
-	return aggr.groupBy, true
+	return aggr.groupBys, true
 }
 
 // Reset resets the aggregator to its initial state.
@@ -150,8 +150,12 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 			if err := opt(aggr); err != nil {
 				return fmt.Errorf("failed to apply option: %w", err)
 			}
+		case []GroupBy:
+			aggr.groupBys = opt
+			aggr.groupBySet = NewGroupBySet(opt...)
 		case GroupBy:
-			aggr.groupBy = string(opt)
+			aggr.groupBys = []GroupBy{opt}
+			aggr.groupBySet = NewGroupBySet(opt)
 		default:
 			return fmt.Errorf("%w option type %T is not supported", ErrInvalid, opt)
 		}

@@ -29,7 +29,7 @@ func WithCountArguments(args []string) CountOption {
 
 // WithCountGroupBy sets the group by column for the Count aggregator.
 func WithCountGroupBy(group string) CountOption {
-	return withAggrGroupBy(group)
+	return withAggrGroupBys(group)
 }
 
 // NewCount creates a new Count aggregator with the given options.

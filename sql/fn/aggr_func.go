@@ -32,9 +32,9 @@ func WithAggregatorArguments(args []string) AggregatorOption {
 	return withAggrArguments(args)
 }
 
-// WithAggregatorGroupBy is an option to set the group by clause for the aggregator.
-func WithAggregatorGroupBy(group string) AggregatorOption {
-	return withAggrGroupBy(group)
+// WithAggregatorGroupBys is an option to set the group by clause for the aggregator.
+func WithAggregatorGroupBys(groups ...GroupBy) AggregatorOption {
+	return withAggrGroupBys(groups...)
 }
 
 // NewAggregator creates a new Aggregator with the given options.

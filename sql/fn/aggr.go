@@ -22,8 +22,8 @@ type Aggregator interface {
 	Type() FunctionType
 	// Argmuents returns the arguments of the aggregator.
 	Arguments() []string
-	// GroupBy returns the group by column name and whether it is a group by column.
-	GroupBy() (string, bool)
+	// GroupBys returns the group by column names and whether it is a group by column.
+	GroupBys() ([]GroupBy, bool)
 	// Reset resets the aggregator to its initial state.
 	Reset(opts ...any) error
 	// Aggregate aggregates a map or an array. The map represents a row of data, and the array is a
