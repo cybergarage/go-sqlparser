@@ -29,7 +29,7 @@ func TestAggregators(t *testing.T) {
 	log.SetStdoutDebugEnbled(true)
 
 	tests := []struct {
-		orderBy           string
+		groupBy           string
 		args              []string
 		rows              [][]any
 		expectedSumRows   [][]float64
@@ -40,7 +40,7 @@ func TestAggregators(t *testing.T) {
 		expectedRowCount  int
 	}{
 		{
-			orderBy: "",
+			groupBy: "",
 			args:    []string{"foo"},
 			rows: [][]any{
 				{1},
@@ -55,7 +55,7 @@ func TestAggregators(t *testing.T) {
 			expectedRowCount:  1,
 		},
 		{
-			orderBy: "",
+			groupBy: "",
 			args:    []string{"foo"},
 			rows: [][]any{
 				{1},
@@ -71,7 +71,7 @@ func TestAggregators(t *testing.T) {
 			expectedRowCount:  1,
 		},
 		{
-			orderBy: "bar",
+			groupBy: "bar",
 			args:    []string{"foo"},
 			rows: [][]any{
 				{1, 1},
@@ -87,7 +87,7 @@ func TestAggregators(t *testing.T) {
 			expectedRowCount:  4,
 		},
 		{
-			orderBy: "bar",
+			groupBy: "bar",
 			args:    []string{"foo"},
 			rows: [][]any{
 				{1, 1},
@@ -107,7 +107,7 @@ func TestAggregators(t *testing.T) {
 			expectedRowCount:  4,
 		},
 		{
-			orderBy: "bar",
+			groupBy: "bar",
 			args:    []string{"foo"},
 			rows: [][]any{
 				{1, 1},
@@ -139,31 +139,31 @@ func TestAggregators(t *testing.T) {
 			aggrFuncs := []func() (fn.Aggregator, error){
 				func() (fn.Aggregator, error) {
 					return fn.NewSum(
-						fn.WithSumGroupBy(test.orderBy),
+						fn.WithSumGroupBy(test.groupBy),
 						fn.WithSumArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewAvg(
-						fn.WithAvgGroupBy(test.orderBy),
+						fn.WithAvgGroupBy(test.groupBy),
 						fn.WithAvgArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewMin(
-						fn.WithMinGroupBy(test.orderBy),
+						fn.WithMinGroupBy(test.groupBy),
 						fn.WithMinArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewMax(
-						fn.WithMaxGroupBy(test.orderBy),
+						fn.WithMaxGroupBy(test.groupBy),
 						fn.WithMaxArguments(test.args),
 					)
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewCount(
-						fn.WithCountGroupBy(test.orderBy),
+						fn.WithCountGroupBy(test.groupBy),
 						fn.WithCountArguments(test.args),
 					)
 				},
@@ -181,7 +181,7 @@ func TestAggregators(t *testing.T) {
 
 				t.Run(testAggr.Name(), func(t *testing.T) {
 
-					err := testAggr.Reset(fn.GroupBy(test.orderBy))
+					err := testAggr.Reset(fn.GroupBy(test.groupBy))
 					if err != nil {
 						t.Errorf("Error resetting %s: %v", testAggr.Name(), err)
 						return

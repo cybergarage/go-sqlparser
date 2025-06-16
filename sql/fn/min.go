@@ -32,8 +32,8 @@ func WithMinArguments(args []string) MinOption {
 }
 
 // WithMinGroupBy sets the group by column for the Min aggregator.
-func WithMinGroupBy(group string) MinOption {
-	return withAggrGroupBys(group)
+func WithMinGroupBy(groups ...GroupBy) MinOption {
+	return withAggrGroupBys(groups...)
 }
 
 // NewMin creates a new Min aggregator with the given options.

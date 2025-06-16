@@ -32,8 +32,8 @@ func WithMaxArguments(args []string) MaxOption {
 }
 
 // WithMaxGroupBy sets the group by column for the Max aggregator.
-func WithMaxGroupBy(group string) MaxOption {
-	return withAggrGroupBys(group)
+func WithMaxGroupBy(groups ...GroupBy) MaxOption {
+	return withAggrGroupBys(groups...)
 }
 
 // NewMax creates a new Max aggregator with the given options.
