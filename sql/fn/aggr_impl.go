@@ -336,19 +336,35 @@ func (aggr *aggrImpl) Finalize(opts ...any) (ResultSet, error) {
 		}
 
 		orderByAscFunc := func(i, j int) bool {
-			groupSetKeyiSlice := aggr.groupAggrs[groupSetKeys[i]]
-			groupSetKeyjSlice := aggr.groupAggrs[groupSetKeys[j]]
+			groupSetKeyiSlice := aggr.groupKeys[groupSetKeys[i]]
+			groupSetKeyjSlice := aggr.groupKeys[groupSetKeys[j]]
 			switch {
 			case len(groupSetKeyjSlice) < len(groupSetKeyiSlice):
 				return true
 			case len(groupSetKeyiSlice) < len(groupSetKeyjSlice):
 				return false
 			default:
-				for k := 0; k < len(groupSetKeyiSlice); k++ {
-					if groupSetKeyiSlice[k] < groupSetKeyjSlice[k] {
-						return true
+				cmp := func(i, j any) int {
+					var fi, fj float64
+					if err := safecast.ToFloat64(i, &fi); err != nil {
+						return -1
 					}
-					if groupSetKeyiSlice[k] > groupSetKeyjSlice[k] {
+					if err := safecast.ToFloat64(j, &fj); err != nil {
+						return 1
+					}
+					if fi < fj {
+						return -1
+					}
+					if fi > fj {
+						return 1
+					}
+					return 0
+				}
+				for k := range groupSetKeyiSlice {
+					switch cmp(groupSetKeyiSlice[k], groupSetKeyjSlice[k]) {
+					case -1:
+						return true
+					case 1:
 						return false
 					}
 				}
