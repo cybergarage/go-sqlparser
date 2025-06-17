@@ -145,7 +145,7 @@ func TestAggregators(t *testing.T) {
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewAvg(
-						fn.WithAvgGroupBy(test.groupBys...),
+						fn.WithAvgGroupBys(test.groupBys...),
 						fn.WithAvgArguments(test.args),
 					)
 				},

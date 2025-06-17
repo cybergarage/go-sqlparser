@@ -27,8 +27,8 @@ func WithAvgArguments(args []string) AvgOption {
 	return withAggrArguments(args)
 }
 
-// WithAvgGroupBy sets the group by column for the Avg aggregator.
-func WithAvgGroupBy(groups ...GroupBy) AvgOption {
+// WithAvgGroupBys sets the group by column for the Avg aggregator.
+func WithAvgGroupBys(groups ...GroupBy) AvgOption {
 	return withAggrGroupBys(groups...)
 }
 
