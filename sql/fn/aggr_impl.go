@@ -155,9 +155,6 @@ func (aggr *aggrImpl) GroupBys() ([]GroupBy, bool) {
 
 // Reset resets the aggregator to its initial state.
 func (aggr *aggrImpl) Reset(opts ...any) error {
-	aggr.groupBys = []GroupBy{}
-	aggr.groupBySet = GroupBySet("")
-
 	// Apply options to the aggregator
 	for _, opt := range opts {
 		switch opt := opt.(type) {
