@@ -30,5 +30,5 @@ type Aggregator interface {
 	// list of rows. If grouping is enabled, the array row must have a group value as the first element.
 	Aggregate(v any) error
 	// Finalize finalizes the aggregation and returns the result.
-	Finalize() (ResultSet, error)
+	Finalize(opts ...any) (ResultSet, error)
 }

@@ -16,6 +16,7 @@ package fn
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/cybergarage/go-safecast/safecast"
 )
@@ -317,21 +318,58 @@ func (aggr *aggrImpl) Aggregate(v any) error {
 }
 
 // Finalize finalizes the aggregation and returns the result.
-func (aggr *aggrImpl) Finalize() (ResultSet, error) {
+func (aggr *aggrImpl) Finalize(opts ...any) (ResultSet, error) {
+	orderBy := OrderByNone
+	for _, opt := range opts {
+		switch opt := opt.(type) {
+		case OrderBy:
+			orderBy = opt
+		}
+	}
+
 	rows := make([]Row, 0)
 	_, isGrouping := aggr.GroupBys()
 	if isGrouping {
-		for groupSetKey, columnValues := range aggr.groupAggrs {
+		groupSetKeys := make([]GroupBySet, 0, len(aggr.groupAggrs))
+		switch orderBy {
+		case OrderByAsc:
+			groupSetKeys = make([]GroupBySet, 0, len(aggr.groupAggrs))
+			for groupSetKey := range aggr.groupAggrs {
+				groupSetKeys = append(groupSetKeys, groupSetKey)
+			}
+			// Sort groupSetKeys in ascending order
+			sort.Slice(groupSetKeys, func(i, j int) bool {
+				return groupSetKeys[i] < groupSetKeys[j]
+			})
+		case OrderByDesc:
+			groupSetKeys = make([]GroupBySet, 0, len(aggr.groupAggrs))
+			for groupSetKey := range aggr.groupAggrs {
+				groupSetKeys = append(groupSetKeys, groupSetKey)
+			}
+			// Sort groupSetKeys in descending order
+			sort.Slice(groupSetKeys, func(i, j int) bool {
+				return groupSetKeys[i] > groupSetKeys[j]
+			})
+		default:
+			for groupSetKey := range aggr.groupAggrs {
+				groupSetKeys = append(groupSetKeys, groupSetKey)
+			}
+		}
+		for _, groupSetKey := range groupSetKeys {
+			groupSetKeyValues, ok := aggr.groupKeys[groupSetKey]
+			if !ok {
+				return nil, fmt.Errorf("group key %w for group %v", ErrNotFound, groupSetKey)
+			}
+			columnValues, ok := aggr.groupAggrs[groupSetKey]
+			if !ok {
+				return nil, fmt.Errorf("group values %w for group %v", ErrNotFound, groupSetKey)
+			}
 			groupCnt, ok := aggr.groupCounts[groupSetKey]
 			if !ok {
 				return nil, fmt.Errorf("group count %w for group %v", ErrNotFound, groupSetKey)
 			}
 			row := make([]any, 0)
-			groupSetKeys, ok := aggr.groupKeys[groupSetKey]
-			if !ok {
-				return nil, fmt.Errorf("group key %w for group %v", ErrNotFound, groupSetKey)
-			}
-			row = append(row, groupSetKeys...)
+			row = append(row, groupSetKeyValues...)
 			for _, columnValue := range columnValues {
 				fv, err := aggr.finalFunc(aggr, columnValue, groupCnt)
 				if err != nil {
