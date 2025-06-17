@@ -157,7 +157,7 @@ func TestAggregators(t *testing.T) {
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewMax(
-						fn.WithMaxGroupBy(test.groupBys...),
+						fn.WithMaxGroupBys(test.groupBys...),
 						fn.WithMaxArguments(test.args),
 					)
 				},
