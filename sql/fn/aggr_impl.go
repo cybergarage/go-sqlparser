@@ -114,14 +114,7 @@ func withAggrFinalizeFunc(finalFunc AggrFinalizeFunc) aggrOption {
 // withAggrGroupBys sets the group by column for the Aggr aggregator.
 func withAggrGroupBys(groups ...GroupBy) aggrOption {
 	return func(aggr *aggrImpl) error {
-		aggr.groupBys = []GroupBy{}
-		for _, group := range groups {
-			if len(group) == 0 {
-				continue
-			}
-			aggr.groupBys = append(aggr.groupBys, group)
-		}
-		aggr.groupBySet = NewGroupBySet(aggr.groupBys...)
+		aggr.setGroupBys(groups...)
 		return nil
 	}
 }
@@ -139,6 +132,17 @@ func (aggrImpl *aggrImpl) Type() FunctionType {
 // Arguments returns the arguments of the aggregator.
 func (aggr *aggrImpl) Arguments() []string {
 	return aggr.args
+}
+
+func (aggr *aggrImpl) setGroupBys(groups ...GroupBy) {
+	aggr.groupBys = []GroupBy{}
+	for _, group := range groups {
+		if len(group) == 0 {
+			continue
+		}
+		aggr.groupBys = append(aggr.groupBys, group)
+	}
+	aggr.groupBySet = NewGroupBySet(aggr.groupBys...)
 }
 
 // GroupBys returns the group by column names and a boolean indicating if it is set.
@@ -162,11 +166,9 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 				return fmt.Errorf("failed to apply option: %w", err)
 			}
 		case []GroupBy:
-			aggr.groupBys = opt
-			aggr.groupBySet = NewGroupBySet(opt...)
+			aggr.setGroupBys(opt...)
 		case GroupBy:
-			aggr.groupBys = []GroupBy{opt}
-			aggr.groupBySet = NewGroupBySet(opt)
+			aggr.setGroupBys(opt)
 		default:
 			return fmt.Errorf("%w option type %T is not supported", ErrInvalid, opt)
 		}
