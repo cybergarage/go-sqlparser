@@ -27,8 +27,8 @@ func WithCountArguments(args []string) CountOption {
 	return withAggrArguments(args)
 }
 
-// WithCountGroupBy sets the group by column for the Count aggregator.
-func WithCountGroupBy(groups ...GroupBy) CountOption {
+// WithCountGroupBys sets the group by column for the Count aggregator.
+func WithCountGroupBys(groups ...GroupBy) CountOption {
 	return withAggrGroupBys(groups...)
 }
 

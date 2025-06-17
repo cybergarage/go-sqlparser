@@ -163,7 +163,7 @@ func TestAggregators(t *testing.T) {
 				},
 				func() (fn.Aggregator, error) {
 					return fn.NewCount(
-						fn.WithCountGroupBy(test.groupBys...),
+						fn.WithCountGroupBys(test.groupBys...),
 						fn.WithCountArguments(test.args),
 					)
 				},
