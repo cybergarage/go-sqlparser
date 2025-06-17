@@ -331,30 +331,42 @@ func (aggr *aggrImpl) Finalize(opts ...any) (ResultSet, error) {
 	_, isGrouping := aggr.GroupBys()
 	if isGrouping {
 		groupSetKeys := make([]GroupBySet, 0, len(aggr.groupAggrs))
-		switch orderBy {
-		case OrderByAsc:
-			groupSetKeys = make([]GroupBySet, 0, len(aggr.groupAggrs))
-			for groupSetKey := range aggr.groupAggrs {
-				groupSetKeys = append(groupSetKeys, groupSetKey)
-			}
-			// Sort groupSetKeys in ascending order
-			sort.Slice(groupSetKeys, func(i, j int) bool {
-				return groupSetKeys[i] < groupSetKeys[j]
-			})
-		case OrderByDesc:
-			groupSetKeys = make([]GroupBySet, 0, len(aggr.groupAggrs))
-			for groupSetKey := range aggr.groupAggrs {
-				groupSetKeys = append(groupSetKeys, groupSetKey)
-			}
-			// Sort groupSetKeys in descending order
-			sort.Slice(groupSetKeys, func(i, j int) bool {
-				return groupSetKeys[i] > groupSetKeys[j]
-			})
-		default:
-			for groupSetKey := range aggr.groupAggrs {
-				groupSetKeys = append(groupSetKeys, groupSetKey)
+		for groupSetKey := range aggr.groupAggrs {
+			groupSetKeys = append(groupSetKeys, groupSetKey)
+		}
+
+		orderByAscFunc := func(i, j int) bool {
+			groupSetKeyiSlice := aggr.groupAggrs[groupSetKeys[i]]
+			groupSetKeyjSlice := aggr.groupAggrs[groupSetKeys[j]]
+			switch {
+			case len(groupSetKeyjSlice) < len(groupSetKeyiSlice):
+				return true
+			case len(groupSetKeyiSlice) < len(groupSetKeyjSlice):
+				return false
+			default:
+				for k := 0; k < len(groupSetKeyiSlice); k++ {
+					if groupSetKeyiSlice[k] < groupSetKeyjSlice[k] {
+						return true
+					}
+					if groupSetKeyiSlice[k] > groupSetKeyjSlice[k] {
+						return false
+					}
+				}
+				return false
 			}
 		}
+
+		orderByDescFunc := func(i, j int) bool {
+			return !orderByAscFunc(i, j)
+		}
+
+		switch orderBy {
+		case OrderByAsc:
+			sort.Slice(groupSetKeys, orderByAscFunc)
+		case OrderByDesc:
+			sort.Slice(groupSetKeys, orderByDescFunc)
+		}
+
 		for _, groupSetKey := range groupSetKeys {
 			groupSetKeyValues, ok := aggr.groupKeys[groupSetKey]
 			if !ok {
