@@ -114,8 +114,14 @@ func withAggrFinalizeFunc(finalFunc AggrFinalizeFunc) aggrOption {
 // withAggrGroupBys sets the group by column for the Aggr aggregator.
 func withAggrGroupBys(groups ...GroupBy) aggrOption {
 	return func(aggr *aggrImpl) error {
-		aggr.groupBys = groups
-		aggr.groupBySet = NewGroupBySet(groups...)
+		aggr.groupBys = []GroupBy{}
+		for _, group := range groups {
+			if len(group) == 0 {
+				continue
+			}
+			aggr.groupBys = append(aggr.groupBys, group)
+		}
+		aggr.groupBySet = NewGroupBySet(aggr.groupBys...)
 		return nil
 	}
 }
