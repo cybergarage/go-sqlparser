@@ -139,7 +139,7 @@ func TestAggregators(t *testing.T) {
 			aggrFuncs := []func() (fn.Aggregator, error){
 				func() (fn.Aggregator, error) {
 					return fn.NewSum(
-						fn.WithSumGroupBy(test.groupBys...),
+						fn.WithSumGroupBys(test.groupBys...),
 						fn.WithSumArguments(test.args),
 					)
 				},

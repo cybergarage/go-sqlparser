@@ -27,8 +27,8 @@ func WithSumArguments(args []string) SumOption {
 	return withAggrArguments(args)
 }
 
-// WithSumGroupBy sets the group by column for the Sum aggregator.
-func WithSumGroupBy(groups ...GroupBy) SumOption {
+// WithSumGroupBys sets the group by column for the Sum aggregator.
+func WithSumGroupBys(groups ...GroupBy) SumOption {
 	return withAggrGroupBys(groups...)
 }
 
