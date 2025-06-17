@@ -229,6 +229,8 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 			return err
 		}
 		if _, ok := aggr.groupAggrs[groupSetKey]; !ok {
+			aggr.groupKeys[groupSetKey] = groupKeys
+			aggr.groupCounts[groupSetKey] = 0
 			aggr.groupAggrs[groupSetKey] = make([]float64, (len(aggr.columns) - groupKeysCnt))
 			for n := range aggr.groupAggrs[groupSetKey] {
 				nv, err := aggr.resetFunc(aggr)
@@ -237,7 +239,6 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 				}
 				aggr.groupAggrs[groupSetKey][n] = nv
 			}
-			aggr.groupCounts[groupSetKey] = 0
 		}
 		for n, rv := range row[groupKeysCnt:] {
 			fv, err := toFloat64(rv)
