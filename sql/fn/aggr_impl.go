@@ -351,9 +351,9 @@ func (aggr *aggrImpl) Finalize(opts ...any) (ResultSet, error) {
 					}
 					switch cmp {
 					case -1:
-						return false
-					case 1:
 						return true
+					case 1:
+						return false
 					}
 				}
 				return false
