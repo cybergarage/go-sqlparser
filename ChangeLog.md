@@ -1,10 +1,15 @@
 # Changelog
 
 ## v2.0.0 (2026-xx-xx)
-### Updates
+### Improvements
 - SELECT
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
+
+## v1.6.1 (2025-06-XX)
+### Improvements
+- Refactor function package
+  - Support multiple groupby columns in aggregate functions
 
 ## v1.6.0 (2025-05-30)
 ### New Features
@@ -15,7 +20,7 @@
   - ROUD, SQRT, LOG, LOG10, EXP, POWER, RAND, PI
   - UPPER, LOWER, TRIM
   - CURRENT_TIMESTAMP, NOW
-### Updates
+### Improvements
 - SELECT
   - Update Limit interface to return uint values instead of int
 
@@ -40,14 +45,14 @@
 - Update `SQLiteParser` to support bind parameters
  
 ## v1.4.2 (2024-12-11)
-### Updates
+### Improvements
 - ResultSet Interface
   - Return error in `Row()` method
 ### Additions
 - Utility functions for `CREATE INDEX` and `DROP INDEX` to convert to ALTER TABLE statements
 
 ## v1.4.1 (2024-11-24)
-### Updates
+### Improvements
 - Executor Interface
   - Remove `ErrorHandler`
 
@@ -65,7 +70,7 @@
 - USE Statement
 
 ## v1.3.4 (2024-10-27)
-### Updates
+### Improvements
 - Lookup functions
 
 ## v1.3.3 (2024-10-13)
@@ -85,12 +90,12 @@
 - Standard SQL error classes and codes
 
 ## v1.2.7 (2023-12-03)
-### Updates
+### Improvements
 - Parser::Parse()
   - Return empty query errors
 
 ## v1.2.6 (2023-09-29)
-### Updates
+### Improvements
 - ALTER TABLE
   - Support `ALTER ADD INDEX`
 ### Improvements
@@ -101,26 +106,26 @@
 - Utility functions for `Schema`
 
 ## v1.2.4 (2023-09-24)
-### Updates
+### Improvements
 - SELECT
   - Support schema name
 - COPY
   - Support column and format options
 
 ## v1.2.3 (2023-09-19)
-### Updates
+### Improvements
 - UPDATE
   - Support arithmetic operations (`+`, `-`, `*`, `/`, `%`)
 
 ## v1.2.2 (2023-09-18)
-### Updates
+### Improvements
 - VACUUM
   - Support `ANALYZE` clause
 - DELETE
   - Add option functions
 
 ## v1.2.1 (2023-09-17)
-### Updates
+### Improvements
 - SELECT
   - Support multiple `ORDER BY`
 
@@ -134,7 +139,7 @@
 - Function Executors
   - Math functions (`ABS`, `FLOOR`, `CEIL`)
   - Aggregate functions (`COUNT`, `MAX`, `MIN`, `AVG`, `SUM`)
-### Updates
+### Improvements
 - Selector
   - Utility functions
 
@@ -144,7 +149,7 @@
 - ALTER TABLE
   - `ADD`, `RENAME`, `DROP COLUMN`
   - `ADD PRIMARY KEY` (PostgreSQL)
-### Updates
+### Improvements
 - SELECT
   - Support functions
 
@@ -170,7 +175,7 @@
 ## v0.9.1 (2023-07-28)
 ### Support
 - Bind parameters
-### Updates
+### Improvements
 - Query interfaces
 
 ## v0.9.0 (2023-07-04)
