@@ -2,6 +2,8 @@ github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYW
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
 github.com/cybergarage/go-logger v1.3.10 h1:QkgHgYgQj9g1OvYgylDrI94GEwf7toE0pCDA85jTxZk=
 github.com/cybergarage/go-logger v1.3.10/go.mod h1:a7B/AZjPoA1W8EU/458vdCv6YWtRJI7Q9rofUcZjiho=
+github.com/cybergarage/go-logger v1.3.11 h1:NwnC7cD/IDkdwBYhSODXaMEBmAu3c/jK4Q2XDsg1fno=
+github.com/cybergarage/go-logger v1.3.11/go.mod h1:SU5vzAFJOTs89JXk+Jn89RaNmcR07parcJgnW4e8aDw=
 github.com/cybergarage/go-safecast v1.3.2 h1:M6F1jd3TuOPtTl9XS/++j4RFkCTybOIkVWagm++B6CA=
 github.com/cybergarage/go-safecast v1.3.2/go.mod h1:flFLUrI49kNK+U7ZeQDQxbaxxQyFVQGKpT7KYN3A4ew=
 github.com/cybergarage/go-safecast v1.3.3-0.20250618030412-fafd7b2dacaf h1:IzMdbW5VlJSnHT4HL8GZkwyBiwk9FlND1YQGxjCFvgA=
