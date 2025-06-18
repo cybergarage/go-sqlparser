@@ -344,28 +344,16 @@ func (aggr *aggrImpl) Finalize(opts ...any) (ResultSet, error) {
 			case len(groupSetKeyiSlice) < len(groupSetKeyjSlice):
 				return false
 			default:
-				cmp := func(i, j any) int {
-					var fi, fj float64
-					if err := safecast.ToFloat64(i, &fi); err != nil {
-						return -1
-					}
-					if err := safecast.ToFloat64(j, &fj); err != nil {
-						return 1
-					}
-					if fi < fj {
-						return -1
-					}
-					if fi > fj {
-						return 1
-					}
-					return 0
-				}
 				for k := range groupSetKeyiSlice {
-					switch cmp(groupSetKeyiSlice[k], groupSetKeyjSlice[k]) {
+					cmp, err := safecast.Compare(groupSetKeyiSlice[k], groupSetKeyjSlice[k])
+					if err != nil {
+						return false // If comparison fails, do not change the order
+					}
+					switch cmp {
 					case -1:
-						return true
-					case 1:
 						return false
+					case 1:
+						return true
 					}
 				}
 				return false
