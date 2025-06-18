@@ -26,7 +26,7 @@ import (
 )
 
 func TestAggregators(t *testing.T) {
-	log.SetStdoutDebugEnbled(true)
+	log.EnableStdoutDebug(true)
 
 	tests := []struct {
 		groupBys          []string
