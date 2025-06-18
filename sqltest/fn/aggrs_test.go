@@ -106,30 +106,30 @@ func TestAggregators(t *testing.T) {
 			expectedCountRows: [][]float64{{1, 2}, {2, 2}, {3, 2}, {4, 2}},
 			expectedRowCount:  4,
 		},
-		// {
-		// 	groupBys: []string{"foo", "bar"},
-		// 	args:     []string{"baz"},
-		// 	rows: [][]any{
-		// 		{1, 1, 1},
-		// 		{1, 2, 2},
-		// 		{2, 1, 3},
-		// 		{2, 2, 4},
-		// 		{3, 1, 5},
-		// 		{3, 2, 6},
-		// 		{4, 1, 7},
-		// 		{4, 2, 8},
-		// 		{1, 1, 9},
-		// 		{2, 2, 10},
-		// 		{3, 1, 11},
-		// 		{4, 2, 12},
-		// 	},
-		// 	expectedSumRows:   [][]float64{{1, 1, 10}, {1, 2, 2}, {2, 1, 14}, {2, 2, 4}, {3, 1, 16}, {3, 2, 6}, {4, 1, 18}, {4, 2, 8}},
-		// 	expectedAvgRows:   [][]float64{{1, 1, 5}, {1, 2, 2}, {2, 1, 7}, {2, 2, 4}, {3, 1, 8}, {3, 2, 6}, {4, 1, 9}, {4, 2, 8}},
-		// 	expectedMinRows:   [][]float64{{1, 1, 1}, {1, 2, 2}, {2, 1, 3}, {2, 2, 4}, {3, 1, 5}, {3, 2, 6}, {4, 1, 7}, {4, 2, 8}},
-		// 	expectedMaxRows:   [][]float64{{1, 1, 9}, {1, 2, 2}, {2, 1, 14}, {2, 2, 4}, {3, 1, 16}, {3, 2, 6}, {4, 1, 18}, {4, 2, 8}},
-		// 	expectedCountRows: [][]float64{{1, 1, 2}, {1, 2, 1}, {2, 1, 2}, {2, 2, 1}, {3, 1, 2}, {3, 2, 1}, {4, 1, 2}, {4, 2, 1}},
-		// 	expectedRowCount:  8,
-		// },
+		{
+			groupBys: []string{"foo", "bar"},
+			args:     []string{"baz"},
+			rows: [][]any{
+				{1, 1, 1},
+				{1, 2, 2},
+				{2, 1, 3},
+				{2, 2, 4},
+				{3, 1, 5},
+				{3, 2, 6},
+				{4, 1, 7},
+				{4, 2, 8},
+				{1, 1, 9},
+				{2, 2, 10},
+				{3, 1, 11},
+				{4, 2, 12},
+			},
+			expectedSumRows:   [][]float64{{1, 1, 10}, {1, 2, 2}, {2, 1, 3}, {2, 2, 14}, {3, 1, 16}, {3, 2, 6}, {4, 1, 7}, {4, 2, 20}},
+			expectedAvgRows:   [][]float64{{1, 1, 5}, {1, 2, 2}, {2, 1, 3}, {2, 2, 7}, {3, 1, 8}, {3, 2, 6}, {4, 1, 7}, {4, 2, 10}},
+			expectedMinRows:   [][]float64{{1, 1, 1}, {1, 2, 2}, {2, 1, 3}, {2, 2, 4}, {3, 1, 5}, {3, 2, 6}, {4, 1, 7}, {4, 2, 8}},
+			expectedMaxRows:   [][]float64{{1, 1, 9}, {1, 2, 2}, {2, 1, 3}, {2, 2, 10}, {3, 1, 11}, {3, 2, 6}, {4, 1, 7}, {4, 2, 12}},
+			expectedCountRows: [][]float64{{1, 1, 2}, {1, 2, 1}, {2, 1, 1}, {2, 2, 2}, {3, 1, 2}, {3, 2, 1}, {4, 1, 1}, {4, 2, 2}},
+			expectedRowCount:  8,
+		},
 	}
 
 	for n, test := range tests {
@@ -194,7 +194,7 @@ func TestAggregators(t *testing.T) {
 						}
 					}
 
-					rs, err := testAggr.Finalize()
+					rs, err := testAggr.Finalize(fn.OrderByAsc)
 					if err != nil {
 						t.Errorf("Error finalizing Sum: %v", err)
 						return
