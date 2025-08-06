@@ -21,10 +21,10 @@ import (
 // IsAsterisk returns true if the selector list is "*".
 func (selectors Selectors) IsAsterisk() bool {
 	l := len(selectors)
-	switch l {
-	case 1:
+	switch {
+	case l == 1:
 		return selectors[0].Name() == Asterisk
-	case 0:
+	case l == 0:
 		return true
 	}
 	return false

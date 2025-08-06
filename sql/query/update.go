@@ -91,7 +91,7 @@ func (stmt *updateStmt) String() string {
 		columns = append(columns, columSet)
 	}
 	strs = append(strs, strings.JoinWithComma(columns))
-	if stmt.HasConditions() {
+	if stmt.Condition.HasConditions() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	return strings.JoinWithSpace(strs)

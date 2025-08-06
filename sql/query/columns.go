@@ -150,10 +150,10 @@ func (columns Columns) DefinitionString() string {
 // IsAsterisk returns true if the column list is "*".
 func (columns Columns) IsAsterisk() bool {
 	l := len(columns)
-	switch l {
-	case 1:
+	switch {
+	case l == 1:
 		return columns[0].Name() == Asterisk
-	case 0:
+	case l == 0:
 		return true
 	}
 	return false

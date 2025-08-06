@@ -185,7 +185,7 @@ func (stmt *alterTableStmt) String() string {
 	elems := []string{
 		"ALTER",
 		"TABLE",
-		stmt.FullTableName(),
+		stmt.Table.FullTableName(),
 	}
 	if tbl, ok := stmt.RenameTo(); ok {
 		elems = append(elems,

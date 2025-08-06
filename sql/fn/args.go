@@ -45,10 +45,10 @@ func NewArgumentStrings(strs ...string) Arguments {
 // IsAsterisk returns true if the argument list is an asterisk.
 func (args Arguments) IsAsterisk() bool {
 	l := len(args)
-	switch l {
-	case 1:
+	switch {
+	case l == 1:
 		return args[0].IsAsterisk()
-	case 0:
+	case l == 0:
 		return true
 	}
 	return false

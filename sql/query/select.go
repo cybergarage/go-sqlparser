@@ -134,7 +134,7 @@ func (stmt *selectStmt) String() string {
 		"FROM",
 		stmt.TableList.String(),
 	}
-	if stmt.HasConditions() {
+	if stmt.Condition.HasConditions() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	orderBy := stmt.orderBy.String()

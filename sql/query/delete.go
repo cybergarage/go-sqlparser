@@ -82,7 +82,7 @@ func (stmt *deleteStmt) String() string {
 		"FROM",
 		stmt.table.FullTableName(),
 	}
-	if stmt.HasConditions() {
+	if stmt.Condition.HasConditions() {
 		strs = append(strs, "WHERE", stmt.Condition.String())
 	}
 	return strings.JoinWithSpace(strs)

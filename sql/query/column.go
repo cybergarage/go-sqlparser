@@ -194,43 +194,43 @@ func (col *column) SetDefinition(dataDef ColumnDef) error {
 	switch dataDef.DataType() {
 	case TinyIntType:
 		var v int8
-		if err := safecast.ToInt8(col.v, &v); err != nil {
+		if err := safecast.ToInt8(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case SmallIntType:
 		var v int16
-		if err := safecast.ToInt16(col.v, &v); err != nil {
+		if err := safecast.ToInt16(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case IntType, IntegerType:
 		var v int32
-		if err := safecast.ToInt32(col.v, &v); err != nil {
+		if err := safecast.ToInt32(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case BigIntType:
 		var v int64
-		if err := safecast.ToInt64(col.v, &v); err != nil {
+		if err := safecast.ToInt64(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case FloatType:
 		var v float32
-		if err := safecast.ToFloat32(col.v, &v); err != nil {
+		if err := safecast.ToFloat32(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case DoubleType:
 		var v float64
-		if err := safecast.ToFloat64(col.v, &v); err != nil {
+		if err := safecast.ToFloat64(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)
 	case BooleanType:
 		var v bool
-		if err := safecast.ToBool(col.v, &v); err != nil {
+		if err := safecast.ToBool(col.Literal.v, &v); err != nil {
 			return err
 		}
 		col.Literal.SetValue(v)

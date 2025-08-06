@@ -57,6 +57,7 @@ func TestParallelParsing(t *testing.T) {
 	for range 100 {
 		<-done
 	}
+
 }
 
 func TestNestedParsing(t *testing.T) {

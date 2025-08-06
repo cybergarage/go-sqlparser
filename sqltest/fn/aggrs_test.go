@@ -19,9 +19,10 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-safecast/safecast"
 	"github.com/cybergarage/go-sqlparser/sql/fn"
+
+	"github.com/cybergarage/go-logger/log"
 )
 
 func TestAggregators(t *testing.T) {
@@ -132,7 +133,9 @@ func TestAggregators(t *testing.T) {
 	}
 
 	for n, test := range tests {
+
 		t.Run(fmt.Sprintf("%02d", n), func(t *testing.T) {
+
 			aggrFuncs := []func() (fn.Aggregator, error){
 				func() (fn.Aggregator, error) {
 					return fn.NewSum(
@@ -167,6 +170,7 @@ func TestAggregators(t *testing.T) {
 			}
 
 			for _, aggrFunc := range aggrFuncs {
+
 				// Aggregate
 
 				testAggr, err := aggrFunc()
@@ -176,6 +180,7 @@ func TestAggregators(t *testing.T) {
 				}
 
 				t.Run(testAggr.Name(), func(t *testing.T) {
+
 					err := testAggr.Reset(test.groupBys)
 					if err != nil {
 						t.Errorf("Error resetting %s: %v", testAggr.Name(), err)

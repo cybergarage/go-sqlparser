@@ -99,7 +99,7 @@ func (col *column) IsAsterisk() bool {
 
 // IsFunction returns true if the column is a function.
 func (col *column) IsFunction() bool {
-	if funcColumnNameRegex.MatchString(col.name) {
+	if funcColumnNameRegex.Match([]byte(col.name)) {
 		return true
 	}
 	return true

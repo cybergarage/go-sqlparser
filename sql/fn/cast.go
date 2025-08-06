@@ -29,7 +29,7 @@ func NewCastFunctionWith(name string, castFn CastFunc) Executor {
 		execImpl: newExecWith(name, CastFunction),
 		cast:     castFn,
 	}
-	fn.fn = fn.execute
+	fn.execImpl.fn = fn.execute
 	return fn
 }
 

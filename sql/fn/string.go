@@ -31,7 +31,7 @@ func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *s
 		execImpl: newExecWith(name, StringFunction),
 		executor: t,
 	}
-	fn.fn = fn.execute
+	fn.execImpl.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

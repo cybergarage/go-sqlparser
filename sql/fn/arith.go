@@ -33,7 +33,7 @@ func NewArithFunctionWith(name string, arithFn ArithFunc, opts ...ExecutorOption
 		execImpl: newExecWith(name, ArithOperator),
 		operator: arithFn,
 	}
-	fn.fn = fn.execute
+	fn.execImpl.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

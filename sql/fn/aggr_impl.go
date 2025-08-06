@@ -209,7 +209,8 @@ func (aggr *aggrImpl) Reset(opts ...any) error {
 	return nil
 }
 
-// The row is expected to be an array where the first element is the group value (if grouping is enabled),.
+// AggregateRow aggregates a row of data using the aggregator.
+// The row is expected to be an array where the first element is the group value (if grouping is enabled),
 func (aggr *aggrImpl) AggregateRow(row []any) error {
 	if len(aggr.columns) != len(row) {
 		return fmt.Errorf("%w column count (%d != %d)", ErrInvalid, len(aggr.columns), len(row))
@@ -222,7 +223,7 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		default:
 			var fv float64
 			if err := safecast.ToFloat64(v, &fv); err != nil {
-				return 0, fmt.Errorf("%w value %v : %w", ErrInvalid, v, err)
+				return 0, fmt.Errorf("%w value %v : %s", ErrInvalid, v, err)
 			}
 			return fv, nil
 		}
@@ -251,7 +252,7 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		for n, rv := range row[groupKeysCnt:] {
 			fv, err := toFloat64(rv)
 			if err != nil {
-				return fmt.Errorf("[%d] %w row : %w", n+1, ErrInvalid, err)
+				return fmt.Errorf("[%d] %w row : %s", n+1, ErrInvalid, err)
 			}
 			nv, err := aggr.aggFunc(aggr, aggr.groupAggrs[groupSetKey][n], fv)
 			if err != nil {
@@ -264,7 +265,7 @@ func (aggr *aggrImpl) AggregateRow(row []any) error {
 		for n, rv := range row {
 			fv, err := toFloat64(rv)
 			if err != nil {
-				return fmt.Errorf("[%d] %w row : %w", n, ErrInvalid, err)
+				return fmt.Errorf("[%d] %w row : %s", n, ErrInvalid, err)
 			}
 			nv, err := aggr.aggFunc(aggr, aggr.aggrs[n], fv)
 			if err != nil {

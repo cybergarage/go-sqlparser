@@ -49,7 +49,7 @@ func NewDropIndexWith(schemaName string, idxName string, ife *IfExistsOpt) DropI
 
 // TableName returns the table name.
 func (stmt *dropIndex) TableName() string {
-	return stmt.FullTableName()
+	return stmt.Schema.FullTableName()
 }
 
 // Index returns the index.
@@ -77,7 +77,7 @@ func (stmt *dropIndex) String() string {
 		strs = append(strs, stmt.IfExistsOpt.String())
 	}
 	idxName := stmt.IndexName()
-	tableName := stmt.FullTableName()
+	tableName := stmt.Schema.FullTableName()
 	if 0 < len(tableName) {
 		idxName = tableName + "." + idxName
 	}

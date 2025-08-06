@@ -66,7 +66,7 @@ func (stmt *insertStmt) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
-		stmt.FullTableName(),
+		stmt.Table.FullTableName(),
 		"(" + stmt.Columns().NameString() + ")",
 		"VALUES",
 	}
