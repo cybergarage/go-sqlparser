@@ -71,6 +71,7 @@ linters:
         - -SA1006
         - -SA1008
         - -SA5008
+        - -QF1008
   exclusions:
     generated: lax
     presets:
