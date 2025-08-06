@@ -36,7 +36,7 @@ func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) E
 		execImpl: newExecWith(name, MathFunction),
 		executor: mathFn,
 	}
-	fn.execImpl.fn = fn.execute
+	fn.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

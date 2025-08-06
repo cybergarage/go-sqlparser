@@ -31,7 +31,7 @@ func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeF
 		execImpl: newExecWith(name, TimeFunction),
 		executor: t,
 	}
-	fn.execImpl.fn = fn.execute
+	fn.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}
