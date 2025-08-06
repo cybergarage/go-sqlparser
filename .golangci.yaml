@@ -43,6 +43,7 @@ linters:
     - maintidx
     - funcorder
     - testableexamples
+    - noinlineerr
   settings:
     gocritic:
       disabled-checks:
@@ -90,7 +91,7 @@ linters:
 issues:
   max-issues-per-linter: 0
   max-same-issues: 0
-  fix: falset
+  fix: true
 formatters:
   enable:
     - gci
