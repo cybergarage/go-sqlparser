@@ -20,6 +20,7 @@ type CastFunc = func(any) (any, error)
 // castFunction represents a base cast function.
 type castFunction struct {
 	*execImpl
+
 	cast CastFunc
 }
 
@@ -29,7 +30,7 @@ func NewCastFunctionWith(name string, castFn CastFunc) Executor {
 		execImpl: newExecWith(name, CastFunction),
 		cast:     castFn,
 	}
-	fn.execImpl.fn = fn.execute
+	fn.fn = fn.execute
 	return fn
 }
 

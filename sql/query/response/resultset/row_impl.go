@@ -80,7 +80,7 @@ func (row *row) Object() map[string]any {
 			names = append(names, column.Name())
 		}
 	} else {
-		for n := 0; n < len(row.values); n++ {
+		for n := range len(row.values) {
 			names = append(names, strconv.Itoa((n + 1)))
 		}
 	}

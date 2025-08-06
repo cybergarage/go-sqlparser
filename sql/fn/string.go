@@ -22,6 +22,7 @@ type StringFunc func([]string) (any, error)
 
 type stringFunction struct {
 	*execImpl
+
 	executor StringFunc
 }
 
@@ -31,7 +32,7 @@ func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *s
 		execImpl: newExecWith(name, StringFunction),
 		executor: t,
 	}
-	fn.execImpl.fn = fn.execute
+	fn.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

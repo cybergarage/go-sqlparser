@@ -32,6 +32,7 @@ type Insert interface {
 // insertStmt is a "INSERT" statement.
 type insertStmt struct {
 	Table
+
 	values []Columns
 }
 
@@ -66,7 +67,7 @@ func (stmt *insertStmt) String() string {
 	strs := []string{
 		"INSERT",
 		"INTO",
-		stmt.Table.FullTableName(),
+		stmt.FullTableName(),
 		"(" + stmt.Columns().NameString() + ")",
 		"VALUES",
 	}

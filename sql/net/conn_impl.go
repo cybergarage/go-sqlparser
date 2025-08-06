@@ -29,6 +29,7 @@ type ConnOption = func(*conn)
 // conn represents a connection.
 type conn struct {
 	net.Conn
+
 	isClosed      bool
 	db            string
 	ts            time.Time

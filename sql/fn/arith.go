@@ -24,6 +24,7 @@ type ArithFunc func(float64, float64) (float64, error)
 // arithFunction represents a base arithmetic function.
 type arithFunction struct {
 	*execImpl
+
 	operator ArithFunc
 }
 
@@ -33,7 +34,7 @@ func NewArithFunctionWith(name string, arithFn ArithFunc, opts ...ExecutorOption
 		execImpl: newExecWith(name, ArithOperator),
 		operator: arithFn,
 	}
-	fn.execImpl.fn = fn.execute
+	fn.fn = fn.execute
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

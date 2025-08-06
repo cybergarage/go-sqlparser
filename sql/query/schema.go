@@ -53,6 +53,7 @@ type Schema interface {
 // schema represents a table schema.
 type schema struct {
 	Table
+
 	columns Columns
 	indexes Indexes
 }

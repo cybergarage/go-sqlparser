@@ -30,6 +30,7 @@ type AlterDatabase interface {
 // alterDatabaseStmt is a "ALTER DATABASE" statement.
 type alterDatabaseStmt struct {
 	Database
+
 	to Database
 }
 

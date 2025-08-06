@@ -81,6 +81,7 @@ type Copy interface {
 // copyStmt is a "COPY" statement.
 type copyStmt struct {
 	Table
+
 	columns Columns
 	source  string
 	format  CopyFormat
