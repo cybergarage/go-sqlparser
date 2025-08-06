@@ -6,6 +6,9 @@
   - Support subqueries
 - Add new ANTLR parser instead of SQLite3 parser
 
+## v1.6.x (2025-XX-XX)
+- Fix golangci-lint warnings
+
 ## v1.6.1 (2025-06-XX)
 ### Improvements
 - Refactor function package
