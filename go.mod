@@ -1,6 +1,10 @@
 module github.com/cybergarage/go-sqlparser
 
-go 1.25
+<<<<<<< HEAD
+go 1.22
+=======
+go 1.22
+>>>>>>> 96a6c54 (Update go.mod)
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
