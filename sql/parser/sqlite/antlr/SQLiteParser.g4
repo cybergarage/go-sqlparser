@@ -344,7 +344,7 @@ drop_index_stmt:
 drop_table_stmt:
     DROP_  TABLE_ (
         if_exists
-    )? (schema_name DOT)?  (table_name ( COMMA table_name)*)
+    )? (schema_name DOT)?  (table_name ( COMMA table_name)*) (CASCADE_)?
 ;
 
 drop_trigger_stmt:

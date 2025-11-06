@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Thu Apr 10 22:54:30 2025
---- SQLiteParser.g4	Thu Apr 10 22:54:47 2025
+*** SQLiteParser.g4.new	Thu Nov  6 13:03:29 2025
+--- SQLiteParser.g4	Thu Nov  6 13:03:45 2025
 ***************
 *** 34,54 ****
       tokenVocab = SQLiteLexer;
@@ -128,7 +128,7 @@
   
 ! begin_stmt:
 !     BEGIN_ (DEFERRED_ | IMMEDIATE_ | EXCLUSIVE_)? (
-!         TRANSACTION_? transaction_name?
+!         TRANSACTION_ transaction_name?
 !     )?
 ! ;
 ! 
@@ -448,7 +448,7 @@
 - drop_table_stmt:
 -     DROP_  TABLE_ (
 -         if_exists
--     )? (schema_name DOT)?  (table_name ( COMMA table_name)*)
+-     )? (schema_name DOT)?  (table_name ( COMMA table_name)*) (CASCADE_)?
 - ;
 - 
 - drop_trigger_stmt:
