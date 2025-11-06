@@ -1,5 +1,5 @@
-*** SQLiteParser.g4.new	Thu Nov  6 13:03:29 2025
---- SQLiteParser.g4	Thu Nov  6 13:03:45 2025
+*** SQLiteParser.g4.new	Thu Nov  6 19:53:24 2025
+--- SQLiteParser.g4	Thu Nov  6 19:53:50 2025
 ***************
 *** 34,54 ****
       tokenVocab = SQLiteLexer;
@@ -820,7 +820,7 @@
 ! select_core:
 !     (
           SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
-!             FROM_ (from (COMMA from)* | join_clause)
+!             FROM_ ((from (COMMA from)*)? | join_clause)
 !         )? (WHERE_ whereExpr=expr)? (
 !           GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
 !               HAVING_ havingExpr=expr

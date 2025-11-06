@@ -560,7 +560,7 @@ join_clause:
 select_core:
     (
         SELECT_ (DISTINCT_ | ALL_)? result_column (COMMA result_column)* (
-            FROM_ (from (COMMA from)* | join_clause)
+            FROM_ ((from (COMMA from)*)? | join_clause)
         )? (WHERE_ whereExpr=expr)? (
           GROUP_ BY_ groupByExpr+=expr (COMMA groupByExpr+=expr)* (
               HAVING_ havingExpr=expr
