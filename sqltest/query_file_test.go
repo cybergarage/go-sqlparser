@@ -98,3 +98,16 @@ func TestSysbenchQueries(t *testing.T) {
 		)
 	}
 }
+
+func TestBenchbaseQueries(t *testing.T) {
+	res := []string{
+		"benchbase.*\\.sql",
+	}
+	for _, re := range res {
+		TestQueryDirectoryWithRegex(t,
+			sqlTestResourceQueriesDirectory,
+			re,
+			// WithConfigValidationMode(ParseOnlyValidation),
+		)
+	}
+}
