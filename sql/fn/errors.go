@@ -41,7 +41,8 @@ func newErrInvalidArguments(name string, args ...any) error {
 	return fmt.Errorf("%w arguments %s(%v)", ErrInvalid, name, args)
 }
 
-func newErrNotSupportedFunction(name string) error {
+// NewErrNotSupportedFunction returns a new not supported function error.
+func NewErrNotSupportedFunction(name string) error {
 	return fmt.Errorf("function (%s) %w", name, ErrNotSupported)
 }
 

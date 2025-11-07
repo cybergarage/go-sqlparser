@@ -91,7 +91,7 @@ func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 	case strings.EqualFold(upperName, ModOperatorID):
 		ex = NewModOperator(opts...)
 	default:
-		return nil, newErrNotSupportedFunction(name)
+		return nil, NewErrNotSupportedFunction(name)
 	}
 	return ex, nil
 }
