@@ -49,7 +49,7 @@ func NewGroupBySetKey(groupBys []GroupBy, groupKeys []any) (GroupBySet, error) {
 	if len(groupBys) != len(groupKeys) {
 		return "", fmt.Errorf("groupBys and groupKeys must have the same length: %d != %d", len(groupBys), len(groupKeys))
 	}
-	var groupBySet []GroupBy
+	groupBySet := []GroupBy{}
 	for _, groupKey := range groupKeys {
 		var groupKeyStr string
 		err := safecast.ToString(groupKey, &groupKeyStr)

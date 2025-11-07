@@ -71,7 +71,7 @@ func (stmt *insertStmt) String() string {
 		"(" + stmt.Columns().NameString() + ")",
 		"VALUES",
 	}
-	var valuesStrs []string
+	valuesStrs := []string{}
 	for _, values := range stmt.Values() {
 		valuesStrs = append(valuesStrs, "("+values.ValueString()+")")
 	}
