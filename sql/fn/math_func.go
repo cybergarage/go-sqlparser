@@ -15,8 +15,9 @@
 package fn
 
 import (
+	"crypto/rand"
+	"encoding/binary"
 	"math"
-	"math/rand"
 )
 
 // NewAbs returns a new abs function.
@@ -232,8 +233,15 @@ func NewRand(opts ...ExecutorOption) Executor {
 			if len(args) != 0 {
 				return nil, newErrInvalidArguments(RandFunctionName, args)
 			}
-			// Returns a random float64 in [0.0, 1.0).
-			return math.Float64frombits(uint64(rand.Int63() & 0x7FFFFFFFFFFFFFFF)), nil
+			// Returns a random float64 in [0.0, 1.0) using crypto/rand.
+			var b [8]byte
+			_, err := rand.Read(b[:])
+			if err != nil {
+				return nil, err
+			}
+			// Convert bytes to uint64 and then to float64 in [0.0, 1.0)
+			n := binary.BigEndian.Uint64(b[:])
+			return float64(n&0x7FFFFFFFFFFFFFFF) / float64(0x7FFFFFFFFFFFFFFF), nil
 		},
 		opts...,
 	)
