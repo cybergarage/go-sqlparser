@@ -284,7 +284,7 @@ func (aggr *aggrImpl) AggregateMap(m map[string]any) error {
 	row := make([]any, 0, len(aggr.columns))
 	for _, arg := range aggr.args {
 		var v any
-		ok := false
+		var ok bool
 		switch arg {
 		case "*":
 			ok = true
