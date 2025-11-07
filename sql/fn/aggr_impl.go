@@ -126,7 +126,7 @@ func (aggr *aggrImpl) Name() string {
 }
 
 // Type returns the type of the aggregator.
-func (aggrImpl *aggrImpl) Type() FunctionType {
+func (aggr *aggrImpl) Type() FunctionType {
 	return AggregateFunction
 }
 

@@ -153,10 +153,7 @@ func (col *column) Name() string {
 
 // IsFunction returns true whether the column is a function.
 func (col *column) IsFunction() bool {
-	if col.fn == nil {
-		return false
-	}
-	return true
+	return col.fn != nil
 }
 
 // Executor returns the executor.
