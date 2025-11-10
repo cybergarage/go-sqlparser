@@ -118,6 +118,8 @@ func (ex *execImpl) Execute(v any) (any, error) {
 		return ex.ExecuteArgs(v)
 	case Map:
 		return ex.ExecuteMap(v)
+	case nil:
+		return ex.fn()
 	default:
 		return ex.fn(v)
 	}
