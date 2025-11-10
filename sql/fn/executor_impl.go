@@ -53,8 +53,8 @@ func WithExecutorType(t FunctionType) ExecutorOption {
 	}
 }
 
-// WithExecutorFunction sets the function for the executor.
-func WithExecutorFunction(fn ExecutorFunc) ExecutorOption {
+// WithExecutorFunc sets the function for the executor.
+func WithExecutorFunc(fn ExecutorFunc) ExecutorOption {
 	return func(ex *execImpl) {
 		ex.fn = fn
 	}
