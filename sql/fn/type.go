@@ -27,6 +27,9 @@ const (
 	ArithOperator
 	TimeFunction
 	StringFunction
+	// PostgreSQL: Documentation: 18: 9.27. System Information Functions and Operators
+	// https://www.postgresql.org/docs/current/functions-info.html
+	SessionFunction
 )
 
 // NewFunctionTypeForName returns a FunctionType based on the function name.

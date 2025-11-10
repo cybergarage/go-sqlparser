@@ -29,7 +29,7 @@ type stringFunction struct {
 // NewStringFunctionWith returns a new string function with the specified name and executor.
 func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *stringFunction {
 	fn := &stringFunction{
-		execImpl: newExecWith(name, StringFunction),
+		execImpl: newExecutorWith(name, StringFunction),
 		executor: t,
 	}
 	fn.fn = fn.execute

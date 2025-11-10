@@ -19,36 +19,50 @@ import (
 	"strings"
 )
 
-// execFunc is a function type that takes any number of arguments and returns a value and an error.
-type execFunc func(...any) (any, error)
+// ExecutorFunc is a function type that takes any number of arguments and returns a value and an error.
+type ExecutorFunc func(...any) (any, error)
 
-// execOption is a function that modifies the execImpl.
-type execOption func(*execImpl)
+// ExecutorOption is a function that modifies the execImpl.
+type ExecutorOption func(*execImpl)
 
 // execImpl represents a base math function.
 type execImpl struct {
 	name string
 	args []string
 	t    FunctionType
-	fn   execFunc
+	fn   ExecutorFunc
 }
 
-// withExecName sets the name for the execImpl.
-func withExecName(name string) execOption {
+// WithExecutorName sets the name for the executor.
+func WithExecutorName(name string) ExecutorOption {
 	return func(ex *execImpl) {
 		ex.name = name
 	}
 }
 
-// withExecArguments sets the arguments for the execImpl.
-func withExecArguments(args []string) execOption {
+// WithExecutorName sets the name for the executor.
+// WithExecutorArguments sets the arguments for the executor.
+func WithExecutorArguments(args []string) ExecutorOption {
 	return func(ex *execImpl) {
 		ex.args = args
 	}
 }
 
-// NewMathFunctionWith returns a new base math function with the specified name and math.
-func newExecWith(name string, t FunctionType, opts ...execOption) *execImpl {
+// WithExecutorType sets the type for the executor.
+func WithExecutorType(t FunctionType) ExecutorOption {
+	return func(ex *execImpl) {
+		ex.t = t
+	}
+}
+
+// WithExecutorFunction sets the function for the executor.
+func WithExecutorFunction(fn ExecutorFunc) ExecutorOption {
+	return func(ex *execImpl) {
+		ex.fn = fn
+	}
+}
+
+func newExecutorWith(name string, t FunctionType, opts ...ExecutorOption) *execImpl {
 	ex := &execImpl{
 		name: strings.ToUpper(name),
 		t:    t,

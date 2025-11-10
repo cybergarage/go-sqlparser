@@ -18,19 +18,6 @@ import (
 	"strings"
 )
 
-// ExecutorOption is an option for the function executor.
-type ExecutorOption = execOption
-
-// WithExecutorName returns an option to set the name of the executor.
-func WithExecutorName(name string) ExecutorOption {
-	return withExecName(name)
-}
-
-// WithExecutorArguments returns an option to set the arguments for the executor.
-func WithExecutorArguments(args []string) ExecutorOption {
-	return withExecArguments(args)
-}
-
 // NewExecutorForName returns a function executor with the specified name.
 func NewExecutorForName(name string, opts ...ExecutorOption) (Executor, error) {
 	upperName := strings.ToUpper(name)

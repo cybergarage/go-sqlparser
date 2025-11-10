@@ -31,7 +31,7 @@ type arithFunction struct {
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
 func NewArithFunctionWith(name string, arithFn ArithFunc, opts ...ExecutorOption) Executor {
 	fn := &arithFunction{
-		execImpl: newExecWith(name, ArithOperator),
+		execImpl: newExecutorWith(name, ArithOperator),
 		operator: arithFn,
 	}
 	fn.fn = fn.execute

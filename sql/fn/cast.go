@@ -27,7 +27,7 @@ type castFunction struct {
 // NewCastFunctionWith returns a new base cast function with the specified name and cast.
 func NewCastFunctionWith(name string, castFn CastFunc) Executor {
 	fn := &castFunction{
-		execImpl: newExecWith(name, CastFunction),
+		execImpl: newExecutorWith(name, CastFunction),
 		cast:     castFn,
 	}
 	fn.fn = fn.execute
