@@ -29,7 +29,9 @@ type timeFunction struct {
 // NewTimeFunctionWith returns a new time function with the specified name and executor.
 func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeFunction {
 	fn := &timeFunction{
-		execImpl: NewExecutorWith(name, TimeFunction),
+		execImpl: NewExecutorWith(
+			WithExecutorName(name),
+			WithExecutorType(TimeFunction)),
 		executor: t,
 	}
 	fn.fn = fn.execute

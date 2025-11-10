@@ -16,7 +16,6 @@ package fn
 
 import (
 	"fmt"
-	"strings"
 )
 
 // ExecutorFunc is a function type that takes any number of arguments and returns a value and an error.
@@ -62,13 +61,13 @@ func WithExecutorFunction(fn ExecutorFunc) ExecutorOption {
 }
 
 // NewExecutorWith returns a new executor with the specified name and type.
-func NewExecutorWith(name string, t FunctionType, opts ...ExecutorOption) *execImpl {
+func NewExecutorWith(opts ...ExecutorOption) *execImpl {
 	ex := &execImpl{
-		name: strings.ToUpper(name),
-		t:    t,
+		name: "",
+		t:    UnknownFunctionType,
 		args: make([]string, 0),
 		fn: func(args ...any) (any, error) {
-			return nil, fmt.Errorf("function %s not implemented", name)
+			return nil, fmt.Errorf("executor function not implemented")
 		},
 	}
 	for _, opt := range opts {
