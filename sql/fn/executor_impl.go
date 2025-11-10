@@ -40,7 +40,6 @@ func WithExecutorName(name string) ExecutorOption {
 	}
 }
 
-// WithExecutorName sets the name for the executor.
 // WithExecutorArguments sets the arguments for the executor.
 func WithExecutorArguments(args []string) ExecutorOption {
 	return func(ex *execImpl) {
@@ -62,7 +61,8 @@ func WithExecutorFunction(fn ExecutorFunc) ExecutorOption {
 	}
 }
 
-func newExecutorWith(name string, t FunctionType, opts ...ExecutorOption) *execImpl {
+// NewExecutorWith returns a new executor with the specified name and type.
+func NewExecutorWith(name string, t FunctionType, opts ...ExecutorOption) *execImpl {
 	ex := &execImpl{
 		name: strings.ToUpper(name),
 		t:    t,

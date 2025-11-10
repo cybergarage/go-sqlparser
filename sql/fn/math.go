@@ -34,7 +34,7 @@ type mathFunction struct {
 // NewMathFunctionWith returns a new base math function with the specified name and math.
 func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) Executor {
 	fn := &mathFunction{
-		execImpl: newExecutorWith(name, MathFunction),
+		execImpl: NewExecutorWith(name, MathFunction),
 		executor: mathFn,
 	}
 	fn.fn = fn.execute
