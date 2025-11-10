@@ -31,12 +31,14 @@ type arithFunction struct {
 // NewArithFunctionWith returns a new base arithmetic function with the specified name and arithmetic.
 func NewArithFunctionWith(name string, arithFn ArithFunc, opts ...ExecutorOption) Executor {
 	fn := &arithFunction{
-		execImpl: NewExecutorWith(
-			WithExecutorName(name),
-			WithExecutorType(ArithOperator)),
+		execImpl: nil,
 		operator: arithFn,
 	}
-	fn.fn = fn.execute
+	fn.execImpl = NewExecutorWith(
+		WithExecutorName(name),
+		WithExecutorType(ArithOperator),
+		WithExecutorFunc(fn.execute),
+	)
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}

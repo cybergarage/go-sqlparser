@@ -29,12 +29,14 @@ type stringFunction struct {
 // NewStringFunctionWith returns a new string function with the specified name and executor.
 func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *stringFunction {
 	fn := &stringFunction{
-		execImpl: NewExecutorWith(
-			WithExecutorName(name),
-			WithExecutorType(StringFunction)),
+		execImpl: nil,
 		executor: t,
 	}
-	fn.fn = fn.execute
+	fn.execImpl = NewExecutorWith(
+		WithExecutorName(name),
+		WithExecutorType(StringFunction),
+		WithExecutorFunc(fn.execute),
+	)
 	for _, opt := range opts {
 		opt(fn.execImpl)
 	}
