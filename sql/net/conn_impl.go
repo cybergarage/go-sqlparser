@@ -101,11 +101,19 @@ func (conn *conn) Close() error {
 	return nil
 }
 
+// SetUser sets a user name.
+func (conn *conn) SetUser(user string) {
+	conn.Lock()
+	defer conn.Unlock()
+	conn.user = user
+}
+
 // User returns the user name.
 func (conn *conn) User() string {
 	conn.Lock()
 	defer conn.Unlock()
-	return conn.user
+	user := conn.user
+	return user
 }
 
 // SetDatabase sets the database name.
