@@ -17,6 +17,7 @@ package net
 import (
 	"context"
 	"net"
+	"sync"
 	"time"
 
 	"github.com/cybergarage/go-tracing/tracer"
@@ -28,10 +29,12 @@ type ConnOption = func(*conn)
 
 // conn represents a connection.
 type conn struct {
+	sync.Mutex
 	net.Conn
-
 	isClosed      bool
 	db            string
+	schemas       []string
+	user          string
 	ts            time.Time
 	uuid          uuid.UUID
 	id            ConnID
@@ -41,9 +44,12 @@ type conn struct {
 // NewConnWith returns a connection with a raw connection.
 func NewConnWith(netConn net.Conn, opts ...ConnOption) Conn {
 	conn := &conn{
+		Mutex:         sync.Mutex{},
 		Conn:          netConn,
 		isClosed:      false,
 		db:            "",
+		schemas:       []string{},
+		user:          "",
 		ts:            time.Now(),
 		uuid:          uuid.New(),
 		id:            0,
@@ -76,6 +82,13 @@ func WithConnID(v ConnID) func(*conn) {
 	}
 }
 
+// WithConnUser sets a user name.
+func WithConnUser(user string) func(*conn) {
+	return func(conn *conn) {
+		conn.user = user
+	}
+}
+
 // Close closes the connection.
 func (conn *conn) Close() error {
 	if conn.isClosed {
@@ -88,14 +101,43 @@ func (conn *conn) Close() error {
 	return nil
 }
 
+// User returns the user name.
+func (conn *conn) User() string {
+	conn.Lock()
+	defer conn.Unlock()
+	return conn.user
+}
+
 // SetDatabase sets the database name.
 func (conn *conn) SetDatabase(db string) {
+	conn.Lock()
+	defer conn.Unlock()
 	conn.db = db
+	conn.schemas = []string{}
 }
 
 // Database returns the database name.
 func (conn *conn) Database() string {
-	return conn.db
+	conn.Lock()
+	defer conn.Unlock()
+	db := conn.db
+	return db
+}
+
+// SetSchemas sets schema names.
+func (conn *conn) SetSchemas(schemas ...string) {
+	conn.Lock()
+	defer conn.Unlock()
+	conn.schemas = schemas
+}
+
+// Schemas returns schema names.
+func (conn *conn) Schemas() []string {
+	conn.Lock()
+	defer conn.Unlock()
+	schemas := make([]string, len(conn.schemas))
+	copy(schemas, conn.schemas)
+	return schemas
 }
 
 // Timestamp returns the creation time of the connection.

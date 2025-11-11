@@ -32,10 +32,16 @@ type Conn interface {
 	tracer.Context
 	// Context returns the context.
 	Context() context.Context
+	// User returns the user name.
+	User() string
 	// SetDatabase sets a database name.
 	SetDatabase(db string)
+	// SetSchemas sets schema names.
+	SetSchemas(schemas ...string)
 	// Database returns the database name.
 	Database() string
+	// Schemas returns schema names.
+	Schemas() []string
 	// Timestamp returns the timestamp.
 	Timestamp() time.Time
 	// UUID returns the UUID.
