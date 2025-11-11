@@ -136,7 +136,18 @@ func (conn *conn) Database() string {
 func (conn *conn) SetSchemas(schemas ...string) {
 	conn.Lock()
 	defer conn.Unlock()
-	conn.schemas = schemas
+	for _, schema := range schemas {
+		found := false
+		for _, existing := range conn.schemas {
+			if existing == schema {
+				found = true
+				break
+			}
+		}
+		if !found {
+			conn.schemas = append(conn.schemas, schema)
+		}
+	}
 }
 
 // Schemas returns schema names.
