@@ -67,3 +67,23 @@ func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 		return nil
 	}
 }
+
+// WithSchemaRowObject returns a functional option for resultsetSchema.
+func WithSchemaRowObject(rowObj map[string]any) SchemaOption {
+	return func(schema *schema) error {
+		columns := []Column{}
+		for key, value := range rowObj {
+			dataType, err := query.NewDataTypeFrom(value)
+			if err != nil {
+				return err
+			}
+			column := NewColumn(
+				WithColumnName(key),
+				WithColumnType(dataType),
+			)
+			columns = append(columns, column)
+		}
+		schema.columns = columns
+		return nil
+	}
+}
