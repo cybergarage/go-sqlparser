@@ -77,3 +77,8 @@ func NewErrMultiplePreparedStatementNotSupported(query string) error {
 func NewErrMultipleTableNotSupported(query string) error {
 	return fmt.Errorf("multiple table (%v) is %w", query, ErrNotSupported)
 }
+
+// NewErrNoTable returns a new no table specified error.
+func NewErrNoTable(query string) error {
+	return fmt.Errorf("no table specified in query (%v)", query)
+}
