@@ -16,6 +16,7 @@ package query
 
 import (
 	"strings"
+	"time"
 
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
@@ -136,7 +137,7 @@ func NewDataTypeFromString(s string) (DataType, error) {
 			return dataType, nil
 		}
 	}
-	return UnknownData, newErrInvalidDataType(a)
+	return UnknownData, newErrInvalidDataType(s)
 }
 
 // NewDataTypeForFunction returns a data type for the specified function.
@@ -155,6 +156,36 @@ func NewDataTypeForFunction(fx Function) (DataType, error) {
 		return FloatType, nil
 	default:
 		return UnknownData, newErrInvalidDataType(fx)
+	}
+}
+
+// NewDataTypeForValue returns a data type for the specified value.
+func NewDataTypeForValue(v any) (DataType, error) {
+	switch v.(type) {
+	case int8, uint8:
+		return TinyIntType, nil
+	case int16, uint16:
+		return SmallIntType, nil
+	case int32, uint32:
+		return IntType, nil
+	case int64, uint64:
+		return BigIntType, nil
+	case int, uint:
+		return IntType, nil
+	case float32:
+		return FloatType, nil
+	case float64:
+		return DoubleType, nil
+	case bool:
+		return BooleanType, nil
+	case string:
+		return VarCharType, nil
+	case []byte:
+		return BlobType, nil
+	case time.Time, *time.Time:
+		return TimeStampType, nil
+	default:
+		return UnknownData, newErrInvalidDataType(v)
 	}
 }
 

@@ -73,7 +73,7 @@ func WithSchemaRowObject(rowObj map[string]any) SchemaOption {
 	return func(schema *schema) error {
 		columns := []Column{}
 		for key, value := range rowObj {
-			dataType, err := query.NewDataTypeFrom(value)
+			dataType, err := query.NewDataTypeForValue(value)
 			if err != nil {
 				return err
 			}
