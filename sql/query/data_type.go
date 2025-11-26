@@ -108,7 +108,7 @@ var dataTypeStrings = map[DataType]string{
 	SmallSerialType:     "SMALLSERIAL",
 }
 
-// NewDataTypeFrom create a data type from the specified value.
+// NewDataTypeFrom returns a data type from the specified value.
 func NewDataTypeFrom(a any) (DataType, error) {
 	var s string
 	switch v := a.(type) {
@@ -121,6 +121,11 @@ func NewDataTypeFrom(a any) (DataType, error) {
 	default:
 		return UnknownData, newErrInvalidDataType(a)
 	}
+	return NewDataTypeFromString(s)
+}
+
+// NewDataTypeFromString returns a data type from the specified string.
+func NewDataTypeFromString(s string) (DataType, error) {
 	us := strings.ToUpper(s)
 	for dataType, dataTypeString := range dataTypeStrings {
 		if dataTypeString == us {
@@ -134,7 +139,7 @@ func NewDataTypeFrom(a any) (DataType, error) {
 	return UnknownData, newErrInvalidDataType(a)
 }
 
-// NewDataTypeForFunction creates a data type for the specified function.
+// NewDataTypeForFunction returns a data type for the specified function.
 func NewDataTypeForFunction(fx Function) (DataType, error) {
 	if fx == nil {
 		return UnknownData, newErrInvalidDataType(fx)
