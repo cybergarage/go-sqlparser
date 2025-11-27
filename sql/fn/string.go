@@ -32,7 +32,7 @@ func NewStringFunctionWith(name string, t StringFunc, opts ...ExecutorOption) *s
 		execImpl: nil,
 		executor: t,
 	}
-	fn.execImpl = NewExecutorWith(
+	fn.execImpl = NewExecutor(
 		WithExecutorName(name),
 		WithExecutorType(StringFunction),
 		WithExecutorFunc(fn.execute),

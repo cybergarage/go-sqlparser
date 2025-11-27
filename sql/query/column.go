@@ -128,7 +128,7 @@ func WithColumnFunction(fn Function) func(*column) {
 // WithColumnFunctionExecutor sets a column function.
 func WithColumnFunctionExecutor(executor FunctionExecutor) func(*column) {
 	return func(col *column) {
-		col.fn = fn.NewFunctionWith(
+		col.fn = fn.NewFunction(
 			fn.WithFunctionExecutor(executor),
 		)
 	}

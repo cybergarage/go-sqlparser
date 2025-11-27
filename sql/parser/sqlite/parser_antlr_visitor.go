@@ -579,7 +579,7 @@ func newSelectorFrom(ctx antlr.IResult_columnContext) (query.Selector, error) {
 					args = append(args, fn.NewArgumentWith(arg.GetText()))
 				}
 			}
-			return fn.NewFunctionWith(
+			return fn.NewFunction(
 				fn.WithFunctionName(fx.Function_name().GetText()),
 				fn.WithFunctionArguments(args...),
 			), nil

@@ -32,7 +32,7 @@ func NewTimeFunctionWith(name string, t TimeFunc, opts ...ExecutorOption) *timeF
 		execImpl: nil,
 		executor: t,
 	}
-	fn.execImpl = NewExecutorWith(
+	fn.execImpl = NewExecutor(
 		WithExecutorName(name),
 		WithExecutorType(TimeFunction),
 		WithExecutorFunc(fn.execute),

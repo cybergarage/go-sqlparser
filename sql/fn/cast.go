@@ -30,7 +30,7 @@ func NewCastFunctionWith(name string, castFn CastFunc) Executor {
 		execImpl: nil,
 		cast:     castFn,
 	}
-	fn.execImpl = NewExecutorWith(
+	fn.execImpl = NewExecutor(
 		WithExecutorName(name),
 		WithExecutorType(CastFunction),
 		WithExecutorFunc(fn.execute),

@@ -30,8 +30,8 @@ type function struct {
 // FunctionOption represents a function option function.
 type FunctionOption = func(*function)
 
-// NewFunctionWith returns a function instance.
-func NewFunctionWith(opts ...FunctionOption) Function {
+// NewFunction returns a function instance.
+func NewFunction(opts ...FunctionOption) Function {
 	fn := &function{
 		typ:        UnknownFunctionType,
 		name:       "",

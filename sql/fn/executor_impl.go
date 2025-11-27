@@ -60,8 +60,8 @@ func WithExecutorFunc(fn ExecutorFunc) ExecutorOption {
 	}
 }
 
-// NewExecutorWith returns a new executor with the specified name and type.
-func NewExecutorWith(opts ...ExecutorOption) *execImpl {
+// NewExecutor returns a new executor with the specified name and type.
+func NewExecutor(opts ...ExecutorOption) *execImpl {
 	ex := &execImpl{
 		name: "",
 		t:    UnknownFunctionType,

@@ -37,7 +37,7 @@ func NewMathFunctionWith(name string, mathFn MathFunc, opts ...ExecutorOption) E
 		execImpl: nil,
 		executor: mathFn,
 	}
-	fn.execImpl = NewExecutorWith(
+	fn.execImpl = NewExecutor(
 		WithExecutorName(name),
 		WithExecutorType(MathFunction),
 		WithExecutorFunc(fn.execute),

@@ -34,7 +34,7 @@ func NewArithFunctionWith(name string, arithFn ArithFunc, opts ...ExecutorOption
 		execImpl: nil,
 		operator: arithFn,
 	}
-	fn.execImpl = NewExecutorWith(
+	fn.execImpl = NewExecutor(
 		WithExecutorName(name),
 		WithExecutorType(ArithOperator),
 		WithExecutorFunc(fn.execute),
