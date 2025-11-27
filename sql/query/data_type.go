@@ -61,11 +61,14 @@ const (
 	VarCharType
 	VarCharacterType
 	YearType
-	// PostgreSQL
+	// PostgreSQL - Data Types
 	// https://www.postgresql.org/docs/current/datatype.html
 	SerialType
 	BigSerialType
 	SmallSerialType
+	// PostgreSQL - System Information Functions and Operators
+	// https://www.postgresql.org/docs/current/functions-info.html
+	NameType
 )
 
 var dataTypeStrings = map[DataType]string{
