@@ -44,7 +44,7 @@ func (l *antlrParserErrorListener) GetError() error {
 	return fmt.Errorf("%s", l.msg)
 }
 
-func (l *antlrParserErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
+func (l *antlrParserErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol any, line, column int, msg string, e antlr.RecognitionException) {
 	l.msg = "line " + strconv.Itoa(line) + ":" + strconv.Itoa(column) + " " + msg
 	l.done = false
 }

@@ -17,6 +17,7 @@ package net
 import (
 	"context"
 	"net"
+	"slices"
 	"sync"
 	"time"
 
@@ -144,13 +145,7 @@ func (conn *conn) SetSchemas(schemas ...string) {
 	conn.Lock()
 	defer conn.Unlock()
 	for _, schema := range schemas {
-		found := false
-		for _, existing := range conn.schemas {
-			if existing == schema {
-				found = true
-				break
-			}
-		}
+		found := slices.Contains(conn.schemas, schema)
 		if !found {
 			conn.schemas = append(conn.schemas, schema)
 		}

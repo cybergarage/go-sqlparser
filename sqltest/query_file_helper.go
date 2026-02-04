@@ -91,8 +91,8 @@ func TestQueryFile(t *testing.T, file *util.File, opts ...any) {
 		return
 	}
 
-	queries := strings.Split(string(queryBytes), querySeparator)
-	for _, query := range queries {
+	queries := strings.SplitSeq(string(queryBytes), querySeparator)
+	for query := range queries {
 		query = trimQuery(query)
 		if len(query) == 0 || strings.HasPrefix(query, ignorePrefix) {
 			continue

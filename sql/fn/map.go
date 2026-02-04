@@ -14,6 +14,8 @@
 
 package fn
 
+import "maps"
+
 // Map represents a map with string keys and values of any type.
 type Map map[string]any
 
@@ -33,8 +35,6 @@ func NewMapWithRow(columns []string, row Row) Map {
 // NewMapWithMap creates a new Map from an existing map.
 func NewMapWithMap(m map[string]any) Map {
 	newMap := Map{}
-	for k, v := range m {
-		newMap[k] = v
-	}
+	maps.Copy(newMap, m)
 	return newMap
 }

@@ -16,24 +16,24 @@ package util
 
 // Stack is a stack for any parser objects.
 type Stack struct {
-	objects []interface{}
+	objects []any
 }
 
 // NewStack creates a new stack.
 func NewStack() *Stack {
 	s := &Stack{
-		objects: make([]interface{}, 0),
+		objects: make([]any, 0),
 	}
 	return s
 }
 
 // PushObject adds a parser object to the stack.
-func (s *Stack) PushObject(obj interface{}) {
+func (s *Stack) PushObject(obj any) {
 	s.objects = append(s.objects, obj)
 }
 
 // PeekObject returns a top parser object.
-func (s *Stack) PeekObject() interface{} {
+func (s *Stack) PeekObject() any {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
 		return nil
@@ -42,7 +42,7 @@ func (s *Stack) PeekObject() interface{} {
 }
 
 // PopObject removes and returns a top parser object.
-func (s *Stack) PopObject() interface{} {
+func (s *Stack) PopObject() any {
 	objectCount := len(s.objects)
 	if objectCount <= 0 {
 		return nil
