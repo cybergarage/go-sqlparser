@@ -64,15 +64,17 @@ func (stmt *insertStmt) Values() []Columns {
 
 // String returns the statement string representation.
 func (stmt *insertStmt) String() string {
-	strs := []string{
+	strs := make([]string, 0, 6)
+	strs = append(strs,
 		"INSERT",
 		"INTO",
 		stmt.FullTableName(),
-		"(" + stmt.Columns().NameString() + ")",
+		"("+stmt.Columns().NameString()+")",
 		"VALUES",
-	}
-	valuesStrs := []string{}
-	for _, values := range stmt.Values() {
+	)
+	values := stmt.Values()
+	valuesStrs := make([]string, 0, len(values))
+	for _, values := range values {
 		valuesStrs = append(valuesStrs, "("+values.ValueString()+")")
 	}
 	strs = append(strs, strings.JoinWithComma(valuesStrs))

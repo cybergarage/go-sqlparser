@@ -79,7 +79,7 @@ func (stmt *updateStmt) String() string {
 		stmt.table.FullTableName(),
 		"SET",
 	}
-	columns := []string{}
+	columns := make([]string, 0, len(stmt.columns))
 	for _, column := range stmt.columns {
 		name := column.Name()
 		value := column.String()

@@ -16,7 +16,7 @@ package resultset
 
 // NewRowsFromMapRows creates a new rows instance with the given map rows.
 func NewRowsFromMapRows(mapRows MapRows) ([]Row, error) {
-	rsRows := []Row{}
+	rsRows := make([]Row, 0, len(mapRows))
 	for _, rowMap := range mapRows {
 		rsRow := NewRow(
 			WithRowObject(rowMap),

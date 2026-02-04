@@ -43,7 +43,7 @@ func NewSchemaColumnsResultSetSchema() (resultset.Schema, error) {
 		{SchemaColumnsDataType, query.TextType},
 	}
 
-	colums := []resultset.Column{}
+	colums := make([]resultset.Column, 0, len(columnDefs))
 	for _, columDef := range columnDefs {
 		colums = append(colums, resultset.NewColumn(
 			resultset.WithColumnName(columDef.name),
