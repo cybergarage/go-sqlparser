@@ -83,7 +83,7 @@ func formalizeQuery(query string) string {
 	return query
 }
 
-// TestQueryDirectory tests queries in the specified directory.
+// TestQueryFile tests queries in the specified file.
 func TestQueryFile(t *testing.T, file *util.File, opts ...any) {
 	queryBytes, err := readQueryFile(file.Path())
 	if err != nil {

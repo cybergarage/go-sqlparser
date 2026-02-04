@@ -33,7 +33,7 @@ func NewTablesWith(tables ...Table) TableList {
 	return c
 }
 
-// Table returns a column array.
+// Tables returns the table list.
 func (tbls TableList) Tables() TableList {
 	return tbls
 }

@@ -23,7 +23,7 @@ type bindParam struct {
 	name string
 }
 
-// NewBindParam returns a bind param instance.
+// NewBindParamWith returns a bind param instance.
 func NewBindParamWith(name string) *bindParam {
 	param := &bindParam{
 		name: name,

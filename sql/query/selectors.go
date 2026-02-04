@@ -42,12 +42,12 @@ func NewSelectorsWithColums(selectors ...Column) Selectors {
 	return s
 }
 
-// Selector returns a selector array.
+// Selectors returns the selector array.
 func (selectors Selectors) Selectors() Selectors {
 	return selectors
 }
 
-// Column returns a column array.
+// Columns returns columns extracted from the selectors.
 func (selectors Selectors) Columns() []Column {
 	cols := make([]Column, 0)
 	for _, selector := range selectors {

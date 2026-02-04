@@ -32,7 +32,7 @@ type column struct {
 	fn   Function
 }
 
-// ResultSetColumnOptions represents a functional option for resultsetColumn.
+// ColumnOption represents a functional option for a resultset column.
 type ColumnOption func(*column)
 
 // WithColumnName returns a functional option for resultsetColumn.
@@ -63,7 +63,7 @@ func WithColumnFunction(fn Function) ColumnOption {
 	}
 }
 
-// ResultSetColumn represents a resultset column interface.
+// NewColumn returns a new resultset column.
 func NewColumn(opts ...ColumnOption) Column {
 	col := &column{
 		name: "",

@@ -28,7 +28,7 @@ type resultset struct {
 	groupBy      string
 }
 
-// ResultSet represents a response resultset interface.
+// ResultSetOption represents a functional option for configuring a ResultSet.
 type ResultSetOption func(*resultset) error
 
 // WithResultSetRowsAffected returns a resultset option to set the rows affected.

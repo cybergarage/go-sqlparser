@@ -54,7 +54,7 @@ func (args Arguments) IsAsterisk() bool {
 	return false
 }
 
-// Name returns the name of the first argument in the list.
+// Names returns the argument names in the list.
 func (args Arguments) Names() []string {
 	names := make([]string, len(args))
 	for n, arg := range args {

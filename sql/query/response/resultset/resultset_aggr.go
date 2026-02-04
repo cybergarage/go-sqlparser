@@ -34,7 +34,7 @@ type aggrResultSet struct {
 	groupBy   GroupBy
 }
 
-// NewAggregatedResultSet creates a new ResultSet with aggregated rows based on the provided options.
+// WithAggregatedResultSetTableSchema sets the base table schema for an aggregated result set.
 func WithAggregatedResultSetTableSchema(tblSchema query.Schema) AggregatedResultSetOptions {
 	return func(rs *aggrResultSet) error {
 		rs.tblSchema = tblSchema

@@ -30,7 +30,7 @@ import (
 // Introduction to INFORMATION\_SCHEMA | BigQuery | Google Cloud
 // https://cloud.google.com/bigquery/docs/information-schema-intro
 
-// SchemaColumnsResultSet represents a schema columns resultset.
+// NewSchemaColumnsResultSetSchema returns the ResultSet schema for information_schema.columns.
 func NewSchemaColumnsResultSetSchema() (resultset.Schema, error) {
 	columnDefs := []struct {
 		name     string

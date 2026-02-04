@@ -27,17 +27,17 @@ type schemaColumnsStatement struct {
 	tblNames []string
 }
 
-// SchemaColumnsStatement represents a schema columns statement.
+// SchemaColumnsStatementOption represents a functional option for SchemaColumnsStatement.
 type SchemaColumnsStatementOption func(*schemaColumnsStatement)
 
-// With SchemaColumnsStatementDatabaseName sets the database name.
+// WithSchemaColumnsStatementDatabaseName sets the database name.
 func WithSchemaColumnsStatementDatabaseName(db string) SchemaColumnsStatementOption {
 	return func(stmt *schemaColumnsStatement) {
 		stmt.dbName = db
 	}
 }
 
-// WithSchemaColumnsStatementTableName sets the table name.
+// WithSchemaColumnsStatementTableNames sets the table names.
 func WithSchemaColumnsStatementTableNames(tables []string) SchemaColumnsStatementOption {
 	return func(stmt *schemaColumnsStatement) {
 		stmt.tblNames = tables

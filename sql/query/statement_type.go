@@ -40,7 +40,7 @@ const (
 	UseStatement
 )
 
-// StatementType returns the statement type.
+// String returns the statement type as a string.
 func (stmtType StatementType) String() string {
 	switch stmtType {
 	case CreateDatabaseStatement:

@@ -14,7 +14,7 @@
 
 package fn
 
-// ReseltSet is the result set of an aggregation.
+// ResultSet is the result set of an aggregation.
 type ResultSet interface {
 	// Columns returns the column names.
 	Columns() []string

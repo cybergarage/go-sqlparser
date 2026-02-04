@@ -82,7 +82,7 @@ type column struct {
 	args Arguments
 }
 
-// NewColumn returns a column instance.
+// NewColumnWithOptions returns a column instance.
 func NewColumnWithOptions(opts ...ColumnOption) Column {
 	col := &column{
 		name:      "",
@@ -141,7 +141,7 @@ func WithColumnArguments(args []string) func(*column) {
 	}
 }
 
-// NewColumn returns a column instance.
+// NewColumnWithName returns a column instance.
 func NewColumnWithName(name string) Column {
 	return NewColumnWithOptions(WithColumnName(name))
 }

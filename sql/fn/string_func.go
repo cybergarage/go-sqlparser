@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-// NewUpperFunctionWith returns a new string function with the specified name and executor.
+// NewUpper returns a new string executor for UPPER.
 func NewUpper(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		UpperFunctionName,
@@ -32,7 +32,7 @@ func NewUpper(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewLowerFunctionWith returns a new string function with the specified name and executor.
+// NewLower returns a new string executor for LOWER.
 func NewLower(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		LowerFunctionName,
@@ -46,7 +46,7 @@ func NewLower(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewTrimFunctionWith returns a new string function with the specified name and executor.
+// NewTrim returns a new string executor for TRIM.
 func NewTrim(opts ...ExecutorOption) Executor {
 	return NewStringFunctionWith(
 		TrimFunctionName,

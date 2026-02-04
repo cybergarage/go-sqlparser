@@ -27,7 +27,7 @@ type Rollback interface {
 type rollbackStmt struct {
 }
 
-// NewRollbackWith returns a new rollbackStmt statement instance with the specified parameters.
+// NewRollback returns a new rollbackStmt statement instance.
 func NewRollback() *rollbackStmt {
 	return &rollbackStmt{}
 }

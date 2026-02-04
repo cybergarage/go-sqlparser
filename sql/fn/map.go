@@ -19,7 +19,7 @@ import "maps"
 // Map represents a map with string keys and values of any type.
 type Map map[string]any
 
-// NewMap creates a new Map with the given key-value pairs.
+// NewMapWithRow creates a new Map with the specified columns and row.
 func NewMapWithRow(columns []string, row Row) Map {
 	m := make(Map, len(columns))
 	for i, column := range columns {

@@ -29,7 +29,7 @@ func NewCurrentTimestamp(opts ...ExecutorOption) Executor {
 	)
 }
 
-// NewTimeFunctionWith returns a new time function with the specified name and executor.
+// NewNow returns a new time executor for NOW.
 func NewNow(opts ...ExecutorOption) Executor {
 	return NewTimeFunctionWith(
 		NowFunctionName,

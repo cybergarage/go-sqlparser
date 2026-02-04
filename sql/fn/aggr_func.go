@@ -27,7 +27,7 @@ func WithAggregatorName(name string) AggregatorOption {
 	return withAggrName(name)
 }
 
-// WithaggregatorArguments is an option to set the arguments for the aggregator.
+// WithAggregatorArguments is an option to set the arguments for the aggregator.
 func WithAggregatorArguments(args []string) AggregatorOption {
 	return withAggrArguments(args)
 }
@@ -37,7 +37,7 @@ func WithAggregatorGroupBys(groups ...GroupBy) AggregatorOption {
 	return withAggrGroupBys(groups...)
 }
 
-// NewAggregator creates a new Aggregator with the given options.
+// NewAggregatorForName creates an Aggregator instance for the specified function name.
 func NewAggregatorForName(name string, opts ...AggregatorOption) (Aggregator, error) {
 	upperName := strings.ToUpper(name)
 	switch {

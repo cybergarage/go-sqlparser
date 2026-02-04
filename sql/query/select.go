@@ -73,14 +73,14 @@ func WithSelectOrderBy(orderBy OrderBy) func(*selectStmt) {
 	}
 }
 
-// WithSelectLimit sets order by options.
+// WithSelectLimit sets limit options.
 func WithSelectLimit(offset uint, limit uint) func(*selectStmt) {
 	return func(stmt *selectStmt) {
 		stmt.limit = NewLimitWith(offset, limit)
 	}
 }
 
-// WithSelectOrderBy sets order by options.
+// WithSelectGroupBy sets group by options.
 func WithSelectGroupBy(name string) func(*selectStmt) {
 	return func(stmt *selectStmt) {
 		stmt.groupBy = NewGroupByWith(name)

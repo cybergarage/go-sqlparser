@@ -18,7 +18,7 @@ import (
 	"github.com/cybergarage/go-sqlparser/sql/fn"
 )
 
-// Type aliases for the fn package.
+// FunctionExecutor is a type alias for fn.Executor.
 type FunctionExecutor = fn.Executor
 type FunctionType = fn.FunctionType
 type Function = fn.Function

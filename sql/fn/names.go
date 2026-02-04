@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	// Math.
+	// AbsFunctionName is the function name for the ABS function.
 	AbsFunctionName   = "ABS"
 	CeilFunctionName  = "CEIL"
 	FloorFunctionName = "FLOOR"
@@ -35,20 +35,20 @@ const (
 	TanFunctionName   = "TAN"
 	RandFunctionName  = "RAND"
 	PiFunctionName    = "PI"
-	// String.
+	// UpperFunctionName is the function name for the UPPER function.
 	UpperFunctionName = "UPPER"
 	LowerFunctionName = "LOWER"
 	TrimFunctionName  = "TRIM"
-	// Time.
+	// CurrentTimestampFunctionName is the function name for CURRENT_TIMESTAMP.
 	CurrentTimestampFunctionName = "CURRENT_TIMESTAMP"
 	NowFunctionName              = "NOW"
-	// Aggregate.
+	// MaxFunctionName is the function name for the MAX aggregate.
 	MaxFunctionName   = "MAX"
 	MinFunctionName   = "MIN"
 	SumFunctionName   = "SUM"
 	AvgFunctionName   = "AVG"
 	CountFunctionName = "COUNT"
-	// Airthmetic.
+	// AddOperatorID is the operator ID for addition (+).
 	AddOperatorID = "+"
 	SubOperatorID = "-"
 	MulOperatorID = "*"
@@ -99,7 +99,7 @@ func RegisteredFunctionNames() []string {
 	return registeredFunctionNames
 }
 
-// IsRegisteredFunctionNamePattern checks if the given name matches any registered function name pattern.
+// IsRegisteredFunction checks if the given name matches any registered function name pattern.
 func IsRegisteredFunction(name string) bool {
 	if len(name) == 0 {
 		return false

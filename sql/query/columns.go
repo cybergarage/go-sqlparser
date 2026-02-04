@@ -35,7 +35,7 @@ func NewColumnsWith(columns ...Column) Columns {
 	return c
 }
 
-// Column returns a column array.
+// Columns returns the column array.
 func (columns Columns) Columns() Columns {
 	return columns
 }

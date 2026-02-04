@@ -61,7 +61,7 @@ func NewLiteralWith(v any, opts ...LiteralOption) *Literal {
 	return l
 }
 
-// WithSchemaColumns returns a schema option to set the columns.
+// WithLiteralType returns a functional option to set the Literal type.
 func WithLiteralType(t LiteralType) func(*Literal) {
 	return func(lit *Literal) {
 		lit.t = t

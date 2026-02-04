@@ -68,7 +68,7 @@ func NewErrPreparedPortalNotExist(name string) error {
 	return fmt.Errorf("prepared portal (%v) is %w", name, ErrNotExist)
 }
 
-// NewErrPreparedStatementMultiStatement returns a new prepared statement multi statement error.
+// NewErrMultiplePreparedStatementNotSupported returns an error for queries with multiple prepared statements.
 func NewErrMultiplePreparedStatementNotSupported(query string) error {
 	return fmt.Errorf("multiple prepared statement (%v) is %w", query, ErrNotSupported)
 }

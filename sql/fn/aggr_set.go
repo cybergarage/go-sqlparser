@@ -22,7 +22,7 @@ import (
 // It provides methods to manage and operate on multiple aggregators.
 type AggregatorSet []Aggregator
 
-// NewAggregatorSet creates a new AggregatorSet with the given aggregators.
+// NewAggregatorSetWith creates a new AggregatorSet with the given aggregators.
 func NewAggregatorSetWith(aggrs []Aggregator) AggregatorSet {
 	aggrSet := make(AggregatorSet, len(aggrs))
 	copy(aggrSet, aggrs)

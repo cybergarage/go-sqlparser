@@ -29,7 +29,7 @@ func WithSchemaTableSchema(tblSchema query.Schema) SchemaOption {
 	}
 }
 
-// WithSchemaSelector returns a functional option for resultsetSchema.
+// WithSchemaSelectors returns a functional option for resultsetSchema.
 func WithSchemaSelectors(selectors query.Selectors) SchemaOption {
 	return func(schema *schema) error {
 		if schema.tableSchema == nil {

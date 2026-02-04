@@ -151,7 +151,7 @@ func (selectors Selectors) ExecutorsForType(t FunctionType) ([]FunctionExecutor,
 	return executors, nil
 }
 
-// AggregateFunctions returns an aggregate function array.
+// Aggregators returns an aggregate function set.
 func (selectors Selectors) Aggregators() (AggregatorSet, error) {
 	aggregators := make([]fn.Aggregator, 0)
 	for _, selector := range selectors {

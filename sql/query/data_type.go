@@ -61,12 +61,12 @@ const (
 	VarCharType
 	VarCharacterType
 	YearType
-	// PostgreSQL - Data Types
+	// SerialType is a PostgreSQL serial data type.
 	// https://www.postgresql.org/docs/current/datatype.html
 	SerialType
 	BigSerialType
 	SmallSerialType
-	// PostgreSQL - System Information Functions and Operators
+	// NameType is a PostgreSQL system information type.
 	// https://www.postgresql.org/docs/current/functions-info.html
 	NameType
 )

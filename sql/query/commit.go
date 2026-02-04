@@ -25,7 +25,7 @@ type Commit interface {
 type commitStmt struct {
 }
 
-// NewCommitWith returns a new commitStmt statement instance with the specified parameters.
+// NewCommit returns a new commitStmt statement instance.
 func NewCommit() *commitStmt {
 	return &commitStmt{}
 }

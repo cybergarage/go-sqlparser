@@ -120,7 +120,7 @@ func WithAlterTableDropColumn(column Column) func(*alterTableStmt) {
 	}
 }
 
-// WithAlterTableDropColumn sets a drop index.
+// WithAlterTableDropIndex sets a drop index.
 func WithAlterTableDropIndex(index Index) func(*alterTableStmt) {
 	return func(stmt *alterTableStmt) {
 		stmt.dropIndex = index

@@ -27,7 +27,7 @@ type rs struct {
 	columns []SchemaColumn
 }
 
-// NewSchemaColumns returns a new SchemaColumns instance.
+// SchemaColumnOption represents a functional option for schema column result sets.
 type SchemaColumnOption func(*rs)
 
 // WithColumns returns a SchemaColumnOption that sets the columns.
