@@ -32,3 +32,4 @@ DELETE FROM sbtest1 WHERE id=$1;
 
 INSERT INTO sbtest1 (id, k, c, pad) VALUES ($1, $2, $3, $4);
 
+SELECT CURRENT_SCHEMA() FROM;
