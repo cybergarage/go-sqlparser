@@ -214,6 +214,12 @@ type SQLiteParserListener interface {
 	// EnterBind_param is called when entering the bind_param production.
 	EnterBind_param(c *Bind_paramContext)
 
+	// EnterSystem_var is called when entering the system_var production.
+	EnterSystem_var(c *System_varContext)
+
+	// EnterUser_var is called when entering the user_var production.
+	EnterUser_var(c *User_varContext)
+
 	// EnterString_literal is called when entering the string_literal production.
 	EnterString_literal(c *String_literalContext)
 
@@ -678,6 +684,12 @@ type SQLiteParserListener interface {
 
 	// ExitBind_param is called when exiting the bind_param production.
 	ExitBind_param(c *Bind_paramContext)
+
+	// ExitSystem_var is called when exiting the system_var production.
+	ExitSystem_var(c *System_varContext)
+
+	// ExitUser_var is called when exiting the user_var production.
+	ExitUser_var(c *User_varContext)
 
 	// ExitString_literal is called when exiting the string_literal production.
 	ExitString_literal(c *String_literalContext)

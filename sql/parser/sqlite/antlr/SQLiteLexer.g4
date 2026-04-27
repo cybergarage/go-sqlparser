@@ -53,6 +53,7 @@ GT_EQ:     '>=';
 EQ:        '==';
 NOT_EQ1:   '!=';
 NOT_EQ2:   '<>';
+AT:        '@';
 
 // http://www.sqlite.org/lang_keywords.html
 ABORT_:             'ABORT';
@@ -233,6 +234,10 @@ IDENTIFIER:
 ; // TODO check: needs more chars in set
 
 NUMERIC_LITERAL: ((DIGIT+ ('.' DIGIT*)?) | ('.' DIGIT+)) ('E' [-+]? DIGIT+)? | '0x' HEX_DIGIT+;
+
+SYSTEM_VARIABLE: AT AT IDENTIFIER;
+
+USER_VARIABLE: AT IDENTIFIER;
 
 BIND_PARAMETER: [?$] DIGIT* | [:@$] IDENTIFIER;
 

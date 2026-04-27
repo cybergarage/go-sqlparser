@@ -437,6 +437,18 @@ func (s *BaseSQLiteParserListener) EnterBind_param(ctx *Bind_paramContext) {}
 // ExitBind_param is called when production bind_param is exited.
 func (s *BaseSQLiteParserListener) ExitBind_param(ctx *Bind_paramContext) {}
 
+// EnterSystem_var is called when production system_var is entered.
+func (s *BaseSQLiteParserListener) EnterSystem_var(ctx *System_varContext) {}
+
+// ExitSystem_var is called when production system_var is exited.
+func (s *BaseSQLiteParserListener) ExitSystem_var(ctx *System_varContext) {}
+
+// EnterUser_var is called when production user_var is entered.
+func (s *BaseSQLiteParserListener) EnterUser_var(ctx *User_varContext) {}
+
+// ExitUser_var is called when production user_var is exited.
+func (s *BaseSQLiteParserListener) ExitUser_var(ctx *User_varContext) {}
+
 // EnterString_literal is called when production string_literal is entered.
 func (s *BaseSQLiteParserListener) EnterString_literal(ctx *String_literalContext) {}
 

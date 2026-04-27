@@ -402,6 +402,8 @@ expr:
     literal_value
     | arithmetic_expr
     | bind_param
+    | system_var
+    | user_var
     | ((schema_name DOT)? table_name DOT)? column_name
     | unary_operator expr
     | expr PIPE2 expr
@@ -480,6 +482,14 @@ literal_value:
 
 bind_param:
     BIND_PARAMETER
+;
+
+system_var:
+    SYSTEM_VARIABLE (DOT IDENTIFIER)?
+;
+
+user_var:
+    USER_VARIABLE
 ;
 
 string_literal:
